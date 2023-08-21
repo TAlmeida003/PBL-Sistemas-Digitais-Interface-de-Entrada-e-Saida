@@ -1,0 +1,31 @@
+module DHT11 ( 
+	input clk_100mhz, 
+	input en, 
+	input rst, 
+	inout dht_data            // pino de dados
+	output [7:0] hum_int,     // parte inteira da humidade
+	output [7:0] hum_float,
+	output [7:0] temp_int,
+	output [7:0] temp_float,
+	output [7:0] cs,
+	output wai,               // indica que o circuito está operando e aguarda retorno do DHT11
+	output debug,             
+	);
+
+	
+	reg dir;     // usado para alterar o sentido do pino de entrada e saída  
+	reg dht_out, wai_reg, debug_reg;
+	reg [25:0] counter;  
+	reg [5:0] index;  // usado para indexação dos dados no barramento 	
+	reg [39:0] data;  // dados retornados do DHT11
+	reg error;
+	wire dht_in;
+		
+	assign wai = wai_reg;
+	assign debug = debug_reg;
+	
+	
+	
+
+
+endmodule 
