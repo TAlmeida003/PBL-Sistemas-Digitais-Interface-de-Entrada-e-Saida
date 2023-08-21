@@ -1,0 +1,136 @@
+m255
+K4
+z2
+!s11f vlog 2020.1 2020.02, Feb 28 2020
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/simulation/modelsim
+vreg_2bytes_UART_rx
+Z1 !s110 1692551202
+!i10b 1
+!s100 h;AF=EmR@?^dVVPCFJNP10
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
+IHB?]PzgdJUKb0=MNFzJDV0
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1692542204
+8C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/reg_2bytes_UART_rx.v
+FC:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/reg_2bytes_UART_rx.v
+!i122 1
+L0 1 77
+Z4 OV;L;2020.1;71
+r1
+!s85 0
+31
+Z5 !s108 1692551202.000000
+!s107 C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/reg_2bytes_UART_rx.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules|C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/reg_2bytes_UART_rx.v|
+!i113 1
+Z6 o-vlog01compat -work work
+Z7 !s92 -vlog01compat -work work {+incdir+C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules}
+Z8 tCvgOpt 0
+nreg_2bytes_@u@a@r@t_rx
+vreg_2bytes_UART_tx
+R1
+!i10b 1
+!s100 be6WNEimXYONo4Oan>egF2
+R2
+I?SUXGW<LQR;S;3MQLY93c1
+R3
+R0
+w1692541461
+8C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/reg_2bytes_UART_tx.v
+FC:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/reg_2bytes_UART_tx.v
+!i122 4
+L0 1 70
+R4
+r1
+!s85 0
+31
+R5
+!s107 C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/reg_2bytes_UART_tx.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules|C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/reg_2bytes_UART_tx.v|
+!i113 1
+R6
+R7
+R8
+nreg_2bytes_@u@a@r@t_tx
+vUART_2BYTES
+!s110 1692551201
+!i10b 1
+!s100 `>JZ9KX^8^DP:D>GBE2Nh3
+R2
+ILlLGRacP?F`_0]8PgD4=:1
+R3
+R0
+w1692551101
+8C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/UART_2BYTES.v
+FC:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/UART_2BYTES.v
+!i122 0
+L0 1 20
+R4
+r1
+!s85 0
+31
+!s108 1692551201.000000
+!s107 C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/UART_2BYTES.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules|C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/UART_2BYTES.v|
+!i113 1
+R6
+R7
+R8
+n@u@a@r@t_2@b@y@t@e@s
+vUART_RX
+R1
+!i10b 1
+!s100 mi3UL=3=Jig?nXi_DN0Ng1
+R2
+IiWMzkEjNn[n_2JXmLWhYk0
+R3
+R0
+w1692475329
+8C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/UART_RX.v
+FC:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/UART_RX.v
+!i122 3
+L0 1 115
+R4
+r1
+!s85 0
+31
+R5
+!s107 C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/UART_RX.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules|C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/UART_RX.v|
+!i113 1
+R6
+R7
+R8
+n@u@a@r@t_@r@x
+vUART_TX
+R1
+!i10b 1
+!s100 dNZgolkKSZmCWag>oDH6o3
+R2
+Iz1AZJec5WVz3a8eQMnj4M1
+R3
+R0
+w1692546867
+8C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/UART_TX.v
+FC:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/UART_TX.v
+!i122 2
+L0 1 109
+R4
+r1
+!s85 0
+31
+R5
+!s107 C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/UART_TX.v|
+!s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules|C:/Users/thiag/Desktop/PBL Sistemas de Digitais/Interface-de-Entrada-Saida/Verilog/Modules/UART_TX.v|
+!i113 1
+R6
+R7
+R8
+n@u@a@r@t_@t@x

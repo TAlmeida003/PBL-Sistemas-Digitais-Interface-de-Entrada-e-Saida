@@ -1,0 +1,9 @@
+Analysis & Synthesis Status : Successful - Sun Aug 20 14:05:19 2023
+Quartus Prime Version : 22.1std.2 Build 922 07/20/2023 SC Lite Edition
+Revision Name : UART_main
+Top-level Entity Name : UART_2BYTES
+Family : MAX II
+Total logic elements : 162
+Total pins : 4
+Total virtual pins : 0
+UFM blocks : 0 / 1 ( 0 % )
