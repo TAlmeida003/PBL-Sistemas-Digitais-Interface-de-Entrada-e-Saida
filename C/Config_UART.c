@@ -6,7 +6,7 @@
 
 int main() {
 	int fd, len;
-	unsigned char text = 0x00; /*"unsigned char" declara a variável como um tipo de dado que pode armazenar valores inteiros sem sinal de 8 bits.
+	unsigned char command = 0x00; /*"unsigned char" declara a variável como um tipo de dado que pode armazenar valores inteiros sem sinal de 8 bits.
     Armazenar valores positivos de 0 a 255.*/
 	struct termios options; /* Configurações da porta serial */
 
@@ -34,9 +34,12 @@ int main() {
 
 	/*Escreve na porta serial*/
 
-  	text = 0xFF; 
-	len = write(fd, &text, sizeof(text));
+  	command = 0xFF; 
+	len = write(fd, &command, sizeof(command));
 	printf("Wrote %d bytes over UART\n", len);
+	printf("Tx %d over UART\n", command);
+    printf("Valor a ser enviado: 0x%02X\n", command); // Mostra o valor em hexadecimal a ser enviado
+
 
 	//printf("You have 5s to send me some input data...\n", len);
 	sleep(5);
@@ -46,11 +49,13 @@ int main() {
   	unsigned char receivedData[255];
 	memset(receivedData, 0, sizeof(receivedData));
 	len = read(fd, receivedData, sizeof(receivedData));
-	printf("Received %d bytes\n", len);
-	printf("Received string: %d\n", receivedData);
+	printf("Received %d bytes\n", len); //Exibi a quantidade de Bytes recebido
+	printf("Received data: ");
   	for (int i = 0; i < len; i++){
-   	    printf("%02x", receivedData[i]);
+   	    printf("0x%02x ", receivedData[i]); //Exibi o hexadecimal recebido
     }
+    printf("\n");
+    
 
 	close(fd); /* A porta serial é fechado usando a função "close()"*/
 	return 0;
