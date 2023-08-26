@@ -1,5 +1,5 @@
 module DHT11 ( 
-	input clk_100MHz,          // Sinal de clock de 100MHz
+	input clk_50MHz,          // Sinal de clock de 50 MHz
 	input en,                  // Sinal de enable
 	input rst,                 // Sinal de reset
 	inout dht_data,            // Pino de dados
@@ -93,7 +93,7 @@ module DHT11 (
 				 S6 = 7, S7 = 8, S8 = 9, S9 = 10, STOP = 0, START = 11;
 	
 	// Lógica da FSM (Finite State Machine)
-	always @( posedge clk_100MHz)
+	always @( posedge clk_50MHz)
 		
 		// Iniciando máquina de estados
 		begin: FSM
@@ -145,7 +145,7 @@ module DHT11 (
 								   wai_reg <= 1'b1;   // Sinaliza que a estrutura está operando
 									error_reg <= 1'b0;
 									
-									if (counter < 1800000)      // É preciso aguardar um tempo de 18 ms
+									if (counter < 900000)      // É preciso aguardar um tempo de 18 ms
 										
 										counter <= counter + 1'b1;
 									
@@ -166,7 +166,7 @@ module DHT11 (
 									dht_out <= 1'b0;   // Nível lógico baixo como procedimento de aquisição de dados
 									wai_reg <= 1'b1;   // Sinaliza que a estrutura está operando
 									
-									if (counter < 1800000)      // É preciso aguardar um tempo de 18 ms
+									if (counter < 900000)      // É preciso aguardar um tempo de 18 ms
 										
 										counter <= counter + 1'b1;
 									
@@ -186,7 +186,7 @@ module DHT11 (
 								begin 
 									dht_out <= 1'b1;
 									
-									if ( counter < 2000)
+									if ( counter < 1000)
 									
 										counter <= counter + 1'b1;
 									
@@ -199,13 +199,13 @@ module DHT11 (
 								
 								end
 							
-							// Estado de aguardo da resposta do DHT11. O nível lógico que se deve esperar é do dht_in é o 0,
-							// indicando que o DHT11 está sincronizando.
+							// Estado de aguardo da resposta do DHT11. O nível lógico que se deve esperar do dht_in é o 0,
+							// indicando que o DHT11 está sincronizando. O tempo de espera é de 60 us.
 							S3:
 							
 								begin
 									
-									if ( counter < 6000 && dht_in == 1'b1)   // O DHT11 ainda não deu o sinal de resposta
+									if ( counter < 3000 && dht_in == 1'b1)   // O DHT11 ainda não deu o sinal de resposta
 									
 										begin
 										
@@ -216,7 +216,7 @@ module DHT11 (
 										
 									else begin     // Estourou o tempo limite ou o DHT11 respondeu
 									
-										if ( dht_in == 1'b1) begin     // Ultrapassou o tempo limite de 40 us e o DHT11 não respondeu
+										if ( dht_in == 1'b1) begin     // Ultrapassou o tempo limite de 60 us e o DHT11 não respondeu
 										
 											error_reg <= 1'b1;     // Ocorreu um erro
 											counter <= 26'b00000000000000000000000000;
@@ -241,7 +241,7 @@ module DHT11 (
 							
 								begin
 								
-									if ( dht_in == 1'b0 && counter < 8800) begin       // O DHT11 ainda não enviou nível lógico alto
+									if ( dht_in == 1'b0 && counter < 4400) begin       // O DHT11 ainda não enviou nível lógico alto
 										
 										counter <= counter + 1'b1;
 										state <= S4;
@@ -270,12 +270,12 @@ module DHT11 (
 								end
 							
 							// Estado responsável por fazer a última checagem do processo de sincronismo com o DHT11.
-							// O DHT11 deve enviar nível lógico baixo antes do tempo limite de 80 us.
+							// O DHT11 deve enviar nível lógico baixo antes do tempo limite de 88 us.
 							S5:
 							
 								begin
 								 
-									if ( dht_in == 1'b1 && counter < 8800) begin       // O DHT11 ainda não enviou nível lógico baixo
+									if ( dht_in == 1'b1 && counter < 4400) begin       // O DHT11 ainda não enviou nível lógico baixo
 									
 										counter <= counter + 1'b1;
 										state <= S5;
@@ -340,7 +340,7 @@ module DHT11 (
 										
 									else begin
 										
-										if ( counter < 3200000) begin   // Tempo de 32 ms para o DHT11 destravar
+										if ( counter < 1600000) begin   // Tempo de 32 ms para o DHT11 destravar
 											
 											counter <= counter + 1'b1;
 											state <= S7;
@@ -370,7 +370,7 @@ module DHT11 (
 										
 										// A largura do pulso de nível lógico alto foi lida corretamente
 											
-										if ( counter > 5000) begin  // Contador é maior que 50 us, então é nível lógico alto
+										if ( counter > 2500) begin  // Contador é maior que 50 us, então é nível lógico alto
 											
 											data[index] <= 1'b1;     // Armazena o dado no barramento de 40 bits
 											debug_reg <= 1'b1;       // Copia dado para debug no osciloscópio
@@ -404,7 +404,7 @@ module DHT11 (
 										
 										counter <= counter + 1'b1;
 											
-										if ( counter > 3200000) begin   // Atingiu tempo limite de 32 ms
+										if ( counter > 1600000) begin   // Atingiu tempo limite de 32 ms
 											
 											error_reg <= 1'b1;         // Sinal de erro
 											state <= STOP;
@@ -446,7 +446,7 @@ module DHT11 (
 										
 									else begin      // Se ocorreu erro
 										
-										if ( counter < 3200000) begin    // Aguarda 32 ms
+										if ( counter < 1600000) begin    // Aguarda 32 ms
 											
 											data <= 40'b0000000000000000000000000000000000000000;    // Os dados são resetados
 											counter <= counter + 1'b1;
