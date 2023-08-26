@@ -1,7 +1,7 @@
 module UART_2BYTES(
     input        clk,
     input        input_rx,
-	output       tx_active,
+	 output       tx_active,
     output       out_tx
 );
 

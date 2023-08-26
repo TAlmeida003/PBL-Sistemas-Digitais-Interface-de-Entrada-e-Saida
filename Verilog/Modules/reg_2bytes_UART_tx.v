@@ -8,15 +8,16 @@ module reg_2bytes_UART_tx (
     output       done
 );
     
-    localparam IDLE     = 2'b00,   
-               BYTE_ONE = 2'b01,
-               TEMPO    = 2'b10,
-               BYTE_TWO = 2'b11;
+    localparam IDLE     = 3'b000,   
+               BYTE_ONE = 3'b001,
+               START_ONE    = 3'b010,
+               BYTE_TWO = 3'b011,
+               START_TWO = 3'b100;
     
-    reg [1:0] state = 0;
+    reg [2:0] state = 0;
     reg [7:0] data_aux = 0;
     reg byte_sent = 0;
-    reg [15:0] buffer;
+    reg [15:0] buffer = 0;
 
     assign done = byte_sent;
     assign data = data_aux;
@@ -28,40 +29,41 @@ module reg_2bytes_UART_tx (
 
                 if (enable) begin
                     state <= BYTE_ONE;
-
-                    buffer[15:8] <= byte_one;
-                    buffer[7:0] <= byte_two;
-					 end
+                    data_aux <= buffer[7:0];
+                    buffer <= {byte_two, byte_one};
+				end
                 else begin
                     state <= IDLE;
-					 end
+					buffer <= 16'd0;
+				end
             end
             BYTE_ONE: begin
-                byte_sent <= 1;
                 data_aux <= buffer[7:0];
-
-                if (done_tx) begin
-                    state <= TEMPO;
-                end
-                else
-                    state <= BYTE_ONE;
+                state <= START_ONE;
+                byte_sent <= 1;
             end
-            TEMPO : begin
+            START_ONE : begin
                 byte_sent <= 0;
-                if (!done_tx) begin
+                if (done_tx) begin
                     state <= BYTE_TWO;
                 end
-                else
-                    state <= TEMPO;
+                else begin
+                    state <= START_ONE;
+				end
             end
             BYTE_TWO:begin
                 byte_sent <= 1;
-                data_aux <= buffer[15:8];
+                 data_aux <= buffer[15:8];
+                state <= START_TWO;
+            end
+            START_TWO : begin
+                byte_sent <= 0;
                 if (done_tx) begin
                     state <= IDLE;
                 end
-                else
-                    state <= BYTE_TWO;
+                else begin
+                    state <= START_TWO;
+				end
             end
             default: state <= IDLE;
         endcase
