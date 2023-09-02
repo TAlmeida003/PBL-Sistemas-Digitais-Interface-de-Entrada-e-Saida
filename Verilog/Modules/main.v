@@ -1,0 +1,27 @@
+module main (
+    input clock,
+    input uart_rx,
+    inout sensor,
+    output uart_tx
+);
+
+    wire done_uart_rx, reg_done_uart_rx, done_uart_tx, reg_done_uart_tx, done_tx, tx_active;
+    wire [7:0] data_rx, address, command, data_reg_tx;
+
+    wire [39:0] data_sensor;
+    wire [15:0] data_uart_tx;
+    wire enable_sensor;
+
+    /* RECEBIMENTO DE DADOS VIA UART E ARMAZENAMENTO DE UM PACOTE DE DADOS COM DOIS BYTES*/
+    UART_RX                 rx(clock, uart_rx, done_uart_rx, data_rx);                                           // Receber dados da entrada serial
+    reg_2bytes_UART_rx      reg_rx(clock, done_uart_rx, data_rx, address, command, reg_done_uart_rx); // Armazenar os bytes enviados 
+
+    MEF_main                exe(clock, done_uart_rx, command, address, data_sensor, data_uart_tx, done_uart_tx, enable_sensor);
+
+	 DHT11_teste             a	 	 (clock, enable_sensor, sensor, data_sensor); 
+	 
+    reg_2bytes_UART_tx      reg_tx(clock, done_uart_tx, data_uart_tx[15:8], data_uart_tx[7:0], done_tx, data_reg_tx, reg_done_uart_tx);
+    UART_TX                 tx	 (clock, reg_done_uart_tx, data_reg_tx, tx_active, uart_tx, done_tx);
+                      
+    
+endmodule

@@ -1,0 +1,1200 @@
+Timing Analyzer report for main
+Fri Sep  1 22:12:39 2023
+Quartus Prime Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Timing Analyzer Summary
+  3. Parallel Compilation
+  4. Clocks
+  5. Slow 1200mV 85C Model Fmax Summary
+  6. Timing Closure Recommendations
+  7. Slow 1200mV 85C Model Setup Summary
+  8. Slow 1200mV 85C Model Hold Summary
+  9. Slow 1200mV 85C Model Recovery Summary
+ 10. Slow 1200mV 85C Model Removal Summary
+ 11. Slow 1200mV 85C Model Minimum Pulse Width Summary
+ 12. Slow 1200mV 85C Model Setup: 'clock'
+ 13. Slow 1200mV 85C Model Hold: 'clock'
+ 14. Slow 1200mV 85C Model Metastability Summary
+ 15. Slow 1200mV 0C Model Fmax Summary
+ 16. Slow 1200mV 0C Model Setup Summary
+ 17. Slow 1200mV 0C Model Hold Summary
+ 18. Slow 1200mV 0C Model Recovery Summary
+ 19. Slow 1200mV 0C Model Removal Summary
+ 20. Slow 1200mV 0C Model Minimum Pulse Width Summary
+ 21. Slow 1200mV 0C Model Setup: 'clock'
+ 22. Slow 1200mV 0C Model Hold: 'clock'
+ 23. Slow 1200mV 0C Model Metastability Summary
+ 24. Fast 1200mV 0C Model Setup Summary
+ 25. Fast 1200mV 0C Model Hold Summary
+ 26. Fast 1200mV 0C Model Recovery Summary
+ 27. Fast 1200mV 0C Model Removal Summary
+ 28. Fast 1200mV 0C Model Minimum Pulse Width Summary
+ 29. Fast 1200mV 0C Model Setup: 'clock'
+ 30. Fast 1200mV 0C Model Hold: 'clock'
+ 31. Fast 1200mV 0C Model Metastability Summary
+ 32. Multicorner Timing Analysis Summary
+ 33. Board Trace Model Assignments
+ 34. Input Transition Times
+ 35. Signal Integrity Metrics (Slow 1200mv 0c Model)
+ 36. Signal Integrity Metrics (Slow 1200mv 85c Model)
+ 37. Signal Integrity Metrics (Fast 1200mv 0c Model)
+ 38. Setup Transfers
+ 39. Hold Transfers
+ 40. Report TCCS
+ 41. Report RSKM
+ 42. Unconstrained Paths Summary
+ 43. Clock Status Summary
+ 44. Unconstrained Input Ports
+ 45. Unconstrained Output Ports
+ 46. Unconstrained Input Ports
+ 47. Unconstrained Output Ports
+ 48. Timing Analyzer Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 2023  Intel Corporation. All rights reserved.
+Your use of Intel Corporation's design tools, logic functions 
+and other software and tools, and any partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Intel Program License 
+Subscription Agreement, the Intel Quartus Prime License Agreement,
+the Intel FPGA IP License Agreement, or other applicable license
+agreement, including, without limitation, that your use is for
+the sole purpose of programming logic devices manufactured by
+Intel and sold by Intel or its authorized distributors.  Please
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
+
+
+
++--------------------------------------------------------------------------------+
+; Timing Analyzer Summary                                                        ;
++-----------------------+--------------------------------------------------------+
+; Quartus Prime Version ; Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition ;
+; Timing Analyzer       ; Legacy Timing Analyzer                                 ;
+; Revision Name         ; main                                                   ;
+; Device Family         ; Cyclone IV E                                           ;
+; Device Name           ; EP4CE6E22C8                                            ;
+; Timing Models         ; Final                                                  ;
+; Delay Model           ; Combined                                               ;
+; Rise/Fall Delays      ; Enabled                                                ;
++-----------------------+--------------------------------------------------------+
+
+
++------------------------------------------+
+; Parallel Compilation                     ;
++----------------------------+-------------+
+; Processors                 ; Number      ;
++----------------------------+-------------+
+; Number detected on machine ; 16          ;
+; Maximum allowed            ; 16          ;
+;                            ;             ;
+; Average used               ; 1.26        ;
+; Maximum used               ; 16          ;
+;                            ;             ;
+; Usage by Processor         ; % Time Used ;
+;     Processor 1            ; 100.0%      ;
+;     Processors 2-16        ;   1.8%      ;
++----------------------------+-------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Clocks                                                                                                                                                                            ;
++------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-----------+
+; Clock Name ; Type ; Period ; Frequency  ; Rise  ; Fall  ; Duty Cycle ; Divide by ; Multiply by ; Phase ; Offset ; Edge List ; Edge Shift ; Inverted ; Master ; Source ; Targets   ;
++------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-----------+
+; clock      ; Base ; 1.000  ; 1000.0 MHz ; 0.000 ; 0.500 ;            ;           ;             ;       ;        ;           ;            ;          ;        ;        ; { clock } ;
++------------+------+--------+------------+-------+-------+------------+-----------+-------------+-------+--------+-----------+------------+----------+--------+--------+-----------+
+
+
++--------------------------------------------------+
+; Slow 1200mV 85C Model Fmax Summary               ;
++------------+-----------------+------------+------+
+; Fmax       ; Restricted Fmax ; Clock Name ; Note ;
++------------+-----------------+------------+------+
+; 160.98 MHz ; 160.98 MHz      ; clock      ;      ;
++------------+-----------------+------------+------+
+This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
+
+
+----------------------------------
+; Timing Closure Recommendations ;
+----------------------------------
+HTML report is unavailable in plain text report export.
+
+
++-------------------------------------+
+; Slow 1200mV 85C Model Setup Summary ;
++-------+--------+--------------------+
+; Clock ; Slack  ; End Point TNS      ;
++-------+--------+--------------------+
+; clock ; -5.212 ; -991.452           ;
++-------+--------+--------------------+
+
+
++------------------------------------+
+; Slow 1200mV 85C Model Hold Summary ;
++-------+-------+--------------------+
+; Clock ; Slack ; End Point TNS      ;
++-------+-------+--------------------+
+; clock ; 0.433 ; 0.000              ;
++-------+-------+--------------------+
+
+
+------------------------------------------
+; Slow 1200mV 85C Model Recovery Summary ;
+------------------------------------------
+No paths to report.
+
+
+-----------------------------------------
+; Slow 1200mV 85C Model Removal Summary ;
+-----------------------------------------
+No paths to report.
+
+
++---------------------------------------------------+
+; Slow 1200mV 85C Model Minimum Pulse Width Summary ;
++-------+--------+----------------------------------+
+; Clock ; Slack  ; End Point TNS                    ;
++-------+--------+----------------------------------+
+; clock ; -3.000 ; -438.691                         ;
++-------+--------+----------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Setup: 'clock'                                                                                                 ;
++--------+---------------------------+---------------------------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node                 ; To Node                   ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+---------------------------+---------------------------+--------------+-------------+--------------+------------+------------+
+; -5.212 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.079     ; 6.134      ;
+; -5.202 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.079     ; 6.124      ;
+; -5.183 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[24] ; clock        ; clock       ; 1.000        ; -0.081     ; 6.103      ;
+; -5.181 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[23] ; clock        ; clock       ; 1.000        ; -0.081     ; 6.101      ;
+; -5.178 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[21] ; clock        ; clock       ; 1.000        ; -0.081     ; 6.098      ;
+; -5.177 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[22] ; clock        ; clock       ; 1.000        ; -0.081     ; 6.097      ;
+; -5.176 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[11] ; clock        ; clock       ; 1.000        ; -0.081     ; 6.096      ;
+; -5.173 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[24] ; clock        ; clock       ; 1.000        ; -0.081     ; 6.093      ;
+; -5.171 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[23] ; clock        ; clock       ; 1.000        ; -0.081     ; 6.091      ;
+; -5.168 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[21] ; clock        ; clock       ; 1.000        ; -0.081     ; 6.088      ;
+; -5.167 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[22] ; clock        ; clock       ; 1.000        ; -0.081     ; 6.087      ;
+; -5.166 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[11] ; clock        ; clock       ; 1.000        ; -0.081     ; 6.086      ;
+; -5.164 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[6]  ; clock        ; clock       ; 1.000        ; 0.354      ; 6.519      ;
+; -5.158 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[4]  ; clock        ; clock       ; 1.000        ; -0.081     ; 6.078      ;
+; -5.157 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[7]  ; clock        ; clock       ; 1.000        ; -0.081     ; 6.077      ;
+; -5.156 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[9]  ; clock        ; clock       ; 1.000        ; -0.081     ; 6.076      ;
+; -5.154 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[5]  ; clock        ; clock       ; 1.000        ; -0.081     ; 6.074      ;
+; -5.154 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[6]  ; clock        ; clock       ; 1.000        ; 0.354      ; 6.509      ;
+; -5.151 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[10] ; clock        ; clock       ; 1.000        ; -0.081     ; 6.071      ;
+; -5.150 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[3]  ; clock        ; clock       ; 1.000        ; -0.081     ; 6.070      ;
+; -5.149 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[8]  ; clock        ; clock       ; 1.000        ; -0.081     ; 6.069      ;
+; -5.148 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[4]  ; clock        ; clock       ; 1.000        ; -0.081     ; 6.068      ;
+; -5.147 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[7]  ; clock        ; clock       ; 1.000        ; -0.081     ; 6.067      ;
+; -5.146 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[9]  ; clock        ; clock       ; 1.000        ; -0.081     ; 6.066      ;
+; -5.144 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[5]  ; clock        ; clock       ; 1.000        ; -0.081     ; 6.064      ;
+; -5.141 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[10] ; clock        ; clock       ; 1.000        ; -0.081     ; 6.061      ;
+; -5.140 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[3]  ; clock        ; clock       ; 1.000        ; -0.081     ; 6.060      ;
+; -5.139 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[8]  ; clock        ; clock       ; 1.000        ; -0.081     ; 6.059      ;
+; -5.136 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.532     ; 5.605      ;
+; -5.107 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[24] ; clock        ; clock       ; 1.000        ; -0.534     ; 5.574      ;
+; -5.105 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[23] ; clock        ; clock       ; 1.000        ; -0.534     ; 5.572      ;
+; -5.102 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[21] ; clock        ; clock       ; 1.000        ; -0.534     ; 5.569      ;
+; -5.101 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[22] ; clock        ; clock       ; 1.000        ; -0.534     ; 5.568      ;
+; -5.100 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[11] ; clock        ; clock       ; 1.000        ; -0.534     ; 5.567      ;
+; -5.094 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[0]  ; clock        ; clock       ; 1.000        ; 0.398      ; 6.493      ;
+; -5.094 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[1]  ; clock        ; clock       ; 1.000        ; 0.398      ; 6.493      ;
+; -5.094 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[2]  ; clock        ; clock       ; 1.000        ; 0.398      ; 6.493      ;
+; -5.088 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[6]  ; clock        ; clock       ; 1.000        ; -0.099     ; 5.990      ;
+; -5.084 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[0]  ; clock        ; clock       ; 1.000        ; 0.398      ; 6.483      ;
+; -5.084 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[1]  ; clock        ; clock       ; 1.000        ; 0.398      ; 6.483      ;
+; -5.084 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[2]  ; clock        ; clock       ; 1.000        ; 0.398      ; 6.483      ;
+; -5.082 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[13] ; clock        ; clock       ; 1.000        ; -0.082     ; 6.001      ;
+; -5.079 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[17] ; clock        ; clock       ; 1.000        ; -0.082     ; 5.998      ;
+; -5.072 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[13] ; clock        ; clock       ; 1.000        ; -0.082     ; 5.991      ;
+; -5.069 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[17] ; clock        ; clock       ; 1.000        ; -0.082     ; 5.988      ;
+; -5.032 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[5]  ; clock        ; clock       ; 1.000        ; -0.534     ; 5.499      ;
+; -5.032 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[4]  ; clock        ; clock       ; 1.000        ; -0.534     ; 5.499      ;
+; -5.031 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[7]  ; clock        ; clock       ; 1.000        ; -0.534     ; 5.498      ;
+; -5.030 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[9]  ; clock        ; clock       ; 1.000        ; -0.534     ; 5.497      ;
+; -5.028 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[3]  ; clock        ; clock       ; 1.000        ; -0.534     ; 5.495      ;
+; -5.026 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[10] ; clock        ; clock       ; 1.000        ; -0.534     ; 5.493      ;
+; -5.025 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[8]  ; clock        ; clock       ; 1.000        ; -0.534     ; 5.492      ;
+; -5.018 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[0]  ; clock        ; clock       ; 1.000        ; -0.055     ; 5.964      ;
+; -5.018 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[1]  ; clock        ; clock       ; 1.000        ; -0.055     ; 5.964      ;
+; -5.018 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[2]  ; clock        ; clock       ; 1.000        ; -0.055     ; 5.964      ;
+; -5.004 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.079     ; 5.926      ;
+; -4.986 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[18] ; clock        ; clock       ; 1.000        ; -0.083     ; 5.904      ;
+; -4.984 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[12] ; clock        ; clock       ; 1.000        ; -0.083     ; 5.902      ;
+; -4.983 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[19] ; clock        ; clock       ; 1.000        ; -0.083     ; 5.901      ;
+; -4.983 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[15] ; clock        ; clock       ; 1.000        ; -0.083     ; 5.901      ;
+; -4.983 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.078     ; 5.906      ;
+; -4.979 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[20] ; clock        ; clock       ; 1.000        ; -0.083     ; 5.897      ;
+; -4.977 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[16] ; clock        ; clock       ; 1.000        ; -0.083     ; 5.895      ;
+; -4.976 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[18] ; clock        ; clock       ; 1.000        ; -0.083     ; 5.894      ;
+; -4.975 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[24] ; clock        ; clock       ; 1.000        ; -0.081     ; 5.895      ;
+; -4.974 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[12] ; clock        ; clock       ; 1.000        ; -0.083     ; 5.892      ;
+; -4.973 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[23] ; clock        ; clock       ; 1.000        ; -0.081     ; 5.893      ;
+; -4.973 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[19] ; clock        ; clock       ; 1.000        ; -0.083     ; 5.891      ;
+; -4.973 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[15] ; clock        ; clock       ; 1.000        ; -0.083     ; 5.891      ;
+; -4.970 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[21] ; clock        ; clock       ; 1.000        ; -0.081     ; 5.890      ;
+; -4.969 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[22] ; clock        ; clock       ; 1.000        ; -0.081     ; 5.889      ;
+; -4.969 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[20] ; clock        ; clock       ; 1.000        ; -0.083     ; 5.887      ;
+; -4.968 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[11] ; clock        ; clock       ; 1.000        ; -0.081     ; 5.888      ;
+; -4.967 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[16] ; clock        ; clock       ; 1.000        ; -0.083     ; 5.885      ;
+; -4.956 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[6]  ; clock        ; clock       ; 1.000        ; 0.354      ; 6.311      ;
+; -4.954 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[24] ; clock        ; clock       ; 1.000        ; -0.080     ; 5.875      ;
+; -4.952 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[23] ; clock        ; clock       ; 1.000        ; -0.080     ; 5.873      ;
+; -4.950 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[4]  ; clock        ; clock       ; 1.000        ; -0.081     ; 5.870      ;
+; -4.949 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[7]  ; clock        ; clock       ; 1.000        ; -0.081     ; 5.869      ;
+; -4.949 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[13] ; clock        ; clock       ; 1.000        ; -0.535     ; 5.415      ;
+; -4.949 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[21] ; clock        ; clock       ; 1.000        ; -0.080     ; 5.870      ;
+; -4.948 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[9]  ; clock        ; clock       ; 1.000        ; -0.081     ; 5.868      ;
+; -4.948 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[22] ; clock        ; clock       ; 1.000        ; -0.080     ; 5.869      ;
+; -4.947 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[11] ; clock        ; clock       ; 1.000        ; -0.080     ; 5.868      ;
+; -4.946 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[5]  ; clock        ; clock       ; 1.000        ; -0.081     ; 5.866      ;
+; -4.946 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[17] ; clock        ; clock       ; 1.000        ; -0.535     ; 5.412      ;
+; -4.943 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[10] ; clock        ; clock       ; 1.000        ; -0.081     ; 5.863      ;
+; -4.942 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[3]  ; clock        ; clock       ; 1.000        ; -0.081     ; 5.862      ;
+; -4.941 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[8]  ; clock        ; clock       ; 1.000        ; -0.081     ; 5.861      ;
+; -4.935 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[6]  ; clock        ; clock       ; 1.000        ; 0.355      ; 6.291      ;
+; -4.929 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[4]  ; clock        ; clock       ; 1.000        ; -0.080     ; 5.850      ;
+; -4.928 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[7]  ; clock        ; clock       ; 1.000        ; -0.080     ; 5.849      ;
+; -4.927 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[9]  ; clock        ; clock       ; 1.000        ; -0.080     ; 5.848      ;
+; -4.925 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[5]  ; clock        ; clock       ; 1.000        ; -0.080     ; 5.846      ;
+; -4.922 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[10] ; clock        ; clock       ; 1.000        ; -0.080     ; 5.843      ;
+; -4.921 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[3]  ; clock        ; clock       ; 1.000        ; -0.080     ; 5.842      ;
+; -4.920 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[8]  ; clock        ; clock       ; 1.000        ; -0.080     ; 5.841      ;
+; -4.905 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[15]    ; clock        ; clock       ; 1.000        ; -0.564     ; 5.342      ;
+; -4.905 ; DHT11_teste:a|counter[9]  ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.078     ; 5.828      ;
+; -4.897 ; DHT11_teste:a|counter[7]  ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.078     ; 5.820      ;
++--------+---------------------------+---------------------------+--------------+-------------+--------------+------------+------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 85C Model Hold: 'clock'                                                                                                                                 ;
++-------+-------------------------------------------+-------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node                                 ; To Node                                   ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+-------------------------------------------+-------------------------------------------+--------------+-------------+--------------+------------+------------+
+; 0.433 ; DHT11_teste:a|data[3]                     ; DHT11_teste:a|data[3]                     ; clock        ; clock       ; 0.000        ; 0.101      ; 0.746      ;
+; 0.433 ; DHT11_teste:a|data[2]                     ; DHT11_teste:a|data[2]                     ; clock        ; clock       ; 0.000        ; 0.101      ; 0.746      ;
+; 0.433 ; DHT11_teste:a|data[4]                     ; DHT11_teste:a|data[4]                     ; clock        ; clock       ; 0.000        ; 0.101      ; 0.746      ;
+; 0.434 ; DHT11_teste:a|data[33]                    ; DHT11_teste:a|data[33]                    ; clock        ; clock       ; 0.000        ; 0.100      ; 0.746      ;
+; 0.434 ; DHT11_teste:a|data[34]                    ; DHT11_teste:a|data[34]                    ; clock        ; clock       ; 0.000        ; 0.100      ; 0.746      ;
+; 0.434 ; DHT11_teste:a|data[35]                    ; DHT11_teste:a|data[35]                    ; clock        ; clock       ; 0.000        ; 0.100      ; 0.746      ;
+; 0.434 ; DHT11_teste:a|data[32]                    ; DHT11_teste:a|data[32]                    ; clock        ; clock       ; 0.000        ; 0.100      ; 0.746      ;
+; 0.434 ; DHT11_teste:a|data[39]                    ; DHT11_teste:a|data[39]                    ; clock        ; clock       ; 0.000        ; 0.100      ; 0.746      ;
+; 0.434 ; DHT11_teste:a|data[38]                    ; DHT11_teste:a|data[38]                    ; clock        ; clock       ; 0.000        ; 0.100      ; 0.746      ;
+; 0.434 ; DHT11_teste:a|data[37]                    ; DHT11_teste:a|data[37]                    ; clock        ; clock       ; 0.000        ; 0.100      ; 0.746      ;
+; 0.434 ; DHT11_teste:a|data[36]                    ; DHT11_teste:a|data[36]                    ; clock        ; clock       ; 0.000        ; 0.100      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[1]                     ; DHT11_teste:a|data[1]                     ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[14]                    ; DHT11_teste:a|data[14]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[16]                    ; DHT11_teste:a|data[16]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[13]                    ; DHT11_teste:a|data[13]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[15]                    ; DHT11_teste:a|data[15]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[11]                    ; DHT11_teste:a|data[11]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[9]                     ; DHT11_teste:a|data[9]                     ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[7]                     ; DHT11_teste:a|data[7]                     ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[6]                     ; DHT11_teste:a|data[6]                     ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[5]                     ; DHT11_teste:a|data[5]                     ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[8]                     ; DHT11_teste:a|data[8]                     ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[25]                    ; DHT11_teste:a|data[25]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[24]                    ; DHT11_teste:a|data[24]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[29]                    ; DHT11_teste:a|data[29]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[31]                    ; DHT11_teste:a|data[31]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[30]                    ; DHT11_teste:a|data[30]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[22]                    ; DHT11_teste:a|data[22]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[23]                    ; DHT11_teste:a|data[23]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[21]                    ; DHT11_teste:a|data[21]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[19]                    ; DHT11_teste:a|data[19]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[0]                     ; DHT11_teste:a|data[0]                     ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|data[17]                    ; DHT11_teste:a|data[17]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; MEF_main:exe|command_invalid              ; MEF_main:exe|command_invalid              ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|dir                         ; DHT11_teste:a|dir                         ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|state.S3                    ; DHT11_teste:a|state.S3                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|error_reg                   ; DHT11_teste:a|error_reg                   ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|state.S8                    ; DHT11_teste:a|state.S8                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|state.S7                    ; DHT11_teste:a|state.S7                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|state.S5                    ; DHT11_teste:a|state.S5                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; DHT11_teste:a|state.S4                    ; DHT11_teste:a|state.S4                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; MEF_main:exe|state.CONTROLLER_SENSOR      ; MEF_main:exe|state.CONTROLLER_SENSOR      ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; UART_RX:rx|state.STOP                     ; UART_RX:rx|state.STOP                     ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.453 ; UART_RX:rx|state.DATA                     ; UART_RX:rx|state.DATA                     ; clock        ; clock       ; 0.000        ; 0.081      ; 0.746      ;
+; 0.454 ; DHT11_teste:a|data[12]                    ; DHT11_teste:a|data[12]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; DHT11_teste:a|data[10]                    ; DHT11_teste:a|data[10]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; DHT11_teste:a|data[26]                    ; DHT11_teste:a|data[26]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; DHT11_teste:a|data[27]                    ; DHT11_teste:a|data[27]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; DHT11_teste:a|data[28]                    ; DHT11_teste:a|data[28]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; DHT11_teste:a|data[20]                    ; DHT11_teste:a|data[20]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; DHT11_teste:a|data[18]                    ; DHT11_teste:a|data[18]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; DHT11_teste:a|state.S0                    ; DHT11_teste:a|state.S0                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; DHT11_teste:a|state.S1                    ; DHT11_teste:a|state.S1                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; DHT11_teste:a|state.S2                    ; DHT11_teste:a|state.S2                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_TX:tx|state.00                       ; UART_TX:tx|state.00                       ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_TX:tx|done                           ; UART_TX:tx|done                           ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_TX:tx|state.STOP                     ; UART_TX:tx|state.STOP                     ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_TX:tx|state.DATA                     ; UART_TX:tx|state.DATA                     ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_TX:tx|state.START                    ; UART_TX:tx|state.START                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_TX:tx|bit_index[2]                   ; UART_TX:tx|bit_index[2]                   ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_TX:tx|bit_index[1]                   ; UART_TX:tx|bit_index[1]                   ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; reg_2bytes_UART_tx:reg_tx|state.START_ONE ; reg_2bytes_UART_tx:reg_tx|state.START_ONE ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; reg_2bytes_UART_tx:reg_tx|state.000       ; reg_2bytes_UART_tx:reg_tx|state.000       ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; MEF_main:exe|state.000                    ; MEF_main:exe|state.000                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_RX:rx|data_reg[7]                    ; UART_RX:rx|data_reg[7]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_RX:rx|data_reg[2]                    ; UART_RX:rx|data_reg[2]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_RX:rx|data_reg[0]                    ; UART_RX:rx|data_reg[0]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_RX:rx|data_reg[1]                    ; UART_RX:rx|data_reg[1]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_RX:rx|data_reg[6]                    ; UART_RX:rx|data_reg[6]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_RX:rx|data_reg[5]                    ; UART_RX:rx|data_reg[5]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_RX:rx|data_reg[3]                    ; UART_RX:rx|data_reg[3]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_RX:rx|data_reg[4]                    ; UART_RX:rx|data_reg[4]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_RX:rx|bit_index[2]                   ; UART_RX:rx|bit_index[2]                   ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; UART_RX:rx|bit_index[1]                   ; UART_RX:rx|bit_index[1]                   ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.454 ; reg_2bytes_UART_tx:reg_tx|state.START_TWO ; reg_2bytes_UART_tx:reg_tx|state.START_TWO ; clock        ; clock       ; 0.000        ; 0.080      ; 0.746      ;
+; 0.466 ; UART_TX:tx|bit_index[0]                   ; UART_TX:tx|bit_index[0]                   ; clock        ; clock       ; 0.000        ; 0.080      ; 0.758      ;
+; 0.466 ; UART_RX:rx|bit_index[0]                   ; UART_RX:rx|bit_index[0]                   ; clock        ; clock       ; 0.000        ; 0.080      ; 0.758      ;
+; 0.501 ; reg_2bytes_UART_tx:reg_tx|data_aux[5]     ; UART_TX:tx|data_bit[5]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.794      ;
+; 0.501 ; reg_2bytes_UART_tx:reg_tx|buffer[8]       ; reg_2bytes_UART_tx:reg_tx|data_aux[0]     ; clock        ; clock       ; 0.000        ; 0.080      ; 0.793      ;
+; 0.501 ; reg_2bytes_UART_tx:reg_tx|data_aux[2]     ; UART_TX:tx|data_bit[2]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.794      ;
+; 0.502 ; reg_2bytes_UART_tx:reg_tx|data_aux[6]     ; UART_TX:tx|data_bit[6]                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.795      ;
+; 0.502 ; UART_RX:rx|data_reg[6]                    ; reg_2bytes_UART_rx:reg_rx|buffer_data[6]  ; clock        ; clock       ; 0.000        ; 0.080      ; 0.794      ;
+; 0.502 ; MEF_main:exe|state.SEND_DATA              ; MEF_main:exe|state.000                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.794      ;
+; 0.503 ; reg_2bytes_UART_tx:reg_tx|buffer[1]       ; reg_2bytes_UART_tx:reg_tx|data_aux[1]     ; clock        ; clock       ; 0.000        ; 0.080      ; 0.795      ;
+; 0.504 ; UART_RX:rx|data_reg[5]                    ; reg_2bytes_UART_rx:reg_rx|buffer_data[5]  ; clock        ; clock       ; 0.000        ; 0.080      ; 0.796      ;
+; 0.509 ; UART_TX:tx|counter[12]                    ; UART_TX:tx|counter[12]                    ; clock        ; clock       ; 0.000        ; 0.080      ; 0.801      ;
+; 0.509 ; reg_2bytes_UART_rx:reg_rx|registrar[2]    ; MEF_main:exe|reg_address[2]               ; clock        ; clock       ; 0.000        ; 0.081      ; 0.802      ;
+; 0.511 ; MEF_main:exe|state.PROCESS_DATA           ; MEF_main:exe|crt_decoder                  ; clock        ; clock       ; 0.000        ; 0.080      ; 0.803      ;
+; 0.516 ; MEF_main:exe|state.SEND_DATA              ; MEF_main:exe|send_data_tx                 ; clock        ; clock       ; 0.000        ; 0.080      ; 0.808      ;
+; 0.518 ; UART_TX:tx|bit_index[1]                   ; UART_TX:tx|bit_index[2]                   ; clock        ; clock       ; 0.000        ; 0.080      ; 0.810      ;
+; 0.520 ; MEF_main:exe|state.SEND_DATA              ; MEF_main:exe|state.READ_DATA              ; clock        ; clock       ; 0.000        ; 0.080      ; 0.812      ;
+; 0.527 ; UART_TX:tx|bit_index[0]                   ; UART_TX:tx|bit_index[1]                   ; clock        ; clock       ; 0.000        ; 0.080      ; 0.819      ;
+; 0.528 ; reg_2bytes_UART_tx:reg_tx|state.BYTE_ONE  ; reg_2bytes_UART_tx:reg_tx|state.START_ONE ; clock        ; clock       ; 0.000        ; 0.080      ; 0.820      ;
+; 0.533 ; UART_RX:rx|state.STOP                     ; UART_RX:rx|data_avail                     ; clock        ; clock       ; 0.000        ; 0.081      ; 0.826      ;
+; 0.537 ; reg_2bytes_UART_tx:reg_tx|state.BYTE_TWO  ; reg_2bytes_UART_tx:reg_tx|state.START_TWO ; clock        ; clock       ; 0.000        ; 0.080      ; 0.829      ;
+; 0.539 ; UART_TX:tx|state.DATA                     ; UART_TX:tx|bit_index[0]                   ; clock        ; clock       ; 0.000        ; 0.080      ; 0.831      ;
+; 0.542 ; reg_2bytes_UART_tx:reg_tx|state.000       ; reg_2bytes_UART_tx:reg_tx|state.BYTE_ONE  ; clock        ; clock       ; 0.000        ; 0.080      ; 0.834      ;
+; 0.550 ; MEF_main:exe|state.CONTROLLER_SENSOR      ; MEF_main:exe|command_invalid              ; clock        ; clock       ; 0.000        ; 0.081      ; 0.843      ;
+; 0.550 ; DHT11_teste:a|state.S6                    ; DHT11_teste:a|state.S7                    ; clock        ; clock       ; 0.000        ; 0.081      ; 0.843      ;
+; 0.558 ; UART_RX:rx|bit_index[0]                   ; UART_RX:rx|bit_index[2]                   ; clock        ; clock       ; 0.000        ; 0.080      ; 0.850      ;
++-------+-------------------------------------------+-------------------------------------------+--------------+-------------+--------------+------------+------------+
+
+
+-----------------------------------------------
+; Slow 1200mV 85C Model Metastability Summary ;
+-----------------------------------------------
+Design MTBF is not calculated because the design doesn't meet its timing requirements.
+
+
+
++--------------------------------------------------+
+; Slow 1200mV 0C Model Fmax Summary                ;
++------------+-----------------+------------+------+
+; Fmax       ; Restricted Fmax ; Clock Name ; Note ;
++------------+-----------------+------------+------+
+; 171.35 MHz ; 171.35 MHz      ; clock      ;      ;
++------------+-----------------+------------+------+
+This panel reports FMAX for every clock in the design, regardless of the user-specified clock periods.  FMAX is only computed for paths where the source and destination registers or ports are driven by the same clock.  Paths of different clocks, including generated clocks, are ignored.  For paths between a clock and its inversion, FMAX is computed as if the rising and falling edges are scaled along with FMAX, such that the duty cycle (in terms of a percentage) is maintained. Altera recommends that you always use clock constraints and other slack reports for sign-off analysis.
+
+
++------------------------------------+
+; Slow 1200mV 0C Model Setup Summary ;
++-------+--------+-------------------+
+; Clock ; Slack  ; End Point TNS     ;
++-------+--------+-------------------+
+; clock ; -4.836 ; -910.384          ;
++-------+--------+-------------------+
+
+
++-----------------------------------+
+; Slow 1200mV 0C Model Hold Summary ;
++-------+-------+-------------------+
+; Clock ; Slack ; End Point TNS     ;
++-------+-------+-------------------+
+; clock ; 0.383 ; 0.000             ;
++-------+-------+-------------------+
+
+
+-----------------------------------------
+; Slow 1200mV 0C Model Recovery Summary ;
+-----------------------------------------
+No paths to report.
+
+
+----------------------------------------
+; Slow 1200mV 0C Model Removal Summary ;
+----------------------------------------
+No paths to report.
+
+
++--------------------------------------------------+
+; Slow 1200mV 0C Model Minimum Pulse Width Summary ;
++-------+--------+---------------------------------+
+; Clock ; Slack  ; End Point TNS                   ;
++-------+--------+---------------------------------+
+; clock ; -3.000 ; -438.691                        ;
++-------+--------+---------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Setup: 'clock'                                                                                                  ;
++--------+---------------------------+---------------------------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node                 ; To Node                   ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+---------------------------+---------------------------+--------------+-------------+--------------+------------+------------+
+; -4.836 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.070     ; 5.768      ;
+; -4.830 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.070     ; 5.762      ;
+; -4.800 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[24] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.730      ;
+; -4.798 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[6]  ; clock        ; clock       ; 1.000        ; 0.334      ; 6.134      ;
+; -4.798 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[23] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.728      ;
+; -4.795 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[21] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.725      ;
+; -4.794 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[22] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.724      ;
+; -4.794 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[24] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.724      ;
+; -4.793 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[11] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.723      ;
+; -4.792 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[6]  ; clock        ; clock       ; 1.000        ; 0.334      ; 6.128      ;
+; -4.792 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[23] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.722      ;
+; -4.789 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[21] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.719      ;
+; -4.788 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[22] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.718      ;
+; -4.787 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[11] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.717      ;
+; -4.730 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.493     ; 5.239      ;
+; -4.720 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[5]  ; clock        ; clock       ; 1.000        ; -0.073     ; 5.649      ;
+; -4.719 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[0]  ; clock        ; clock       ; 1.000        ; 0.381      ; 6.102      ;
+; -4.719 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[4]  ; clock        ; clock       ; 1.000        ; -0.073     ; 5.648      ;
+; -4.719 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[1]  ; clock        ; clock       ; 1.000        ; 0.381      ; 6.102      ;
+; -4.719 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[2]  ; clock        ; clock       ; 1.000        ; 0.381      ; 6.102      ;
+; -4.718 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[7]  ; clock        ; clock       ; 1.000        ; -0.073     ; 5.647      ;
+; -4.717 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[9]  ; clock        ; clock       ; 1.000        ; -0.073     ; 5.646      ;
+; -4.716 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[3]  ; clock        ; clock       ; 1.000        ; -0.073     ; 5.645      ;
+; -4.714 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[5]  ; clock        ; clock       ; 1.000        ; -0.073     ; 5.643      ;
+; -4.713 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[10] ; clock        ; clock       ; 1.000        ; -0.073     ; 5.642      ;
+; -4.713 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[0]  ; clock        ; clock       ; 1.000        ; 0.381      ; 6.096      ;
+; -4.713 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[4]  ; clock        ; clock       ; 1.000        ; -0.073     ; 5.642      ;
+; -4.713 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[1]  ; clock        ; clock       ; 1.000        ; 0.381      ; 6.096      ;
+; -4.713 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[2]  ; clock        ; clock       ; 1.000        ; 0.381      ; 6.096      ;
+; -4.712 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[8]  ; clock        ; clock       ; 1.000        ; -0.073     ; 5.641      ;
+; -4.712 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[7]  ; clock        ; clock       ; 1.000        ; -0.073     ; 5.641      ;
+; -4.711 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[9]  ; clock        ; clock       ; 1.000        ; -0.073     ; 5.640      ;
+; -4.710 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[3]  ; clock        ; clock       ; 1.000        ; -0.073     ; 5.639      ;
+; -4.707 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[10] ; clock        ; clock       ; 1.000        ; -0.073     ; 5.636      ;
+; -4.706 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[8]  ; clock        ; clock       ; 1.000        ; -0.073     ; 5.635      ;
+; -4.694 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[24] ; clock        ; clock       ; 1.000        ; -0.495     ; 5.201      ;
+; -4.692 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[6]  ; clock        ; clock       ; 1.000        ; -0.089     ; 5.605      ;
+; -4.692 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[23] ; clock        ; clock       ; 1.000        ; -0.495     ; 5.199      ;
+; -4.689 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[21] ; clock        ; clock       ; 1.000        ; -0.495     ; 5.196      ;
+; -4.688 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[22] ; clock        ; clock       ; 1.000        ; -0.495     ; 5.195      ;
+; -4.687 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[11] ; clock        ; clock       ; 1.000        ; -0.495     ; 5.194      ;
+; -4.662 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.070     ; 5.594      ;
+; -4.626 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[24] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.556      ;
+; -4.624 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[6]  ; clock        ; clock       ; 1.000        ; 0.334      ; 5.960      ;
+; -4.624 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[23] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.554      ;
+; -4.621 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[21] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.551      ;
+; -4.620 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[22] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.550      ;
+; -4.619 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[11] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.549      ;
+; -4.614 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[5]  ; clock        ; clock       ; 1.000        ; -0.496     ; 5.120      ;
+; -4.613 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[0]  ; clock        ; clock       ; 1.000        ; -0.042     ; 5.573      ;
+; -4.613 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[4]  ; clock        ; clock       ; 1.000        ; -0.496     ; 5.119      ;
+; -4.613 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[1]  ; clock        ; clock       ; 1.000        ; -0.042     ; 5.573      ;
+; -4.613 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[2]  ; clock        ; clock       ; 1.000        ; -0.042     ; 5.573      ;
+; -4.612 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[7]  ; clock        ; clock       ; 1.000        ; -0.496     ; 5.118      ;
+; -4.612 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.070     ; 5.544      ;
+; -4.611 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[9]  ; clock        ; clock       ; 1.000        ; -0.496     ; 5.117      ;
+; -4.610 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[3]  ; clock        ; clock       ; 1.000        ; -0.496     ; 5.116      ;
+; -4.608 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[15]    ; clock        ; clock       ; 1.000        ; -0.528     ; 5.082      ;
+; -4.607 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[13] ; clock        ; clock       ; 1.000        ; -0.073     ; 5.536      ;
+; -4.607 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[10] ; clock        ; clock       ; 1.000        ; -0.496     ; 5.113      ;
+; -4.606 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[8]  ; clock        ; clock       ; 1.000        ; -0.496     ; 5.112      ;
+; -4.604 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[17] ; clock        ; clock       ; 1.000        ; -0.073     ; 5.533      ;
+; -4.601 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[13] ; clock        ; clock       ; 1.000        ; -0.073     ; 5.530      ;
+; -4.599 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[23]    ; clock        ; clock       ; 1.000        ; -0.528     ; 5.073      ;
+; -4.598 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[17] ; clock        ; clock       ; 1.000        ; -0.073     ; 5.527      ;
+; -4.597 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[26]    ; clock        ; clock       ; 1.000        ; -0.543     ; 5.056      ;
+; -4.596 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[12]    ; clock        ; clock       ; 1.000        ; -0.543     ; 5.055      ;
+; -4.596 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[10]    ; clock        ; clock       ; 1.000        ; -0.543     ; 5.055      ;
+; -4.593 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[28]    ; clock        ; clock       ; 1.000        ; -0.543     ; 5.052      ;
+; -4.591 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[18]    ; clock        ; clock       ; 1.000        ; -0.543     ; 5.050      ;
+; -4.590 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[27]    ; clock        ; clock       ; 1.000        ; -0.543     ; 5.049      ;
+; -4.590 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[20]    ; clock        ; clock       ; 1.000        ; -0.543     ; 5.049      ;
+; -4.585 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[18] ; clock        ; clock       ; 1.000        ; -0.074     ; 5.513      ;
+; -4.584 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[12] ; clock        ; clock       ; 1.000        ; -0.074     ; 5.512      ;
+; -4.583 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[19] ; clock        ; clock       ; 1.000        ; -0.074     ; 5.511      ;
+; -4.583 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[15] ; clock        ; clock       ; 1.000        ; -0.074     ; 5.511      ;
+; -4.581 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[24]    ; clock        ; clock       ; 1.000        ; -0.529     ; 5.054      ;
+; -4.580 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[14]    ; clock        ; clock       ; 1.000        ; -0.529     ; 5.053      ;
+; -4.580 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[16]    ; clock        ; clock       ; 1.000        ; -0.529     ; 5.053      ;
+; -4.579 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[20] ; clock        ; clock       ; 1.000        ; -0.074     ; 5.507      ;
+; -4.579 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[18] ; clock        ; clock       ; 1.000        ; -0.074     ; 5.507      ;
+; -4.578 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[16] ; clock        ; clock       ; 1.000        ; -0.074     ; 5.506      ;
+; -4.578 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[12] ; clock        ; clock       ; 1.000        ; -0.074     ; 5.506      ;
+; -4.577 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[15]    ; clock        ; clock       ; 1.000        ; -0.528     ; 5.051      ;
+; -4.577 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[19] ; clock        ; clock       ; 1.000        ; -0.074     ; 5.505      ;
+; -4.577 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[15] ; clock        ; clock       ; 1.000        ; -0.074     ; 5.505      ;
+; -4.576 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[24] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.506      ;
+; -4.574 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[6]  ; clock        ; clock       ; 1.000        ; 0.334      ; 5.910      ;
+; -4.574 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[23] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.504      ;
+; -4.573 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[20] ; clock        ; clock       ; 1.000        ; -0.074     ; 5.501      ;
+; -4.572 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[16] ; clock        ; clock       ; 1.000        ; -0.074     ; 5.500      ;
+; -4.571 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[21] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.501      ;
+; -4.570 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[22] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.500      ;
+; -4.569 ; DHT11_teste:a|counter[4]  ; DHT11_teste:a|counter[11] ; clock        ; clock       ; 1.000        ; -0.072     ; 5.499      ;
+; -4.568 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[23]    ; clock        ; clock       ; 1.000        ; -0.528     ; 5.042      ;
+; -4.566 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[26]    ; clock        ; clock       ; 1.000        ; -0.543     ; 5.025      ;
+; -4.565 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[12]    ; clock        ; clock       ; 1.000        ; -0.543     ; 5.024      ;
+; -4.565 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[10]    ; clock        ; clock       ; 1.000        ; -0.543     ; 5.024      ;
+; -4.562 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[28]    ; clock        ; clock       ; 1.000        ; -0.543     ; 5.021      ;
+; -4.560 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[18]    ; clock        ; clock       ; 1.000        ; -0.543     ; 5.019      ;
++--------+---------------------------+---------------------------+--------------+-------------+--------------+------------+------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Slow 1200mV 0C Model Hold: 'clock'                                                                                                                                  ;
++-------+-------------------------------------------+-------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node                                 ; To Node                                   ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+-------------------------------------------+-------------------------------------------+--------------+-------------+--------------+------------+------------+
+; 0.383 ; DHT11_teste:a|data[33]                    ; DHT11_teste:a|data[33]                    ; clock        ; clock       ; 0.000        ; 0.091      ; 0.669      ;
+; 0.383 ; DHT11_teste:a|data[34]                    ; DHT11_teste:a|data[34]                    ; clock        ; clock       ; 0.000        ; 0.091      ; 0.669      ;
+; 0.383 ; DHT11_teste:a|data[35]                    ; DHT11_teste:a|data[35]                    ; clock        ; clock       ; 0.000        ; 0.091      ; 0.669      ;
+; 0.383 ; DHT11_teste:a|data[32]                    ; DHT11_teste:a|data[32]                    ; clock        ; clock       ; 0.000        ; 0.091      ; 0.669      ;
+; 0.383 ; DHT11_teste:a|data[39]                    ; DHT11_teste:a|data[39]                    ; clock        ; clock       ; 0.000        ; 0.091      ; 0.669      ;
+; 0.383 ; DHT11_teste:a|data[38]                    ; DHT11_teste:a|data[38]                    ; clock        ; clock       ; 0.000        ; 0.091      ; 0.669      ;
+; 0.383 ; DHT11_teste:a|data[37]                    ; DHT11_teste:a|data[37]                    ; clock        ; clock       ; 0.000        ; 0.091      ; 0.669      ;
+; 0.383 ; DHT11_teste:a|data[36]                    ; DHT11_teste:a|data[36]                    ; clock        ; clock       ; 0.000        ; 0.091      ; 0.669      ;
+; 0.383 ; DHT11_teste:a|data[3]                     ; DHT11_teste:a|data[3]                     ; clock        ; clock       ; 0.000        ; 0.091      ; 0.669      ;
+; 0.383 ; DHT11_teste:a|data[2]                     ; DHT11_teste:a|data[2]                     ; clock        ; clock       ; 0.000        ; 0.091      ; 0.669      ;
+; 0.383 ; DHT11_teste:a|data[4]                     ; DHT11_teste:a|data[4]                     ; clock        ; clock       ; 0.000        ; 0.091      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[1]                     ; DHT11_teste:a|data[1]                     ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[14]                    ; DHT11_teste:a|data[14]                    ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[16]                    ; DHT11_teste:a|data[16]                    ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[15]                    ; DHT11_teste:a|data[15]                    ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[9]                     ; DHT11_teste:a|data[9]                     ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[7]                     ; DHT11_teste:a|data[7]                     ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[6]                     ; DHT11_teste:a|data[6]                     ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[5]                     ; DHT11_teste:a|data[5]                     ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[8]                     ; DHT11_teste:a|data[8]                     ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[25]                    ; DHT11_teste:a|data[25]                    ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[24]                    ; DHT11_teste:a|data[24]                    ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[29]                    ; DHT11_teste:a|data[29]                    ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[31]                    ; DHT11_teste:a|data[31]                    ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[30]                    ; DHT11_teste:a|data[30]                    ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[22]                    ; DHT11_teste:a|data[22]                    ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[23]                    ; DHT11_teste:a|data[23]                    ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[21]                    ; DHT11_teste:a|data[21]                    ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[19]                    ; DHT11_teste:a|data[19]                    ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[0]                     ; DHT11_teste:a|data[0]                     ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.401 ; DHT11_teste:a|data[17]                    ; DHT11_teste:a|data[17]                    ; clock        ; clock       ; 0.000        ; 0.073      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|data[13]                    ; DHT11_teste:a|data[13]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|data[11]                    ; DHT11_teste:a|data[11]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|data[12]                    ; DHT11_teste:a|data[12]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|data[10]                    ; DHT11_teste:a|data[10]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|data[26]                    ; DHT11_teste:a|data[26]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|data[27]                    ; DHT11_teste:a|data[27]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|data[28]                    ; DHT11_teste:a|data[28]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|data[20]                    ; DHT11_teste:a|data[20]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|data[18]                    ; DHT11_teste:a|data[18]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; MEF_main:exe|command_invalid              ; MEF_main:exe|command_invalid              ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|state.S0                    ; DHT11_teste:a|state.S0                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|dir                         ; DHT11_teste:a|dir                         ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|state.S1                    ; DHT11_teste:a|state.S1                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|state.S3                    ; DHT11_teste:a|state.S3                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|state.S2                    ; DHT11_teste:a|state.S2                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|error_reg                   ; DHT11_teste:a|error_reg                   ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|state.S8                    ; DHT11_teste:a|state.S8                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|state.S7                    ; DHT11_teste:a|state.S7                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|state.S5                    ; DHT11_teste:a|state.S5                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; DHT11_teste:a|state.S4                    ; DHT11_teste:a|state.S4                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_TX:tx|state.00                       ; UART_TX:tx|state.00                       ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_TX:tx|done                           ; UART_TX:tx|done                           ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_TX:tx|state.STOP                     ; UART_TX:tx|state.STOP                     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_TX:tx|state.DATA                     ; UART_TX:tx|state.DATA                     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_TX:tx|state.START                    ; UART_TX:tx|state.START                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_TX:tx|bit_index[2]                   ; UART_TX:tx|bit_index[2]                   ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_TX:tx|bit_index[1]                   ; UART_TX:tx|bit_index[1]                   ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; reg_2bytes_UART_tx:reg_tx|state.START_ONE ; reg_2bytes_UART_tx:reg_tx|state.START_ONE ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; reg_2bytes_UART_tx:reg_tx|state.000       ; reg_2bytes_UART_tx:reg_tx|state.000       ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; MEF_main:exe|state.000                    ; MEF_main:exe|state.000                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; MEF_main:exe|state.CONTROLLER_SENSOR      ; MEF_main:exe|state.CONTROLLER_SENSOR      ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_RX:rx|data_reg[7]                    ; UART_RX:rx|data_reg[7]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_RX:rx|data_reg[2]                    ; UART_RX:rx|data_reg[2]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_RX:rx|data_reg[0]                    ; UART_RX:rx|data_reg[0]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_RX:rx|data_reg[1]                    ; UART_RX:rx|data_reg[1]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_RX:rx|data_reg[6]                    ; UART_RX:rx|data_reg[6]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_RX:rx|data_reg[5]                    ; UART_RX:rx|data_reg[5]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_RX:rx|data_reg[3]                    ; UART_RX:rx|data_reg[3]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_RX:rx|data_reg[4]                    ; UART_RX:rx|data_reg[4]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_RX:rx|state.STOP                     ; UART_RX:rx|state.STOP                     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_RX:rx|state.DATA                     ; UART_RX:rx|state.DATA                     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_RX:rx|bit_index[2]                   ; UART_RX:rx|bit_index[2]                   ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; UART_RX:rx|bit_index[1]                   ; UART_RX:rx|bit_index[1]                   ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.402 ; reg_2bytes_UART_tx:reg_tx|state.START_TWO ; reg_2bytes_UART_tx:reg_tx|state.START_TWO ; clock        ; clock       ; 0.000        ; 0.072      ; 0.669      ;
+; 0.417 ; UART_TX:tx|bit_index[0]                   ; UART_TX:tx|bit_index[0]                   ; clock        ; clock       ; 0.000        ; 0.072      ; 0.684      ;
+; 0.417 ; UART_RX:rx|bit_index[0]                   ; UART_RX:rx|bit_index[0]                   ; clock        ; clock       ; 0.000        ; 0.072      ; 0.684      ;
+; 0.463 ; MEF_main:exe|state.SEND_DATA              ; MEF_main:exe|state.000                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.730      ;
+; 0.469 ; UART_TX:tx|counter[12]                    ; UART_TX:tx|counter[12]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.736      ;
+; 0.470 ; reg_2bytes_UART_tx:reg_tx|buffer[8]       ; reg_2bytes_UART_tx:reg_tx|data_aux[0]     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.737      ;
+; 0.471 ; reg_2bytes_UART_tx:reg_tx|data_aux[5]     ; UART_TX:tx|data_bit[5]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.738      ;
+; 0.471 ; reg_2bytes_UART_tx:reg_tx|data_aux[2]     ; UART_TX:tx|data_bit[2]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.738      ;
+; 0.471 ; UART_RX:rx|data_reg[6]                    ; reg_2bytes_UART_rx:reg_rx|buffer_data[6]  ; clock        ; clock       ; 0.000        ; 0.072      ; 0.738      ;
+; 0.472 ; reg_2bytes_UART_tx:reg_tx|data_aux[6]     ; UART_TX:tx|data_bit[6]                    ; clock        ; clock       ; 0.000        ; 0.072      ; 0.739      ;
+; 0.472 ; reg_2bytes_UART_tx:reg_tx|buffer[1]       ; reg_2bytes_UART_tx:reg_tx|data_aux[1]     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.739      ;
+; 0.472 ; UART_RX:rx|data_reg[5]                    ; reg_2bytes_UART_rx:reg_rx|buffer_data[5]  ; clock        ; clock       ; 0.000        ; 0.072      ; 0.739      ;
+; 0.478 ; reg_2bytes_UART_rx:reg_rx|registrar[2]    ; MEF_main:exe|reg_address[2]               ; clock        ; clock       ; 0.000        ; 0.072      ; 0.745      ;
+; 0.478 ; UART_TX:tx|bit_index[1]                   ; UART_TX:tx|bit_index[2]                   ; clock        ; clock       ; 0.000        ; 0.072      ; 0.745      ;
+; 0.480 ; MEF_main:exe|state.PROCESS_DATA           ; MEF_main:exe|crt_decoder                  ; clock        ; clock       ; 0.000        ; 0.072      ; 0.747      ;
+; 0.482 ; MEF_main:exe|state.SEND_DATA              ; MEF_main:exe|send_data_tx                 ; clock        ; clock       ; 0.000        ; 0.072      ; 0.749      ;
+; 0.486 ; MEF_main:exe|state.SEND_DATA              ; MEF_main:exe|state.READ_DATA              ; clock        ; clock       ; 0.000        ; 0.072      ; 0.753      ;
+; 0.488 ; UART_TX:tx|bit_index[0]                   ; UART_TX:tx|bit_index[1]                   ; clock        ; clock       ; 0.000        ; 0.072      ; 0.755      ;
+; 0.493 ; reg_2bytes_UART_tx:reg_tx|state.BYTE_ONE  ; reg_2bytes_UART_tx:reg_tx|state.START_ONE ; clock        ; clock       ; 0.000        ; 0.072      ; 0.760      ;
+; 0.499 ; UART_RX:rx|state.STOP                     ; UART_RX:rx|data_avail                     ; clock        ; clock       ; 0.000        ; 0.072      ; 0.766      ;
+; 0.501 ; reg_2bytes_UART_tx:reg_tx|state.000       ; reg_2bytes_UART_tx:reg_tx|state.BYTE_ONE  ; clock        ; clock       ; 0.000        ; 0.072      ; 0.768      ;
+; 0.502 ; reg_2bytes_UART_tx:reg_tx|state.BYTE_TWO  ; reg_2bytes_UART_tx:reg_tx|state.START_TWO ; clock        ; clock       ; 0.000        ; 0.072      ; 0.769      ;
+; 0.509 ; UART_TX:tx|state.DATA                     ; UART_TX:tx|bit_index[0]                   ; clock        ; clock       ; 0.000        ; 0.072      ; 0.776      ;
+; 0.511 ; UART_RX:rx|bit_index[0]                   ; UART_RX:rx|bit_index[2]                   ; clock        ; clock       ; 0.000        ; 0.072      ; 0.778      ;
+; 0.514 ; UART_RX:rx|bit_index[0]                   ; UART_RX:rx|bit_index[1]                   ; clock        ; clock       ; 0.000        ; 0.072      ; 0.781      ;
+; 0.514 ; MEF_main:exe|state.CONTROLLER_SENSOR      ; MEF_main:exe|command_invalid              ; clock        ; clock       ; 0.000        ; 0.072      ; 0.781      ;
++-------+-------------------------------------------+-------------------------------------------+--------------+-------------+--------------+------------+------------+
+
+
+----------------------------------------------
+; Slow 1200mV 0C Model Metastability Summary ;
+----------------------------------------------
+Design MTBF is not calculated because the design doesn't meet its timing requirements.
+
+
+
++------------------------------------+
+; Fast 1200mV 0C Model Setup Summary ;
++-------+--------+-------------------+
+; Clock ; Slack  ; End Point TNS     ;
++-------+--------+-------------------+
+; clock ; -1.636 ; -266.225          ;
++-------+--------+-------------------+
+
+
++-----------------------------------+
+; Fast 1200mV 0C Model Hold Summary ;
++-------+-------+-------------------+
+; Clock ; Slack ; End Point TNS     ;
++-------+-------+-------------------+
+; clock ; 0.178 ; 0.000             ;
++-------+-------+-------------------+
+
+
+-----------------------------------------
+; Fast 1200mV 0C Model Recovery Summary ;
+-----------------------------------------
+No paths to report.
+
+
+----------------------------------------
+; Fast 1200mV 0C Model Removal Summary ;
+----------------------------------------
+No paths to report.
+
+
++--------------------------------------------------+
+; Fast 1200mV 0C Model Minimum Pulse Width Summary ;
++-------+--------+---------------------------------+
+; Clock ; Slack  ; End Point TNS                   ;
++-------+--------+---------------------------------+
+; clock ; -3.000 ; -315.205                        ;
++-------+--------+---------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------+
+; Fast 1200mV 0C Model Setup: 'clock'                                                                                                  ;
++--------+---------------------------+---------------------------+--------------+-------------+--------------+------------+------------+
+; Slack  ; From Node                 ; To Node                   ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++--------+---------------------------+---------------------------+--------------+-------------+--------------+------------+------------+
+; -1.636 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[6]  ; clock        ; clock       ; 1.000        ; 0.140      ; 2.763      ;
+; -1.636 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[6]  ; clock        ; clock       ; 1.000        ; 0.140      ; 2.763      ;
+; -1.635 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[4]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.584      ;
+; -1.635 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[4]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.584      ;
+; -1.634 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[7]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.583      ;
+; -1.634 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.035     ; 2.586      ;
+; -1.634 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[24] ; clock        ; clock       ; 1.000        ; -0.036     ; 2.585      ;
+; -1.634 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[7]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.583      ;
+; -1.634 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.035     ; 2.586      ;
+; -1.634 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[24] ; clock        ; clock       ; 1.000        ; -0.036     ; 2.585      ;
+; -1.632 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[9]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.581      ;
+; -1.632 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[9]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.581      ;
+; -1.631 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[23] ; clock        ; clock       ; 1.000        ; -0.036     ; 2.582      ;
+; -1.631 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[23] ; clock        ; clock       ; 1.000        ; -0.036     ; 2.582      ;
+; -1.630 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[5]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.579      ;
+; -1.630 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[5]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.579      ;
+; -1.628 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[21] ; clock        ; clock       ; 1.000        ; -0.036     ; 2.579      ;
+; -1.628 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[22] ; clock        ; clock       ; 1.000        ; -0.036     ; 2.579      ;
+; -1.628 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[21] ; clock        ; clock       ; 1.000        ; -0.036     ; 2.579      ;
+; -1.628 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[22] ; clock        ; clock       ; 1.000        ; -0.036     ; 2.579      ;
+; -1.627 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[10] ; clock        ; clock       ; 1.000        ; -0.038     ; 2.576      ;
+; -1.627 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[3]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.576      ;
+; -1.627 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[11] ; clock        ; clock       ; 1.000        ; -0.036     ; 2.578      ;
+; -1.627 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[10] ; clock        ; clock       ; 1.000        ; -0.038     ; 2.576      ;
+; -1.627 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[3]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.576      ;
+; -1.627 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[11] ; clock        ; clock       ; 1.000        ; -0.036     ; 2.578      ;
+; -1.626 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[8]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.575      ;
+; -1.626 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[8]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.575      ;
+; -1.624 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[15]    ; clock        ; clock       ; 1.000        ; -0.230     ; 2.381      ;
+; -1.613 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[0]  ; clock        ; clock       ; 1.000        ; 0.158      ; 2.758      ;
+; -1.613 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[1]  ; clock        ; clock       ; 1.000        ; 0.158      ; 2.758      ;
+; -1.613 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[2]  ; clock        ; clock       ; 1.000        ; 0.158      ; 2.758      ;
+; -1.613 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[0]  ; clock        ; clock       ; 1.000        ; 0.158      ; 2.758      ;
+; -1.613 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[1]  ; clock        ; clock       ; 1.000        ; 0.158      ; 2.758      ;
+; -1.613 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[2]  ; clock        ; clock       ; 1.000        ; 0.158      ; 2.758      ;
+; -1.612 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[23]    ; clock        ; clock       ; 1.000        ; -0.230     ; 2.369      ;
+; -1.609 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[15]    ; clock        ; clock       ; 1.000        ; -0.230     ; 2.366      ;
+; -1.605 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[16]    ; clock        ; clock       ; 1.000        ; -0.231     ; 2.361      ;
+; -1.605 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[24]    ; clock        ; clock       ; 1.000        ; -0.231     ; 2.361      ;
+; -1.604 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[14]    ; clock        ; clock       ; 1.000        ; -0.231     ; 2.360      ;
+; -1.597 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[23]    ; clock        ; clock       ; 1.000        ; -0.230     ; 2.354      ;
+; -1.590 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[16]    ; clock        ; clock       ; 1.000        ; -0.231     ; 2.346      ;
+; -1.590 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[24]    ; clock        ; clock       ; 1.000        ; -0.231     ; 2.346      ;
+; -1.589 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[14]    ; clock        ; clock       ; 1.000        ; -0.231     ; 2.345      ;
+; -1.583 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[13] ; clock        ; clock       ; 1.000        ; -0.039     ; 2.531      ;
+; -1.583 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[13] ; clock        ; clock       ; 1.000        ; -0.039     ; 2.531      ;
+; -1.580 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[17] ; clock        ; clock       ; 1.000        ; -0.039     ; 2.528      ;
+; -1.580 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[17] ; clock        ; clock       ; 1.000        ; -0.039     ; 2.528      ;
+; -1.561 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[18] ; clock        ; clock       ; 1.000        ; -0.040     ; 2.508      ;
+; -1.561 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[18] ; clock        ; clock       ; 1.000        ; -0.040     ; 2.508      ;
+; -1.559 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[12] ; clock        ; clock       ; 1.000        ; -0.040     ; 2.506      ;
+; -1.559 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[12] ; clock        ; clock       ; 1.000        ; -0.040     ; 2.506      ;
+; -1.558 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[19] ; clock        ; clock       ; 1.000        ; -0.040     ; 2.505      ;
+; -1.558 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[15] ; clock        ; clock       ; 1.000        ; -0.040     ; 2.505      ;
+; -1.558 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[19] ; clock        ; clock       ; 1.000        ; -0.040     ; 2.505      ;
+; -1.558 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[15] ; clock        ; clock       ; 1.000        ; -0.040     ; 2.505      ;
+; -1.553 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[20] ; clock        ; clock       ; 1.000        ; -0.040     ; 2.500      ;
+; -1.553 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[20] ; clock        ; clock       ; 1.000        ; -0.040     ; 2.500      ;
+; -1.551 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[26]    ; clock        ; clock       ; 1.000        ; -0.239     ; 2.299      ;
+; -1.551 ; DHT11_teste:a|counter[23] ; DHT11_teste:a|counter[16] ; clock        ; clock       ; 1.000        ; -0.040     ; 2.498      ;
+; -1.551 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[6]  ; clock        ; clock       ; 1.000        ; 0.140      ; 2.678      ;
+; -1.551 ; DHT11_teste:a|counter[24] ; DHT11_teste:a|counter[16] ; clock        ; clock       ; 1.000        ; -0.040     ; 2.498      ;
+; -1.550 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[12]    ; clock        ; clock       ; 1.000        ; -0.239     ; 2.298      ;
+; -1.550 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[10]    ; clock        ; clock       ; 1.000        ; -0.239     ; 2.298      ;
+; -1.550 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[4]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.499      ;
+; -1.549 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[7]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.498      ;
+; -1.549 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.035     ; 2.501      ;
+; -1.549 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[24] ; clock        ; clock       ; 1.000        ; -0.036     ; 2.500      ;
+; -1.547 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[28]    ; clock        ; clock       ; 1.000        ; -0.239     ; 2.295      ;
+; -1.547 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[9]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.496      ;
+; -1.546 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[6]  ; clock        ; clock       ; 1.000        ; -0.044     ; 2.489      ;
+; -1.546 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[23] ; clock        ; clock       ; 1.000        ; -0.036     ; 2.497      ;
+; -1.545 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[18]    ; clock        ; clock       ; 1.000        ; -0.239     ; 2.293      ;
+; -1.545 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[4]  ; clock        ; clock       ; 1.000        ; -0.222     ; 2.310      ;
+; -1.545 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[5]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.494      ;
+; -1.544 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[20]    ; clock        ; clock       ; 1.000        ; -0.239     ; 2.292      ;
+; -1.544 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[7]  ; clock        ; clock       ; 1.000        ; -0.222     ; 2.309      ;
+; -1.544 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[25] ; clock        ; clock       ; 1.000        ; -0.219     ; 2.312      ;
+; -1.544 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[24] ; clock        ; clock       ; 1.000        ; -0.220     ; 2.311      ;
+; -1.543 ; DHT11_teste:a|counter[1]  ; DHT11_teste:a|data[27]    ; clock        ; clock       ; 1.000        ; -0.239     ; 2.291      ;
+; -1.543 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[21] ; clock        ; clock       ; 1.000        ; -0.036     ; 2.494      ;
+; -1.543 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[22] ; clock        ; clock       ; 1.000        ; -0.036     ; 2.494      ;
+; -1.542 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[9]  ; clock        ; clock       ; 1.000        ; -0.222     ; 2.307      ;
+; -1.542 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[10] ; clock        ; clock       ; 1.000        ; -0.038     ; 2.491      ;
+; -1.542 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[3]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.491      ;
+; -1.542 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[11] ; clock        ; clock       ; 1.000        ; -0.036     ; 2.493      ;
+; -1.541 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[23] ; clock        ; clock       ; 1.000        ; -0.220     ; 2.308      ;
+; -1.541 ; DHT11_teste:a|counter[22] ; DHT11_teste:a|counter[8]  ; clock        ; clock       ; 1.000        ; -0.038     ; 2.490      ;
+; -1.540 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[5]  ; clock        ; clock       ; 1.000        ; -0.222     ; 2.305      ;
+; -1.538 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[21] ; clock        ; clock       ; 1.000        ; -0.220     ; 2.305      ;
+; -1.538 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[22] ; clock        ; clock       ; 1.000        ; -0.220     ; 2.305      ;
+; -1.537 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[10] ; clock        ; clock       ; 1.000        ; -0.222     ; 2.302      ;
+; -1.537 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[3]  ; clock        ; clock       ; 1.000        ; -0.222     ; 2.302      ;
+; -1.537 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[11] ; clock        ; clock       ; 1.000        ; -0.220     ; 2.304      ;
+; -1.536 ; DHT11_teste:a|counter[6]  ; DHT11_teste:a|counter[8]  ; clock        ; clock       ; 1.000        ; -0.222     ; 2.301      ;
+; -1.536 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[26]    ; clock        ; clock       ; 1.000        ; -0.239     ; 2.284      ;
+; -1.535 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[12]    ; clock        ; clock       ; 1.000        ; -0.239     ; 2.283      ;
+; -1.535 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[10]    ; clock        ; clock       ; 1.000        ; -0.239     ; 2.283      ;
+; -1.532 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[28]    ; clock        ; clock       ; 1.000        ; -0.239     ; 2.280      ;
+; -1.530 ; DHT11_teste:a|counter[2]  ; DHT11_teste:a|data[18]    ; clock        ; clock       ; 1.000        ; -0.239     ; 2.278      ;
++--------+---------------------------+---------------------------+--------------+-------------+--------------+------------+------------+
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Fast 1200mV 0C Model Hold: 'clock'                                                                                                                                  ;
++-------+-------------------------------------------+-------------------------------------------+--------------+-------------+--------------+------------+------------+
+; Slack ; From Node                                 ; To Node                                   ; Launch Clock ; Latch Clock ; Relationship ; Clock Skew ; Data Delay ;
++-------+-------------------------------------------+-------------------------------------------+--------------+-------------+--------------+------------+------------+
+; 0.178 ; DHT11_teste:a|data[33]                    ; DHT11_teste:a|data[33]                    ; clock        ; clock       ; 0.000        ; 0.045      ; 0.307      ;
+; 0.178 ; DHT11_teste:a|data[34]                    ; DHT11_teste:a|data[34]                    ; clock        ; clock       ; 0.000        ; 0.045      ; 0.307      ;
+; 0.178 ; DHT11_teste:a|data[35]                    ; DHT11_teste:a|data[35]                    ; clock        ; clock       ; 0.000        ; 0.045      ; 0.307      ;
+; 0.178 ; DHT11_teste:a|data[32]                    ; DHT11_teste:a|data[32]                    ; clock        ; clock       ; 0.000        ; 0.045      ; 0.307      ;
+; 0.178 ; DHT11_teste:a|data[39]                    ; DHT11_teste:a|data[39]                    ; clock        ; clock       ; 0.000        ; 0.045      ; 0.307      ;
+; 0.178 ; DHT11_teste:a|data[38]                    ; DHT11_teste:a|data[38]                    ; clock        ; clock       ; 0.000        ; 0.045      ; 0.307      ;
+; 0.178 ; DHT11_teste:a|data[37]                    ; DHT11_teste:a|data[37]                    ; clock        ; clock       ; 0.000        ; 0.045      ; 0.307      ;
+; 0.178 ; DHT11_teste:a|data[36]                    ; DHT11_teste:a|data[36]                    ; clock        ; clock       ; 0.000        ; 0.045      ; 0.307      ;
+; 0.178 ; DHT11_teste:a|data[3]                     ; DHT11_teste:a|data[3]                     ; clock        ; clock       ; 0.000        ; 0.045      ; 0.307      ;
+; 0.178 ; DHT11_teste:a|data[2]                     ; DHT11_teste:a|data[2]                     ; clock        ; clock       ; 0.000        ; 0.045      ; 0.307      ;
+; 0.178 ; DHT11_teste:a|data[4]                     ; DHT11_teste:a|data[4]                     ; clock        ; clock       ; 0.000        ; 0.045      ; 0.307      ;
+; 0.186 ; DHT11_teste:a|data[14]                    ; DHT11_teste:a|data[14]                    ; clock        ; clock       ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; DHT11_teste:a|data[16]                    ; DHT11_teste:a|data[16]                    ; clock        ; clock       ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; DHT11_teste:a|data[13]                    ; DHT11_teste:a|data[13]                    ; clock        ; clock       ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; DHT11_teste:a|data[11]                    ; DHT11_teste:a|data[11]                    ; clock        ; clock       ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; DHT11_teste:a|data[9]                     ; DHT11_teste:a|data[9]                     ; clock        ; clock       ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; DHT11_teste:a|data[25]                    ; DHT11_teste:a|data[25]                    ; clock        ; clock       ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; DHT11_teste:a|data[24]                    ; DHT11_teste:a|data[24]                    ; clock        ; clock       ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; DHT11_teste:a|data[0]                     ; DHT11_teste:a|data[0]                     ; clock        ; clock       ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; DHT11_teste:a|data[17]                    ; DHT11_teste:a|data[17]                    ; clock        ; clock       ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; DHT11_teste:a|state.S8                    ; DHT11_teste:a|state.S8                    ; clock        ; clock       ; 0.000        ; 0.037      ; 0.307      ;
+; 0.186 ; DHT11_teste:a|state.S7                    ; DHT11_teste:a|state.S7                    ; clock        ; clock       ; 0.000        ; 0.037      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[1]                     ; DHT11_teste:a|data[1]                     ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[15]                    ; DHT11_teste:a|data[15]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[12]                    ; DHT11_teste:a|data[12]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[10]                    ; DHT11_teste:a|data[10]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[7]                     ; DHT11_teste:a|data[7]                     ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[6]                     ; DHT11_teste:a|data[6]                     ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[5]                     ; DHT11_teste:a|data[5]                     ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[8]                     ; DHT11_teste:a|data[8]                     ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[26]                    ; DHT11_teste:a|data[26]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[27]                    ; DHT11_teste:a|data[27]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[28]                    ; DHT11_teste:a|data[28]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[29]                    ; DHT11_teste:a|data[29]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[31]                    ; DHT11_teste:a|data[31]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[30]                    ; DHT11_teste:a|data[30]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[20]                    ; DHT11_teste:a|data[20]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[22]                    ; DHT11_teste:a|data[22]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[23]                    ; DHT11_teste:a|data[23]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[21]                    ; DHT11_teste:a|data[21]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[18]                    ; DHT11_teste:a|data[18]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|data[19]                    ; DHT11_teste:a|data[19]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; MEF_main:exe|command_invalid              ; MEF_main:exe|command_invalid              ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|state.S0                    ; DHT11_teste:a|state.S0                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|dir                         ; DHT11_teste:a|dir                         ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|state.S1                    ; DHT11_teste:a|state.S1                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|state.S3                    ; DHT11_teste:a|state.S3                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|state.S2                    ; DHT11_teste:a|state.S2                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|error_reg                   ; DHT11_teste:a|error_reg                   ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|state.S5                    ; DHT11_teste:a|state.S5                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; DHT11_teste:a|state.S4                    ; DHT11_teste:a|state.S4                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_TX:tx|state.00                       ; UART_TX:tx|state.00                       ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_TX:tx|done                           ; UART_TX:tx|done                           ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_TX:tx|state.STOP                     ; UART_TX:tx|state.STOP                     ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_TX:tx|state.DATA                     ; UART_TX:tx|state.DATA                     ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_TX:tx|state.START                    ; UART_TX:tx|state.START                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_TX:tx|bit_index[2]                   ; UART_TX:tx|bit_index[2]                   ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_TX:tx|bit_index[1]                   ; UART_TX:tx|bit_index[1]                   ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; reg_2bytes_UART_tx:reg_tx|state.START_ONE ; reg_2bytes_UART_tx:reg_tx|state.START_ONE ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; reg_2bytes_UART_tx:reg_tx|state.000       ; reg_2bytes_UART_tx:reg_tx|state.000       ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; MEF_main:exe|state.000                    ; MEF_main:exe|state.000                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; MEF_main:exe|state.CONTROLLER_SENSOR      ; MEF_main:exe|state.CONTROLLER_SENSOR      ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_RX:rx|data_reg[7]                    ; UART_RX:rx|data_reg[7]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_RX:rx|data_reg[2]                    ; UART_RX:rx|data_reg[2]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_RX:rx|data_reg[0]                    ; UART_RX:rx|data_reg[0]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_RX:rx|data_reg[1]                    ; UART_RX:rx|data_reg[1]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_RX:rx|data_reg[6]                    ; UART_RX:rx|data_reg[6]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_RX:rx|data_reg[5]                    ; UART_RX:rx|data_reg[5]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_RX:rx|data_reg[3]                    ; UART_RX:rx|data_reg[3]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_RX:rx|data_reg[4]                    ; UART_RX:rx|data_reg[4]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_RX:rx|state.STOP                     ; UART_RX:rx|state.STOP                     ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_RX:rx|state.DATA                     ; UART_RX:rx|state.DATA                     ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_RX:rx|bit_index[2]                   ; UART_RX:rx|bit_index[2]                   ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; UART_RX:rx|bit_index[1]                   ; UART_RX:rx|bit_index[1]                   ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.187 ; reg_2bytes_UART_tx:reg_tx|state.START_TWO ; reg_2bytes_UART_tx:reg_tx|state.START_TWO ; clock        ; clock       ; 0.000        ; 0.036      ; 0.307      ;
+; 0.193 ; reg_2bytes_UART_tx:reg_tx|buffer[8]       ; reg_2bytes_UART_tx:reg_tx|data_aux[0]     ; clock        ; clock       ; 0.000        ; 0.036      ; 0.313      ;
+; 0.194 ; reg_2bytes_UART_tx:reg_tx|data_aux[5]     ; UART_TX:tx|data_bit[5]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.314      ;
+; 0.194 ; reg_2bytes_UART_tx:reg_tx|buffer[1]       ; reg_2bytes_UART_tx:reg_tx|data_aux[1]     ; clock        ; clock       ; 0.000        ; 0.036      ; 0.314      ;
+; 0.194 ; reg_2bytes_UART_tx:reg_tx|data_aux[2]     ; UART_TX:tx|data_bit[2]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.314      ;
+; 0.194 ; UART_TX:tx|bit_index[0]                   ; UART_TX:tx|bit_index[0]                   ; clock        ; clock       ; 0.000        ; 0.036      ; 0.314      ;
+; 0.194 ; UART_RX:rx|data_reg[6]                    ; reg_2bytes_UART_rx:reg_rx|buffer_data[6]  ; clock        ; clock       ; 0.000        ; 0.036      ; 0.314      ;
+; 0.194 ; UART_RX:rx|bit_index[0]                   ; UART_RX:rx|bit_index[0]                   ; clock        ; clock       ; 0.000        ; 0.036      ; 0.314      ;
+; 0.195 ; reg_2bytes_UART_tx:reg_tx|data_aux[6]     ; UART_TX:tx|data_bit[6]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.315      ;
+; 0.196 ; UART_RX:rx|data_reg[5]                    ; reg_2bytes_UART_rx:reg_rx|buffer_data[5]  ; clock        ; clock       ; 0.000        ; 0.036      ; 0.316      ;
+; 0.198 ; reg_2bytes_UART_rx:reg_rx|registrar[2]    ; MEF_main:exe|reg_address[2]               ; clock        ; clock       ; 0.000        ; 0.036      ; 0.318      ;
+; 0.199 ; MEF_main:exe|state.SEND_DATA              ; MEF_main:exe|send_data_tx                 ; clock        ; clock       ; 0.000        ; 0.036      ; 0.319      ;
+; 0.199 ; MEF_main:exe|state.PROCESS_DATA           ; MEF_main:exe|crt_decoder                  ; clock        ; clock       ; 0.000        ; 0.036      ; 0.319      ;
+; 0.204 ; UART_TX:tx|counter[12]                    ; UART_TX:tx|counter[12]                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.324      ;
+; 0.204 ; MEF_main:exe|state.SEND_DATA              ; MEF_main:exe|state.READ_DATA              ; clock        ; clock       ; 0.000        ; 0.036      ; 0.324      ;
+; 0.205 ; reg_2bytes_UART_tx:reg_tx|state.BYTE_ONE  ; reg_2bytes_UART_tx:reg_tx|state.START_ONE ; clock        ; clock       ; 0.000        ; 0.036      ; 0.325      ;
+; 0.207 ; MEF_main:exe|state.SEND_DATA              ; MEF_main:exe|state.000                    ; clock        ; clock       ; 0.000        ; 0.036      ; 0.327      ;
+; 0.209 ; UART_RX:rx|state.STOP                     ; UART_RX:rx|data_avail                     ; clock        ; clock       ; 0.000        ; 0.036      ; 0.329      ;
+; 0.209 ; UART_TX:tx|bit_index[1]                   ; UART_TX:tx|bit_index[2]                   ; clock        ; clock       ; 0.000        ; 0.036      ; 0.329      ;
+; 0.212 ; reg_2bytes_UART_tx:reg_tx|state.BYTE_TWO  ; reg_2bytes_UART_tx:reg_tx|state.START_TWO ; clock        ; clock       ; 0.000        ; 0.036      ; 0.332      ;
+; 0.215 ; UART_TX:tx|bit_index[0]                   ; UART_TX:tx|bit_index[1]                   ; clock        ; clock       ; 0.000        ; 0.036      ; 0.335      ;
+; 0.215 ; UART_TX:tx|state.DATA                     ; UART_TX:tx|bit_index[0]                   ; clock        ; clock       ; 0.000        ; 0.036      ; 0.335      ;
+; 0.216 ; DHT11_teste:a|state.S6                    ; DHT11_teste:a|state.S7                    ; clock        ; clock       ; 0.000        ; 0.037      ; 0.337      ;
+; 0.217 ; MEF_main:exe|state.CONTROLLER_SENSOR      ; MEF_main:exe|command_invalid              ; clock        ; clock       ; 0.000        ; 0.036      ; 0.337      ;
+; 0.227 ; reg_2bytes_UART_tx:reg_tx|state.000       ; reg_2bytes_UART_tx:reg_tx|state.BYTE_ONE  ; clock        ; clock       ; 0.000        ; 0.036      ; 0.347      ;
+; 0.228 ; UART_RX:rx|bit_index[0]                   ; UART_RX:rx|bit_index[2]                   ; clock        ; clock       ; 0.000        ; 0.036      ; 0.348      ;
++-------+-------------------------------------------+-------------------------------------------+--------------+-------------+--------------+------------+------------+
+
+
+----------------------------------------------
+; Fast 1200mV 0C Model Metastability Summary ;
+----------------------------------------------
+The design MTBF is not calculated because there are no specified synchronizers in the design.
+Number of Synchronizer Chains Found: 1
+Shortest Synchronizer Chain: 2 Registers
+Fraction of Chains for which MTBFs Could Not be Calculated: 1.000
+Worst Case Available Settling Time: 0.692 ns
+
+
+
+
++--------------------------------------------------------------------------------+
+; Multicorner Timing Analysis Summary                                            ;
++------------------+----------+-------+----------+---------+---------------------+
+; Clock            ; Setup    ; Hold  ; Recovery ; Removal ; Minimum Pulse Width ;
++------------------+----------+-------+----------+---------+---------------------+
+; Worst-case Slack ; -5.212   ; 0.178 ; N/A      ; N/A     ; -3.000              ;
+;  clock           ; -5.212   ; 0.178 ; N/A      ; N/A     ; -3.000              ;
+; Design-wide TNS  ; -991.452 ; 0.0   ; 0.0      ; 0.0     ; -438.691            ;
+;  clock           ; -991.452 ; 0.000 ; N/A      ; N/A     ; -438.691            ;
++------------------+----------+-------+----------+---------+---------------------+
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Board Trace Model Assignments                                                                                                                                                                                                                                                                                                                                                                                    ;
++---------------+--------------+-------------------+-------------------------+-------------------------+---------------+---------------------+----------------+------------------+--------+------------------+------------------------+------------------------+--------------+---------------+-----------------+-------+---------------------+--------------------+---------------+-----------------+-------------+
+; Pin           ; I/O Standard ; Near Tline Length ; Near Tline L per Length ; Near Tline C per Length ; Near Series R ; Near Differential R ; Near Pull-up R ; Near Pull-down R ; Near C ; Far Tline Length ; Far Tline L per Length ; Far Tline C per Length ; Far Series R ; Far Pull-up R ; Far Pull-down R ; Far C ; Termination Voltage ; Far Differential R ; EBD File Name ; EBD Signal Name ; EBD Far-end ;
++---------------+--------------+-------------------+-------------------------+-------------------------+---------------+---------------------+----------------+------------------+--------+------------------+------------------------+------------------------+--------------+---------------+-----------------+-------+---------------------+--------------------+---------------+-----------------+-------------+
+; uart_tx       ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; sensor        ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; ~ALTERA_DCLK~ ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
+; ~ALTERA_nCEO~ ; 2.5 V        ; 0 in              ; 0 H/in                  ; 0 F/in                  ; short         ; -                   ; open           ; open             ; open   ; 0 in             ; 0 H/in                 ; 0 F/in                 ; short        ; open          ; open            ; open  ; 0 V                 ; -                  ; n/a           ; n/a             ; n/a         ;
++---------------+--------------+-------------------+-------------------------+-------------------------+---------------+---------------------+----------------+------------------+--------+------------------+------------------------+------------------------+--------------+---------------+-----------------+-------+---------------------+--------------------+---------------+-----------------+-------------+
+
+
++----------------------------------------------------------------------------+
+; Input Transition Times                                                     ;
++-------------------------+--------------+-----------------+-----------------+
+; Pin                     ; I/O Standard ; 10-90 Rise Time ; 90-10 Fall Time ;
++-------------------------+--------------+-----------------+-----------------+
+; sensor                  ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; clock                   ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; uart_rx                 ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; ~ALTERA_ASDO_DATA1~     ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; ~ALTERA_FLASH_nCE_nCSO~ ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
+; ~ALTERA_DATA0~          ; 2.5 V        ; 2000 ps         ; 2000 ps         ;
++-------------------------+--------------+-----------------+-----------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Signal Integrity Metrics (Slow 1200mv 0c Model)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; Pin           ; I/O Standard ; Board Delay on Rise ; Board Delay on Fall ; Steady State Voh at FPGA Pin ; Steady State Vol at FPGA Pin ; Voh Max at FPGA Pin ; Vol Min at FPGA Pin ; Ringback Voltage on Rise at FPGA Pin ; Ringback Voltage on Fall at FPGA Pin ; 10-90 Rise Time at FPGA Pin ; 90-10 Fall Time at FPGA Pin ; Monotonic Rise at FPGA Pin ; Monotonic Fall at FPGA Pin ; Steady State Voh at Far-end ; Steady State Vol at Far-end ; Voh Max at Far-end ; Vol Min at Far-end ; Ringback Voltage on Rise at Far-end ; Ringback Voltage on Fall at Far-end ; 10-90 Rise Time at Far-end ; 90-10 Fall Time at Far-end ; Monotonic Rise at Far-end ; Monotonic Fall at Far-end ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; uart_tx       ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.07e-09 V                   ; 2.36 V              ; -0.00737 V          ; 0.209 V                              ; 0.012 V                              ; 5.22e-10 s                  ; 5.33e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.07e-09 V                  ; 2.36 V             ; -0.00737 V         ; 0.209 V                             ; 0.012 V                             ; 5.22e-10 s                 ; 5.33e-10 s                 ; Yes                       ; Yes                       ;
+; sensor        ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.8e-09 V                    ; 2.37 V              ; -0.00373 V          ; 0.104 V                              ; 0.011 V                              ; 4.34e-10 s                  ; 3.82e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.8e-09 V                   ; 2.37 V             ; -0.00373 V         ; 0.104 V                             ; 0.011 V                             ; 4.34e-10 s                 ; 3.82e-10 s                 ; Yes                       ; Yes                       ;
+; ~ALTERA_DCLK~ ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 1.74e-09 V                   ; 2.37 V              ; -0.0346 V           ; 0.198 V                              ; 0.094 V                              ; 3.14e-10 s                  ; 2.92e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 1.74e-09 V                  ; 2.37 V             ; -0.0346 V          ; 0.198 V                             ; 0.094 V                             ; 3.14e-10 s                 ; 2.92e-10 s                 ; Yes                       ; Yes                       ;
+; ~ALTERA_nCEO~ ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.57e-09 V                   ; 2.37 V              ; -0.00683 V          ; 0.171 V                              ; 0.018 V                              ; 4.97e-10 s                  ; 6.66e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.57e-09 V                  ; 2.37 V             ; -0.00683 V         ; 0.171 V                             ; 0.018 V                             ; 4.97e-10 s                 ; 6.66e-10 s                 ; Yes                       ; Yes                       ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Signal Integrity Metrics (Slow 1200mv 85c Model)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; Pin           ; I/O Standard ; Board Delay on Rise ; Board Delay on Fall ; Steady State Voh at FPGA Pin ; Steady State Vol at FPGA Pin ; Voh Max at FPGA Pin ; Vol Min at FPGA Pin ; Ringback Voltage on Rise at FPGA Pin ; Ringback Voltage on Fall at FPGA Pin ; 10-90 Rise Time at FPGA Pin ; 90-10 Fall Time at FPGA Pin ; Monotonic Rise at FPGA Pin ; Monotonic Fall at FPGA Pin ; Steady State Voh at Far-end ; Steady State Vol at Far-end ; Voh Max at Far-end ; Vol Min at Far-end ; Ringback Voltage on Rise at Far-end ; Ringback Voltage on Fall at Far-end ; 10-90 Rise Time at Far-end ; 90-10 Fall Time at Far-end ; Monotonic Rise at Far-end ; Monotonic Fall at Far-end ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; uart_tx       ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 1.93e-07 V                   ; 2.34 V              ; -0.00869 V          ; 0.14 V                               ; 0.046 V                              ; 6.89e-10 s                  ; 6.56e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 1.93e-07 V                  ; 2.34 V             ; -0.00869 V         ; 0.14 V                              ; 0.046 V                             ; 6.89e-10 s                 ; 6.56e-10 s                 ; Yes                       ; Yes                       ;
+; sensor        ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.85e-07 V                   ; 2.35 V              ; -0.0123 V           ; 0.144 V                              ; 0.042 V                              ; 4.81e-10 s                  ; 4.81e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.85e-07 V                  ; 2.35 V             ; -0.0123 V          ; 0.144 V                             ; 0.042 V                             ; 4.81e-10 s                 ; 4.81e-10 s                 ; Yes                       ; Yes                       ;
+; ~ALTERA_DCLK~ ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 1.55e-07 V                   ; 2.35 V              ; -0.00221 V          ; 0.097 V                              ; 0.005 V                              ; 4.49e-10 s                  ; 3.85e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 1.55e-07 V                  ; 2.35 V             ; -0.00221 V         ; 0.097 V                             ; 0.005 V                             ; 4.49e-10 s                 ; 3.85e-10 s                 ; Yes                       ; Yes                       ;
+; ~ALTERA_nCEO~ ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.32 V                       ; 2.54e-07 V                   ; 2.34 V              ; -0.00774 V          ; 0.109 V                              ; 0.026 V                              ; 6.58e-10 s                  ; 8.24e-10 s                  ; Yes                        ; Yes                        ; 2.32 V                      ; 2.54e-07 V                  ; 2.34 V             ; -0.00774 V         ; 0.109 V                             ; 0.026 V                             ; 6.58e-10 s                 ; 8.24e-10 s                 ; Yes                       ; Yes                       ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Signal Integrity Metrics (Fast 1200mv 0c Model)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; Pin           ; I/O Standard ; Board Delay on Rise ; Board Delay on Fall ; Steady State Voh at FPGA Pin ; Steady State Vol at FPGA Pin ; Voh Max at FPGA Pin ; Vol Min at FPGA Pin ; Ringback Voltage on Rise at FPGA Pin ; Ringback Voltage on Fall at FPGA Pin ; 10-90 Rise Time at FPGA Pin ; 90-10 Fall Time at FPGA Pin ; Monotonic Rise at FPGA Pin ; Monotonic Fall at FPGA Pin ; Steady State Voh at Far-end ; Steady State Vol at Far-end ; Voh Max at Far-end ; Vol Min at Far-end ; Ringback Voltage on Rise at Far-end ; Ringback Voltage on Fall at Far-end ; 10-90 Rise Time at Far-end ; 90-10 Fall Time at Far-end ; Monotonic Rise at Far-end ; Monotonic Fall at Far-end ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+; uart_tx       ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 2.74e-08 V                   ; 2.71 V              ; -0.0317 V           ; 0.148 V                              ; 0.064 V                              ; 4.51e-10 s                  ; 4.15e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 2.74e-08 V                  ; 2.71 V             ; -0.0317 V          ; 0.148 V                             ; 0.064 V                             ; 4.51e-10 s                 ; 4.15e-10 s                 ; No                        ; Yes                       ;
+; sensor        ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 4.05e-08 V                   ; 2.72 V              ; -0.0349 V           ; 0.173 V                              ; 0.1 V                                ; 2.72e-10 s                  ; 2.69e-10 s                  ; Yes                        ; Yes                        ; 2.62 V                      ; 4.05e-08 V                  ; 2.72 V             ; -0.0349 V          ; 0.173 V                             ; 0.1 V                               ; 2.72e-10 s                 ; 2.69e-10 s                 ; Yes                       ; Yes                       ;
+; ~ALTERA_DCLK~ ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 2.22e-08 V                   ; 2.74 V              ; -0.06 V             ; 0.158 V                              ; 0.08 V                               ; 2.68e-10 s                  ; 2.19e-10 s                  ; Yes                        ; Yes                        ; 2.62 V                      ; 2.22e-08 V                  ; 2.74 V             ; -0.06 V            ; 0.158 V                             ; 0.08 V                              ; 2.68e-10 s                 ; 2.19e-10 s                 ; Yes                       ; Yes                       ;
+; ~ALTERA_nCEO~ ; 2.5 V        ; 0 s                 ; 0 s                 ; 2.62 V                       ; 3.54e-08 V                   ; 2.7 V               ; -0.00943 V          ; 0.276 V                              ; 0.035 V                              ; 3.19e-10 s                  ; 4.99e-10 s                  ; No                         ; Yes                        ; 2.62 V                      ; 3.54e-08 V                  ; 2.7 V              ; -0.00943 V         ; 0.276 V                             ; 0.035 V                             ; 3.19e-10 s                 ; 4.99e-10 s                 ; No                        ; Yes                       ;
++---------------+--------------+---------------------+---------------------+------------------------------+------------------------------+---------------------+---------------------+--------------------------------------+--------------------------------------+-----------------------------+-----------------------------+----------------------------+----------------------------+-----------------------------+-----------------------------+--------------------+--------------------+-------------------------------------+-------------------------------------+----------------------------+----------------------------+---------------------------+---------------------------+
+
+
++-------------------------------------------------------------------+
+; Setup Transfers                                                   ;
++------------+----------+----------+----------+----------+----------+
+; From Clock ; To Clock ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++------------+----------+----------+----------+----------+----------+
+; clock      ; clock    ; 15176    ; 0        ; 0        ; 0        ;
++------------+----------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
++-------------------------------------------------------------------+
+; Hold Transfers                                                    ;
++------------+----------+----------+----------+----------+----------+
+; From Clock ; To Clock ; RR Paths ; FR Paths ; RF Paths ; FF Paths ;
++------------+----------+----------+----------+----------+----------+
+; clock      ; clock    ; 15176    ; 0        ; 0        ; 0        ;
++------------+----------+----------+----------+----------+----------+
+Entries labeled "false path" only account for clock-to-clock false paths and not path-based false paths. As a result, actual path counts may be lower than reported.
+
+
+---------------
+; Report TCCS ;
+---------------
+No dedicated SERDES Transmitter circuitry present in device or used in design
+
+
+---------------
+; Report RSKM ;
+---------------
+No non-DPA dedicated SERDES Receiver circuitry present in device or used in design
+
+
++------------------------------------------------+
+; Unconstrained Paths Summary                    ;
++---------------------------------+-------+------+
+; Property                        ; Setup ; Hold ;
++---------------------------------+-------+------+
+; Illegal Clocks                  ; 0     ; 0    ;
+; Unconstrained Clocks            ; 0     ; 0    ;
+; Unconstrained Input Ports       ; 2     ; 2    ;
+; Unconstrained Input Port Paths  ; 82    ; 82   ;
+; Unconstrained Output Ports      ; 2     ; 2    ;
+; Unconstrained Output Port Paths ; 3     ; 3    ;
++---------------------------------+-------+------+
+
+
++-------------------------------------+
+; Clock Status Summary                ;
++--------+-------+------+-------------+
+; Target ; Clock ; Type ; Status      ;
++--------+-------+------+-------------+
+; clock  ; clock ; Base ; Constrained ;
++--------+-------+------+-------------+
+
+
++---------------------------------------------------------------------------------------------------+
+; Unconstrained Input Ports                                                                         ;
++------------+--------------------------------------------------------------------------------------+
+; Input Port ; Comment                                                                              ;
++------------+--------------------------------------------------------------------------------------+
+; sensor     ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; uart_rx    ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
++------------+--------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; Unconstrained Output Ports                                                                          ;
++-------------+---------------------------------------------------------------------------------------+
+; Output Port ; Comment                                                                               ;
++-------------+---------------------------------------------------------------------------------------+
+; sensor      ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; uart_tx     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
++-------------+---------------------------------------------------------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------+
+; Unconstrained Input Ports                                                                         ;
++------------+--------------------------------------------------------------------------------------+
+; Input Port ; Comment                                                                              ;
++------------+--------------------------------------------------------------------------------------+
+; sensor     ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; uart_rx    ; No input delay, min/max delays, false-path exceptions, or max skew assignments found ;
++------------+--------------------------------------------------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------+
+; Unconstrained Output Ports                                                                          ;
++-------------+---------------------------------------------------------------------------------------+
+; Output Port ; Comment                                                                               ;
++-------------+---------------------------------------------------------------------------------------+
+; sensor      ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
+; uart_tx     ; No output delay, min/max delays, false-path exceptions, or max skew assignments found ;
++-------------+---------------------------------------------------------------------------------------+
+
+
++--------------------------+
+; Timing Analyzer Messages ;
++--------------------------+
+Info: *******************************************************************
+Info: Running Quartus Prime Timing Analyzer
+    Info: Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
+    Info: Processing started: Fri Sep  1 22:12:35 2023
+Info: Command: quartus_sta PBL_interface_de_entrada_e_saida -c main
+Info: qsta_default_script.tcl version: #1
+Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
+Info (21077): Low junction temperature is 0 degrees C
+Info (21077): High junction temperature is 85 degrees C
+Critical Warning (332012): Synopsys Design Constraints File file not found: 'main.sdc'. A Synopsys Design Constraints File is required by the Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
+Info (332142): No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
+Info (332105): Deriving Clocks
+    Info (332105): create_clock -period 1.000 -name clock clock
+Info (332143): No user constrained clock uncertainty found in the design. Calling "derive_clock_uncertainty"
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info: Found TIMING_ANALYZER_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
+Info: Analyzing Slow 1200mV 85C Model
+Critical Warning (332148): Timing requirements not met
+    Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the Timing Analyzer.
+Info (332146): Worst-case setup slack is -5.212
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -5.212            -991.452 clock 
+Info (332146): Worst-case hold slack is 0.433
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.433               0.000 clock 
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is -3.000
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.000            -438.691 clock 
+Info (332114): Report Metastability: Found 1 synchronizer chains.
+    Info (332114): Design MTBF is not calculated because the design doesn't meet its timing requirements.
+Info: Analyzing Slow 1200mV 0C Model
+Info (334003): Started post-fitting delay annotation
+Info (334004): Delay annotation completed successfully
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Critical Warning (332148): Timing requirements not met
+    Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the Timing Analyzer.
+Info (332146): Worst-case setup slack is -4.836
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -4.836            -910.384 clock 
+Info (332146): Worst-case hold slack is 0.383
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.383               0.000 clock 
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is -3.000
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.000            -438.691 clock 
+Info (332114): Report Metastability: Found 1 synchronizer chains.
+    Info (332114): Design MTBF is not calculated because the design doesn't meet its timing requirements.
+Info: Analyzing Fast 1200mV 0C Model
+Info (332123): Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Critical Warning (332148): Timing requirements not met
+    Info (11105): For recommendations on closing timing, run Report Timing Closure Recommendations in the Timing Analyzer.
+Info (332146): Worst-case setup slack is -1.636
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -1.636            -266.225 clock 
+Info (332146): Worst-case hold slack is 0.178
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):     0.178               0.000 clock 
+Info (332140): No Recovery paths to report
+Info (332140): No Removal paths to report
+Info (332146): Worst-case minimum pulse width slack is -3.000
+    Info (332119):     Slack       End Point TNS Clock 
+    Info (332119): ========= =================== =====================
+    Info (332119):    -3.000            -315.205 clock 
+Info (332114): Report Metastability: Found 1 synchronizer chains.
+    Info (332114): The design MTBF is not calculated because there are no specified synchronizers in the design.
+    Info (332114): Number of Synchronizer Chains Found: 1
+    Info (332114): Shortest Synchronizer Chain: 2 Registers
+    Info (332114): Fraction of Chains for which MTBFs Could Not be Calculated: 1.000
+    Info (332114): Worst Case Available Settling Time: 0.692 ns
+    Info (332114): 
+Info (332102): Design is not fully constrained for setup requirements
+Info (332102): Design is not fully constrained for hold requirements
+Info: Quartus Prime Timing Analyzer was successful. 0 errors, 5 warnings
+    Info: Peak virtual memory: 4912 megabytes
+    Info: Processing ended: Fri Sep  1 22:12:39 2023
+    Info: Elapsed time: 00:00:04
+    Info: Total CPU time (on all processors): 00:00:02
+
+
