@@ -1,0 +1,53 @@
+
+State Machine - |main|UART_TX:tx|state
+Name state.STOP state.DATA state.START state.00 
+state.00 0 0 0 0 
+state.START 0 0 1 1 
+state.DATA 0 1 0 1 
+state.STOP 1 0 0 1 
+
+State Machine - |main|reg_2bytes_UART_tx:reg_tx|state
+Name state.BYTE_TWO state.START_ONE state.BYTE_ONE state.000 state.START_TWO 
+state.000 0 0 0 0 0 
+state.BYTE_ONE 0 0 1 1 0 
+state.START_ONE 0 1 0 1 0 
+state.BYTE_TWO 1 0 0 1 0 
+state.START_TWO 0 0 0 1 1 
+
+State Machine - |main|DHT11_teste:a|state
+Name state.START state.S9 state.S8 state.S7 state.S6 state.S5 state.S4 state.S3 state.S2 state.S1 state.S0 state.STOP 
+state.STOP 0 0 0 0 0 0 0 0 0 0 0 0 
+state.S0 0 0 0 0 0 0 0 0 0 0 1 1 
+state.S1 0 0 0 0 0 0 0 0 0 1 0 1 
+state.S2 0 0 0 0 0 0 0 0 1 0 0 1 
+state.S3 0 0 0 0 0 0 0 1 0 0 0 1 
+state.S4 0 0 0 0 0 0 1 0 0 0 0 1 
+state.S5 0 0 0 0 0 1 0 0 0 0 0 1 
+state.S6 0 0 0 0 1 0 0 0 0 0 0 1 
+state.S7 0 0 0 1 0 0 0 0 0 0 0 1 
+state.S8 0 0 1 0 0 0 0 0 0 0 0 1 
+state.S9 0 1 0 0 0 0 0 0 0 0 0 1 
+state.START 1 0 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |main|MEF_main:exe|state
+Name state.INCORRECT_DATA state.SEND_DATA state.PROCESS_DATA state.CONTROLLER_SENSOR state.READ_DATA state.000 
+state.000 0 0 0 0 0 0 
+state.READ_DATA 0 0 0 0 1 1 
+state.CONTROLLER_SENSOR 0 0 0 1 0 1 
+state.PROCESS_DATA 0 0 1 0 0 1 
+state.SEND_DATA 0 1 0 0 0 1 
+state.INCORRECT_DATA 1 0 0 0 0 1 
+
+State Machine - |main|reg_2bytes_UART_rx:reg_rx|state
+Name state.ADD_COMMAND state.IDLE_2BYTE state.ADD_ADDRESS state.00 
+state.00 0 0 0 0 
+state.ADD_ADDRESS 0 0 1 1 
+state.IDLE_2BYTE 0 1 0 1 
+state.ADD_COMMAND 1 0 0 1 
+
+State Machine - |main|UART_RX:rx|state
+Name state.STOP state.DATA state.START state.00 
+state.00 0 0 0 0 
+state.START 0 0 1 1 
+state.DATA 0 1 0 1 
+state.STOP 1 0 0 1 
