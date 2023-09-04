@@ -1,26 +1,20 @@
-module DHT11_teste (
+module interface_sensor (
 
-    input clk_50MHz,      	// Sinal de clock de 50 MHz
-    input rst,             	// Sinal de reset
+    input clk_50MHz,      	   // Sinal de clock de 50 MHz
+    input rst,              	// Sinal de reset
     inout dht_data,        	// Pino de dados
-    output [39:0] data_out,
-    output error,           	// Sinal que indica a ocorrência de erro na transmissão de dados
-    output reg done,
+    output [39:0] data_out    // Dados coletados
     );
 
     
     reg dir;                            	// Usado para alterar o sentido do pino de entrada e saída do DHT11
     reg dht_out;                        	// Dado enviado da FPGA para o DHT11
-    reg error_reg;  	// Registradores conectados com as saída
+    reg error_reg;  	                     // Registradores de erro
     reg [25:0] counter;                 	// Contador para as divisões de clock
     reg [5:0] index;                    	// Usado para indexação dos dados no barramento     
     reg [39:0] data;                    	// Barramento que armazena os dados retornados do DHT11
     wire dht_in;                        	// Dado enviado do DHT11 para a FPGA        	 
-    
-    // Conectando os registradores com as saída
-    assign error = error_reg;
-    
-    
+
     // Módulo para alterar o pino de ligação com o DHT11 para o modo de envio ou leitura.
     TRI_State TRIS0 (
    	 .port( dht_data),
@@ -39,17 +33,16 @@ module DHT11_teste (
    			  S6 = 7, S7 = 8, S8 = 9, S9 = 10, STOP = 0, START = 11;
     
     // Lógica da FSM (Finite State Machine)
-    always @( posedge clk_50MHz)
+    always @( posedge clk_50MHz, negedge rst)
    	 
    	 // Iniciando máquina de estados
    	 begin: FSM
    				 
    				 // Verificando o reset
-   				 if ( rst == 1'b1)
+   				 if ( !rst)
    					 
    					 begin
    				
-   						 done <= 1'b0;
    						 dht_out <= 1'b1;	// Manda o sinal para que DHT11 fique pronto para operar
    						 counter <= 26'b00000000000000000000000000;
    						 data <= 40'b0000000000000000000000000000000000000000;
@@ -74,8 +67,8 @@ module DHT11_teste (
    								 
    							 end
    						 
-   						 // Estado de mandar nível lógico alto como preparação para o sinal de start.
-   						 // Permanecendo nele por 18 ms.
+   						 // Estado de preparação do start bit.
+   						 // Mantém nível lógico alto por 18 ms.
    						 S0:
    						 
    							 begin
@@ -84,12 +77,14 @@ module DHT11_teste (
    								 dht_out <= 1'b1;   // É mantido em nível lógico alto
    								 error_reg <= 1'b0;
    								 
-   								 if (counter >= 900000)  	// É preciso aguardar um tempo de 18 ms
+   								 if (counter >= 900000) begin  	// É preciso aguardar um tempo de 18 ms
    									 
 										 counter <= 26'b00000000000000000000000000;
    									 state <= S1;
+										 
+									 end
    								 
-   								 else begin    	// Após a passagem do tempo, passa-se ao próximo estado
+   								 else begin    	
    									 
    									 counter <= counter + 1'b1;
 										 state <= S0;
@@ -98,20 +93,22 @@ module DHT11_teste (
    								 
    							 end
    						 
-   						 // Estado de mandar nível lógico baixo como forma de indicar que ocorrerá uma aquisição de dados.
-   						 // Permanecendo nele por 18 ms.
+   						 // Manda o start bit para o sensor.
+   						 // Manda nível lógico baixo por 18 ms.
    						 S1:
    						 
    							 begin
 								 
-   								 dht_out <= 1'b0;   // Nível lógico baixo como procedimento de aquisição de dados
+   								 dht_out <= 1'b0;   // Bit de start
    								 
-   								 if (counter >= 900000)  	// É preciso aguardar um tempo de 18 ms
+   								 if (counter >= 900000) begin  	// É preciso aguardar um tempo de 18 ms
    									 
 										 counter <= 26'b00000000000000000000000000;
    									 state <= S2;
+										 
+									 end
    								 
-   								 else begin      	// Após a passagem do tempo, passa-se ao próximo estado
+   								 else begin      
    									 
    									 counter <= counter + 1'b1;
 										 state <= S1;
@@ -128,10 +125,12 @@ module DHT11_teste (
 								 
    								 dht_out <= 1'b1;
    								 
-   								 if ( counter >= 1000)
+   								 if ( counter >= 1000) begin
 									 
 										 dir <= 1'b0;	// Muda a direção do pino para receber dados do DHT11 (DHT11 -> FPGA)
    									 state <= S3;
+										
+									 end
    								 
    								 else begin
    								 
@@ -142,40 +141,34 @@ module DHT11_teste (
    							 
    							 end
    						 
-   						 // Estado de aguardo da resposta do DHT11. O nível lógico que se deve esperar do dht_in é o 0,
+   						 // Aguarda o dht11 enviar nível lógico baixo.
    						 // indicando que o DHT11 está sincronizando. O tempo de espera é de 60 us.
    						 S3:
    						 
    							 begin
    								 
-   								 if ( dht_in == 1'b0)   // O DHT11 ainda não deu o sinal de resposta
-   								 
-   									 begin
+   								 if ( dht_in == 1'b0) begin
    									 
    										 counter <= 26'b00000000000000000000000000;
    										 state <= S4;
    										 
-   									 end
+   								 end
    									 
-   								 else begin 	// Estourou o tempo limite ou o DHT11 respondeu
-									 
-										 if (counter >= 3000) begin
+   								 else if ( counter >= 3000) begin 	
 										 
-											 error_reg <= 1'b1; 	// Ocorreu um erro
-   										 counter <= 26'b00000000000000000000000000;
+										    error_reg <= 1'b1; 	// Ocorreu um erro
+   									    counter <= 26'b00000000000000000000000000;
    										 state <= STOP;
 										 
-										 end
+								    end
 										 
-										 else begin
+									 else begin
 										 
 											 counter <= counter + 1'b1;
 											 state <= S3;
 										 
-										 end
-   								 
-   								 end
-   								 
+									 end
+   				 								 
    							 end
    						 
    						 // Estado responsável por continuar detectando o pulso de sincronismo do DHT11.
@@ -191,24 +184,20 @@ module DHT11_teste (
    									 
    								 end
    								 
-   								 else begin
-									 
-										 if (counter >= 4400) begin
+   								 else if (counter >= 4400) begin
 										 
-											 error_reg <= 1'b1; 	// Ocorreu um erro
-   										 counter <= 26'b00000000000000000000000000;
-   										 state <= STOP;
+										 error_reg <= 1'b1; 	// Ocorreu um erro
+   									 counter <= 26'b00000000000000000000000000;
+   									 state <= STOP;
 										 
-										 end
+								    end
 										 
-										 else begin
+									 else begin
 										 
-											 counter <= counter + 1'b1;
-											 state <= S4;
+										 counter <= counter + 1'b1;
+										 state <= S4;
 										 
-										 end
-   									 
-   								 end
+									 end
    								 
    							 end
    						 
@@ -218,33 +207,29 @@ module DHT11_teste (
    						 
    							 begin
    							 
-   								 if ( dht_in == 1'b0) begin   	// O DHT11 ainda não enviou nível lógico baixo
+   								 if ( dht_in == 1'b0) begin   	
    								 
 										 state <= S6;
    									 error_reg <= 1'b0;
-   									 index <= 6'b000000;   	// Reseta o indexador
+   									 index <= 6'b100111;   	// Reseta o indexador
    									 counter <= 26'b00000000000000000000000000;
    								 
    								 end
    								 
-   								 else begin
-									 
-										 if (counter >= 4400) begin
+   								 else if (counter >= 4400) begin
 										 
-											 error_reg <= 1'b1; 	// Ocorreu um erro
-   										 counter <= 26'b00000000000000000000000000;
-   										 state <= STOP;
+										 error_reg <= 1'b1; 	// Ocorreu um erro
+   									 counter <= 26'b00000000000000000000000000;
+   									 state <= STOP;
 										 
-										 end
+									 end
 										 
-										 else begin
+									 else begin
 										 
-											 counter <= counter + 1'b1;
-											 state <= S5;
+										 counter <= counter + 1'b1;
+										 state <= S5;
 										 
-										 end
-   									 
-   								 end
+									 end
    								 
    							 end
    							 
@@ -269,7 +254,7 @@ module DHT11_teste (
    								 
    							 end
    							 
-   						 // Estado de verificação, caso o DHT11 tenha travado.
+   						 // Aguarda o nível lógico alto, que representa o bit de dado.
    						 S7:
    							 
    							 begin
@@ -281,23 +266,19 @@ module DHT11_teste (
    								 
    								 end
    									 
-   								 else begin
-   									 
-   									 if ( counter < 1600000) begin   // Tempo de 32 ms para o DHT11 destravar
+   								 else if ( counter >= 1600000) begin   // Tempo de 32 ms para o DHT11 responder
    										 
-   										 counter <= counter + 1'b1;
-   										 state <= S7;
+										 counter <= 26'b00000000000000000000000000;
+   									 error_reg <= 1'b1;     	// Sinal de erro
+   									 state <= STOP;	 
    										 
-   									 end
+   								 end
    										 
-   									 else begin 	// O tempo limite estourou e o DHT11 não se restaurou
+   								 else begin 	
    										 
-   										 counter <= 26'b00000000000000000000000000;
-   										 error_reg <= 1'b1;     	// Sinal de erro
-   										 state <= STOP;
+   									 counter <= counter + 1'b1;
+   									 state <= S7;
    										 
-   									 end
-   									 
    								 end
    								 
    							 end
@@ -309,7 +290,7 @@ module DHT11_teste (
    							 
    							 begin
    								 
-   								 if ( dht_in == 1'b0) begin 	// Não atingiu o tempo limite do else e comutou para 0
+   								 if ( dht_in == 1'b0) begin 	// Terminou de medir o nível lógico alto.
    									 
    									 // A largura do pulso de nível lógico alto foi lida corretamente
    										 
@@ -325,7 +306,7 @@ module DHT11_teste (
    										 
    									 end
    										 
-   									 if ( index < 39) begin    	// Ainda não acabou a leitura de todos os bits
+   									 if ( index > 0) begin    	// Ainda não acabou a leitura de todos os bits
    										 
    										 counter <= 26'b00000000000000000000000000;
    										 state <= S9;
@@ -340,17 +321,18 @@ module DHT11_teste (
    									 end
    									 
    								 end
+									 
+									 else if (counter >= 1600000) begin       // Tempo limite de 32 ms 
+									 
+											 error_reg <= 1'b1;     	// Sinal de erro
+   										 state <= STOP;
+									 
+									 end
    									 
    								 else begin   // É contabilizada a largura do pulso de nível lógico alto
    									 
    									 counter <= counter + 1'b1;
-   										 
-   									 if ( counter > 1600000) begin   // Atingiu tempo limite de 32 ms
-   										 
-   										 error_reg <= 1'b1;     	// Sinal de erro
-   										 state <= STOP;
-   										 
-   									 end
+   									 state <= S8;
    									 
    								 end
    								 
@@ -363,7 +345,7 @@ module DHT11_teste (
    							 
    							 begin
    								 
-   								 index <= index + 1'b1;
+   								 index <= index - 1'b1;
    								 state <= S6;
    								 
    							 end
@@ -371,8 +353,6 @@ module DHT11_teste (
    						 STOP:
    							 
    							 begin
-   							 
-   								 done <= 1'b1;
    								 
    								 state <= STOP;
    									 
@@ -382,7 +362,7 @@ module DHT11_teste (
    									 counter <= 26'b00000000000000000000000000;
    									 dir <= 1'b1;           	// Configurando conexão com o DHT11 como transmissão (FPGA -> DHT11)
    									 error_reg <= 1'b0;         	// Erro é resetado
-   									 index <= 6'b000000;
+   									 index <= 6'b100111;
    									 
    								 end
    									 
