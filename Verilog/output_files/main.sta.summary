@@ -2,40 +2,124 @@
 Timing Analyzer Summary
 ------------------------------------------------------------
 
-Type  : Slow 1200mV 85C Model Setup 'clock'
-Slack : -5.212
-TNS   : -991.452
+Type  : Slow 1200mV 85C Model Setup 'clock_50Mhz'
+Slack : -5.525
+TNS   : -675.551
 
-Type  : Slow 1200mV 85C Model Hold 'clock'
-Slack : 0.433
+Type  : Slow 1200mV 85C Model Setup 'interface_sensor:sensor|clk_1MHz'
+Slack : -4.994
+TNS   : -349.988
+
+Type  : Slow 1200mV 85C Model Hold 'interface_sensor:sensor|clk_1MHz'
+Slack : 0.452
 TNS   : 0.000
 
-Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clock'
-Slack : -3.000
-TNS   : -438.691
-
-Type  : Slow 1200mV 0C Model Setup 'clock'
-Slack : -4.836
-TNS   : -910.384
-
-Type  : Slow 1200mV 0C Model Hold 'clock'
-Slack : 0.383
+Type  : Slow 1200mV 85C Model Hold 'clock_50Mhz'
+Slack : 0.453
 TNS   : 0.000
 
-Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clock'
-Slack : -3.000
-TNS   : -438.691
+Type  : Slow 1200mV 85C Model Recovery 'interface_sensor:sensor|clk_1MHz'
+Slack : -1.868
+TNS   : -188.254
 
-Type  : Fast 1200mV 0C Model Setup 'clock'
-Slack : -1.636
-TNS   : -266.225
+Type  : Slow 1200mV 85C Model Recovery 'clock_50Mhz'
+Slack : -0.810
+TNS   : -15.008
 
-Type  : Fast 1200mV 0C Model Hold 'clock'
-Slack : 0.178
+Type  : Slow 1200mV 85C Model Removal 'clock_50Mhz'
+Slack : 1.136
 TNS   : 0.000
 
-Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clock'
+Type  : Slow 1200mV 85C Model Removal 'interface_sensor:sensor|clk_1MHz'
+Slack : 1.614
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clock_50Mhz'
 Slack : -3.000
-TNS   : -315.205
+TNS   : -330.140
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'interface_sensor:sensor|clk_1MHz'
+Slack : -1.487
+TNS   : -175.466
+
+Type  : Slow 1200mV 0C Model Setup 'clock_50Mhz'
+Slack : -5.165
+TNS   : -617.646
+
+Type  : Slow 1200mV 0C Model Setup 'interface_sensor:sensor|clk_1MHz'
+Slack : -4.633
+TNS   : -325.494
+
+Type  : Slow 1200mV 0C Model Hold 'clock_50Mhz'
+Slack : 0.401
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'interface_sensor:sensor|clk_1MHz'
+Slack : 0.402
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Recovery 'interface_sensor:sensor|clk_1MHz'
+Slack : -1.702
+TNS   : -170.496
+
+Type  : Slow 1200mV 0C Model Recovery 'clock_50Mhz'
+Slack : -0.637
+TNS   : -11.570
+
+Type  : Slow 1200mV 0C Model Removal 'clock_50Mhz'
+Slack : 1.035
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Removal 'interface_sensor:sensor|clk_1MHz'
+Slack : 1.480
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clock_50Mhz'
+Slack : -3.000
+TNS   : -330.140
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'interface_sensor:sensor|clk_1MHz'
+Slack : -1.487
+TNS   : -175.466
+
+Type  : Fast 1200mV 0C Model Setup 'clock_50Mhz'
+Slack : -1.790
+TNS   : -176.225
+
+Type  : Fast 1200mV 0C Model Setup 'interface_sensor:sensor|clk_1MHz'
+Slack : -1.528
+TNS   : -88.415
+
+Type  : Fast 1200mV 0C Model Hold 'clock_50Mhz'
+Slack : 0.186
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'interface_sensor:sensor|clk_1MHz'
+Slack : 0.186
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Recovery 'interface_sensor:sensor|clk_1MHz'
+Slack : -0.327
+TNS   : -24.445
+
+Type  : Fast 1200mV 0C Model Recovery 'clock_50Mhz'
+Slack : 0.182
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'clock_50Mhz'
+Slack : 0.499
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'interface_sensor:sensor|clk_1MHz'
+Slack : 0.662
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clock_50Mhz'
+Slack : -3.000
+TNS   : -237.301
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'interface_sensor:sensor|clk_1MHz'
+Slack : -1.000
+TNS   : -118.000
 
 ------------------------------------------------------------

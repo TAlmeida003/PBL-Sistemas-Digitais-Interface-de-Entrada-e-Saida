@@ -14,20 +14,19 @@ state.START_ONE 0 1 0 1 0
 state.BYTE_TWO 1 0 0 1 0 
 state.START_TWO 0 0 0 1 1 
 
-State Machine - |main|DHT11_teste:a|state
-Name state.START state.S9 state.S8 state.S7 state.S6 state.S5 state.S4 state.S3 state.S2 state.S1 state.S0 state.STOP 
-state.STOP 0 0 0 0 0 0 0 0 0 0 0 0 
-state.S0 0 0 0 0 0 0 0 0 0 0 1 1 
-state.S1 0 0 0 0 0 0 0 0 0 1 0 1 
-state.S2 0 0 0 0 0 0 0 0 1 0 0 1 
-state.S3 0 0 0 0 0 0 0 1 0 0 0 1 
-state.S4 0 0 0 0 0 0 1 0 0 0 0 1 
-state.S5 0 0 0 0 0 1 0 0 0 0 0 1 
-state.S6 0 0 0 0 1 0 0 0 0 0 0 1 
-state.S7 0 0 0 1 0 0 0 0 0 0 0 1 
-state.S8 0 0 1 0 0 0 0 0 0 0 0 1 
-state.S9 0 1 0 0 0 0 0 0 0 0 0 1 
-state.START 1 0 0 0 0 0 0 0 0 0 0 1 
+State Machine - |main|interface_sensor:sensor|state
+Name state.ERROR state.END_PROCESS state.COLLECT_ALL_DATA state.READ_DATA state.WAIT_BIT_DATA state.FINAL_SYNC state.WAIT_HIGH state.WAIT_LOW state.SEND_HIGH_20US state.START_BIT state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 0 0 0 0 
+state.START_BIT 0 0 0 0 0 0 0 0 0 1 1 
+state.SEND_HIGH_20US 0 0 0 0 0 0 0 0 1 0 1 
+state.WAIT_LOW 0 0 0 0 0 0 0 1 0 0 1 
+state.WAIT_HIGH 0 0 0 0 0 0 1 0 0 0 1 
+state.FINAL_SYNC 0 0 0 0 0 1 0 0 0 0 1 
+state.WAIT_BIT_DATA 0 0 0 0 1 0 0 0 0 0 1 
+state.READ_DATA 0 0 0 1 0 0 0 0 0 0 1 
+state.COLLECT_ALL_DATA 0 0 1 0 0 0 0 0 0 0 1 
+state.END_PROCESS 0 1 0 0 0 0 0 0 0 0 1 
+state.ERROR 1 0 0 0 0 0 0 0 0 0 1 
 
 State Machine - |main|MEF_main:exe|state
 Name state.INCORRECT_DATA state.SEND_DATA state.PROCESS_DATA state.CONTROLLER_SENSOR state.READ_DATA state.000 

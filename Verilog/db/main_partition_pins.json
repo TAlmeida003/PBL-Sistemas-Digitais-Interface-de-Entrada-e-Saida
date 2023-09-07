@@ -8,11 +8,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "sensor",
+					"name" : "sensor_data",
 					"strict" : false
 				},
 				{
-					"name" : "clock",
+					"name" : "clock_50Mhz",
 					"strict" : false
 				},
 				{

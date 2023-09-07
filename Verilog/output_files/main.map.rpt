@@ -1,5 +1,5 @@
 Analysis & Synthesis report for main
-Fri Sep  1 22:12:16 2023
+Thu Sep  7 14:30:45 2023
 Quartus Prime Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
 
 
@@ -15,7 +15,7 @@ Quartus Prime Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
   7. Analysis & Synthesis Resource Utilization by Entity
   8. State Machine - |main|UART_TX:tx|state
   9. State Machine - |main|reg_2bytes_UART_tx:reg_tx|state
- 10. State Machine - |main|DHT11_teste:a|state
+ 10. State Machine - |main|interface_sensor:sensor|state
  11. State Machine - |main|MEF_main:exe|state
  12. State Machine - |main|reg_2bytes_UART_rx:reg_rx|state
  13. State Machine - |main|UART_RX:rx|state
@@ -24,16 +24,11 @@ Quartus Prime Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
  16. Inverted Register Statistics
  17. Multiplexer Restructuring Statistics (Restructuring Performed)
  18. Parameter Settings for User Entity Instance: UART_RX:rx
- 19. Parameter Settings for User Entity Instance: MEF_main:exe
- 20. Parameter Settings for User Entity Instance: DHT11_teste:a
- 21. Parameter Settings for User Entity Instance: UART_TX:tx
- 22. Port Connectivity Checks: "UART_TX:tx"
- 23. Port Connectivity Checks: "DHT11_teste:a"
- 24. Port Connectivity Checks: "reg_2bytes_UART_rx:reg_rx"
- 25. Post-Synthesis Netlist Statistics for Top Partition
- 26. Elapsed Time Per Partition
- 27. Analysis & Synthesis Messages
- 28. Analysis & Synthesis Suppressed Messages
+ 19. Parameter Settings for User Entity Instance: UART_TX:tx
+ 20. Post-Synthesis Netlist Statistics for Top Partition
+ 21. Elapsed Time Per Partition
+ 22. Analysis & Synthesis Messages
+ 23. Analysis & Synthesis Suppressed Messages
 
 
 
@@ -60,15 +55,15 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                        ;
 +------------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Fri Sep  1 22:12:16 2023          ;
+; Analysis & Synthesis Status        ; Successful - Thu Sep  7 14:30:45 2023          ;
 ; Quartus Prime Version              ; 22.1std.2 Build 922 07/20/2023 SC Lite Edition ;
 ; Revision Name                      ; main                                           ;
 ; Top-level Entity Name              ; main                                           ;
 ; Family                             ; Cyclone IV E                                   ;
-; Total logic elements               ; 559                                            ;
-;     Total combinational functions  ; 465                                            ;
-;     Dedicated logic registers      ; 293                                            ;
-; Total registers                    ; 293                                            ;
+; Total logic elements               ; 546                                            ;
+;     Total combinational functions  ; 414                                            ;
+;     Dedicated logic registers      ; 338                                            ;
+; Total registers                    ; 338                                            ;
 ; Total pins                         ; 4                                              ;
 ; Total virtual pins                 ; 0                                              ;
 ; Total memory bits                  ; 0                                              ;
@@ -171,84 +166,78 @@ https://fpgasoftware.intel.com/eula.
 ; Number detected on machine ; 16          ;
 ; Maximum allowed            ; 16          ;
 ;                            ;             ;
-; Average used               ; 1.01        ;
+; Average used               ; 1.00        ;
 ; Maximum used               ; 16          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processor 2            ;   0.1%      ;
-;     Processor 3            ;   0.1%      ;
-;     Processor 4            ;   0.1%      ;
-;     Processor 5            ;   0.1%      ;
-;     Processor 6            ;   0.1%      ;
-;     Processor 7            ;   0.1%      ;
-;     Processors 8-16        ;   0.1%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processors 3-16        ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                                              ;
-+----------------------------------+-----------------+------------------------+-----------------------------------------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                                                                                                ; Library ;
-+----------------------------------+-----------------+------------------------+-----------------------------------------------------------------------------------------------------------------------------+---------+
-; Modules/UART_TX.v                ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_TX.v            ;         ;
-; Modules/UART_RX.v                ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_RX.v            ;         ;
-; Modules/TRI_State.v              ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/TRI_State.v          ;         ;
-; Modules/reg_2bytes_UART_tx.v     ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_tx.v ;         ;
-; Modules/reg_2bytes_UART_rx.v     ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_rx.v ;         ;
-; Modules/MEF_main.v               ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/MEF_main.v           ;         ;
-; Modules/main.v                   ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v               ;         ;
-; Modules/DHT11_teste.v            ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/DHT11_teste.v        ;         ;
-+----------------------------------+-----------------+------------------------+-----------------------------------------------------------------------------------------------------------------------------+---------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                                                                            ;
++----------------------------------+-----------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                                                                                                                                              ; Library ;
++----------------------------------+-----------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
+; Modules/interface_sensor.v       ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/interface_sensor.v   ;         ;
+; Modules/commands_table.v         ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/commands_table.v     ;         ;
+; Modules/UART_TX.v                ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_TX.v            ;         ;
+; Modules/UART_RX.v                ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_RX.v            ;         ;
+; Modules/reg_2bytes_UART_tx.v     ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_tx.v ;         ;
+; Modules/reg_2bytes_UART_rx.v     ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_rx.v ;         ;
+; Modules/MEF_main.v               ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/MEF_main.v           ;         ;
+; Modules/main.v                   ; yes             ; User Verilog HDL File  ; C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v               ;         ;
++----------------------------------+-----------------+------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------+
 
 
-+-----------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary               ;
-+---------------------------------------------+-------------+
-; Resource                                    ; Usage       ;
-+---------------------------------------------+-------------+
-; Estimated Total logic elements              ; 559         ;
-;                                             ;             ;
-; Total combinational functions               ; 465         ;
-; Logic element usage by number of LUT inputs ;             ;
-;     -- 4 input functions                    ; 231         ;
-;     -- 3 input functions                    ; 94          ;
-;     -- <=2 input functions                  ; 140         ;
-;                                             ;             ;
-; Logic elements by mode                      ;             ;
-;     -- normal mode                          ; 388         ;
-;     -- arithmetic mode                      ; 77          ;
-;                                             ;             ;
-; Total registers                             ; 293         ;
-;     -- Dedicated logic registers            ; 293         ;
-;     -- I/O registers                        ; 0           ;
-;                                             ;             ;
-; I/O pins                                    ; 4           ;
-;                                             ;             ;
-; Embedded Multiplier 9-bit elements          ; 0           ;
-;                                             ;             ;
-; Maximum fan-out node                        ; clock~input ;
-; Maximum fan-out                             ; 293         ;
-; Total fan-out                               ; 2377        ;
-; Average fan-out                             ; 3.10        ;
-+---------------------------------------------+-------------+
++-----------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                     ;
++---------------------------------------------+-------------------+
+; Resource                                    ; Usage             ;
++---------------------------------------------+-------------------+
+; Estimated Total logic elements              ; 546               ;
+;                                             ;                   ;
+; Total combinational functions               ; 414               ;
+; Logic element usage by number of LUT inputs ;                   ;
+;     -- 4 input functions                    ; 198               ;
+;     -- 3 input functions                    ; 53                ;
+;     -- <=2 input functions                  ; 163               ;
+;                                             ;                   ;
+; Logic elements by mode                      ;                   ;
+;     -- normal mode                          ; 338               ;
+;     -- arithmetic mode                      ; 76                ;
+;                                             ;                   ;
+; Total registers                             ; 338               ;
+;     -- Dedicated logic registers            ; 338               ;
+;     -- I/O registers                        ; 0                 ;
+;                                             ;                   ;
+; I/O pins                                    ; 4                 ;
+;                                             ;                   ;
+; Embedded Multiplier 9-bit elements          ; 0                 ;
+;                                             ;                   ;
+; Maximum fan-out node                        ; clock_50Mhz~input ;
+; Maximum fan-out                             ; 220               ;
+; Total fan-out                               ; 2412              ;
+; Average fan-out                             ; 3.17              ;
++---------------------------------------------+-------------------+
 
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                 ;
-+--------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------+--------------------+--------------+
-; Compilation Hierarchy Node     ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                 ; Entity Name        ; Library Name ;
-+--------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------+--------------------+--------------+
-; |main                          ; 465 (1)             ; 293 (0)                   ; 0           ; 0            ; 0       ; 0         ; 4    ; 0            ; |main                               ; main               ; work         ;
-;    |DHT11_teste:a|             ; 241 (240)           ; 87 (87)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|DHT11_teste:a                 ; DHT11_teste        ; work         ;
-;       |TRI_State:TRIS0|        ; 1 (1)               ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|DHT11_teste:a|TRI_State:TRIS0 ; TRI_State          ; work         ;
-;    |MEF_main:exe|              ; 81 (65)             ; 90 (90)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|MEF_main:exe                  ; MEF_main           ; work         ;
-;       |commands_table:a|       ; 16 (16)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|MEF_main:exe|commands_table:a ; commands_table     ; work         ;
-;    |UART_RX:rx|                ; 52 (52)             ; 31 (31)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|UART_RX:rx                    ; UART_RX            ; work         ;
-;    |UART_TX:tx|                ; 34 (34)             ; 30 (30)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|UART_TX:tx                    ; UART_TX            ; work         ;
-;    |reg_2bytes_UART_rx:reg_rx| ; 5 (5)               ; 28 (28)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|reg_2bytes_UART_rx:reg_rx     ; reg_2bytes_UART_rx ; work         ;
-;    |reg_2bytes_UART_tx:reg_tx| ; 51 (51)             ; 27 (27)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|reg_2bytes_UART_tx:reg_tx     ; reg_2bytes_UART_tx ; work         ;
-+--------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+-------------------------------------+--------------------+--------------+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                       ;
++----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------+--------------------+--------------+
+; Compilation Hierarchy Node             ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                               ; Entity Name        ; Library Name ;
++----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------+--------------------+--------------+
+; |main                                  ; 414 (1)             ; 338 (0)                   ; 0           ; 0            ; 0       ; 0         ; 4    ; 0            ; |main                                             ; main               ; work         ;
+;    |MEF_main:exe|                      ; 123 (77)            ; 93 (93)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|MEF_main:exe                                ; MEF_main           ; work         ;
+;       |commands_table:responseCommand| ; 46 (46)             ; 0 (0)                     ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|MEF_main:exe|commands_table:responseCommand ; commands_table     ; work         ;
+;    |UART_RX:rx|                        ; 52 (52)             ; 31 (31)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|UART_RX:rx                                  ; UART_RX            ; work         ;
+;    |UART_TX:tx|                        ; 34 (34)             ; 30 (30)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|UART_TX:tx                                  ; UART_TX            ; work         ;
+;    |interface_sensor:sensor|           ; 142 (142)           ; 125 (125)                 ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|interface_sensor:sensor                     ; interface_sensor   ; work         ;
+;    |reg_2bytes_UART_rx:reg_rx|         ; 5 (5)               ; 29 (29)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|reg_2bytes_UART_rx:reg_rx                   ; reg_2bytes_UART_rx ; work         ;
+;    |reg_2bytes_UART_tx:reg_tx|         ; 57 (57)             ; 30 (30)                   ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |main|reg_2bytes_UART_tx:reg_tx                   ; reg_2bytes_UART_tx ; work         ;
++----------------------------------------+---------------------+---------------------------+-------------+--------------+---------+-----------+------+--------------+---------------------------------------------------+--------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
@@ -280,24 +269,23 @@ Encoding Type:  One-Hot
 
 
 Encoding Type:  One-Hot
-+------------------------------------------------------------------------------------------------------------------------------------------------------+
-; State Machine - |main|DHT11_teste:a|state                                                                                                            ;
-+-------------+-------------+----------+----------+----------+----------+----------+----------+----------+----------+----------+----------+------------+
-; Name        ; state.START ; state.S9 ; state.S8 ; state.S7 ; state.S6 ; state.S5 ; state.S4 ; state.S3 ; state.S2 ; state.S1 ; state.S0 ; state.STOP ;
-+-------------+-------------+----------+----------+----------+----------+----------+----------+----------+----------+----------+----------+------------+
-; state.STOP  ; 0           ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0          ;
-; state.S0    ; 0           ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ; 1          ;
-; state.S1    ; 0           ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ; 0        ; 1          ;
-; state.S2    ; 0           ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ; 0        ; 0        ; 1          ;
-; state.S3    ; 0           ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ; 0        ; 0        ; 0        ; 1          ;
-; state.S4    ; 0           ; 0        ; 0        ; 0        ; 0        ; 0        ; 1        ; 0        ; 0        ; 0        ; 0        ; 1          ;
-; state.S5    ; 0           ; 0        ; 0        ; 0        ; 0        ; 1        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1          ;
-; state.S6    ; 0           ; 0        ; 0        ; 0        ; 1        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1          ;
-; state.S7    ; 0           ; 0        ; 0        ; 1        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1          ;
-; state.S8    ; 0           ; 0        ; 1        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1          ;
-; state.S9    ; 0           ; 1        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1          ;
-; state.START ; 1           ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 0        ; 1          ;
-+-------------+-------------+----------+----------+----------+----------+----------+----------+----------+----------+----------+----------+------------+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; State Machine - |main|interface_sensor:sensor|state                                                                                                                                                                                   ;
++------------------------+-------------+-------------------+------------------------+-----------------+---------------------+------------------+-----------------+----------------+----------------------+-----------------+------------+
+; Name                   ; state.ERROR ; state.END_PROCESS ; state.COLLECT_ALL_DATA ; state.READ_DATA ; state.WAIT_BIT_DATA ; state.FINAL_SYNC ; state.WAIT_HIGH ; state.WAIT_LOW ; state.SEND_HIGH_20US ; state.START_BIT ; state.IDLE ;
++------------------------+-------------+-------------------+------------------------+-----------------+---------------------+------------------+-----------------+----------------+----------------------+-----------------+------------+
+; state.IDLE             ; 0           ; 0                 ; 0                      ; 0               ; 0                   ; 0                ; 0               ; 0              ; 0                    ; 0               ; 0          ;
+; state.START_BIT        ; 0           ; 0                 ; 0                      ; 0               ; 0                   ; 0                ; 0               ; 0              ; 0                    ; 1               ; 1          ;
+; state.SEND_HIGH_20US   ; 0           ; 0                 ; 0                      ; 0               ; 0                   ; 0                ; 0               ; 0              ; 1                    ; 0               ; 1          ;
+; state.WAIT_LOW         ; 0           ; 0                 ; 0                      ; 0               ; 0                   ; 0                ; 0               ; 1              ; 0                    ; 0               ; 1          ;
+; state.WAIT_HIGH        ; 0           ; 0                 ; 0                      ; 0               ; 0                   ; 0                ; 1               ; 0              ; 0                    ; 0               ; 1          ;
+; state.FINAL_SYNC       ; 0           ; 0                 ; 0                      ; 0               ; 0                   ; 1                ; 0               ; 0              ; 0                    ; 0               ; 1          ;
+; state.WAIT_BIT_DATA    ; 0           ; 0                 ; 0                      ; 0               ; 1                   ; 0                ; 0               ; 0              ; 0                    ; 0               ; 1          ;
+; state.READ_DATA        ; 0           ; 0                 ; 0                      ; 1               ; 0                   ; 0                ; 0               ; 0              ; 0                    ; 0               ; 1          ;
+; state.COLLECT_ALL_DATA ; 0           ; 0                 ; 1                      ; 0               ; 0                   ; 0                ; 0               ; 0              ; 0                    ; 0               ; 1          ;
+; state.END_PROCESS      ; 0           ; 1                 ; 0                      ; 0               ; 0                   ; 0                ; 0               ; 0              ; 0                    ; 0               ; 1          ;
+; state.ERROR            ; 1           ; 0                 ; 0                      ; 0               ; 0                   ; 0                ; 0               ; 0              ; 0                    ; 0               ; 1          ;
++------------------------+-------------+-------------------+------------------------+-----------------+---------------------+------------------+-----------------+----------------+----------------------+-----------------+------------+
 
 
 Encoding Type:  One-Hot
@@ -341,29 +329,30 @@ Encoding Type:  One-Hot
 +-------------+------------+------------+-------------+----------+
 
 
-+---------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                              ;
-+----------------------------------------+----------------------------------------+
-; Register name                          ; Reason for Removal                     ;
-+----------------------------------------+----------------------------------------+
-; reg_2bytes_UART_tx:reg_tx|buffer[5..7] ; Stuck at GND due to stuck port data_in ;
-; UART_TX:tx|state~2                     ; Lost fanout                            ;
-; UART_TX:tx|state~3                     ; Lost fanout                            ;
-; reg_2bytes_UART_tx:reg_tx|state~2      ; Lost fanout                            ;
-; reg_2bytes_UART_tx:reg_tx|state~3      ; Lost fanout                            ;
-; DHT11_teste:a|state~2                  ; Lost fanout                            ;
-; DHT11_teste:a|state~3                  ; Lost fanout                            ;
-; DHT11_teste:a|state~4                  ; Lost fanout                            ;
-; DHT11_teste:a|state~5                  ; Lost fanout                            ;
-; MEF_main:exe|state~2                   ; Lost fanout                            ;
-; MEF_main:exe|state~3                   ; Lost fanout                            ;
-; MEF_main:exe|state~4                   ; Lost fanout                            ;
-; reg_2bytes_UART_rx:reg_rx|state~6      ; Lost fanout                            ;
-; reg_2bytes_UART_rx:reg_rx|state~7      ; Lost fanout                            ;
-; UART_RX:rx|state~2                     ; Lost fanout                            ;
-; UART_RX:rx|state~3                     ; Lost fanout                            ;
-; Total Number of Removed Registers = 18 ;                                        ;
-+----------------------------------------+----------------------------------------+
++--------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                             ;
++----------------------------------------+---------------------------------------+
+; Register name                          ; Reason for Removal                    ;
++----------------------------------------+---------------------------------------+
+; UART_TX:tx|state~2                     ; Lost fanout                           ;
+; UART_TX:tx|state~3                     ; Lost fanout                           ;
+; reg_2bytes_UART_tx:reg_tx|state~2      ; Lost fanout                           ;
+; reg_2bytes_UART_tx:reg_tx|state~3      ; Lost fanout                           ;
+; interface_sensor:sensor|state~15       ; Lost fanout                           ;
+; interface_sensor:sensor|state~16       ; Lost fanout                           ;
+; interface_sensor:sensor|state~17       ; Lost fanout                           ;
+; interface_sensor:sensor|state~18       ; Lost fanout                           ;
+; MEF_main:exe|state~2                   ; Lost fanout                           ;
+; MEF_main:exe|state~3                   ; Lost fanout                           ;
+; MEF_main:exe|state~4                   ; Lost fanout                           ;
+; reg_2bytes_UART_rx:reg_rx|state~8      ; Lost fanout                           ;
+; reg_2bytes_UART_rx:reg_rx|state~9      ; Lost fanout                           ;
+; UART_RX:rx|state~2                     ; Lost fanout                           ;
+; UART_RX:rx|state~3                     ; Lost fanout                           ;
+; MEF_main:exe|state.SEND_DATA           ; Merged with MEF_main:exe|send_data_tx ;
+; MEF_main:exe|state.CONTROLLER_SENSOR   ; Merged with MEF_main:exe|inout_sensor ;
+; Total Number of Removed Registers = 17 ;                                       ;
++----------------------------------------+---------------------------------------+
 
 
 +------------------------------------------------------+
@@ -371,12 +360,12 @@ Encoding Type:  One-Hot
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 293   ;
-; Number of registers using Synchronous Clear  ; 90    ;
-; Number of registers using Synchronous Load   ; 23    ;
-; Number of registers using Asynchronous Clear ; 0     ;
+; Total registers                              ; 338   ;
+; Number of registers using Synchronous Clear  ; 64    ;
+; Number of registers using Synchronous Load   ; 13    ;
+; Number of registers using Asynchronous Clear ; 139   ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 171   ;
+; Number of registers using Clock Enable       ; 232   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -386,9 +375,11 @@ Encoding Type:  One-Hot
 +----------------------------------------+---------+
 ; Inverted Register                      ; Fan out ;
 +----------------------------------------+---------+
+; interface_sensor:sensor|dout           ; 2       ;
+; interface_sensor:sensor|read_flag      ; 4       ;
 ; UART_RX:rx|rx_data                     ; 11      ;
 ; UART_RX:rx|data_serial_buffer          ; 1       ;
-; Total number of inverted registers = 2 ;         ;
+; Total number of inverted registers = 4 ;         ;
 +----------------------------------------+---------+
 
 
@@ -398,14 +389,16 @@ Encoding Type:  One-Hot
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                     ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------+
 ; 3:1                ; 8 bits    ; 16 LEs        ; 0 LEs                ; 16 LEs                 ; Yes        ; |main|reg_2bytes_UART_rx:reg_rx|buffer_data[4] ;
+; 3:1                ; 40 bits   ; 80 LEs        ; 40 LEs               ; 40 LEs                 ; Yes        ; |main|interface_sensor:sensor|data[14]         ;
 ; 4:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |main|UART_TX:tx|bit_index[2]                  ;
-; 4:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |main|UART_RX:rx|bit_index[1]                  ;
-; 5:1                ; 3 bits    ; 9 LEs         ; 3 LEs                ; 6 LEs                  ; Yes        ; |main|reg_2bytes_UART_tx:reg_tx|data_aux[5]    ;
-; 5:1                ; 5 bits    ; 15 LEs        ; 5 LEs                ; 10 LEs                 ; Yes        ; |main|reg_2bytes_UART_tx:reg_tx|data_aux[0]    ;
-; 5:1                ; 13 bits   ; 39 LEs        ; 13 LEs               ; 26 LEs                 ; Yes        ; |main|UART_RX:rx|counter[1]                    ;
-; 6:1                ; 6 bits    ; 24 LEs        ; 6 LEs                ; 18 LEs                 ; Yes        ; |main|DHT11_teste:a|index[1]                   ;
-; 258:1              ; 8 bits    ; 1376 LEs      ; 48 LEs               ; 1328 LEs               ; Yes        ; |main|reg_2bytes_UART_tx:reg_tx|buffer[15]     ;
-; 23:1               ; 26 bits   ; 390 LEs       ; 104 LEs              ; 286 LEs                ; Yes        ; |main|DHT11_teste:a|counter[22]                ;
+; 4:1                ; 3 bits    ; 6 LEs         ; 3 LEs                ; 3 LEs                  ; Yes        ; |main|UART_RX:rx|bit_index[0]                  ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 8 LEs                ; 16 LEs                 ; Yes        ; |main|reg_2bytes_UART_tx:reg_tx|data_aux[5]    ;
+; 5:1                ; 13 bits   ; 39 LEs        ; 13 LEs               ; 26 LEs                 ; Yes        ; |main|UART_RX:rx|counter[6]                    ;
+; 7:1                ; 6 bits    ; 24 LEs        ; 6 LEs                ; 18 LEs                 ; Yes        ; |main|interface_sensor:sensor|data_cnt[5]      ;
+; 262:1              ; 8 bits    ; 1392 LEs      ; 72 LEs               ; 1320 LEs               ; Yes        ; |main|reg_2bytes_UART_tx:reg_tx|buffer[10]     ;
+; 10:1               ; 16 bits   ; 96 LEs        ; 16 LEs               ; 80 LEs                 ; Yes        ; |main|interface_sensor:sensor|cnt[3]           ;
+; 11:1               ; 3 bits    ; 21 LEs        ; 12 LEs               ; 9 LEs                  ; No         ; |main|interface_sensor:sensor|Selector1        ;
+; 14:1               ; 2 bits    ; 18 LEs        ; 8 LEs                ; 10 LEs                 ; No         ; |main|interface_sensor:sensor|Selector0        ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+------------------------------------------------+
 
 
@@ -419,42 +412,6 @@ Encoding Type:  One-Hot
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+-----------------------------------------------------------+
-; Parameter Settings for User Entity Instance: MEF_main:exe ;
-+-------------------+-------+-------------------------------+
-; Parameter Name    ; Value ; Type                          ;
-+-------------------+-------+-------------------------------+
-; IDLE              ; 000   ; Unsigned Binary               ;
-; READ_DATA         ; 001   ; Unsigned Binary               ;
-; CONTROLLER_SENSOR ; 010   ; Unsigned Binary               ;
-; PROCESS_DATA      ; 011   ; Unsigned Binary               ;
-; SEND_DATA         ; 100   ; Unsigned Binary               ;
-; INCORRECT_DATA    ; 101   ; Unsigned Binary               ;
-+-------------------+-------+-------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
-+------------------------------------------------------------+
-; Parameter Settings for User Entity Instance: DHT11_teste:a ;
-+----------------+-------+-----------------------------------+
-; Parameter Name ; Value ; Type                              ;
-+----------------+-------+-----------------------------------+
-; S0             ; 1     ; Signed Integer                    ;
-; S1             ; 2     ; Signed Integer                    ;
-; S2             ; 3     ; Signed Integer                    ;
-; S3             ; 4     ; Signed Integer                    ;
-; S4             ; 5     ; Signed Integer                    ;
-; S5             ; 6     ; Signed Integer                    ;
-; S6             ; 7     ; Signed Integer                    ;
-; S7             ; 8     ; Signed Integer                    ;
-; S8             ; 9     ; Signed Integer                    ;
-; S9             ; 10    ; Signed Integer                    ;
-; STOP           ; 0     ; Signed Integer                    ;
-; START          ; 11    ; Signed Integer                    ;
-+----------------+-------+-----------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
 +---------------------------------------------------------+
 ; Parameter Settings for User Entity Instance: UART_TX:tx ;
 +----------------+-------+--------------------------------+
@@ -465,61 +422,35 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+---------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "UART_TX:tx"                                                                              ;
-+-----------+--------+----------+-------------------------------------------------------------------------------------+
-; Port      ; Type   ; Severity ; Details                                                                             ;
-+-----------+--------+----------+-------------------------------------------------------------------------------------+
-; tx_active ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+-----------+--------+----------+-------------------------------------------------------------------------------------+
-
-
-+--------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "DHT11_teste:a"                                                                                            ;
-+-------+--------+----------+----------------------------------------------------------------------------------------------------------+
-; Port  ; Type   ; Severity ; Details                                                                                                  ;
-+-------+--------+----------+----------------------------------------------------------------------------------------------------------+
-; error ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
-; done  ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed. ;
-+-------+--------+----------+----------------------------------------------------------------------------------------------------------+
-
-
-+----------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "reg_2bytes_UART_rx:reg_rx"                                                          ;
-+------+--------+----------+-------------------------------------------------------------------------------------+
-; Port ; Type   ; Severity ; Details                                                                             ;
-+------+--------+----------+-------------------------------------------------------------------------------------+
-; done ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+------+--------+----------+-------------------------------------------------------------------------------------+
-
-
 +-----------------------------------------------------+
 ; Post-Synthesis Netlist Statistics for Top Partition ;
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
 ; boundary_port         ; 4                           ;
-; cycloneiii_ff         ; 293                         ;
-;     ENA               ; 157                         ;
-;     ENA SCLR          ; 6                           ;
-;     ENA SCLR SLD      ; 8                           ;
-;     SCLR              ; 63                          ;
+; cycloneiii_ff         ; 338                         ;
+;     CLR               ; 21                          ;
+;     CLR SCLR          ; 16                          ;
+;     ENA               ; 114                         ;
+;     ENA CLR           ; 96                          ;
+;     ENA CLR SCLR      ; 6                           ;
+;     ENA SCLR          ; 16                          ;
+;     SCLR              ; 13                          ;
 ;     SCLR SLD          ; 13                          ;
-;     SLD               ; 2                           ;
-;     plain             ; 44                          ;
+;     plain             ; 43                          ;
 ; cycloneiii_io_obuf    ; 1                           ;
-; cycloneiii_lcell_comb ; 465                         ;
-;     arith             ; 77                          ;
-;         2 data inputs ; 77                          ;
-;     normal            ; 388                         ;
+; cycloneiii_lcell_comb ; 414                         ;
+;     arith             ; 76                          ;
+;         2 data inputs ; 76                          ;
+;     normal            ; 338                         ;
 ;         0 data inputs ; 1                           ;
-;         1 data inputs ; 6                           ;
-;         2 data inputs ; 56                          ;
-;         3 data inputs ; 94                          ;
-;         4 data inputs ; 231                         ;
+;         1 data inputs ; 7                           ;
+;         2 data inputs ; 79                          ;
+;         3 data inputs ; 53                          ;
+;         4 data inputs ; 198                         ;
 ;                       ;                             ;
 ; Max LUT depth         ; 8.00                        ;
-; Average LUT depth     ; 4.06                        ;
+; Average LUT depth     ; 3.60                        ;
 +-----------------------+-----------------------------+
 
 
@@ -538,67 +469,58 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
-    Info: Processing started: Fri Sep  1 22:11:57 2023
+    Info: Processing started: Thu Sep  7 14:30:29 2023
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off PBL_interface_de_entrada_e_saida -c main
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 16 of the 16 processors detected
+Info (12021): Found 1 design units, including 1 entities, in source file modules/interface_sensor.v
+    Info (12023): Found entity 1: interface_sensor File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/interface_sensor.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file modules/commands_table.v
+    Info (12023): Found entity 1: commands_table File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/commands_table.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file modules/uart_tx.v
-    Info (12023): Found entity 1: UART_TX File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_TX.v Line: 1
+    Info (12023): Found entity 1: UART_TX File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_TX.v Line: 6
 Info (12021): Found 1 design units, including 1 entities, in source file modules/uart_rx.v
-    Info (12023): Found entity 1: UART_RX File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_RX.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file modules/uart_main.v
-    Info (12023): Found entity 1: UART_main File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_main.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file modules/uart_2bytes.v
-    Info (12023): Found entity 1: UART_2BYTES File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_2BYTES.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file modules/tri_state.v
-    Info (12023): Found entity 1: TRI_State File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/TRI_State.v Line: 1
+    Info (12023): Found entity 1: UART_RX File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_RX.v Line: 6
 Info (12021): Found 1 design units, including 1 entities, in source file modules/reg_2bytes_uart_tx.v
-    Info (12023): Found entity 1: reg_2bytes_UART_tx File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_tx.v Line: 1
+    Info (12023): Found entity 1: reg_2bytes_UART_tx File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_tx.v Line: 6
 Info (12021): Found 1 design units, including 1 entities, in source file modules/reg_2bytes_uart_rx.v
-    Info (12023): Found entity 1: reg_2bytes_UART_rx File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_rx.v Line: 1
-Info (12021): Found 2 design units, including 2 entities, in source file modules/mef_main.v
-    Info (12023): Found entity 1: MEF_main File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/MEF_main.v Line: 1
-    Info (12023): Found entity 2: commands_table File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/MEF_main.v Line: 164
+    Info (12023): Found entity 1: reg_2bytes_UART_rx File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_rx.v Line: 7
+Info (12021): Found 1 design units, including 1 entities, in source file modules/mef_main.v
+    Info (12023): Found entity 1: MEF_main File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/MEF_main.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file modules/main.v
-    Info (12023): Found entity 1: main File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file modules/dht11_teste.v
-    Info (12023): Found entity 1: DHT11_teste File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/DHT11_teste.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file modules/dht11_2.v
-    Info (12023): Found entity 1: DHT11_2 File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/DHT11_2.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file modules/dht11.v
-    Info (12023): Found entity 1: DHT11 File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/DHT11.v Line: 1
+    Info (12023): Found entity 1: main File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v Line: 5
 Info (12127): Elaborating entity "main" for the top level hierarchy
-Info (12128): Elaborating entity "UART_RX" for hierarchy "UART_RX:rx" File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v Line: 16
-Info (12128): Elaborating entity "reg_2bytes_UART_rx" for hierarchy "reg_2bytes_UART_rx:reg_rx" File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v Line: 17
-Info (12128): Elaborating entity "MEF_main" for hierarchy "MEF_main:exe" File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v Line: 19
-Info (12128): Elaborating entity "commands_table" for hierarchy "MEF_main:exe|commands_table:a" File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/MEF_main.v Line: 28
-Info (12128): Elaborating entity "DHT11_teste" for hierarchy "DHT11_teste:a" File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v Line: 21
-Info (12128): Elaborating entity "TRI_State" for hierarchy "DHT11_teste:a|TRI_State:TRIS0" File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/DHT11_teste.v Line: 29
-Info (12128): Elaborating entity "reg_2bytes_UART_tx" for hierarchy "reg_2bytes_UART_tx:reg_tx" File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v Line: 23
-Info (12128): Elaborating entity "UART_TX" for hierarchy "UART_TX:tx" File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v Line: 24
-Warning (12241): 1 hierarchies have connectivity warnings - see the Connectivity Checks report folder
-Warning (13046): Tri-state node(s) do not directly drive top-level pin(s)
-    Warning (13047): Converted the fan-out from the tri-state buffer "DHT11_teste:a|TRI_State:TRIS0|read" to the node "DHT11_teste:a|error_reg" into an OR gate File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/TRI_State.v Line: 6
+Info (12128): Elaborating entity "UART_RX" for hierarchy "UART_RX:rx" File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v Line: 27
+Info (12128): Elaborating entity "reg_2bytes_UART_rx" for hierarchy "reg_2bytes_UART_rx:reg_rx" File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v Line: 36
+Info (12128): Elaborating entity "MEF_main" for hierarchy "MEF_main:exe" File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v Line: 57
+Info (12128): Elaborating entity "commands_table" for hierarchy "MEF_main:exe|commands_table:responseCommand" File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/MEF_main.v Line: 30
+Info (12128): Elaborating entity "interface_sensor" for hierarchy "interface_sensor:sensor" File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v Line: 75
+Warning (10230): Verilog HDL assignment warning at interface_sensor.v(297): truncated value with size 41 to match size of target (40) File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/interface_sensor.v Line: 297
+Warning (10230): Verilog HDL assignment warning at interface_sensor.v(303): truncated value with size 41 to match size of target (40) File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/interface_sensor.v Line: 303
+Info (12128): Elaborating entity "reg_2bytes_UART_tx" for hierarchy "reg_2bytes_UART_tx:reg_tx" File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v Line: 96
+Info (12128): Elaborating entity "UART_TX" for hierarchy "UART_TX:tx" File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v Line: 103
+Info (13000): Registers with preset signals will power-up high File: C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/interface_sensor.v Line: 12
+Info (13003): DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
 Info (286030): Timing-Driven Synthesis is running
 Info (17049): 15 registers lost all their fanouts during netlist optimizations.
-Info (144001): Generated suppressed messages file C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/output_files/main.map.smsg
+Info (144001): Generated suppressed messages file C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/output_files/main.map.smsg
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 564 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 551 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 2 input pins
     Info (21059): Implemented 1 output pins
     Info (21060): Implemented 1 bidirectional pins
-    Info (21061): Implemented 560 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 4 warnings
-    Info: Peak virtual memory: 4850 megabytes
-    Info: Processing ended: Fri Sep  1 22:12:16 2023
-    Info: Elapsed time: 00:00:19
-    Info: Total CPU time (on all processors): 00:00:27
+    Info (21061): Implemented 547 logic cells
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 3 warnings
+    Info: Peak virtual memory: 4859 megabytes
+    Info: Processing ended: Thu Sep  7 14:30:45 2023
+    Info: Elapsed time: 00:00:16
+    Info: Total CPU time (on all processors): 00:00:20
 
 
 +------------------------------------------+
 ; Analysis & Synthesis Suppressed Messages ;
 +------------------------------------------+
-The suppressed messages can be found in C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/output_files/main.map.smsg.
+The suppressed messages can be found in C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/output_files/main.map.smsg.
 
 
