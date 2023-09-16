@@ -4,7 +4,7 @@ module interface_sensor (
 //input wire 		  	start     ,     // Sinal de Start da máquina
 	input wire	     	rst_n		 ,     // Sinal de reset
 	inout	          	dat_io	 ,     // Pinagem inout do sensor
-	output reg [39:0]	data            // Barramento de armazenamento dos dados recebidos pelo sensor
+	output reg [39:0]	data      ,     // Barramento de armazenamento dos dados recebidos pelo sensor
 
 );
 
@@ -24,17 +24,17 @@ module interface_sensor (
 	// Estados do circuito
 	reg  [3:0] state;        
 	 
-	localparam IDLE             = 0;
-	localparam START_BIT        = 1;
-	localparam SEND_HIGH_20US   = 2;
-	localparam WAIT_LOW         = 3;
-	localparam WAIT_HIGH        = 4;
-	localparam FINAL_SYNC       = 5;
-	localparam WAIT_BIT_DATA    = 6;
-	localparam READ_DATA        = 7;
-	localparam COLLECT_ALL_DATA = 8;
-	localparam END_PROCESS      = 9;
-	localparam ERROR            = 10;
+	localparam s1 = 0;
+	localparam s2 = 1;
+	localparam s3 = 2;
+	localparam s4 = 3;
+	localparam s5 = 4;
+	localparam s6 = 5;
+	localparam s7 = 6;
+	localparam s8 = 7;
+	localparam s9 = 8;
+	localparam s10 = 9;
+	localparam ERROR = 10;
 	
 	// Setando a direção do pino inout do sensor
 	assign dat_io = read_flag ? 1'bz : dout;       // Se "read_flag" for 0, o pino recebe o valor indicado pelo circuito através do "dout"
@@ -79,7 +79,7 @@ module interface_sensor (
 	
 		if ( !rst_n) begin
 		
-			rst_1 <= 1'b0;
+			rst_1 <=1'b0;
 			rst_2 <= 1'b0;
 			rst_rising <= 1'b0;
 			
@@ -102,7 +102,7 @@ module interface_sensor (
 		if ( rst_n == 1'b0) begin
 		
 			read_flag <= 1'b1;
-			state <= IDLE;
+			state <= s1;
 			dout <= 1'b1;
 			data_buf <= 40'd0;
 			cnt <= 16'd0;
@@ -116,13 +116,13 @@ module interface_sensor (
 			case (state)
 			
 				// Preparando para iniciar o processo de sincronização com o sensor
-				IDLE : begin        
+				s1 : begin        
 				
 					 //if(start_rising && din==1'b1)begin
 					 
 					   if ( rst_rising && din == 1'b1) begin         // O pino do sensor precisa estar em nível lógico alto para depois enviar o start bit
 						
-							state <= START_BIT;
+							state <= s2;
 							read_flag <= 1'b0;           // Seta direção do pino do sensor para FPGA -> DHT11
 							dout <= 1'b0;                // Começando o envio do start bit
 							cnt <= 16'd0;
@@ -141,11 +141,11 @@ module interface_sensor (
 					end
 				
 				// Envia o start bit para o sensor por 19 ms
-				START_BIT : begin      
+				s2 : begin      
 				
 						if ( cnt >= 16'd19000) begin
 						
-							state <= SEND_HIGH_20US;
+							state <= s3;
 							dout <= 1'b1;        // Envia nível lógico alto para o sensor como próximo passo da sincronização
 							cnt <= 16'd0;
 							
@@ -160,13 +160,13 @@ module interface_sensor (
 					end
 				
 				// Envia nível lógico alto por 20 us para depois esperar a resposta do sensor
-				SEND_HIGH_20US : begin           
+				s3 : begin           
 				
 						if ( cnt >= 16'd20)begin
 						
 							cnt <= 16'd0;
 							read_flag <= 1'b1;      // Seta direção do pino do sensor para DHT11 -> FPGA
-							state <= WAIT_LOW;
+							state <= s4;
 							
 						end
 						
@@ -179,11 +179,11 @@ module interface_sensor (
 					end
 				
 				// É esperado que o sensor envie nível lógico baixo antes de atingir o tempo limite	
-				WAIT_LOW:begin            
+				s4:begin            
 				
 						if ( din == 1'b0) begin
 						
-							state <= WAIT_HIGH;
+							state <= s5;
 							cnt <= 16'd0;
 							
 						end
@@ -205,12 +205,12 @@ module interface_sensor (
 					end
 				
 				// É esperado que o sensor envie nível lógico alto antes de atingir o tempo limite
-				WAIT_HIGH: begin           
+				s5: begin           
 				
 						if ( din == 1'b1) begin
 						
-							state <= FINAL_SYNC;
-							cnt <= 16'd0;
+							state <= s6;
+							cnt<=16'd0;
 							data_cnt <= 6'd0;
 							
 						end
@@ -232,11 +232,11 @@ module interface_sensor (
 					end
 				
 				// Última etapa de sincronização. É esperado que o sensor envie nível lógico baixo antes de atingir o tempo limite
-				FINAL_SYNC : begin          
+				s6 : begin          
 				
 						if ( din == 1'b0) begin           
 						
-							state <= WAIT_BIT_DATA;
+							state <= s7;
 							cnt <= cnt + 1'b1;
 							
 						end
@@ -258,11 +258,11 @@ module interface_sensor (
 					end
 				
 				// O sensor deve enviar nível lógico alto que vai representar um dos bits de dados antes do tempo limite
-				WAIT_BIT_DATA:begin            
+				s7:begin            
 				
 						if ( din == 1'b1) begin
 						
-							state <= READ_DATA;
+							state <= s8;
 							cnt <= 16'd0;
 							
 						end
@@ -284,12 +284,12 @@ module interface_sensor (
 					end
 				
 				// Cronometra o tempo em nível lógico alto para determinar qual foi o bit enviado
-				READ_DATA : begin
+				s8 : begin
 				
 						if ( din == 1'b0) begin        // Terminou o envio do bit de dado        
 						
 							data_cnt <= data_cnt + 1'b1;               // Contabilizando quantos bits já foram lidos
-							state <= (data_cnt >= 6'd39) ? COLLECT_ALL_DATA : WAIT_BIT_DATA;    // Se todos os bits já foram lidos, vai para COLLECT_ALL_DATA, senão, continua lendo o resto
+							state <= (data_cnt >= 6'd39) ? s9 : s7;    // Se todos os bits já foram lidos, vai para s9, senão, continua lendo o resto
 							cnt <= 16'd0;
 							
 							if ( cnt >= 16'd60) begin        // Se o tempo em nível lógico alto for maior que 60 us, foi enviado o bit 1
@@ -323,13 +323,13 @@ module interface_sensor (
 					end
 				
 				// Coleta  todos os dados lidos
-				COLLECT_ALL_DATA : begin
+				s9 : begin
 
 						data <= data_buf;
 						
 						if ( din == 1'b1) begin
 						
-							state <= END_PROCESS;
+							state <= s10;
 							cnt <= 16'd0;
 							
 						end
@@ -340,7 +340,7 @@ module interface_sensor (
 							
 							if ( cnt >= 16'd65500) begin
 							
-								state <= IDLE;
+								state <= s1;
 								cnt <= 16'd0;
 								read_flag <= 1'b1;
 								
@@ -351,9 +351,9 @@ module interface_sensor (
 					end
 					
 				// Fim de todo o progresso da máquina de estados
-				END_PROCESS : begin
+				s10 : begin
 				
-						state <= IDLE;
+						state <= s1;
 						cnt <= 16'd0;
 						
 					end
@@ -365,7 +365,7 @@ module interface_sensor (
 						
 						if ( din == 1'b1) begin
 						
-							state <= END_PROCESS;
+							state <= s10;
 							cnt <= 16'd0;
 							
 						end
@@ -376,7 +376,7 @@ module interface_sensor (
 							
 							if ( cnt >= 16'd65500) begin
 							
-								state <= IDLE;
+								state <= s1;
 								cnt<=16'd0;
 								read_flag <= 1'b1;
 								
@@ -388,7 +388,7 @@ module interface_sensor (
 					
 				default : begin
 				
-						state <= IDLE;
+						state <= s1;
 						cnt <= 16'd0;
 						
 					end	
