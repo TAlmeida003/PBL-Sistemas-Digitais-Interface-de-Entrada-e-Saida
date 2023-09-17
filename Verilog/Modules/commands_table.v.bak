@@ -1,0 +1,164 @@
+module commands_table(input [7:0] reg_command,
+							 input [7:0] command,
+							 input crt_decoder,
+							 input [39:0] data_sensor,
+							 input command_invalid,
+							 input [7:0] address,
+							 input [7:0] reg_address,
+							 output reg [15:0] buffer_tx
+);
+		
+	/* Comandos de Requisição do Usuario */
+	localparam CURRENT_SENSOR_SITUATION      = 8'h1,
+               TEMPERATURE_MEASUREMENT       = 8'h2,
+               HUMIDITY_MEASUREMENT          = 8'h3,
+               ACTIVE_CONTINUOS_TEMPERATURE  = 8'h4,
+               ACTIVE_CONTINUOS_HUMIDITY     = 8'h5,
+               DISABLE_CONTINUOS_TEMPERATURE = 8'h6,
+               DISABLE_CONTINUOS_HUMIDITY    = 8'h7;
+
+	/* Comandos de Resposta */
+	localparam PROBLEM_SENSOR                      = 8'h1F,
+               SENSOR_WORKING                      = 8'h08,
+               CURRENT_HUMIDITY_MEASUREMENT        = 8'h09,
+               CURRENT_TEMPERATURE_MEASUREMENT     = 8'h0A,
+               TEMPERATURE_CONTINUOUS_DEACTIVATION = 8'h0B,
+               HUMIDITY_CONTINUOUS_DEACTIVATION    = 8'h0C,
+               VOID                                = 8'hFF,
+               COMMAND_DOES_NOT_EXIST              = 8'hCF,
+               ADDRESS_DOES_NOT_EXIST              = 8'hEF,
+               INCORRECT_COMMAND                   = 8'hDF,
+               INCORRECT_SENSOR_ADDRESS            = 8'h6F;
+					
+	// quando qualquer uma das tres entradas mudarem
+	always @(reg_command, crt_decoder, data_sensor, command_invalid, address, reg_address, command) begin
+	
+		if (crt_decoder) begin
+		
+			case (reg_command)
+			
+				CURRENT_SENSOR_SITUATION: begin 		
+					// caso de erro
+					if (data_sensor == 40'd1099511627775) begin  // Sensor com problema
+						buffer_tx[15:8] <= PROBLEM_SENSOR;
+						buffer_tx[7:0] <= VOID;							
+					end
+					// caso esteja correto
+					else begin 				                      // Sensor Funcinando			
+						buffer_tx[15:8] <= SENSOR_WORKING;
+						buffer_tx[7:0] <= VOID;							
+					end						
+				end
+			
+				TEMPERATURE_MEASUREMENT: begin	
+					if (data_sensor == 40'd1099511627775) begin 	// Sensor com problema							
+						buffer_tx[15:8] <= PROBLEM_SENSOR;						
+						buffer_tx[7:0]  <= VOID;		
+					end					
+					
+					else begin 		                             // Temperatura						
+						buffer_tx[15:8] <= CURRENT_TEMPERATURE_MEASUREMENT;
+						buffer_tx[7:0] <= data_sensor[23:16];							
+					end					
+				end
+				
+				HUMIDITY_MEASUREMENT: begin                                    
+					if (data_sensor == 40'd1099511627775) begin	// Sensor com problema									
+						buffer_tx[15:8] <= PROBLEM_SENSOR;
+						buffer_tx[7:0] <= VOID;										
+					end
+								 
+					else begin		                          // Umidade								
+						buffer_tx[15:8] <= CURRENT_HUMIDITY_MEASUREMENT;            
+						buffer_tx[7:0] <= data_sensor[39:32];										
+					end
+									
+				end
+				
+				ACTIVE_CONTINUOS_TEMPERATURE: begin
+				
+					if (command != DISABLE_CONTINUOS_TEMPERATURE && command != 8'd0 
+                        && command != ACTIVE_CONTINUOS_TEMPERATURE) begin   // ERRO: Ativar a umidade continua ou Desativa a umidadade com o loop de tempertura
+						buffer_tx[15:8] <= INCORRECT_COMMAND;
+						buffer_tx[7:0] <= VOID;
+					end
+					
+					else if (command == DISABLE_CONTINUOS_TEMPERATURE && reg_address != address) begin
+						buffer_tx[15:8] <= INCORRECT_SENSOR_ADDRESS;                                                // Erro: endereço diferente do de execução
+						buffer_tx[7:0] <= reg_address;
+					end
+					
+					 else if (data_sensor == 40'd1099511627775) begin  // ERRO: Sensor com problema 		
+						buffer_tx[15:8] <= PROBLEM_SENSOR;
+						buffer_tx[7:0] <= VOID;								
+					end	
+					
+					else begin                                        // Temperatura
+						buffer_tx[15:8] <= CURRENT_TEMPERATURE_MEASUREMENT;
+						buffer_tx[7:0] <= data_sensor[23:16];
+					end
+								
+				end
+				
+				ACTIVE_CONTINUOS_HUMIDITY: begin
+
+					if (command != DISABLE_CONTINUOS_HUMIDITY && command != 8'd0 
+                        && command != ACTIVE_CONTINUOS_HUMIDITY) begin // ERRO: Ativar a temperatura continua ou Desativa a temperatura com o loop de umidade
+						buffer_tx[15:8] <= INCORRECT_COMMAND;
+						buffer_tx[7:0] <= VOID;
+					end
+					
+					else if (command == DISABLE_CONTINUOS_HUMIDITY && reg_address != address) begin
+						buffer_tx[15:8] <= INCORRECT_SENSOR_ADDRESS;                    // Erro: endereço diferente do de execução	
+						buffer_tx[7:0] <= reg_address;
+					end
+					else if (data_sensor == 40'd1099511627775) begin // erro: Sensor com problema						
+						buffer_tx[15:8] <= PROBLEM_SENSOR;
+						buffer_tx[7:0] <= VOID;								
+					end
+						
+					else begin 	               //Umidade				
+						buffer_tx[15:8] <= CURRENT_HUMIDITY_MEASUREMENT;
+						buffer_tx[7:0] <= data_sensor[39:32];								
+					end
+
+				end
+					
+				DISABLE_CONTINUOS_TEMPERATURE: begin	
+						buffer_tx[15:8] <= TEMPERATURE_CONTINUOUS_DEACTIVATION;
+						buffer_tx[7:0] <= VOID;	
+				end
+				
+				DISABLE_CONTINUOS_HUMIDITY: begin
+						buffer_tx[15:8] <= HUMIDITY_CONTINUOUS_DEACTIVATION;
+						buffer_tx[7:0] <= VOID;
+				end
+				
+				default: begin
+                    buffer_tx <= 16'd0;
+                end			
+			
+			endcase
+		
+		end	
+		
+		// Caso algum dado do novo pacote seja invalido
+		else if (command_invalid) begin
+		
+			if (reg_command >= 8'd8)begin // comando invalido
+				buffer_tx[15:8] <= COMMAND_DOES_NOT_EXIST;	
+				buffer_tx[7:0] <= VOID; 
+			end
+			
+			// caso o endereco seja invalido
+			else begin
+				buffer_tx[15:8] <= ADDRESS_DOES_NOT_EXIST;
+				buffer_tx[7:0] <= VOID;
+			end
+		end
+		
+		else 
+			buffer_tx <= 16'd0;				
+	end		
+
+endmodule
