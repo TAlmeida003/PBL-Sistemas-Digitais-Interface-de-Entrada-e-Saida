@@ -10,15 +10,15 @@ module reg_2bytes_UART_tx (
     input [7:0]  byte_two,   // SEGUNDO BYTE A SER TRANSMITIDO
     input        done_tx,    // SINALIZA QUANDO A TRANSMISSÃO DE UM BYTE FOI CONCLUÍDA
     output [7:0] data,       // BYTE SENDO ATUALMENTE TRANSMITIDO
-    output       done        // SINALIZA QUANDO A TRANSMISSÃO DOS DOIS BYTES FOI CONCLUÍDA
+    output       send        // SINALIZA QUANDO A TRANSMISSÃO DOS DOIS BYTES FOI CONCLUÍDA
 );
 
     /* ESTADOS DA MÁQUINA DE ESTADOS */
     localparam IDLE     = 3'b000,
-               BYTE_ONE = 3'b001,
-               START_ONE    = 3'b010,
-               BYTE_TWO = 3'b011,
-               START_TWO = 3'b100;
+               SEND_BYTE_ONE = 3'b001,
+               STOP_ACK_1   = 3'b010,
+               SEND_BYTE_TWO = 3'b011,
+               STOP_ACK_2 = 3'b100;
 
     /* REGISTRADORES INTERNOS */
     reg [2:0] state = 0;          // ESTADO ATUAL DA MÁQUINA DE ESTADOS
@@ -26,7 +26,7 @@ module reg_2bytes_UART_tx (
     reg byte_sent = 0;           // INDICA SE UM BYTE FOI TRANSMITIDO
     reg [15:0] buffer = 0;        // BUFFER PARA ARMAZENAR OS BYTES A SEREM TRANSMITIDOS
 
-    assign done = byte_sent;      // SINALIZA QUANDO A TRANSMISSÃO DOS DOIS BYTES FOI CONCLUÍDA
+    assign send = byte_sent;      // SINALIZA QUANDO A TRANSMISSÃO DOS DOIS BYTES FOI CONCLUÍDA
     assign data = data_aux;       // BYTE SENDO ATUALMENTE TRANSMITIDO
 
    /* TRANSIÇÃO DE ESTADOS */
@@ -36,7 +36,7 @@ module reg_2bytes_UART_tx (
                 byte_sent <= 0;
 
                 if (enable) begin
-                    state <= BYTE_ONE;              // TRANSIÇÃO PARA O ESTADO DE ENVIO DO PRIMEIRO BYTE
+                    state <= SEND_BYTE_ONE;              // TRANSIÇÃO PARA O ESTADO DE ENVIO DO PRIMEIRO BYTE
                     data_aux <= buffer[7:0];        // CARREGA O PRIMEIRO BYTE PARA TRANSMISSÃO
                     buffer <= {byte_two, byte_one}; // REARRANJA OS BYTES NO BUFFER PARA TRANSMISSÃO
                 end
@@ -45,34 +45,34 @@ module reg_2bytes_UART_tx (
                     buffer <= 8'd0;               // ZERA O BUFFER
                 end
             end
-            BYTE_ONE: begin
+            SEND_BYTE_ONE: begin
                 data_aux <= buffer[7:0];         // CARREGA O PRIMEIRO BYTE PARA TRANSMISSÃO
-                state <= START_ONE;              // TRANSIÇÃO PARA O ESTADO DE INÍCIO DA TRANSMISSÃO DO PRIMEIRO BYTE
+                state <= STOP_ACK_1;              // TRANSIÇÃO PARA O ESTADO DE INÍCIO DA TRANSMISSÃO DO PRIMEIRO BYTE
                 byte_sent <= 1;                  // INDICA QUE UM BYTE FOI TRANSMITIDO
             end
-            START_ONE : begin
+            STOP_ACK_1 : begin
                 byte_sent <= 0;
 
                 if (done_tx) begin
-                    state <= BYTE_TWO;           // SE O PRIMEIRO BYTE FOI TRANSMITIDO COM SUCESSO, TRANSIÇÃO PARA O ESTADO DE ENVIO DO SEGUNDO BYTE
+                    state <= SEND_BYTE_TWO;           // SE O PRIMEIRO BYTE FOI TRANSMITIDO COM SUCESSO, TRANSIÇÃO PARA O ESTADO DE ENVIO DO SEGUNDO BYTE
                 end
                 else begin
-                    state <= START_ONE;          // PERMANECE NO ESTADO DE INÍCIO DA TRANSMISSÃO DO PRIMEIRO BYTE
+                    state <= STOP_ACK_1;          // PERMANECE NO ESTADO DE INÍCIO DA TRANSMISSÃO DO PRIMEIRO BYTE
                 end
             end
-            BYTE_TWO:begin
+            SEND_BYTE_TWO: begin
                 byte_sent <= 1;
                 data_aux <= buffer[15:8];         // CARREGA O SEGUNDO BYTE PARA TRANSMISSÃO
-                state <= START_TWO;               // TRANSIÇÃO PARA O ESTADO DE INÍCIO DA TRANSMISSÃO DO SEGUNDO BYTE
+                state <= STOP_ACK_2;               // TRANSIÇÃO PARA O ESTADO DE INÍCIO DA TRANSMISSÃO DO SEGUNDO BYTE
             end
-            START_TWO : begin
+            STOP_ACK_2 : begin
                 byte_sent <= 0;
 
                 if (done_tx) begin
                     state <= IDLE;               // SE O SEGUNDO BYTE FOI TRANSMITIDO COM SUCESSO, TRANSIÇÃO DE VOLTA PARA O ESTADO DE OCIOSIDADE
                 end
                 else begin
-                    state <= START_TWO;          // PERMANECE NO ESTADO DE INÍCIO DA TRANSMISSÃO DO SEGUNDO BYTE
+                    state <= STOP_ACK_2;          // PERMANECE NO ESTADO DE INÍCIO DA TRANSMISSÃO DO SEGUNDO BYTE
                 end
             end
             default: state <= IDLE;              // CASO DE ESTADO NÃO RECONHECIDO, RETORNA AO ESTADO DE OCIOSIDADE
