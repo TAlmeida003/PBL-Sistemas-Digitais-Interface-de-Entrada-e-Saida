@@ -72,7 +72,7 @@ module MEF_main(input clock,					// CLOCK NATIVO DA PLACA DE 50 MHz
 	always @(posedge clock) begin 
 		// SE ESTIVER EM SENSORIAMENTO CONTINUO E O ENDERECO EM EXECUCAO SEJA IGUAL AO NOVO RECEBIDO, ATUALIZA APENAS O COMANDO EM EXECUCAO
 		if (loop) begin 
-			if (((exe_command == 4 && next_command == 6) || (exe_command == 5 && next_command == 7)) && exe_address == next_address && command != 0) begin
+			if (((exe_command == 4 && next_command == 6) || (exe_command == 5 && next_command == 7)) && exe_address == next_address && next_command != 0) begin
 				exe_command <= next_command;
 			end
 		end
