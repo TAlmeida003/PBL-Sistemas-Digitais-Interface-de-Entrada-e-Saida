@@ -9,6 +9,72 @@
   O dispositivo FPGA Cyclone IV é usado para processar os dados de humidade e temperatura lidos pelo sensor DHT11. O envio de comandos para a placa e visualização dos dados coletados é feito através do computador, com o código implementado em linguagem C. Essa comunicação é serial do tipo UART. O sistema foi feito com o intuito de ser modular, possuindo a capacidade de mudar o tipo de sensor utilizado, sem mexer em áreas do circuito além daquela relacionada ao próprio sensor.
 </p>
 
+<h2 id="Recebimento-FPGA"> Recebimento de dados pela FPGA</h2>
+<p align="justify"> 
+  O processo de recebimento e armazenamento dos 2 bytes enviados pelo PC para a FPGA é gerenciado através da interação entre dois módulos essenciais: "UART RX" e "BUFFER RX".
+</p>
+
+<p align="justify"> 
+  O módulo “UART RX” tem como função principal receber os dados enviados pelo computador no padrão UART (Universal Asynchronous Receiver/Transmitter), através do código em linguagem C. Este drive, implementado em Verilog, possui duas entradas e duas saídas. 
+
+  * "clk" (entrada): está associada ao pulso de clock com uma frequência de 50 Mhz;
+
+  * "input_rx" (entrada): corresponde aos dados recebidos de forma serial;
+
+  * "out_rx" (saída): representam um barramento de um byte que junta o conjunto de bits convertidos para formato paralelo;
+
+  * "done" (saída): sinaliza a conclusão da captura dos 8 bits.
+</p>
+
+<p align="justify"> 
+  Para garantir a sincronização adequada entre a UART da FPGA e a taxa de transmissão de dados de 9600 bps da UART do PC, foi calculado o número de pulsos de clock por bit, resultando em um valor de 5208, armazenado no parâmetro "CLKS_PER_BIT". Esse valor é utilizado como base para os contadores, garantindo a integridade da comunicação e evitando perda de bits.
+</p>
+
+<p align="justify"> 
+  Para realizar o recebimento de dados, foi utilizada uma máquina de estados finitos (MEF) com 4 estados. Nesse sentido, segue a explicação de cada estado:
+</p>
+
+<p align="justify"> 
+
+  * IDLE: Nesse primeiro estado, a MEF está em estado de ociosidade, esperando por um novo conjunto de bytes. A flag “done” é igual a 0, indicando que nenhum dado está disponível. Os contadores (counter e bit_index) estão zerados. Neste estado, enquanto o sinal "rx_data" permanecer em alto (1), a MEF permanece no estado "IDLE". Caso seja detectada uma mudança para baixo (0), a MEF faz a transição para o estado "START", iniciando a recepção de dados.
+
+  * START: No estado de recepção de dados, o contador “counter” é iniciado, e ao atingir a metade do valor de "CLKS_PER_BIT", e o sinal "rx_data" ainda estiver baixo, significa que uma transmissão no modelo UART foi iniciada. Dessa maneira, a MEF faz a transição para o estado "DATA" para guardar os bits. Caso o contrário, ela retorna para o estado "IDLE", já que, o dado captado não representa um sinal válido.
+
+  * DATA: A lógica do estado de recepção segue uma ideia parecida com a do estado "START", na qual o primeiro contador (counter) conta até chegar no tempo necessário para o bit ser transmitido – valor armazenado em “CLKS_PER_BIT”. Ao chegar nesse valor, o valor recebido é armazenado no registrador interno do módulo, e o segundo contador (bit_index) é incrementado, e “counter” é zerado, reiniciando o processo. Esse ciclo se mantém até que “bit_index” chegue a 7, sinalizando que os 8 bits foram capturados. Ao chegar a essa condição, a MEF passa para o estado "STOP".
+
+  * STOP: No estado final do processo, a MEF finaliza a recepção dos dados. Nesse sentido, a flag “done” é ativada, indicando que um dado está disponível. O contador "counter" realiza uma contagem para aguardar o tempo necessário para a chegada do próximo byte. Assim, ao atingir o valor de "CLKS_PER_BIT", a MEF retorna para o estado "IDLE".
+
+</p>
+
+<p align="justify"> 
+  O módulo "BUFFER RX", por sua vez, tem a função de assegurar a persistência dos dados recebidos e armazenados pela UART RX em um buffer interno de 2 bytes. Essa funcionalidade é necessária devido ao fato de o PC enviar regularmente pacotes de requisição contendo dois bytes de dados. Com o objetivo de evitar conflitos e sobreposições de informações no buffer da UART RX, este módulo opera de forma a capturar e armazenar cada byte de maneira sequencial e organizada. O módulo possui quatro entradas e três saídas:
+
+  * "clock" (entrada): está associado ao pulso de clock com uma frequência de 50 MHz;
+
+  * "new_data" (entrada): representa o sinal da flag "done" da "UART RX" confirmando a disponibilidade de um novo pacote de dados;
+
+  * "data" (entrada): é um barramento de 1 byte que representa o byte armazenado na UART RX;
+
+  * "reset" (entrada): é um sinal utilizado para reiniciar o funcionamento do módulo;
+
+  * "out_address" e "out_command" (saída): representam os dois bytes armazenados, com seus bits devidamente separados, respectivamente, o primeiro representa o endereço e o segundo o comando;
+
+  * "done" (entrada): sinaliza que ambos os bytes foram armazenados com sucesso.
+</p>
+
+<p align="justify"> 
+Para esse modulo foi usado uma MEF com 4 estados:
+
+* IDLE_1BYTE: Neste estado, a MEF aguarda o sinal de confirmação de que o primeiro byte foi enviado. A flag "done" permanece em 0, indicando que a recepção não está concluída. Enquanto o sinal "new_data" estiver em 0 (indicando que nenhum byte está disponível), a MEF permanece neste estado. Quando "new_data" assume o valor 1, a máquina faz a transição para o estado "ADD_COMMAND".
+
+* ADD_COMMAND: Neste estado, a MEF adiciona o primeiro byte ao registrador de 16 bits. O valor da flag "done" permanece em 0. Enquanto "new_data" indicar que o conteúdo está disponível, o registrador nas posições mais significativas (15:8) é carregado com o valor armazenado na "UART RX". Quando o sinal "new_data" muda de valor (0 para 1), a MEF faz a transição para o estado "IDLE_2BYTE".
+
+* IDLE_2BYTE: Esse estado tem uma lógica semelhante ao primeiro estado de espera, na qual, a MEF aguarda o sinal de confirmação de que o segundo byte foi enviado. O valor da flag "done" permanece em 0. Enquanto o sinal "new_data" estiver em 0, a MEF permanece neste estado. Quando "new_data" assume o valor 1, a máquina faz a transição para o estado "ADD_ADDRESS".
+
+* ADD_ADDRESS: Neste estado, a MEF adiciona o segundo byte ao buffer. Enquanto o valor de "new_data" indicar que o conteúdo está disponível, o registrador nas posições mais significativas (7:0) é carregado com o valor armazenado na "UART RX". O valor da flag "done" é mantido como 0. Quando o sinal "new_data" muda de valor (1 para 0), a MEF faz a transição de volta para o estado "IDLE_1BYTE". No momento da transição de volta para "IDLE_1BYTE", a flag "done" é definida como 1, indicando que ambos os bytes foram recebidos e o processo foi concluído com sucesso.
+
+</p>
+
 
 <h2 id="sensor-dht11"> Sincronização e leitura do sensor DHT11</h2>
 
