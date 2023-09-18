@@ -7,6 +7,16 @@
 
 <p align="justify"> 
   O dispositivo FPGA Cyclone IV é usado para processar os dados de humidade e temperatura lidos pelo sensor DHT11. O envio de comandos para a placa e visualização dos dados coletados é feito através do computador, com o código implementado em linguagem C. Essa comunicação é serial do tipo UART. O sistema foi feito com o intuito de ser modular, possuindo a capacidade de mudar o tipo de sensor utilizado, sem mexer em áreas do circuito além daquela relacionada ao próprio sensor.
+
+  Os requisitos base seguidos para a execução do projeto são:
+
+* Código do computador implementado em linguagem C.
+* Ser capaz  de interligar até 32 endereços.
+* Ser capaz de configurar os sensores.
+* Apenas o computador pode iniciar uma comunicação para executar o sistema, exceto em casos de sensoriamento contínuo. 
+* O código da placa FPGA deve ser escrito em linguagem verilog, tendo a capacidade de ler, interpretar e executar comandos vindos do computador.
+* Os comandos são compostos de 1 byte cada um.
+* As requisições enviadas e respostas recebidas são compostas de 2 bytes.
 </p>
 
 <h2>  Equipe: <br></h2>
