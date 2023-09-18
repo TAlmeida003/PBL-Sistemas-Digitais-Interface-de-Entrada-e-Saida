@@ -9,7 +9,34 @@
   O dispositivo FPGA Cyclone IV é usado para processar os dados de humidade e temperatura lidos pelo sensor DHT11. O envio de comandos para a placa e visualização dos dados coletados é feito através do computador, com o código implementado em linguagem C. Essa comunicação é serial do tipo UART. O sistema foi feito com o intuito de ser modular, possuindo a capacidade de mudar o tipo de sensor utilizado, sem mexer em áreas do circuito além daquela relacionada ao próprio sensor.
 </p>
 
-<h2 id="about-the-project"> Estrutura do código C no terminal</h2>
+<h2>  Equipe: <br></h2>
+<uL> 
+	<li>Samara dos Santos Ferreira<br></li>
+	<li>Silvio Azevedo de Oliveira<br></li>
+	<li>Sival Leão de Jesus<br></li>
+  <li>Thiago Neri dos Santos Almeida<br></li>
+</ul>
+
+<h1 align="center"> Sumário </h1>
+<div id="sumario">
+	<ul>
+		<li><a href="#Diagrama"> Diagramas</li>
+		<li><a href="#Codigo-C"> Estrutura do código C no terminal </a> </li>
+		<li><a href="#Recebimento-FPGA"> Recebimento de dados pela FPGA </a> </li>
+		<li><a href="#transmissão">Transmissão de dados pela FPGA</a></li>
+    <li><a href="#sensor-dht11">Sincronização e leitura do sensor DHT11</a></li>
+		<li><a href="#Teste">  Teste Realizados </a> </li>
+    <li><a href="#como-usar"> Execução do Projeto </a> </li>
+    <li><a href="#conclusao"> Conclusão </a> </li>
+	</ul>	
+</div>
+
+<h2 id="Diagrama">  Diagramas</h2>
+
+![Alt text](<Imagens/Diagrama do Projeto.jpg>)
+
+
+<h2 id="Codigo-C"> Estrutura do código C no terminal</h2>
 
 <p align="justify"> 
   A interação entre o computador e a placa é estabelecida através de dois terminais que operam simultaneamente em um ambiente Linux e são programados em linguagem C. Cada terminal desempenha uma função específica na comunicação. O terminal Tx_UART_PC é designado exclusivamente para que o usuário interaja com a placa por meio de comandos específicos. Por outro lado, o terminal Rx_UART_PC é reservado exclusivamente para visualizar as respostas da placa, sem permitir a interação direta do usuário.
@@ -32,23 +59,6 @@ O terminal Rx depende do terminal Tx, e essa dependência é gerenciada por meio
 
 A segunda variável compartilhada é de controle. Se o usuário digitar 00, o Tx envia um comando para encerrar a execução do Rx. O Tx será encerrado imediatamente, mas o Rx pode ter um atraso de até 1 segundo para encerrar.
 
-#### **Como usar:**
-
-Ao utilizar o sistema, o usuário deve seguir um procedimento específico. Primeiramente, é necessário inicializar o arquivo Tx_UART_PC.c, pois ele é responsável por criar e modificar as variáveis compartilhadas e exibe o menu de comandos. Este terminal possui uma tabela de comandos disponível para ser usada, junto com o significado de cada um.
-
-Em seguida, é importante executar o arquivo Rx_UART_PC.c para visualizar as respostas da placa. Se o terminal Rx for executado primeiro, pode ocorrer um encerramento inesperado, pois as variáveis compartilhadas não terão sido criadas ou atualizadas apropriadamente. A ordem de ligar a placa FPGA em relação aos terminais não é crítica, pois o sistema é projetado para funcionar independentemente dessa sequência.
-
-Com todos os sistemas em funcionamento, o usuário pode utilizar o teclado para inserir os comandos e endereços desejados. É importante verificar se o terminal Tx está mostrando a interação que ocorre no teclado. Caso contrário, basta clicar com o botão esquerdo do mouse sobre o terminal para garantir que as entradas do usuário sejam registradas.
-
-Os comandos aceitos pelo sistema estão no intervalo de 0x00 a 0x07, e os endereços disponíveis variam de 0x00 a 0x1F. É válido mencionar que o uso do prefixo "0x" não é obrigatório, pois o código em C reconhece ambos os formatos de entrada.
-Se o usuário inserir um valor que não seja hexadecimal ou que seja maior que 0xFF, o sistema exibirá uma mensagem de erro e solicitará que o usuário insira novamente os dados, seguindo os requisitos estabelecidos para garantir o funcionamento adequado do sistema.
-
-
-#### **Observações:**
-* **Executar Rx_UART_PC.c antes de Tx_UART_PC.c:** Resultará no encerramento imediato do Rx, pois as variáveis de controle não foram criadas ou atualizadas pelo Tx.
-* **Desligar a placa enquanto o modo contínuo estiver ativo:**  Quando o modo contínuo está ativo, o Tx_UART_PC.c bloqueia a variável de endereço exibida no Rx. Ela só será desbloqueada quando o comando de desativação for inserido com o endereço correto. Se a placa for desligada, a medição contínua será desativada automaticamente. A solução é reiniciar o terminal Tx ou inserir o comando de desativação contínua com o endereço correto para desbloquear a variável. A placa não precisa estar ligada para realizar esse procedimento.
-* **Comandos e endereços iniciados com "0x":** Pode ocorrer um falso aviso de erro ao inserir comandos que começam com "0x". Isso ocorre devido a um bug ao limpar o buffer do teclado. Quando o usuário digita o comando começando com "0x" e confirma, o buffer do teclado pode conter um valor aleatório, conhecido como "lixo de memória". Esse valor pode ser exibido como um hexadecimal inválido. No entanto, a entrada de comando foi aceita e a próxima entrada será o de endereço mesmo contendo o aviso. O código fornecerá informações sobre o que está sendo solicitado no momento.
-
 </p>
 
 <h2 id="Recebimento-FPGA"> Recebimento de dados pela FPGA</h2>
@@ -59,13 +69,13 @@ Se o usuário inserir um valor que não seja hexadecimal ou que seja maior que 0
 <p align="justify"> 
   O módulo “UART RX” tem como função principal receber os dados enviados pelo computador no padrão UART (Universal Asynchronous Receiver/Transmitter), através do código em linguagem C. Este drive, implementado em Verilog, possui duas entradas e duas saídas:
 
-  * **"clk"** (entrada): está associada ao pulso de clock com uma frequência de 50 Mhz.
+  * **clk** (entrada): está associada ao pulso de clock com uma frequência de 50 Mhz.
 
-  * **"input_rx"** (entrada): corresponde aos dados recebidos de forma serial.
+  * **input_rx** (entrada): corresponde aos dados recebidos de forma serial.
 
-  * **"out_rx"** (saída): representam um barramento de um byte que junta o conjunto de bits convertidos para formato paralelo.
+  * **out_rx** (saída): representam um barramento de um byte que junta o conjunto de bits convertidos para formato paralelo.
 
-  * **"done"** (saída): sinaliza a conclusão da captura dos 8 bits.
+  * **done** (saída): sinaliza a conclusão da captura dos 8 bits.
 </p>
 
 <p align="justify"> 
@@ -91,17 +101,17 @@ Se o usuário inserir um valor que não seja hexadecimal ou que seja maior que 0
 <p align="justify"> 
   O módulo "BUFFER RX", por sua vez, tem a função de assegurar a persistência dos dados recebidos e armazenados pela UART RX em um buffer interno de 2 bytes. Essa funcionalidade é necessária devido ao fato de o PC enviar regularmente pacotes de requisição contendo dois bytes de dados. Com o objetivo de evitar conflitos e sobreposições de informações no buffer da UART RX, este módulo opera de forma a capturar e armazenar cada byte de maneira sequencial e organizada. O módulo possui quatro entradas e três saídas:
 
-  * **"clock"** (entrada): está associado ao pulso de clock com uma frequência de 50 MHz.
+  * **clock** (entrada): está associado ao pulso de clock com uma frequência de 50 MHz.
 
-  * **"new_data"** (entrada): representa o sinal da flag "done" da "UART RX" confirmando a disponibilidade de um novo pacote de dados.
+  * **new_data** (entrada): representa o sinal da flag "done" da "UART RX" confirmando a disponibilidade de um novo pacote de dados.
 
-  * **"data"** (entrada): é um barramento de 1 byte que representa o byte armazenado na UART RX.
+  * **data** (entrada): é um barramento de 1 byte que representa o byte armazenado na UART RX.
 
-  * **"reset"** (entrada): é um sinal utilizado para reiniciar o funcionamento do módulo.
+  * **reset** (entrada): é um sinal utilizado para reiniciar o funcionamento do módulo.
 
-  * **"out_address"** e **"out_command"** (saída): representam os dois bytes armazenados, com seus bits devidamente separados, respectivamente, o primeiro representa o endereço e o segundo o comando.
+  * **out_address** e **out_command** (saída): representam os dois bytes armazenados, com seus bits devidamente separados, respectivamente, o primeiro representa o endereço e o segundo o comando.
 
-  * **"done"** (saída): sinaliza que ambos os bytes foram armazenados com sucesso.
+  * **done** (saída): sinaliza que ambos os bytes foram armazenados com sucesso.
 </p>
 
 <p align="justify"> 
@@ -208,6 +218,76 @@ Os 11 estados da máquina são explicados a seguir:
 * **END_PROCESS**: Último estado do processo normal da máquina. Vai para o estado de "IDLE".
 * **ERROR**: Representa a situação de ter ocorrido um erro durante a sincronização ou leitura de dados do sensor. Coloca todos os bits da saída como 1 para indicar que um erro aconteceu. É checado se o pino de entrada e saída do DHT11 está enviando nível lógico alto (1), se estiver, vai para o estado "END_PROCESS". Caso não esteja enviando nível lógico alto (1), é esperado o tempo de 65 us para o sinal se normalizar, caso passe o tempo, vai para o estado de "IDLE" direto.
 
+</p>
+
+<h2 id="Teste">  Teste Realizados</h2>
+
+<p align="justify"> 
+Com base nos testes realizados, podemos concluir que todas as solicitações de projetos foram atendidas. Nesse contexto, todos os comandos de requisição e resposta foram devidamente implementados, juntamente com uma interface de teste em linguagem C. Assim, segue anexo os testes demostrando tais resultados:
+</p>
+
+![Alt text](<Imagens/Situação do sensor - funcionando.png>)
+
+<p align="center"> O comando de solicitação do status do sensor confirma que o sensor está em pleno funcionamento. </p>
+
+![Alt text](<Imagens/Medida de temperatura_.png>)
+
+<p align="center"> O comando de solicitação de medição de temperatura retorna a informação de que a temperatura ambiente é de 21 °C. </p>
+
+![Alt text](<Imagens/Medida de umidade.png>)
+<p align="center"> O comando de solicitação de medição de umidade indica que o ambiente possui uma umidade de 39%.</p>
+
+![Alt text](<Imagens/Contínuo  de temperatura ativado.png>)
+<p align="center"> O comando de monitoramento contínuo de temperatura foi solicitado e indicou que a temperatura ambiente é de 21°C. </p>
+
+![Alt text](<Imagens/Contínuo - executando comando com outro endereço_.png>)
+<p align="center"> O comando de monitoramento contínuo de temperatura está ativo. Ao tentar usar outro sensor, recebe-se a mensagem de que não é possível acessá-lo, juntamente com a informação sobre qual sensor está atualmente em execução.</p>
+
+![Alt text](<Imagens/Contínuo de temperatura - comando inválido_.png>)
+<p align="center"> O comando de monitoramento contínuo de temperatura está ativo. No entanto, ao solicitar o uso de outra função para o sensor, recebe-se a mensagem de que não é possível acessar essa função no momento.</p>
+
+![Alt text](<Imagens/Contínuo de temperatura - sensor com problema_.png>)
+<p align="center"> O comando de monitoramento contínuo de temperatura está ativo, mas está sendo relatado que o sensor apresenta um problema.</p>
+
+![Alt text](<Imagens/Contínuo  de temperatura desativado_.png>)
+<p align="center"> O comando de monitoramento contínuo de temperatura foi desativado, e uma mensagem de confirmação foi emitida.</p>
+
+![Alt text](<Imagens/Contínuo de umidade ativado.png>)
+<p align="center"> O comando de monitoramento contínuo de umidade indica um valor de umidade de 39%.</p>
+
+![Alt text](<Imagens/Contínuo de umidade desativado_.png>)
+<p align="center">O comando de monitoramento contínuo de umidade foi desativado, e uma mensagem de confirmação foi emitida.</p>
+
+![Alt text](<Imagens/Endereço inválido_.png>)
+<p align="center"> Foi tentada a inserção de um endereço que não existe, e um aviso foi gerado informando que o endereço do sensor não está disponível ou não existe.</p>
+
+![Alt text](<Imagens/Comando inválido_.png>)
+<p align="center"> 
+Foi tentada a inserção de um comando que não existe, e um aviso foi gerado informando que o comando não está disponível ou não existe.</p>
+
+<p align="justify"> 
+A tabela a seguir foi elaborada com o propósito de validar o projeto. Esses testes garatem que o sistema opere adequadamente em diversas situações e forneça resultados confiáveis aos usuários.</p>
+
+![Alt text](<Imagens/Casos de Testes - Planilha.jpg>)
+
+
+<h2 id="como-usar">  Execução do Projeto</h2>
+
+<p align="justify"> 
+Ao utilizar o sistema, o usuário deve seguir um procedimento específico. Primeiramente, é necessário inicializar o arquivo Tx_UART_PC.c, pois ele é responsável por criar e modificar as variáveis compartilhadas e exibe o menu de comandos. Este terminal possui uma tabela de comandos disponível para ser usada, junto com o significado de cada um.
+
+Em seguida, é importante executar o arquivo Rx_UART_PC.c para visualizar as respostas da placa. Se o terminal Rx for executado primeiro, pode ocorrer um encerramento inesperado, pois as variáveis compartilhadas não terão sido criadas ou atualizadas apropriadamente. A ordem de ligar a placa FPGA em relação aos terminais não é crítica, pois o sistema é projetado para funcionar independentemente dessa sequência.
+
+Com todos os sistemas em funcionamento, o usuário pode utilizar o teclado para inserir os comandos e endereços desejados. É importante verificar se o terminal Tx está mostrando a interação que ocorre no teclado. Caso contrário, basta clicar com o botão esquerdo do mouse sobre o terminal para garantir que as entradas do usuário sejam registradas.
+
+Os comandos aceitos pelo sistema estão no intervalo de 0x00 a 0x07, e os endereços disponíveis variam de 0x00 a 0x1F. É válido mencionar que o uso do prefixo "0x" não é obrigatório, pois o código em C reconhece ambos os formatos de entrada.
+Se o usuário inserir um valor que não seja hexadecimal ou que seja maior que 0xFF, o sistema exibirá uma mensagem de erro e solicitará que o usuário insira novamente os dados, seguindo os requisitos estabelecidos para garantir o funcionamento adequado do sistema.
+
+
+#### **Observações:**
+* **Executar Rx_UART_PC.c antes de Tx_UART_PC.c:** Resultará no encerramento imediato do Rx, pois as variáveis de controle não foram criadas ou atualizadas pelo Tx.
+* **Desligar a placa enquanto o modo contínuo estiver ativo:**  Quando o modo contínuo está ativo, o Tx_UART_PC.c bloqueia a variável de endereço exibida no Rx. Ela só será desbloqueada quando o comando de desativação for inserido com o endereço correto. Se a placa for desligada, a medição contínua será desativada automaticamente. A solução é reiniciar o terminal Tx ou inserir o comando de desativação contínua com o endereço correto para desbloquear a variável. A placa não precisa estar ligada para realizar esse procedimento.
+* **Comandos e endereços iniciados com "0x":** Pode ocorrer um falso aviso de erro ao inserir comandos que começam com "0x". Isso ocorre devido a um bug ao limpar o buffer do teclado. Quando o usuário digita o comando começando com "0x" e confirma, o buffer do teclado pode conter um valor aleatório, conhecido como "lixo de memória". Esse valor pode ser exibido como um hexadecimal inválido. No entanto, a entrada de comando foi aceita e a próxima entrada será o de endereço mesmo contendo o aviso. O código fornecerá informações sobre o que está sendo solicitado no momento.
 </p>
 
 <h2 id="conclusao">  Conclusão</h2>
