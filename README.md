@@ -29,21 +29,28 @@
 
 <h1 align="center"> Sumário </h1>
 <div id="sumario">
-	<ul>
-		<li><a href="#Diagrama"> Diagramas</li>
-		<li><a href="#Codigo-C"> Estrutura do código C no terminal </a> </li>
-		<li><a href="#Recebimento-FPGA"> Recebimento de dados pela FPGA </a> </li>
-		<li><a href="#transmissão">Transmissão de dados pela FPGA</a></li>
-    <li><a href="#sensor-dht11">Sincronização e leitura do sensor DHT11</a></li>
-		<li><a href="#Teste">  Teste Realizados </a> </li>
-    <li><a href="#como-usar"> Execução do Projeto </a> </li>
-    <li><a href="#conclusao"> Conclusão </a> </li>
-	</ul>	
-</div>
 
-<h2 id="Diagrama">  Diagramas</h2>
+&nbsp;&nbsp;&nbsp;[**1.** Diagramas](#Diagrama)
 
-![Alt text](<Imagens/Diagrama do Projeto.jpg>)
+&nbsp;&nbsp;&nbsp;[**2.** Estrutura do código C no terminal](#Codigo-C)
+
+&nbsp;&nbsp;&nbsp;[**3.** Recebimento de dados pela FPGA](#Recebimento-FPGA)
+
+&nbsp;&nbsp;&nbsp;[**4.** Transmissão de dados pela FPGA](#transmissao)
+
+&nbsp;&nbsp;&nbsp;[**5.** Sincronização e leitura do sensor DHT11](#sensor-dht11)
+
+&nbsp;&nbsp;&nbsp;[**6.** LEs, LABs e Pinos](#PINOS)
+
+&nbsp;&nbsp;&nbsp;[**6.** Teste Realizados](#Teste)
+
+&nbsp;&nbsp;&nbsp;[**7.** Execução do Projeto](#como-usar)
+
+&nbsp;&nbsp;&nbsp;[**8.** Conclusão](#conclusao)
+
+<h2 id="Diagrama">  Diagrama</h2>
+
+![!\[Alt text\](<Imagens/Diagrama do Projeto.jpg>)](Imagens/Diagrama-do-Projeto.jpg)
 
 
 <h2 id="Codigo-C"> Estrutura do código C no terminal</h2>
@@ -93,8 +100,11 @@ A segunda variável compartilhada é de controle. Se o usuário digitar 00, o Tx
 </p>
 
 <p align="justify"> 
-  Para realizar o recebimento de dados, foi utilizada uma máquina de estados finitos (MEF) com 4 estados. Nesse sentido, segue a explicação de cada estado:
+  Para realizar o recebimento de dados, foi utilizada uma máquina de estados finitos (MEF) com 4 estados. Nesse sentido, segue o diagrama e a explicação de cada estado:
 </p>
+
+![Alt text](<Imagens/UART RX.jpg>)
+
 
 <p align="justify"> 
 
@@ -125,7 +135,9 @@ A segunda variável compartilhada é de controle. Se o usuário digitar 00, o Tx
 </p>
 
 <p align="justify"> 
-Para esse modulo foi usado uma MEF com 4 estados:
+Para esse modulo foi usado uma MEF com 4 estados, segue o diagrama e a explicação de cada estado:
+
+![Alt text](<Imagens/BUFFER RX.jpg>)
 
 * **IDLE_1BYTE**: Neste estado, a MEF aguarda o sinal de confirmação de que o primeiro byte foi enviado. A flag "done" permanece em 0, indicando que a recepção não está concluída. Enquanto o sinal "new_data" estiver em 0 (indicando que nenhum byte está disponível), a MEF permanece neste estado. Quando "new_data" assume o valor 1, a máquina faz a transição para o estado "ADD_COMMAND".
 
@@ -138,7 +150,7 @@ Para esse modulo foi usado uma MEF com 4 estados:
 </p>
 
 
-<h2 id="transmissão">Transmissão de dados pela FPGA</h2>
+<h2 id="transmissao">Transmissão de dados pela FPGA</h2>
 
 <p align="justify"> 
   O processo de transmissão dos 2 bytes de resposta enviados pela FPGA para o PC é gerenciado por meio da interação entre dois módulos essenciais: "BUFFER TX" e "UART TX".
@@ -157,7 +169,9 @@ O módulo "BUFFER TX" tem o papel de permitir a transmissão sequencial de um pa
 </p>
 
 <p align="justify"> 
-Para realizar a sequência dos dados que serão enviados foi usado MEF com 5 estados:
+Para realizar a sequência dos dados que serão enviados foi usado MEF com 5 estados, segue o diagrama e a explicação:
+
+![Alt text](<Imagens/BUFFER TX.jpg>)
 
 **IDLE:** Nesse estado, a MEF está em repouso, aguardando o sinal de controle "enable" indicando o início da transmissão. Todos os contadores são zerados, o sinal "send" para a "UART TX" está em baixo (0), indicando que não há dados a serem transmitidos, e o dado na saída "data" é mantido em 0. Quando o sinal "enable" muda para 1, indicando que há dados a serem transmitidos, a MEF avança para o estado "SEND_BYTE_ONE".
 
@@ -185,7 +199,9 @@ Para garantir a sincronia entre a frequência de clock e a taxa de baud de 9600 
 </p>
 
 <p align="justify"> 
-O processo de transmissão é controlado por uma MEF com 4 estados:
+O processo de transmissão é controlado por uma MEF com 4 estados, segue o diagrama e a explicação:
+
+![Alt text](<Imagens/UART TX.jpg>)
 
 **IDLE**: Neste estado, a MEF está em estado ocioso. Todos os contadores estão zerados, "done" está definido como 0 (indicando que a transmissão ainda não começou), e "out_tx" está configurado como alto (1), que é o estado padrão da UART. Se "initial_data" mudar de 0 para 1, indicando a presença de novos dados a serem enviados, a MEF transita para o estado "START". Caso contrário, ela permanece no estado "IDLE".
 
@@ -215,6 +231,8 @@ O módulo geral de sincronização e leitura do DHT11 possui os seguintes valore
 
 Os 11 estados da máquina são explicados a seguir:
 
+![Alt text](<Imagens/MEF interface Sensor.jpg>)
+
 * **IDLE**: Estado inicial da máquina. Aguarda o sinal de ativação do enable (1) para começar a enviar o sinal de start para o DHT11. Em seguida, vai para o estado "START_BIT".
 
 * **START_BIT**: Envia nível lógico baixo (0) para o sensor por 19 ms. Esse é o primeiro passo de ativação do sensor. Em seguida, vai para o estado "SEND_HIGH_20US".
@@ -230,10 +248,30 @@ Os 11 estados da máquina são explicados a seguir:
 
 </p>
 
+<h2 id="PINOS">  LEs, LABs e Pinos</h2>
+
+![!\[Alt text\](LE-LAB.png)](Imagens/LE-LAB.png)
+
 <h2 id="Teste">  Teste Realizados</h2>
 
 <p align="justify"> 
-Com base nos testes realizados, podemos concluir que todas as solicitações de projetos foram atendidas. Nesse contexto, todos os comandos de requisição e resposta foram devidamente implementados, juntamente com uma interface de teste em linguagem C. Assim, segue anexo os testes demostrando tais resultados:
+
+Para verificar a confiabilidade de cada módulo antes de sua integração com os demais, foram conduzidos testes individuais em cada conjunto de módulos. Para isso, utilizou-se um osciloscópio para monitorar os sinais de recebimento e transmissão da FPGA, bem como o software ModelSim para avaliar o funcionamento dos módulos, assegurando que estivessem operando conforme o esperado.
+
+No procedimento de teste para o recebimento e transmissão de dados, o osciloscópio foi empregado, com o sinal de recebimento alocado no canal 1 (cor azul) e o sinal de transmissão alocado no canal 2 (cor amarela). Foram enviados os bytes representando 0x01 e 0x00, obtendo como resposta a recepção dos bytes 0x0a e 0x00. Esses resultados confirmaram que o recebimento de dois bytes e o envio de dois bytes estavam funcionando conforme o planejado. Anexa, encontra-se a imagem da captura de tela da situação descrita:
+
+![Alt text](Imagens/Teste-UART.png)
+<p align="center"> recepção do byte 0x0a e 0x00 e, em seguida, transmissão do byte 0x01 e 0x00, confirmando que a placa está recebendo e respondendo aos dados conforme o esperado. </p>
+
+Para verificar a comunicação entre a placa e o sensor DHT11, também foi utilizado um osciloscópio. Nesse contexto, foi conduzida uma análise no osciloscópio para verificar se a placa estava sincronizando com sucesso o sensor e obtendo acesso aos 5 bytes enviados por ele. Foram anexadas duas imagens ilustrativas desse processo:
+
+![Alt text](Imagens/sincroniza%C3%A7%C3%A3o.png)
+<p align="center"> Período de sincronização entre a placa e o sensor DHT11, o que confirma que a placa estava estabelecendo uma comunicação adequada com o sensor. </p>
+
+![Alt text](Imagens/data.png)
+<p align="center"> Medição de temperatura e umidade enviada pelo sensor.</p>
+
+Após confirmar a integridade de cada módulo, procedemos aos testes com o sistema completamente integrado. Com base nos testes realizados, podemos concluir que todas as solicitações de projeto foram atendidas. Dentro desse contexto, os comandos de requisição e resposta foram devidamente implementados, junto com uma interface de teste em linguagem C. Para ilustrar esses resultados, estão anexados os testes que demonstram esses êxitos:
 </p>
 
 ![Alt text](<Imagens/Situação do sensor - funcionando.png>)
@@ -268,30 +306,45 @@ Com base nos testes realizados, podemos concluir que todas as solicitações de 
 ![Alt text](<Imagens/Contínuo de umidade desativado_.png>)
 <p align="center">O comando de monitoramento contínuo de umidade foi desativado, e uma mensagem de confirmação foi emitida.</p>
 
-![Alt text](<Imagens/Endereço inválido_.png>)
+![Alt text](Imagens/Endere%C3%A7o-inv%C3%A1lido_.png)
 <p align="center"> Foi tentada a inserção de um endereço que não existe, e um aviso foi gerado informando que o endereço do sensor não está disponível ou não existe.</p>
 
-![Alt text](<Imagens/Comando inválido_.png>)
+![!\[Alt text\](<Imagens/Comando inválido_.png>)](Imagens/Comando-invalido_.png)
 <p align="center"> 
 Foi tentada a inserção de um comando que não existe, e um aviso foi gerado informando que o comando não está disponível ou não existe.</p>
 
 <p align="justify"> 
 A tabela a seguir foi elaborada com o propósito de validar o projeto. Esses testes garatem que o sistema opere adequadamente em diversas situações e forneça resultados confiáveis aos usuários.</p>
 
-![Alt text](<Imagens/Casos de Testes - Planilha.jpg>)
+![Alt text](Imagens/Casos-de-Testes-Planilha.jpg)
 
 
 <h2 id="como-usar">  Execução do Projeto</h2>
 
 <p align="justify"> 
-Ao utilizar o sistema, o usuário deve seguir um procedimento específico. Primeiramente, é necessário inicializar o arquivo Tx_UART_PC.c, pois ele é responsável por criar e modificar as variáveis compartilhadas e exibe o menu de comandos. Este terminal possui uma tabela de comandos disponível para ser usada, junto com o significado de cada um.
+Os comandos aceitos pelo sistema estão no intervalo de 0x00 a 0x07, e os endereços disponíveis variam de 0x00 a 0x1F. Vale mencionar que o uso do prefixo "0x" não é obrigatório, pois o código em C reconhece ambos os formatos de entrada. Se o usuário inserir um valor que não seja hexadecimal ou que seja maior que 0xFF, o sistema exibirá uma mensagem de erro e solicitará que o usuário insira novamente os dados, seguindo os requisitos estabelecidos para garantir o funcionamento adequado do sistema.
 
-Em seguida, é importante executar o arquivo Rx_UART_PC.c para visualizar as respostas da placa. Se o terminal Rx for executado primeiro, pode ocorrer um encerramento inesperado, pois as variáveis compartilhadas não terão sido criadas ou atualizadas apropriadamente. A ordem de ligar a placa FPGA em relação aos terminais não é crítica, pois o sistema é projetado para funcionar independentemente dessa sequência.
+        gcc -o t Tx_UART_PC.c
+2ª Executar o arquivo:
+        
+        ./t
 
-Com todos os sistemas em funcionamento, o usuário pode utilizar o teclado para inserir os comandos e endereços desejados. É importante verificar se o terminal Tx está mostrando a interação que ocorre no teclado. Caso contrário, basta clicar com o botão esquerdo do mouse sobre o terminal para garantir que as entradas do usuário sejam registradas.
+Em seguida, você pode executar o arquivo "Rx_UART_PC.c" para visualizar as respostas da placa. Se o terminal Rx for executado antes do Tx, pode ocorrer um encerramento inesperado, pois as variáveis compartilhadas não terão sido criadas ou atualizadas corretamente. É necessário abrir outro terminal para executar o Rx e digitar os seguintes comandos:
 
-Os comandos aceitos pelo sistema estão no intervalo de 0x00 a 0x07, e os endereços disponíveis variam de 0x00 a 0x1F. É válido mencionar que o uso do prefixo "0x" não é obrigatório, pois o código em C reconhece ambos os formatos de entrada.
-Se o usuário inserir um valor que não seja hexadecimal ou que seja maior que 0xFF, o sistema exibirá uma mensagem de erro e solicitará que o usuário insira novamente os dados, seguindo os requisitos estabelecidos para garantir o funcionamento adequado do sistema.
+1ª Compilar o código:
+
+
+        gcc -o r Rx_UART_PC.c
+
+2ª Executar o arquivo:
+
+        ./r
+
+A ordem de inicialização da placa FPGA em relação aos terminais não é relevante, pois o sistema é projetado para funcionar independentemente da sequência.
+
+Com todos os sistemas em funcionamento, o usuário pode utilizar o teclado para inserir os comandos e endereços desejados. É importante verificar se o terminal Tx está mostrando a interação que ocorre no teclado. Caso contrário, basta clicar com o botão esquerdo do mouse sobre o terminal Tx para garantir que as entradas do usuário sejam registradas.
+
+Os comandos aceitos pelo sistema estão no intervalo de 0x00 a 0x07, e os endereços disponíveis variam de 0x00 a 0x1F. Vale mencionar que o uso do prefixo "0x" não é obrigatório, pois o código em C reconhece ambos os formatos de entrada. Se o usuário inserir um valor que não seja hexadecimal ou que seja maior que 0xFF, o sistema exibirá uma mensagem de erro e solicitará que o usuário insira novamente os dados, seguindo os requisitos estabelecidos para garantir o funcionamento adequado do sistema
 
 
 #### **Observações:**

@@ -7,12 +7,12 @@ state.DATA 0 1 0 1
 state.STOP 1 0 0 1 
 
 State Machine - |main|reg_2bytes_UART_tx:reg_tx|state
-Name state.BYTE_TWO state.START_ONE state.BYTE_ONE state.000 state.START_TWO 
+Name state.SEND_BYTE_TWO state.STOP_ACK_1 state.SEND_BYTE_ONE state.000 state.STOP_ACK_2 
 state.000 0 0 0 0 0 
-state.BYTE_ONE 0 0 1 1 0 
-state.START_ONE 0 1 0 1 0 
-state.BYTE_TWO 1 0 0 1 0 
-state.START_TWO 0 0 0 1 1 
+state.SEND_BYTE_ONE 0 0 1 1 0 
+state.STOP_ACK_1 0 1 0 1 0 
+state.SEND_BYTE_TWO 1 0 0 1 0 
+state.STOP_ACK_2 0 0 0 1 1 
 
 State Machine - |main|interface_sensor:sensor|state
 Name state.ERROR state.END_PROCESS state.COLLECT_ALL_DATA state.READ_DATA state.WAIT_BIT_DATA state.FINAL_SYNC state.WAIT_HIGH state.WAIT_LOW state.SEND_HIGH_20US state.START_BIT state.IDLE 

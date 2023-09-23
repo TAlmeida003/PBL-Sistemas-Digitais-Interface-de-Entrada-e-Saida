@@ -74,9 +74,11 @@ module reg_2bytes_UART_rx(
                     registrar[7:0] <= buffer_data;  // ARMAZENA O SEGUNDO BYTE NO REGISTRADOR
 
                     if (!new_data) begin
+								done <= 1;
                         state <= IDLE_1BYTE;      // TRANSIÇÃO DE VOLTA PARA O ESTADO DE OCIOSIDADE ESPERANDO O PRIMEIRO BYTE
                     end
                     else begin
+								done <= 1;
                         state <= ADD_COMMAND;      // PERMANECE NO ESTADO DE ADIÇÃO DO SEGUNDO BYTE
                     end
                 end

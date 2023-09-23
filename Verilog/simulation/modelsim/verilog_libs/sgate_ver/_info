@@ -8,42 +8,42 @@ z2
 !i10e 25
 !i10f 100
 cModel Technology
-dC:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/simulation/modelsim
+Z0 dC:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/simulation/modelsim
 vio_buf_opdrn
-Z0 !s110 1693956969
+Z1 !s110 1695345334
 !i10b 1
 !s100 z0EcHz62UYUVHTAOUgnd]2
-Z1 !s11b Dg1SIo80bB@j0V0VzS_@n1
+Z2 !s11b Dg1SIo80bB@j0V0VzS_@n1
 I7VHk0Z5[gGHGca0BYfd9_2
-Z2 VDg1SIo80bB@j0V0VzS_@n1
-Z3 dC:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/simulation/modelsim
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+R0
 Z4 w1689959812
 Z5 8c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/sgate.v
 Z6 Fc:/intelfpga_lite/22.1std/quartus/eda/sim_lib/sgate.v
-!i122 14
+!i122 19
 L0 249 22
 Z7 OV;L;2020.1;71
 r1
 !s85 0
 31
-Z8 !s108 1693956969.000000
+Z8 !s108 1695345334.000000
 !s107 c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/sgate.v|
 Z9 !s90 -reportprogress|300|-vlog01compat|-work|sgate_ver|c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/sgate.v|
 !i113 1
 Z10 o-vlog01compat -work sgate_ver
 Z11 tCvgOpt 0
 vio_buf_tri
-R0
+R1
 !i10b 1
 !s100 OkVkfhJlbI5njJOG1hTe^2
-R1
-I7BHB=J6PFNaV_0SRe0IO`3
 R2
+I7BHB=J6PFNaV_0SRe0IO`3
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 221 23
 R7
 r1
@@ -56,17 +56,17 @@ R9
 R10
 R11
 vmux21
-R0
+R1
 !i10b 1
 !s100 Sc^=5aRZnTN9<QgD6G?[00
-R1
-IlROF9KkBd6:UzFgo3UR>Q1
 R2
+IlROF9KkBd6:UzFgo3UR>Q1
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 191 26
 R7
 r1
@@ -79,17 +79,17 @@ R9
 R10
 R11
 voper_add
-R0
+R1
 !i10b 1
 !s100 ZR=EZ2WV8G<94^6TNJgX?0
-R1
-Ie^3g2FCDNSn2b8i7R?2eA2
 R2
+Ie^3g2FCDNSn2b8i7R?2eA2
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 19 74
 R7
 r1
@@ -102,17 +102,17 @@ R9
 R10
 R11
 voper_addsub
-R0
+R1
 !i10b 1
 !s100 <1G1iC9RHGaXFX]m5]F:L1
-R1
-IL`GUSKN_F80k][a[GkD660
 R2
+IL`GUSKN_F80k][a[GkD660
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 96 91
 R7
 r1
@@ -125,17 +125,17 @@ R9
 R10
 R11
 voper_bus_mux
-R0
+R1
 !i10b 1
 !s100 Yh<nR1o=YIi<HDhM9J[UE3
-R1
-IQHkzgVn?>z[7GGL6oc=kJ3
 R2
+IQHkzgVn?>z[7GGL6oc=kJ3
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 1073 59
 R7
 r1
@@ -148,17 +148,17 @@ R9
 R10
 R11
 voper_decoder
-R0
+R1
 !i10b 1
 !s100 7A>?IXP`Yj:aEj5TORzhN0
-R1
-I0e@1BKTAfhYG^P;S@=@^`0
 R2
+I0e@1BKTAfhYG^P;S@=@^`0
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 1037 32
 R7
 r1
@@ -171,17 +171,17 @@ R9
 R10
 R11
 voper_div
-R0
+R1
 !i10b 1
 !s100 hnQA^c[7zEOGQc2W[KR6O3
-R1
-Ih9G4ddFUo]MYiT:NXAU7?3
 R2
+Ih9G4ddFUo]MYiT:NXAU7?3
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 395 85
 R7
 r1
@@ -194,17 +194,17 @@ R9
 R10
 R11
 voper_latch
-R0
+R1
 !i10b 1
 !s100 ]l:H1;gM=ZLgFVb;FK4GJ2
-R1
-ITIEMa7WPic_:E?Pfc9^9i1
 R2
+ITIEMa7WPic_:E?Pfc9^9i1
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 1136 17
 R7
 r1
@@ -217,17 +217,17 @@ R9
 R10
 R11
 voper_left_shift
-R0
+R1
 !i10b 1
 !s100 J2GE@5C@aGbZ:]90@c92N0
-R1
-IK5z?SJBNSY2QUJ_n5KCjR1
 R2
+IK5z?SJBNSY2QUJ_n5KCjR1
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 573 72
 R7
 r1
@@ -240,17 +240,17 @@ R9
 R10
 R11
 voper_less_than
-R0
+R1
 !i10b 1
 !s100 JJV5Gz8:6iG7g1^_hjA9:1
-R1
-ITXkzXT9EoS?Gh5Rj:DI183
 R2
+ITXkzXT9EoS?Gh5Rj:DI183
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 854 88
 R7
 r1
@@ -263,17 +263,17 @@ R9
 R10
 R11
 voper_mod
-R0
+R1
 !i10b 1
 !s100 02Tza445NgDJJ?Djl`@K`3
-R1
-II`H7Snb0Of?z8NjGI08Dz2
 R2
+II`H7Snb0Of?z8NjGI08Dz2
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 484 85
 R7
 r1
@@ -286,17 +286,17 @@ R9
 R10
 R11
 voper_mult
-R0
+R1
 !i10b 1
 !s100 fSLnhaYom_OPiTTF;aMFT1
-R1
-ILA>9TfI0Q8QY75@bE;eVA1
 R2
+ILA>9TfI0Q8QY75@bE;eVA1
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 275 68
 R7
 r1
@@ -309,17 +309,17 @@ R9
 R10
 R11
 voper_mux
-R0
+R1
 !i10b 1
 !s100 O]6gciK:1W6Z<z:X6cIgn0
-R1
-IQ=8CQ;L7a36?a8A@D8Oh30
 R2
+IQ=8CQ;L7a36?a8A@D8Oh30
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 946 42
 R7
 r1
@@ -332,17 +332,17 @@ R9
 R10
 R11
 voper_right_shift
-R0
+R1
 !i10b 1
 !s100 4JLWgO]R0OYfj`aMW[34>0
-R1
-IGl8i2f2C[g=6<FoR9Iae`3
 R2
+IGl8i2f2C[g=6<FoR9Iae`3
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 650 79
 R7
 r1
@@ -355,17 +355,17 @@ R9
 R10
 R11
 voper_rotate_left
-R0
+R1
 !i10b 1
 !s100 0VQX`l^On;Vf^I0]GHIi63
-R1
-IiYMNBzzJMk7dO4]VXY3`c0
 R2
+IiYMNBzzJMk7dO4]VXY3`c0
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 733 57
 R7
 r1
@@ -378,17 +378,17 @@ R9
 R10
 R11
 voper_rotate_right
-R0
+R1
 !i10b 1
 !s100 SBez6G5C20l@Ag]S6mN4a0
-R1
-IGWna]GEkmS@K]j_DkELA>1
 R2
+IGWna]GEkmS@K]j_DkELA>1
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 794 56
 R7
 r1
@@ -401,17 +401,17 @@ R9
 R10
 R11
 voper_selector
-R0
+R1
 !i10b 1
 !s100 IjdF9i1^I`Ja]QScHQUG<1
-R1
-I2XzlQLCICahCNb@Oa1n>J0
 R2
+I2XzlQLCICahCNb@Oa1n>J0
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 992 41
 R7
 r1
@@ -424,17 +424,17 @@ R9
 R10
 R11
 vtri_bus
-R0
+R1
 !i10b 1
 !s100 ZCbCQ[6PzBHXG=_Vb`23j3
-R1
-I6bL29BEa788h;m_71F>:k2
 R2
+I6bL29BEa788h;m_71F>:k2
 R3
+R0
 R4
 R5
 R6
-!i122 14
+!i122 19
 L0 348 43
 R7
 r1

@@ -33,12 +33,9 @@ if {[file exists rtl_work]} {
 vlib rtl_work
 vmap work rtl_work
 
-vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_TX.v}
-vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_RX.v}
-vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/TRI_State.v}
-vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_tx.v}
-vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_rx.v}
-vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/MEF_main.v}
-vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v}
-vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/DHT11_teste.v}
+vlog -vlog01compat -work work +incdir+C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/interface_sensor.v}
+vlog -vlog01compat -work work +incdir+C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/commands_table.v}
+vlog -vlog01compat -work work +incdir+C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_rx.v}
+vlog -vlog01compat -work work +incdir+C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/MEF_main.v}
+vlog -vlog01compat -work work +incdir+C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog {C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/test.v}
 

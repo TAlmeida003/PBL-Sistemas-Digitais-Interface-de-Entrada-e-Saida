@@ -16,7 +16,7 @@ module commands_table(input [7:0] exe_command,		// COMANDO EM EXECUCAO
 //                   					COMANDOS DE REQUISICAO DO USUARIO
 //================================================================================================================================
 		
-	localparam CURRENT_SENSOR_SITUATION      = 8'h1,	// COMANDO PARA OBTER A SITUACAO ATUAL DO SENSOR
+	localparam CURRENT_SENSOR_SITUATION     = 8'h1,	// COMANDO PARA OBTER A SITUACAO ATUAL DO SENSOR
               TEMPERATURE_MEASUREMENT       = 8'h2,	// COMANDO PARA A MEDICAO DA TEMPERATURA	
               HUMIDITY_MEASUREMENT          = 8'h3,	// COMANDO PARA A MEDICAO DA UMIDADE
               ACTIVE_CONTINUOS_TEMPERATURE  = 8'h4,	// COMANDO PARA ATIVAR O SENSORIAMENTO CONTINUO DE TEMPERATURA

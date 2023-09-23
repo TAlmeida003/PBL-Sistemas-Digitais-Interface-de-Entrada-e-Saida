@@ -69,7 +69,7 @@ module MEF_main(input clock,					// CLOCK NATIVO DA PLACA DE 50 MHz
 	/* ARMAZENAMENTO DO COMANDO ATUAL 
 		- VERIFICA A BORDA DE SUBIDA DO SINAL DE CLOCK.
 	*/
-	always @(posedge clock) begin 
+	always @(posedge new_data) begin 
 		// SE ESTIVER EM SENSORIAMENTO CONTINUO E O ENDERECO EM EXECUCAO SEJA IGUAL AO NOVO RECEBIDO, ATUALIZA APENAS O COMANDO EM EXECUCAO
 		if (loop) begin 
 			if (((exe_command == 4 && next_command == 6) || (exe_command == 5 && next_command == 7)) && exe_address == next_address && next_command != 0) begin
@@ -147,7 +147,7 @@ module MEF_main(input clock,					// CLOCK NATIVO DA PLACA DE 50 MHz
 					rest_uart_rx = 0;
 					
 					// TRANSICAO DOS ESTADOS EM CONTROLLER_SENSOR
-					if (cont == 28'd130000000) begin		// TEMPORIZADOR REFERENTE AO RECEBIMENTO DOS DADOS DO SENSOR
+					if (cont == 28'd1) begin		// TEMPORIZADOR REFERENTE AO RECEBIMENTO DOS DADOS DO SENSOR
 						state <= PROCESS_DATA;				// TRANSITA PARA PROCESS_DATA SE O TEMPO FOR ATINGIDO
 						cont <= 0;								// ZERA A CONTADORA
 						reg_data_sensor <= data_sensor;	// ARMAZENA OS DADOS RECEBIDOS DO SENSOR
@@ -184,16 +184,17 @@ module MEF_main(input clock,					// CLOCK NATIVO DA PLACA DE 50 MHz
 
 					// SAIDAS EM SEND_DATA
 					inout_sensor <= 0;		// DESATIVA O SENSOR
-					send_data_tx <= 1;		// ATIVA O ENVIO DOS DADOS
-
-					if (loop && next_command != 0) 
-						rest_uart_rx <= 1;	// ATIVA RESET DA ENTRADA DE DADOS CASO ESTEJA EM LOOP E O PROXIMO COMANDO SEJA VALIDO
-					
-					else
-						rest_uart_rx <= 0;	
+					send_data_tx <= 1;		// ATIVA O ENVIO DOS DADOS	
 					
 					// TRANSICAO DOS ESTADOS EM SEND_DATA
 					if (loop) begin
+					
+						if (next_command != 0 && !new_data ) 
+							rest_uart_rx <= 1;	// ATIVA RESET DA ENTRADA DE DADOS CASO ESTEJA EM LOOP E O PROXIMO COMANDO SEJA VALIDO
+					
+						else
+							rest_uart_rx <= 0;
+					
 						state <= READ_DATA;		// TRANSITA DE VOLTA PARA READ_DATA SE ESTIVER EM SENSORIAMENTO CONTINUO
 						send_data_tx <= 0;
 						command_invalid <= 0;

@@ -1,5 +1,5 @@
 Flow report for main
-Thu Sep  7 14:31:07 2023
+Fri Sep 22 22:13:22 2023
 Quartus Prime Version 22.1std.2 Build 922 07/20/2023 SC Lite Edition
 
 
@@ -41,17 +41,17 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------------------------------------------------------+
 ; Flow Summary                                                                        ;
 +------------------------------------+------------------------------------------------+
-; Flow Status                        ; Successful - Thu Sep  7 14:31:07 2023          ;
+; Flow Status                        ; Successful - Fri Sep 22 22:13:22 2023          ;
 ; Quartus Prime Version              ; 22.1std.2 Build 922 07/20/2023 SC Lite Edition ;
 ; Revision Name                      ; main                                           ;
 ; Top-level Entity Name              ; main                                           ;
 ; Family                             ; Cyclone IV E                                   ;
 ; Device                             ; EP4CE6E22C8                                    ;
 ; Timing Models                      ; Final                                          ;
-; Total logic elements               ; 506 / 6,272 ( 8 % )                            ;
-;     Total combinational functions  ; 415 / 6,272 ( 7 % )                            ;
-;     Dedicated logic registers      ; 338 / 6,272 ( 5 % )                            ;
-; Total registers                    ; 338                                            ;
+; Total logic elements               ; 505 / 6,272 ( 8 % )                            ;
+;     Total combinational functions  ; 416 / 6,272 ( 7 % )                            ;
+;     Dedicated logic registers      ; 340 / 6,272 ( 5 % )                            ;
+; Total registers                    ; 340                                            ;
 ; Total pins                         ; 4 / 92 ( 4 % )                                 ;
 ; Total virtual pins                 ; 0                                              ;
 ; Total memory bits                  ; 0 / 276,480 ( 0 % )                            ;
@@ -65,7 +65,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 09/07/2023 14:30:30 ;
+; Start date & time ; 09/22/2023 22:12:58 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; main                ;
 +-------------------+---------------------+
@@ -76,7 +76,7 @@ https://fpgasoftware.intel.com/eula.
 +-------------------------------------+----------------------------------------+---------------+-------------+-----------------------------------+
 ; Assignment Name                     ; Value                                  ; Default Value ; Entity Name ; Section Id                        ;
 +-------------------------------------+----------------------------------------+---------------+-------------+-----------------------------------+
-; COMPILER_SIGNATURE_ID               ; 2499180843995.169410783026432          ; --            ; --          ; --                                ;
+; COMPILER_SIGNATURE_ID               ; 2499180843995.169543157824556          ; --            ; --          ; --                                ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                    ; --            ; --          ; eda_board_design_timing           ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                    ; --            ; --          ; eda_board_design_boundary_scan    ;
 ; EDA_GENERATE_FUNCTIONAL_NETLIST     ; Off                                    ; --            ; --          ; eda_board_design_signal_integrity ;
@@ -101,12 +101,12 @@ https://fpgasoftware.intel.com/eula.
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name          ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis ; 00:00:16     ; 1.0                     ; 4859 MB             ; 00:00:20                           ;
-; Fitter               ; 00:00:11     ; 1.2                     ; 6507 MB             ; 00:00:06                           ;
-; Assembler            ; 00:00:01     ; 1.0                     ; 4697 MB             ; 00:00:01                           ;
-; Timing Analyzer      ; 00:00:03     ; 1.2                     ; 4914 MB             ; 00:00:02                           ;
-; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4651 MB             ; 00:00:00                           ;
-; Total                ; 00:00:32     ; --                      ; --                  ; 00:00:29                           ;
+; Analysis & Synthesis ; 00:00:10     ; 1.0                     ; 4858 MB             ; 00:00:14                           ;
+; Fitter               ; 00:00:06     ; 1.2                     ; 6507 MB             ; 00:00:05                           ;
+; Assembler            ; 00:00:00     ; 1.0                     ; 4697 MB             ; 00:00:01                           ;
+; Timing Analyzer      ; 00:00:02     ; 1.1                     ; 4890 MB             ; 00:00:01                           ;
+; EDA Netlist Writer   ; 00:00:01     ; 1.0                     ; 4651 MB             ; 00:00:01                           ;
+; Total                ; 00:00:19     ; --                      ; --                  ; 00:00:22                           ;
 +----------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

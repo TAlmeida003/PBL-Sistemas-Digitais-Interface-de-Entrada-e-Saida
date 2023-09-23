@@ -13,7 +13,7 @@
 # Modifying modelsim.ini
 # vlog -vlog01compat -work altera_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/altera_primitives.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 20:36:05 on Sep 05,2023
+# Start time: 22:15:30 on Sep 21,2023
 # vlog -reportprogress 300 -vlog01compat -work altera_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/altera_primitives.v 
 # -- Compiling module global
 # -- Compiling module carry
@@ -95,7 +95,7 @@
 # 	alt_iobuf_diff
 # 	alt_bidir_diff
 # 	alt_bidir_buf
-# End time: 20:36:07 on Sep 05,2023, Elapsed time: 0:00:02
+# End time: 22:15:32 on Sep 21,2023, Elapsed time: 0:00:02
 # Errors: 0, Warnings: 0
 # 
 # vlib verilog_libs/lpm_ver
@@ -106,7 +106,7 @@
 # Modifying modelsim.ini
 # vlog -vlog01compat -work lpm_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/220model.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 20:36:08 on Sep 05,2023
+# Start time: 22:15:33 on Sep 21,2023
 # vlog -reportprogress 300 -vlog01compat -work lpm_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/220model.v 
 # -- Compiling module LPM_MEMORY_INITIALIZATION
 # -- Compiling module LPM_HINT_EVALUATION
@@ -170,7 +170,7 @@
 # 	lpm_inpad
 # 	lpm_outpad
 # 	lpm_bipad
-# End time: 20:36:09 on Sep 05,2023, Elapsed time: 0:00:01
+# End time: 22:15:33 on Sep 21,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vlib verilog_libs/sgate_ver
@@ -181,7 +181,7 @@
 # Modifying modelsim.ini
 # vlog -vlog01compat -work sgate_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/sgate.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 20:36:09 on Sep 05,2023
+# Start time: 22:15:34 on Sep 21,2023
 # vlog -reportprogress 300 -vlog01compat -work sgate_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/sgate.v 
 # -- Compiling module oper_add
 # -- Compiling module oper_addsub
@@ -223,7 +223,7 @@
 # 	oper_decoder
 # 	oper_bus_mux
 # 	oper_latch
-# End time: 20:36:09 on Sep 05,2023, Elapsed time: 0:00:00
+# End time: 22:15:34 on Sep 21,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
 # vlib verilog_libs/altera_mf_ver
@@ -234,7 +234,7 @@
 # Modifying modelsim.ini
 # vlog -vlog01compat -work altera_mf_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/altera_mf.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 20:36:10 on Sep 05,2023
+# Start time: 22:15:35 on Sep 21,2023
 # vlog -reportprogress 300 -vlog01compat -work altera_mf_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/altera_mf.v 
 # -- Compiling module lcell
 # -- Compiling module ALTERA_MF_MEMORY_INITIALIZATION
@@ -364,7 +364,7 @@
 # 	alt_fault_injection
 # 	sld_virtual_jtag_basic
 # 	altsource_probe
-# End time: 20:36:13 on Sep 05,2023, Elapsed time: 0:00:03
+# End time: 22:15:38 on Sep 21,2023, Elapsed time: 0:00:03
 # Errors: 0, Warnings: 0
 # 
 # vlib verilog_libs/altera_lnsim_ver
@@ -375,7 +375,7 @@
 # Modifying modelsim.ini
 # vlog -sv -work altera_lnsim_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/altera_lnsim.sv}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 20:36:13 on Sep 05,2023
+# Start time: 22:15:38 on Sep 21,2023
 # vlog -reportprogress 300 -sv -work altera_lnsim_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/altera_lnsim.sv 
 # -- Compiling package altera_lnsim_functions
 # -- Compiling package altera_generic_pll_functions
@@ -458,7 +458,7 @@
 # 	altera_iopll
 # 	fourteennm_altera_iopll
 # 	fourteennm_simple_iopll
-# End time: 20:36:15 on Sep 05,2023, Elapsed time: 0:00:02
+# End time: 22:15:41 on Sep 21,2023, Elapsed time: 0:00:03
 # Errors: 0, Warnings: 0
 # 
 # vlib verilog_libs/cycloneive_ver
@@ -469,7 +469,7 @@
 # Modifying modelsim.ini
 # vlog -vlog01compat -work cycloneive_ver {c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/cycloneive_atoms.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 20:36:16 on Sep 05,2023
+# Start time: 22:15:41 on Sep 21,2023
 # vlog -reportprogress 300 -vlog01compat -work cycloneive_ver c:/intelfpga_lite/22.1std/quartus/eda/sim_lib/cycloneive_atoms.v 
 # -- Compiling UDP CYCLONEIVE_PRIM_DFFE
 # -- Compiling UDP CYCLONEIVE_PRIM_DFFEAS
@@ -547,7 +547,7 @@
 # 	cycloneive_jtag
 # 	cycloneive_crcblock
 # 	cycloneive_oscillator
-# End time: 20:36:17 on Sep 05,2023, Elapsed time: 0:00:01
+# End time: 22:15:43 on Sep 21,2023, Elapsed time: 0:00:02
 # Errors: 0, Warnings: 0
 # 
 # if {[file exists rtl_work]} {
@@ -559,151 +559,93 @@
 # vmap work rtl_work 
 # Modifying modelsim.ini
 # 
-# vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_TX.v}
+# vlog -vlog01compat -work work +incdir+C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/interface_sensor.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 20:36:18 on Sep 05,2023
-# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules" C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_TX.v 
-# -- Compiling module UART_TX
+# Start time: 22:15:43 on Sep 21,2023
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules" C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/interface_sensor.v 
+# -- Compiling module interface_sensor
 # 
 # Top level modules:
-# 	UART_TX
-# End time: 20:36:18 on Sep 05,2023, Elapsed time: 0:00:00
+# 	interface_sensor
+# End time: 22:15:43 on Sep 21,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-# vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_RX.v}
+# vlog -vlog01compat -work work +incdir+C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/commands_table.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 20:36:18 on Sep 05,2023
-# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules" C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/UART_RX.v 
-# -- Compiling module UART_RX
+# Start time: 22:15:44 on Sep 21,2023
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules" C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/commands_table.v 
+# -- Compiling module commands_table
 # 
 # Top level modules:
-# 	UART_RX
-# End time: 20:36:18 on Sep 05,2023, Elapsed time: 0:00:00
+# 	commands_table
+# End time: 22:15:44 on Sep 21,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-# vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/TRI_State.v}
+# vlog -vlog01compat -work work +incdir+C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_rx.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 20:36:18 on Sep 05,2023
-# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules" C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/TRI_State.v 
-# -- Compiling module TRI_State
-# 
-# Top level modules:
-# 	TRI_State
-# End time: 20:36:18 on Sep 05,2023, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_tx.v}
-# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 20:36:18 on Sep 05,2023
-# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules" C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_tx.v 
-# -- Compiling module reg_2bytes_UART_tx
-# 
-# Top level modules:
-# 	reg_2bytes_UART_tx
-# End time: 20:36:19 on Sep 05,2023, Elapsed time: 0:00:01
-# Errors: 0, Warnings: 0
-# vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_rx.v}
-# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 20:36:19 on Sep 05,2023
-# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules" C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_rx.v 
+# Start time: 22:15:44 on Sep 21,2023
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules" C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/reg_2bytes_UART_rx.v 
 # -- Compiling module reg_2bytes_UART_rx
 # 
 # Top level modules:
 # 	reg_2bytes_UART_rx
-# End time: 20:36:19 on Sep 05,2023, Elapsed time: 0:00:00
+# End time: 22:15:44 on Sep 21,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-# vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/MEF_main.v}
+# vlog -vlog01compat -work work +incdir+C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/MEF_main.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 20:36:19 on Sep 05,2023
-# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules" C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/MEF_main.v 
+# Start time: 22:15:44 on Sep 21,2023
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules" C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/MEF_main.v 
 # -- Compiling module MEF_main
-# -- Compiling module commands_table
 # 
 # Top level modules:
 # 	MEF_main
-# End time: 20:36:19 on Sep 05,2023, Elapsed time: 0:00:00
+# End time: 22:15:44 on Sep 21,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
-# vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v}
+# vlog -vlog01compat -work work +incdir+C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog {C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/test.v}
 # Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 20:36:19 on Sep 05,2023
-# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules" C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/main.v 
-# -- Compiling module main
+# Start time: 22:15:44 on Sep 21,2023
+# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog" C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/test.v 
+# -- Compiling module test
 # 
 # Top level modules:
-# 	main
-# End time: 20:36:19 on Sep 05,2023, Elapsed time: 0:00:00
-# Errors: 0, Warnings: 0
-# vlog -vlog01compat -work work +incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules {C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/DHT11_teste.v}
-# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
-# Start time: 20:36:19 on Sep 05,2023
-# vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules" C:/Users/thiag/Desktop/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/Modules/DHT11_teste.v 
-# -- Compiling module DHT11_teste
-# 
-# Top level modules:
-# 	DHT11_teste
-# End time: 20:36:19 on Sep 05,2023, Elapsed time: 0:00:00
+# 	test
+# End time: 22:15:44 on Sep 21,2023, Elapsed time: 0:00:00
 # Errors: 0, Warnings: 0
 # 
-vsim work.main
-# vsim work.main 
-# Start time: 20:36:57 on Sep 05,2023
-# Loading work.main
-# Loading work.UART_RX
+vsim work.test
+# vsim work.test 
+# Start time: 22:16:32 on Sep 21,2023
+# Loading work.test
 # Loading work.reg_2bytes_UART_rx
 # Loading work.MEF_main
 # Loading work.commands_table
-# Loading work.DHT11_teste
-# Loading work.TRI_State
-# Loading work.reg_2bytes_UART_tx
-# Loading work.UART_TX
+# Loading work.interface_sensor
 add wave -position insertpoint  \
-sim:/main/clock \
-sim:/main/uart_rx \
-sim:/main/sensor \
-sim:/main/uart_tx \
-sim:/main/done_uart_rx \
-sim:/main/reg_done_uart_rx \
-sim:/main/done_uart_tx \
-sim:/main/reg_done_uart_tx \
-sim:/main/done_tx \
-sim:/main/tx_active \
-sim:/main/data_rx \
-sim:/main/address \
-sim:/main/command \
-sim:/main/data_reg_tx \
-sim:/main/data_sensor \
-sim:/main/data_uart_tx \
-sim:/main/enable_sensor \
-sim:/main/done_sensor \
-sim:/main/erro
-force -freeze sim:/main/clock 1 0, 0 {50 ps} -r 100
-force -freeze sim:/main/uart_rx 1 0
-force -freeze sim:/main/sensor 0 0
+sim:/test/clock_50Mhz \
+sim:/test/received_byte_alert \
+sim:/test/sensor_data \
+sim:/test/data_new_package \
+sim:/test/Byte_received \
+sim:/test/reset_rx \
+sim:/test/received_2_Bytes_alert \
+sim:/test/sensor_address \
+sim:/test/required_command \
+sim:/test/start_sending_new_package \
+sim:/test/enable_sensor \
+sim:/test/data_sensor \
+sim:/test/transfer_byte_alert \
+sim:/test/start_send_byte \
+sim:/test/data_byte_transfer
+force -freeze sim:/test/clock_50Mhz 1 0, 0 {50 ps} -r 100
+force -freeze sim:/test/received_byte_alert 0 0
+force -freeze sim:/test/Byte_received 100 0
 run
-force -freeze sim:/main/address 000000100 0
+force -freeze sim:/test/received_byte_alert St1 0
 run
-force -freeze sim:/main/done_uart_rx St1 0
+force -freeze sim:/test/received_byte_alert St0 0
 run
-force -freeze sim:/main/done_uart_rx St0 0
+force -freeze sim:/test/Byte_received 00 0
+force -freeze sim:/test/received_byte_alert St1 0
 run
-run
-run
-run
-force -freeze sim:/main/reg_done_uart_rx St1 0
-run
-force -freeze sim:/main/reg_done_uart_rx St0 0
-run
-run
-run
-run
-force -freeze sim:/main/command 000000100 0
-run
-run
-run
-run
-run
-run
-run
-force -freeze sim:/main/reg_done_uart_rx St1 0
-run
-force -freeze sim:/main/reg_done_uart_rx St0 0
+force -freeze sim:/test/received_byte_alert St0 0
 run
 run
 run
@@ -716,7 +658,99 @@ run
 run
 run
 run
+force -freeze sim:/test/Byte_received 110 0
+run
+force -freeze sim:/test/received_byte_alert St1 0
+run
+force -freeze sim:/test/received_byte_alert St0 0
 run
 run
-# End time: 20:56:05 on Sep 05,2023, Elapsed time: 0:19:08
-# Errors: 0, Warnings: 0
+run
+run
+run
+run
+run
+run
+force -freeze sim:/test/received_byte_alert St1 0
+force -freeze sim:/test/Byte_received 00000110 0
+run
+run
+run
+run
+run
+run
+run
+run
+force -freeze sim:/test/received_byte_alert St0 0
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+restart
+force -freeze sim:/test/clock_50Mhz 1 0, 0 {50 ps} -r 100
+force -freeze sim:/test/clock_50Mhz 1 0, 0 {50 ps} -r 100
+force -freeze sim:/test/received_byte_alert 0 0
+force -freeze sim:/test/Byte_received 100 0
+run
+# GetModuleFileName: Não foi possível encontrar o módulo especificado.
+# 
+# 
+noforce sim:/test/received_byte_alert
+force -freeze sim:/test/received_byte_alert St1 0
+run
+force -freeze sim:/test/received_byte_alert St0 0
+run
+force -freeze sim:/test/Byte_received 00000 0
+run
+force -freeze sim:/test/clock_50Mhz St0 0
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+restart
+force -freeze sim:/test/clock_50Mhz 1 0, 0 {50 ps} -r 100
+force -freeze sim:/test/received_byte_alert 0 0
+force -freeze sim:/test/Byte_received 100 0
+run
+# GetModuleFileName: Não foi possível encontrar o módulo especificado.
+# 
+# 
+run
+force -freeze sim:/test/received_byte_alert St1 0
+force -freeze sim:/test/Byte_received 0000 0
+run
+force -freeze sim:/test/received_byte_alert St0 0
+run
+run
+run
+run
+run
