@@ -80,7 +80,18 @@
   * **Endereço Incorreto do Sensor (0x6F):** sinalização de que o endereço do sensor especificado não está correto;
   * **Resposta Vazia (0xFF):** usado quando não há informações específicas a serem transmitidas.
 
+Referente ao módulo "commands_table", implementado em Verilog, tem o intuito de desempenhar um papel fundamental no protocolo do sistema. Esse módulo é responsável pelo processamento dos comandos de requisição e respostas. Seu objetivo principal é gerar respostas apropriadas conforme as entradas recebidas, para garantir o funcionamento correto do sistema, e atender às solicitações dos usuários. Este módulo possui sete entradas e uma saída, cada uma com um papel crucial na operação do sistema, sendo elas:
+  * **exe_command (entrada):** armazena o comando que está sendo atualmente processado pelo sistema, com o intuito de determinar qual resposta específica será gerada com base no comando em execução;
+  * **next_command (entrada):** armazena o próximo comando a ser executado, a fim de determinar a próxima resposta que será gerada pelo sistema;
+  * **crt_decoder (entrada):** sinal habilitador que ativa a decodificação para os casos regulares;
+  * **data_sensor (entrada):** armazena os dados coletados pelos sensores;
+  * **command_invalid (entrada):** indicação se o comando recebido é válido ou não, sendo importante para as devidas respostas em casos de erros ou comandos desconhecidos;
+  * **next_address (entrada):** armazena o endereço do sensor associado ao próximo comando;
+  * **exe_address (entrada):** armazena o endereço atualmente em execução, associado ao comando em processamento;
+  * **buffer_tx (saída):** transmite as respostas geradas pelo módulo, que podem incluir informações sobre a execução do comando, medições dos sensores ou mensagens de erro, a depender das entradas.
+
 </p>
+
 
 <h2 id="descricaoEquipamentos">  Descrição dos equipamentos e software utilizados</h2>
 
