@@ -21,41 +21,38 @@
 
 <h2>  Equipe: <br></h2>
 <uL> 
-	<li>Samara dos Santos Ferreira<br></li>
-	<li>Silvio Azevedo de Oliveira<br></li>
-	<li>Sival Leão de Jesus<br></li>
-  <li>Thiago Neri dos Santos Almeida<br></li>
+  <li><a href="https://github.com/Samara-Ferreira" style="text-decoration: none; color: inherit;">Samara dos Santos Ferreira</a></li>
+
+<li><a href="https://github.com/Silviozv" style="text-decoration: none; color: inherit;">Silvio Azevedo de Oliveira</a></li>
+	<li><a href="https://github.com/SivalLeao" style="text-decoration: none; color: inherit;">Sival Leão de Jesus</a></li>
+  <li><a href="https://github.com/TAlmeida003" style="text-decoration: none; color: inherit;">Thiago Neri dos Santos Almeida</a></li>
+
 </ul>
 
-<h2 align="center"> Sumário </h2>
+<h1 align="center"> Sumário </h1>
 <div id="sumario">
+	<ul>
+		<li><a href="#diagrama"> Diagrama Geral</li>
+		<li><a href="#protocolo"> Protocolo do Sistema  </a></li>
+		<li><a href="#descricaoEquipamentos"> Descrição dos equipamentos e software utilizados </a> </li>
+		<li><a href="#codigo-C"> Estrutura do Código C no Terminal</a></li>
+		<li><a href="#recebimento-FPGA"> Recebimento de Dados pela FPGA</a> </li>
+		<li><a href="#transmissao"> Transmissão de Dados pela FPGA </a> </li>
+		<li><a href="#sensor-dht11"> Sincronização e Leitura do Sensor DHT11 </a> </li>
+		<li><a href="#PINOS"> LEs, LABs e Pinos  </a> </li>
+		<li><a href="#teste"> Teste Realizados </a> </li>
+		<li><a href="#como-usar"> Execução do Projeto </a></li>
+		<li><a href="#conclusao"> Conclusão </a> </li>
+	</ul>	
+</div>
 
-&nbsp;&nbsp;&nbsp;[**1.** Diagrama Geral](#Diagrama)
 
-&nbsp;&nbsp;&nbsp;[**2.** Estrutura do Código C no Terminal](#Estrutura-do-Código-C-no-Terminal)
-
-&nbsp;&nbsp;&nbsp;[**2.** Protocolo do Sistema](#Protocolo-do-Sistema)
-
-&nbsp;&nbsp;&nbsp;[**3.** Recebimento de dados pela FPGA](#Recebimento-FPGA)
-
-&nbsp;&nbsp;&nbsp;[**4.** Transmissão de dados pela FPGA](#transmissao)
-
-&nbsp;&nbsp;&nbsp;[**5.** Sincronização e leitura do sensor DHT11](#sensor-dht11)
-
-&nbsp;&nbsp;&nbsp;[**6.** LEs, LABs e Pinos](#PINOS)
-
-&nbsp;&nbsp;&nbsp;[**6.** Teste Realizados](#Teste)
-
-&nbsp;&nbsp;&nbsp;[**7.** Execução do Projeto](#como-usar)
-
-&nbsp;&nbsp;&nbsp;[**8.** Conclusão](#conclusao)
-
-<h2 id="Diagrama">  Diagrama Geral</h2>
+<h2 id="diagrama">  Diagrama Geral</h2>
 
 ![!\[Alt text\](<Imagens/Diagrama do Projeto.jpg>)](Imagens/Diagrama-do-Projeto.jpg)
 
 
-<h2 id="Protocolo"> Protocolo do Sistema</h2>
+<h2 id="protocolo"> Protocolo do Sistema</h2>
 <p align="justify"> 
 
  O protocolo é responsável pela definição dos comandos de requisição, que solicitam a execução de ações específicas, e suas respostas correspondentes, que permitem o controle adequado do sistema. Abaixo, tem-se a descrição dos comandos de requisição do protocolo, os quais contém a sua descrição e entre parênteses, seu código específico:
@@ -86,7 +83,37 @@
 
 </p>
 
-<h2 id="Codigo-C"> Estrutura do Código C no Terminal</h2>
+<h2 id="descricaoEquipamentos">  Descrição dos equipamentos e software utilizados</h2>
+
+<p align="justify"> 
+
+* **Computador Linux com porta serial**
+    
+    O projeto foi executado em um computador com sistema operacional Linux, sendo de extrema importância a presença de uma porta serial. A comunicação essencial para o funcionamento do sistema é realizada via UART, necessitando de uma conexão com um Cabo Serial DB9 RS232 que se estende do computador até a Placa FPGA Cyclone IV.
+
+* **Placa FPGA Cyclone IV**
+
+  ![!\[Alt text\](<Imagens/Cyclone_IV.jpg>)](Imagens/Cyclone_IV.jpg)
+  O kit de desenvolvimento FPGA empregado neste projeto é o Cyclone IV E, modelo EP4CE6E22C8, notável por suas especificações que incluem 6272 elementos lógicos (LE), 392 blocos de matriz lógica (LAB) e uma frequência operacional máxima de 50MHz. Além desses recursos, a FPGA está equipada com comunicação serial RS232, a qual foi utilizada por meio do Cabo Serial DB9 RS232, responsável por transmitir e receber informações de forma eficaz. Essa combinação de características da FPGA e a comunicação serial desempenharam um papel fundamental no sucesso do projeto. 
+
+  A placa em questão foi programada em Verilog, uma linguagem de descrição de hardware, utilizando o software Quartus Lite Edition. O principal objetivo da programação foi possibilitar que a placa recebesse os comandos do computador, interpretasse esses comandos e executasse as ações solicitadas. Além disso, a placa foi projetada para ler dados do Sensor de umidade e temperatura DHT11, que também está conectado à FPGA. 
+
+* **Sensor de umidade e temperatura DHT11**
+  ![!\[Alt text\](<Imagens/DHT11.jpg>)](Imagens/DHT11.jpg)
+  O sensor utilizado para a medição de temperatura e umidade é o DHT11, que possui a capacidade de realizar leituras de temperatura na faixa de 0 a 50 graus Celsius e de umidade na faixa de 20% a 90%, com precisão de umidade de medição: ± 5,0% e precisão de medição de temperatura: ± 2.0 ºC.
+
+* **Quartus Lite Edition**
+
+  O Quartus Lite é uma edição gratuita do software Quartus Prime, desenvolvido pela Intel (anteriormente conhecida como Altera). Essa ferramenta é empregada no projeto, simulação e programação de dispositivos de lógica programável, como FPGA e CPLD. No contexto deste projeto, o Quartus Lite desempenhou um papel fundamental ao ser utilizado para programar a placa FPGA e, posteriormente, transmitir essa programação por meio do USB-Blaster, que está integrado à placa e conectado à porta USB do computador.
+
+* **ModelSim** 
+
+  O ModelSim é uma ferramenta de simulação de hardware amplamente utilizada para simular o comportamento de circuitos digitais. É uma ferramenta essencial no desenvolvimento e verificação de projetos de lógica digital, incluindo circuitos integrados e FPGA. Permite criar modelos de simulação de circuitos digitais e executar testes para verificar o funcionamento correto antes de implementar o projeto em hardware real.
+
+  O ModelSim é essencial no desenvolvimento de hardware digital, pois ajuda a identificar erros, depurar problemas e otimizar o design, economizando tempo e recursos. Além da simulação funcional, suporta simulação de tempo, considerando atrasos e características temporais, permitindo verificar o desempenho em tempo real.
+</p>
+
+<h2 id="codigo-C"> Estrutura do Código C no Terminal</h2>
 
 <p align="justify"> 
   A interação entre o computador e a placa é estabelecida através de dois terminais que operam simultaneamente em um ambiente Linux e são programados em linguagem C. Cada terminal desempenha uma função específica na comunicação. O terminal Tx_UART_PC é designado exclusivamente para que o usuário interaja com a placa por meio de comandos específicos. Por outro lado, o terminal Rx_UART_PC é reservado exclusivamente para visualizar as respostas da placa, sem permitir a interação direta do usuário.
@@ -111,7 +138,7 @@ A segunda variável compartilhada é de controle. Se o usuário digitar 00, o Tx
 
 </p>
 
-<h2 id="Recebimento-FPGA"> Recebimento de Dados pela FPGA</h2>
+<h2 id="recebimento-FPGA"> Recebimento de Dados pela FPGA</h2>
 <p align="justify"> 
   O processo de recebimento e armazenamento dos 2 bytes enviados pelo PC para a FPGA é gerenciado através da interação entre dois módulos essenciais: "UART RX" e "BUFFER RX".
 </p>
@@ -296,7 +323,7 @@ Os 11 estados da máquina são explicados a seguir:
 ![Alt text](Imagens/pinos.png)
 <p align="center"><strong> Pin planner com a pinagem utilizada na FPGA.</strong> </p>
 
-<h2 id="Teste">  Teste Realizados</h2>
+<h2 id="teste">  Teste Realizados</h2>
 
 <p align="justify"> 
 
