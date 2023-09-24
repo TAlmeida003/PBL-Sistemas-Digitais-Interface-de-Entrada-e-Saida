@@ -289,6 +289,41 @@ O processo de transmissão é controlado por uma MEF com 4 estados, segue o diag
 **STOP**: No último estado, a MEF sinaliza o término do processo. O sinal de "out_tx" retorna ao estado alto (1), indicando o final da transmissão, o contador "bit_index" é zerado, e o contador "counter" realiza uma última contagem. Após essa contagem, "done" é definido como 1, indicando que a transmissão foi concluída com sucesso, e a MEF retorna ao estado "IDLE".
 </p>
 
+<h2 id="mef_main"> Máquina de Estados da Unidade de Controle</h2>
+<p align="justify"> 
+
+O módulo “controller_unit”, referente a unidade de controle do sistema, implementado em Verilog,  foi projetado para o gerenciamento da máquina de estados geral, que controla os sensores e gerencia os dados recebidos. Ele é responsável por interpretar os comandos, adquirir os dados dos sensores, processá-los e fornecer respostas em tempo real. Além disso, o módulo lida com o gerenciamento de dados incorretos ou comandos inválidos, aplicando o devido tratamento à eles.
+
+Com relação às entradas e saídas desse módulo, tem-se:
+
+  * **clock (entrada):** representação do clock nativo da placa, com uma frequência de 50 MH;
+  * **new_data (entrada):** indicação da chegada de um novo pacote de dados;
+  * **next_command (entrada):** armazena o próximo comando recebido;
+  * **next_address (entrada):** armazena o próximo endereço associado à próxima requisição;
+  * **data_sensor (entrada):** contém as informações recebidas dos sensores, essenciais para gerar as respostas;
+  * **buffer_tx (saída):** armazena o novo pacote a ser enviado como resposta;
+  * **send_data_tx (saída):** sinal que indica o pacote a ser enviado para o TX;
+  * **inout_sensor (saída):** controla a inicialização do sensor;
+  * **rest_uart_rx (saída):** utilizado para redefinir a entrada de dados quando for 
+
+### Estados da Máquina
+
+Para a realização do controle do sistema, foi usada uma máquina de estados, cujo diagrama está apresentado abaixo e a explicação de cada estado:
+
+  * **IDLE (Estado de Espera):** aguarda pela chegada de um novo pacote de dados, no qual todas as saídas são desativadas e o módulo permanece nesse estado até que novos dados sejam recebidos;
+  
+  * **READ_DATA (Estado de Leitura dos Dados):** os dados são lidos e os comandos são verificados. Caso o comando em execução esteja correto e o endereço estiver dentro do intervalo esperado, de 40 bits, o módulo passa para o estado de “CONTROLLER_SENSOR”. Caso contrário, ele vai para o estado “INCORRECT_DATA”, sinalizando que houve algum problema com os dados recebidos;
+  
+  * **CONTROLLER_SENSOR (Estado de Controle do Sensor):** gerencia o sensor e aguarda a leitura dos dados. Um temporizador é usado para determinar quando os dados do sensor devem ser lidos. Após o seu término, o módulo passa para o estado “PROCESS_DATA”;
+  
+  * **PROCESS_DATA (Estado de Processamento dos Dados):** processa os dados e os prepara para o envio. Quando o envio desses dados é ativado, o módulo passa para o estado SEND_DATA;
+  
+  * **SEND_DATA (Estado de Envio dos Dados):** envia os dados que foram processados. Caso o sistema esteja em modo de sensoriamento contínuo e o próximo comando for válido, a entrada de dados é redefinida e o módulo permanece nesse estado até que o sensoriamento seja interrompido ou até que um novo comando seja recebido;
+  
+  * **INCORRECT_DATA (Estado de Dados Incorretos):** tratamento dos dados incorretos ou comandos inválidos, passando para o estado “SEND_DATA” após o tratamento.
+ 
+</p>
+
 
 <h2 id="sensor-dht11"> Sincronização e Leitura do Sensor DHT11</h2>
 
