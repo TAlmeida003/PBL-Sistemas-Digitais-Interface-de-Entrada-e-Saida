@@ -27,6 +27,7 @@
   <li>Thiago Neri dos Santos Almeida<br></li>
 </ul>
 
+
 <h1 align="center"> Sumário </h1>
 <div id="sumario">
 	<ul>
@@ -68,16 +69,16 @@
  Além dos comandos de requisição, o protocolo inclui os comandos de resposta, cruciais para fornecer retornos detalhados sobre as solicitações e suas variações. Abaixo, é apresentado a descrição de cada um deles, incluindo os novos adicionados, para fornecer informações mais detalhadas sobre comandos incorretos, endereços inválidos e outras situações excepcionais, identificados pelos códigos: 0xCF, 0xDF, 0xEF e 0x6F:
 
   * **Problema com o Sensor (0x1F):** indicação de um problema com o sensor, não podendo realizar as medições;
-  * **Sensor em Funcionamento (0x07):** confirmação que o sensor está funcionando normalmente, indicando a disponibilidade para coletar os dados;
-  * **Medição Atual de Umidade (0x08):** fornece a medição atual de umidade;
-  * **Medição Atual de Temperatura (0x09):** fornece a medição atual de temperatura;
-  * **Desativação do Sensoriamento Contínuo de Temperatura (0x0A):** confirma a conclusão bem-sucedida da ação de desativação do sensoriamento contínuo de temperatura;
-  * **Desativação do Sensoriamento Contínuo de Umidade (0x0B):** indica que o sensoriamento contínuo foi desativado com sucesso;
+  * **Sensor em Funcionamento (0x08):** confirmação que o sensor está funcionando normalmente, indicando a disponibilidade para coletar os dados;
+  * **Medição Atual de Umidade (0x09):** fornece a medição atual de umidade;
+  * **Medição Atual de Temperatura (0x0A):** fornece a medição atual de temperatura;
+  * **Desativação do Sensoriamento Contínuo de Temperatura (0x0B):** confirma a conclusão bem-sucedida da ação de desativação do sensoriamento contínuo de temperatura;
+  * **Desativação do Sensoriamento Contínuo de Umidade (0x0C):** indica que o sensoriamento contínuo foi desativado com sucesso;
   * **Comando Não Existe (0xCF):** indicação de que um comando de requisição não reconhecido é recebido;
   * **Endereço Não Existe (0xEF):** endereço não reconhecido é especificado em uma solicitação;
-  * **Comando Incorreto (0xDF):** indicação de que um comando foi formulado de maneira incorreta ou não segue o protocolo estabelecido;
+  * **Comando Incorreto (0xDF):** indicação de que um comando foi formulado de maneira incorreta ou não segue o protocolo estabelecido, no caso do sensoriamento contínuo;
   * **Endereço Incorreto do Sensor (0x6F):** sinalização de que o endereço do sensor especificado não está correto;
-  * **Resposta Vazia (0xFF):** usado quando não há informações específicas a serem transmitidas ou quando ocorre uma situação inesperada.
+  * **Resposta Vazia (0xFF):** usado quando não há informações específicas a serem transmitidas.
 
 </p>
 
