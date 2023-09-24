@@ -1,7 +1,7 @@
 /* MODULO REFERENTE A MAQUINA DE ESTADOS
 	- ESTE MODULO REPRESENTA UMA MAQUINA DE ESTADOS QUE MANIPULA O SISTEMA GERAL, CONTROLANDO O SENSOR E O GERENCIAMENTO DOS DADOS.
 */
-module MEF_main(input clock,					// CLOCK NATIVO DA PLACA DE 50 MHz
+module controller_unit(input clock,					// CLOCK NATIVO DA PLACA DE 50 MHz
 					 input new_data, 				// NOVO PACOTE DE DADOS RECEBIDO
 					 input [7:0] next_command,	// REQUISICAO RECEBIDA
 					 input [7:0] next_address,	// ENDERECO RECEBIDO DO SENSOR
@@ -66,13 +66,18 @@ module MEF_main(input clock,					// CLOCK NATIVO DA PLACA DE 50 MHz
 	end
 	
 	
+	/* ARMAZENAMENTO DO COMANDO ATUAL 
+		- VERIFICA A BORDA DE SUBIDA DO SINAL DE CLOCK.
+	*/
 	always @(posedge clock) begin 
+		// SE ESTIVER EM SENSORIAMENTO CONTINUO E O ENDERECO EM EXECUCAO SEJA IGUAL AO NOVO RECEBIDO, ATUALIZA APENAS O COMANDO EM EXECUCAO
 		if (loop) begin 
 			if (((exe_command == 4 && next_command == 6) || (exe_command == 5 && next_command == 7)) && exe_address == next_address && next_command != 0 && new_data) begin
 				exe_command <= next_command;
 			end
 		end
 		
+		// CASO CONTRARIO, ATUALIZA O ENDERECO E COMANDO EM EXECUCAO
 		else begin
 			exe_address <= next_address;
 			exe_command <= next_command;
@@ -174,13 +179,15 @@ module MEF_main(input clock,					// CLOCK NATIVO DA PLACA DE 50 MHz
 				end
 					
 				
+				/* ESTADO SEND_DATA: ENVIO DOS DADOS PROCESSADOS */
 				SEND_DATA: begin
 
-					inout_sensor <= 0;		
-					send_data_tx <= 1;		
+					// SAIDAS EM SEND_DATA
+					inout_sensor <= 0;		// DESATIVA O SENSOR
+					send_data_tx <= 1;		// ATIVA O ENVIO DOS DADOS	
 
 					if (loop && next_command != 0 && !new_data) begin
-						rest_uart_rx <= 1;	
+						rest_uart_rx <= 1;	// ATIVA RESET DA ENTRADA DE DADOS CASO ESTEJA EM LOOP E O PROXIMO COMANDO SEJA VALIDO
 					end
 					
 					else begin
@@ -188,15 +195,16 @@ module MEF_main(input clock,					// CLOCK NATIVO DA PLACA DE 50 MHz
 						
 					end
 					
+					// TRANSICAO DOS ESTADOS EM SEND_DATA
 					if (loop) begin
-						state <= READ_DATA;		
+						state <= READ_DATA;		// TRANSITA DE VOLTA PARA READ_DATA SE ESTIVER EM SENSORIAMENTO CONTINUO
 						send_data_tx <= 0;
 						command_invalid <= 0;
 						crt_decoder <= 0;
 					end
 						
 					else begin
-						state <= IDLE;				
+						state <= IDLE;				// TRANSITA DE VOLTA PARA IDLE, CASO CONTRARIO
 						send_data_tx <= 0;
 						command_invalid <= 0;
 						crt_decoder <= 0;

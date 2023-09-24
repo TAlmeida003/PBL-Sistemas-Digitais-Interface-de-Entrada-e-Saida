@@ -46,7 +46,7 @@ module main(
     wire        start_sending_new_package, enable_sensor;   // FLAGs DA UNIDADE DE CONTROLE
     wire [15:0] data_new_package;                           // DADOS QUE SERÃO ENVIADOS 
 
-    MEF_main                exe(clock_50Mhz,              
+    controller_unit                exe(clock_50Mhz,              
                                 received_2_Bytes_alert,    // ESSA FLAG RETIRA A MÁQUINA DO MODE DE ESPERA
                                 required_command,          // COMANDO A SER EXECUTADO NA MÁQUINA
                                 sensor_address,            // ENDEREÇO DO SENSOR HÁ SER ANALISADO
