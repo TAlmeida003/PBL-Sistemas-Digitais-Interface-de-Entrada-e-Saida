@@ -77,7 +77,7 @@
   * **Comando Não Existe (0xCF):** indicação de que um comando de requisição não reconhecido é recebido;
   * **Endereço Não Existe (0xEF):** endereço não reconhecido é especificado em uma solicitação;
   * **Comando Incorreto (0xDF):** indicação de que um comando foi formulado de maneira incorreta ou não segue o protocolo estabelecido, no caso do sensoriamento contínuo;
-  * **Endereço Incorreto do Sensor (0x6F):** sinalização de que o endereço do sensor especificado não está correto;
+  * **Endereço Incorreto do Sensor (0x6F):** sinalização de que o endereço do sensor especificado não está correto, no caso de sensoriamento contínuo;
   * **Resposta Vazia (0xFF):** usado quando não há informações específicas a serem transmitidas.
 
 Referente ao módulo "commands_table", implementado em Verilog, tem o intuito de desempenhar um papel fundamental no protocolo do sistema. Esse módulo é responsável pelo processamento dos comandos de requisição e respostas. Seu objetivo principal é gerar respostas apropriadas conforme as entradas recebidas, para garantir o funcionamento correto do sistema, e atender às solicitações dos usuários. Este módulo possui sete entradas e uma saída, cada uma com um papel crucial na operação do sistema, sendo elas:
