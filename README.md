@@ -39,6 +39,7 @@
 		<li><a href="#transmissao"> Transmissão de Dados pela FPGA </a> </li>
 		<li><a href="mef_main"> Máquina de Estados da Unidade de Controle</li>
 		<li><a href="#sensor-dht11"> Sincronização e Leitura do Sensor DHT11 </a> </li>
+    <li><a href="#GERAL"> Solução Geral do projeto </a> </li>
 		<li><a href="#PINOS"> LEs, LABs e Pinos  </a> </li>
 		<li><a href="#teste"> Teste Realizados </a> </li>
 		<li><a href="#como-usar"> Execução do Projeto </a></li>
@@ -360,6 +361,13 @@ Os 11 estados da máquina são explicados a seguir:
 * **ERROR**: Representa a situação de ter ocorrido um erro durante a sincronização ou leitura de dados do sensor. Coloca todos os bits da saída como 1 para indicar que um erro aconteceu. É checado se o pino de entrada e saída do DHT11 está enviando nível lógico alto (1), se estiver, vai para o estado "END_PROCESS". Caso não esteja enviando nível lógico alto (1), é esperado o tempo de 65 us para o sinal se normalizar, caso passe o tempo, vai para o estado de "IDLE" direto.
 
 </p>
+
+<h2 id="GERAL"> Solução geral do projeto</h2>
+
+<p align="justify"> 
+O sistema, composto por todos os módulos, demonstra sua capacidade de atender às demandas específicas de maneira eficaz. Nesse contexto, o módulo "UART RX" desempenha o papel de receber as solicitações do usuário por meio da porta serial em pacotes de 2 bytes. Esses valores são armazenados individualmente pelo bloco "BUFFER RX" para preservar os dados recebidos. Após informar à unidade de controle que o pacote foi armazenado, este módulo analisa os dados recebidos. No caso de detecção de dados incorretos, o sistema gera um pacote de resposta indicando o tipo de erro. Por outro lado, quando os dados estão corretos, o módulo ativa a comunicação com o sensor por meio do driver "Interface Sensor", sincronizando e capturando os 5 bytes enviados pelo sensor de temperatura e umidade. Uma vez que todas as informações, incluindo requisitos e respostas, estão disponíveis, elas são encaminhadas ao bloco "Command Table" para criar uma resposta de 2 bytes e enviar os dados. Antes de retornar ao estado ocioso, verifica-se se o sistema está configurado para a coleta contínua de dados, reiniciando esse processo de resposta conforme necessário. Dessa forma, ao sinalizar ao "BUFFER TX" que os dados podem ser enviados, o primeiro byte é transmitido pelo módulo "UART TX". Após a confirmação, o segundo byte é enviado, concluindo assim o processo de entrada e saída de dados.
+</p>
+
 
 <h2 id="PINOS">  LEs, LABs e Pinos</h2>
 
