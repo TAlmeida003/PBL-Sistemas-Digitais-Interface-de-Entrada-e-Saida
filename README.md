@@ -21,12 +21,10 @@
 
 <h2>  Equipe: <br></h2>
 <uL> 
-  <li><a href="https://github.com/Samara-Ferreira" style="text-decoration: none; color: inherit;">Samara dos Santos Ferreira</a></li>
-
-<li><a href="https://github.com/Silviozv" style="text-decoration: none; color: inherit;">Silvio Azevedo de Oliveira</a></li>
-	<li><a href="https://github.com/SivalLeao" style="text-decoration: none; color: inherit;">Sival Leão de Jesus</a></li>
-  <li><a href="https://github.com/TAlmeida003" style="text-decoration: none; color: inherit;">Thiago Neri dos Santos Almeida</a></li>
-
+	<li>Samara dos Santos Ferreira<br></li>
+	<li>Silvio Azevedo de Oliveira<br></li>
+	<li>Sival Leão de Jesus<br></li>
+  <li>Thiago Neri dos Santos Almeida<br></li>
 </ul>
 
 <h1 align="center"> Sumário </h1>
