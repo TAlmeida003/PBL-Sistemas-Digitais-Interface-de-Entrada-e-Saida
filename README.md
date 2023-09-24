@@ -34,6 +34,8 @@
 
 &nbsp;&nbsp;&nbsp;[**2.** Estrutura do código C no terminal](#Codigo-C)
 
+&nbsp;&nbsp;&nbsp;[**2.** Protocolo do Sistema](#Protocolo)
+
 &nbsp;&nbsp;&nbsp;[**3.** Recebimento de dados pela FPGA](#Recebimento-FPGA)
 
 &nbsp;&nbsp;&nbsp;[**4.** Transmissão de dados pela FPGA](#transmissao)
@@ -77,6 +79,39 @@ O terminal Rx depende do terminal Tx, e essa dependência é gerenciada por meio
 A segunda variável compartilhada é de controle. Se o usuário digitar 00, o Tx envia um comando para encerrar a execução do Rx. O Tx será encerrado imediatamente, mas o Rx pode ter um atraso de até 1 segundo para encerrar.
 
 </p>
+
+
+<h2 id="Protocolo"> Protocolo do Sistema</h2>
+<p align="justify"> 
+
+ O protocolo é responsável pela definição dos comandos de requisição, que solicitam a execução de ações específicas, e suas respostas correspondentes, que permitem o controle adequado do sistema. Abaixo, tem-se a descrição dos comandos de requisição do protocolo, os quais contém a sua descrição e entre parênteses, seu código específico:
+
+  * **Solicitar Situação Atual do Sensor (0x01):** obtenção das informações sobre a situação atual do sensor, cuja resposta indicará se está funcionando normalmente ou se há algum problema;
+  * **Solicitar Medição de Temperatura (0x02):** fornecimento da medida atual de temperatura, caso o sensor esteja funcionando corretamente;
+  * **Solicitar Medição de Umidade (0x03):** fornecimento da medida atual de umidade, caso o sensor não esteja com problemas;
+  * **Ativar Sensoriamento Contínuo de Temperatura (0x04):** permite que o sistema receba atualizações regulares sobre as leituras de temperatura;
+  * **Ativar Sensoriamento Contínuo de Umidade (0x05):** de forma similar ao anterior, mas para a umidade;
+  * **Desativar Sensoriamento Contínuo de Temperatura (0x06):** interrupção do envio regular das leituras de temperatura;
+  * **Desativar Sensoriamento Contínuo de Umidade (0x07):** interrupção do envio das leituras de umidade.
+
+ Desse modo, é importante ressaltar que a única alteração feita em relação aos requisitos originais, disponibilizados nos requisitos do problema, é a numeração dos códigos dos comandos. No sistema atual, o código 0x00 não é mais válido, sendo omitido da tabela de comandos.
+
+ Além dos comandos de requisição, o protocolo inclui os comandos de resposta, cruciais para fornecer retornos detalhados sobre as solicitações e suas variações. Abaixo, é apresentado a descrição de cada um deles, incluindo os novos adicionados, para fornecer informações mais detalhadas sobre comandos incorretos, endereços inválidos e outras situações excepcionais, identificados pelos códigos: 0xCF, 0xDF, 0xEF e 0x6F:
+
+  * **Problema com o Sensor (0x1F):** indicação de um problema com o sensor, não podendo realizar as medições;
+  * **Sensor em Funcionamento (0x07):** confirmação que o sensor está funcionando normalmente, indicando a disponibilidade para coletar os dados;
+  * **Medição Atual de Umidade (0x08):** fornece a medição atual de umidade;
+  * **Medição Atual de Temperatura (0x09):** fornece a medição atual de temperatura;
+  * **Desativação do Sensoriamento Contínuo de Temperatura (0x0A):** confirma a conclusão bem-sucedida da ação de desativação do sensoriamento contínuo de temperatura;
+  * **Desativação do Sensoriamento Contínuo de Umidade (0x0B):** indica que o sensoriamento contínuo foi desativado com sucesso;
+  * **Comando Não Existe (0xCF):** indicação de que um comando de requisição não reconhecido é recebido;
+  * **Endereço Não Existe (0xEF):** endereço não reconhecido é especificado em uma solicitação;
+  * **Comando Incorreto (0xDF):** indicação de que um comando foi formulado de maneira incorreta ou não segue o protocolo estabelecido;
+  * **Endereço Incorreto do Sensor (0x6F):** sinalização de que o endereço do sensor especificado não está correto;
+  * **Resposta Vazia (0xFF):** usado quando não há informações específicas a serem transmitidas ou quando ocorre uma situação inesperada.
+
+</p>
+
 
 <h2 id="Recebimento-FPGA"> Recebimento de dados pela FPGA</h2>
 <p align="justify"> 
