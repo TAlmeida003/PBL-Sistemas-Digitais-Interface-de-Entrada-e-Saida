@@ -6,7 +6,7 @@ state.START 0 0 1 1
 state.DATA 0 1 0 1 
 state.STOP 1 0 0 1 
 
-State Machine - |main|reg_2bytes_UART_tx:reg_tx|state
+State Machine - |main|BUFFER_TX:reg_tx|state
 Name state.SEND_BYTE_TWO state.STOP_ACK_1 state.SEND_BYTE_ONE state.000 state.STOP_ACK_2 
 state.000 0 0 0 0 0 
 state.SEND_BYTE_ONE 0 0 1 1 0 
@@ -28,7 +28,7 @@ state.COLLECT_ALL_DATA 0 0 1 0 0 0 0 0 0 0 1
 state.END_PROCESS 0 1 0 0 0 0 0 0 0 0 1 
 state.ERROR 1 0 0 0 0 0 0 0 0 0 1 
 
-State Machine - |main|MEF_main:exe|state
+State Machine - |main|controller_unit:exe|state
 Name state.INCORRECT_DATA state.SEND_DATA state.PROCESS_DATA state.CONTROLLER_SENSOR state.READ_DATA state.000 
 state.000 0 0 0 0 0 0 
 state.READ_DATA 0 0 0 0 1 1 
@@ -37,7 +37,7 @@ state.PROCESS_DATA 0 0 1 0 0 1
 state.SEND_DATA 0 1 0 0 0 1 
 state.INCORRECT_DATA 1 0 0 0 0 1 
 
-State Machine - |main|reg_2bytes_UART_rx:reg_rx|state
+State Machine - |main|BUFFER_RX:reg_rx|state
 Name state.ADD_COMMAND state.IDLE_2BYTE state.ADD_ADDRESS state.00 
 state.00 0 0 0 0 
 state.ADD_ADDRESS 0 0 1 1 

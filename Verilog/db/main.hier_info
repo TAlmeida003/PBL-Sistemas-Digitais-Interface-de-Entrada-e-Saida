@@ -46,7 +46,7 @@ out_rx[6] <= data_reg[6].DB_MAX_OUTPUT_PORT_TYPE
 out_rx[7] <= data_reg[7].DB_MAX_OUTPUT_PORT_TYPE
 
 
-|main|reg_2bytes_UART_rx:reg_rx
+|main|BUFFER_RX:reg_rx
 clock => buffer_data[0].CLK
 clock => buffer_data[1].CLK
 clock => buffer_data[2].CLK
@@ -72,7 +72,7 @@ clock => registrar[12].CLK
 clock => registrar[13].CLK
 clock => registrar[14].CLK
 clock => registrar[15].CLK
-clock => state~5.DATAIN
+clock => state~4.DATAIN
 new_data => buffer_data.OUTPUTSELECT
 new_data => buffer_data.OUTPUTSELECT
 new_data => buffer_data.OUTPUTSELECT
@@ -83,6 +83,7 @@ new_data => buffer_data.OUTPUTSELECT
 new_data => buffer_data.OUTPUTSELECT
 new_data => Selector1.IN2
 new_data => Selector3.IN1
+new_data => done.DATAB
 new_data => Selector0.IN1
 new_data => Selector2.IN1
 data[0] => buffer_data.DATAB
@@ -110,7 +111,7 @@ reset => registrar[12].ACLR
 reset => registrar[13].ACLR
 reset => registrar[14].ACLR
 reset => registrar[15].ACLR
-reset => state~7.DATAIN
+reset => state~6.DATAIN
 reset => buffer_data[0].ENA
 reset => buffer_data[7].ENA
 reset => buffer_data[6].ENA
@@ -138,7 +139,7 @@ out_command[7] <= registrar[15].DB_MAX_OUTPUT_PORT_TYPE
 done <= done~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|main|MEF_main:exe
+|main|controller_unit:exe
 clock => reg_data_sensor[0].CLK
 clock => reg_data_sensor[1].CLK
 clock => reg_data_sensor[2].CLK
@@ -212,23 +213,24 @@ clock => command_invalid.CLK
 clock => inout_sensor~reg0.CLK
 clock => crt_decoder.CLK
 clock => send_data_tx~reg0.CLK
+clock => exe_address[0].CLK
+clock => exe_address[1].CLK
+clock => exe_address[2].CLK
+clock => exe_address[3].CLK
+clock => exe_address[4].CLK
+clock => exe_address[5].CLK
+clock => exe_address[6].CLK
+clock => exe_address[7].CLK
+clock => exe_command[0].CLK
+clock => exe_command[1].CLK
+clock => exe_command[2].CLK
+clock => exe_command[3].CLK
+clock => exe_command[4].CLK
+clock => exe_command[5].CLK
+clock => exe_command[6].CLK
+clock => exe_command[7].CLK
 clock => state~1.DATAIN
-new_data => exe_address[0].CLK
-new_data => exe_address[1].CLK
-new_data => exe_address[2].CLK
-new_data => exe_address[3].CLK
-new_data => exe_address[4].CLK
-new_data => exe_address[5].CLK
-new_data => exe_address[6].CLK
-new_data => exe_address[7].CLK
-new_data => exe_command[0].CLK
-new_data => exe_command[1].CLK
-new_data => exe_command[2].CLK
-new_data => exe_command[3].CLK
-new_data => exe_command[4].CLK
-new_data => exe_command[5].CLK
-new_data => exe_command[6].CLK
-new_data => exe_command[7].CLK
+new_data => always1.IN1
 new_data => Selector4.IN2
 new_data => always2.IN1
 new_data => Selector3.IN1
@@ -365,7 +367,7 @@ inout_sensor <= inout_sensor~reg0.DB_MAX_OUTPUT_PORT_TYPE
 rest_uart_rx <= rest_uart_rx~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|main|MEF_main:exe|commands_table:responseCommand
+|main|controller_unit:exe|commands_table:responseCommand
 exe_command[0] => Decoder0.IN7
 exe_command[0] => LessThan0.IN16
 exe_command[0] => Equal7.IN7
@@ -727,7 +729,7 @@ data[38] <= data[38]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 data[39] <= data[39]~reg0.DB_MAX_OUTPUT_PORT_TYPE
 
 
-|main|reg_2bytes_UART_tx:reg_tx
+|main|BUFFER_TX:reg_tx
 clk => buffer[0].CLK
 clk => buffer[1].CLK
 clk => buffer[2].CLK

@@ -27,7 +27,7 @@ module main(
                 Byte_received);       // BYTE ARMAZENADO 
 
     /* BUFFER PARA ARMAZENAMENTO DOS BYTES ENVIADOS NA UART RX - O LIMITE DO BUFFER É DE 2 BYTES */ 
-    reg_2bytes_UART_rx reg_rx(clock_50Mhz,
+    BUFFER_RX reg_rx(clock_50Mhz,
                               received_byte_alert,       // ESSA FLAG CONTROLA O ARMAZEMENTO DE CADA BYTE NO BUFFER
                               Byte_received,             // DADOS A SEREM ARMAZENADOS NO BUFFER DE 2 BYTES DA UART RX 
                               reset_rx,                  // RESTAURAR OS BITS DO BUFFER PARA 0, QUANDO RESETE FOR 1;
@@ -87,7 +87,7 @@ module main(
     wire [7:0] data_byte_transfer;                        // DADOS DE ARMAZENADOS
 
     /* ARMAZENAR O PACOTE DE TRANSMISSÃO DE 2 BYTES E ENVIA UM BYTE POR VEZ A PARTIR DA CONFIRMAÇÃO DE ENVIO DA UART TX */
-    reg_2bytes_UART_tx   reg_tx(clock_50Mhz,  
+    BUFFER_TX   reg_tx(clock_50Mhz,  
                                 start_sending_new_package,    // PULSO PARA INICIAR O ENVIO DO NOVO PACOTE
                                 data_new_package[15:8],       // PRIMEIRO BYTE HÁ SER ENVIADO
                                 data_new_package[7:0],        // SEGUNDO BYTE HÁ SER ENVIADO

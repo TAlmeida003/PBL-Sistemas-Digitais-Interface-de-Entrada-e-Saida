@@ -27,14 +27,14 @@
   <li>Thiago Neri dos Santos Almeida<br></li>
 </ul>
 
-<h1 align="center"> Sumário </h1>
+<h2 align="center"> Sumário </h2>
 <div id="sumario">
 
-&nbsp;&nbsp;&nbsp;[**1.** Diagramas](#Diagrama)
+&nbsp;&nbsp;&nbsp;[**1.** Diagrama Geral](#Diagrama)
 
-&nbsp;&nbsp;&nbsp;[**2.** Estrutura do código C no terminal](#Codigo-C)
+&nbsp;&nbsp;&nbsp;[**2.** Estrutura do Código C no Terminal](#Estrutura-do-Código-C-no-Terminal)
 
-&nbsp;&nbsp;&nbsp;[**2.** Protocolo do Sistema](#Protocolo)
+&nbsp;&nbsp;&nbsp;[**2.** Protocolo do Sistema](#Protocolo-do-Sistema)
 
 &nbsp;&nbsp;&nbsp;[**3.** Recebimento de dados pela FPGA](#Recebimento-FPGA)
 
@@ -50,35 +50,9 @@
 
 &nbsp;&nbsp;&nbsp;[**8.** Conclusão](#conclusao)
 
-<h2 id="Diagrama">  Diagrama</h2>
+<h2 id="Diagrama">  Diagrama Geral</h2>
 
 ![!\[Alt text\](<Imagens/Diagrama do Projeto.jpg>)](Imagens/Diagrama-do-Projeto.jpg)
-
-
-<h2 id="Codigo-C"> Estrutura do código C no terminal</h2>
-
-<p align="justify"> 
-  A interação entre o computador e a placa é estabelecida através de dois terminais que operam simultaneamente em um ambiente Linux e são programados em linguagem C. Cada terminal desempenha uma função específica na comunicação. O terminal Tx_UART_PC é designado exclusivamente para que o usuário interaja com a placa por meio de comandos específicos. Por outro lado, o terminal Rx_UART_PC é reservado exclusivamente para visualizar as respostas da placa, sem permitir a interação direta do usuário.
-
-
-  #### **Tx_UART_PC**
-
-O terminal Tx (Transmit Data - Transmitir Dados) é responsável pelo envio de dados para a placa. Nesse terminal, o usuário pode interagir digitando comandos/protocolos de ação, juntamente com endereços de sensores. Ambas as informações devem ser inseridas em formato hexadecimal. Esses dados são temporariamente armazenados em variáveis dentro do código C. Quando o usuário conclui sua interação, os dados em formato hexadecimal são convertidos em valores binários pela UART e enviados via porta serial para a placa. No total, são enviados 2 bytes, sendo o primeiro byte o comando e o segundo o endereço do sensor desejado. O sistema oferece suporte a 32 endereços de sensores e 8 comandos de execução.
-
-Um comando especial é o 0x00 (ou simplesmente 00), cuja função é encerrar imediatamente a execução de ambos os terminais, sem a necessidade de inserir um endereço. Importante destacar que esse comando não é transmitido pela UART.
-#### **Rx_UART_PC**
-
-O terminal Rx (Receive Data - Receber Dados) é uma interface projetada para apresentar as respostas das solicitações feitas pelo usuário no terminal Tx de forma amigável. Ele recebe 2 bytes de dados pela placa FPGA em formato binário, que são interpretados pelo código em C como valores hexadecimais. O primeiro byte indica a situação atual do sensor, enquanto o segundo fornece informações complementares, como medidas feitas pelo sensor.
-
-O terminal Rx conta com uma tabela de sensores que exibe os valores de temperatura e umidade medidos. Esses valores não são mostrados em tempo real, em vez disso, o terminal exibe o valor da última medição solicitada pelo usuário. No entanto, em caso de modo contínuo ativo, os valores são atualizados a cada 2 segundos.
-
-#### **Funcionamento do Tx e RX**
-
-O terminal Rx depende do terminal Tx, e essa dependência é gerenciada por meio de 2 variáveis compartilhadas. Somente o terminal Tx pode modificar essas variáveis. O Tx é responsável por informar ao Rx qual sensor está sendo utilizado no momento. Essa informação é usada pelo Rx para atualizar a tabela de temperatura e umidade presente nele. A tabela é composta por 2 arrays, um para temperatura e outro para umidade, e o endereço fornece o índice correspondente na lista. Além disso, o endereço também é exibido quando o modo contínuo está ativo, para que o usuário saiba o endereço no momento da desativação. Se o usuário cometer um erro no endereço, a FPGA também retornarar o endereço correto ativo no modo contínuo.
-
-A segunda variável compartilhada é de controle. Se o usuário digitar 00, o Tx envia um comando para encerrar a execução do Rx. O Tx será encerrado imediatamente, mas o Rx pode ter um atraso de até 1 segundo para encerrar.
-
-</p>
 
 
 <h2 id="Protocolo"> Protocolo do Sistema</h2>
@@ -112,12 +86,37 @@ A segunda variável compartilhada é de controle. Se o usuário digitar 00, o Tx
 
 </p>
 
+<h2 id="Codigo-C"> Estrutura do Código C no Terminal</h2>
 
-<h2 id="Recebimento-FPGA"> Recebimento de dados pela FPGA</h2>
+<p align="justify"> 
+  A interação entre o computador e a placa é estabelecida através de dois terminais que operam simultaneamente em um ambiente Linux e são programados em linguagem C. Cada terminal desempenha uma função específica na comunicação. O terminal Tx_UART_PC é designado exclusivamente para que o usuário interaja com a placa por meio de comandos específicos. Por outro lado, o terminal Rx_UART_PC é reservado exclusivamente para visualizar as respostas da placa, sem permitir a interação direta do usuário.
+
+
+  #### **Tx_UART_PC**
+
+O terminal Tx (Transmit Data - Transmitir Dados) é responsável pelo envio de dados para a placa. Nesse terminal, o usuário pode interagir digitando comandos/protocolos de ação, juntamente com endereços de sensores. Ambas as informações devem ser inseridas em formato hexadecimal. Esses dados são temporariamente armazenados em variáveis dentro do código C. Quando o usuário conclui sua interação, os dados em formato hexadecimal são convertidos em valores binários pela UART e enviados via porta serial para a placa. No total, são enviados 2 bytes, sendo o primeiro byte o comando e o segundo o endereço do sensor desejado. O sistema oferece suporte a 32 endereços de sensores e 8 comandos de execução.
+
+Um comando especial é o 0x00 (ou simplesmente 00), cuja função é encerrar imediatamente a execução de ambos os terminais, sem a necessidade de inserir um endereço. Importante destacar que esse comando não é transmitido pela UART.
+#### **Rx_UART_PC**
+
+O terminal Rx (Receive Data - Receber Dados) é uma interface projetada para apresentar as respostas das solicitações feitas pelo usuário no terminal Tx de forma amigável. Ele recebe 2 bytes de dados pela placa FPGA em formato binário, que são interpretados pelo código em C como valores hexadecimais. O primeiro byte indica a situação atual do sensor, enquanto o segundo fornece informações complementares, como medidas feitas pelo sensor.
+
+O terminal Rx conta com uma tabela de sensores que exibe os valores de temperatura e umidade medidos. Esses valores não são mostrados em tempo real, em vez disso, o terminal exibe o valor da última medição solicitada pelo usuário. No entanto, em caso de modo contínuo ativo, os valores são atualizados a cada 2 segundos.
+
+#### **Funcionamento do Tx e RX**
+
+O terminal Rx depende do terminal Tx, e essa dependência é gerenciada por meio de 2 variáveis compartilhadas. Somente o terminal Tx pode modificar essas variáveis. O Tx é responsável por informar ao Rx qual sensor está sendo utilizado no momento. Essa informação é usada pelo Rx para atualizar a tabela de temperatura e umidade presente nele. A tabela é composta por 2 arrays, um para temperatura e outro para umidade, e o endereço fornece o índice correspondente na lista. Além disso, o endereço também é exibido quando o modo contínuo está ativo, para que o usuário saiba o endereço no momento da desativação. Se o usuário cometer um erro no endereço, a FPGA também retornarar o endereço correto ativo no modo contínuo.
+
+A segunda variável compartilhada é de controle. Se o usuário digitar 00, o Tx envia um comando para encerrar a execução do Rx. O Tx será encerrado imediatamente, mas o Rx pode ter um atraso de até 1 segundo para encerrar.
+
+</p>
+
+<h2 id="Recebimento-FPGA"> Recebimento de Dados pela FPGA</h2>
 <p align="justify"> 
   O processo de recebimento e armazenamento dos 2 bytes enviados pelo PC para a FPGA é gerenciado através da interação entre dois módulos essenciais: "UART RX" e "BUFFER RX".
 </p>
 
+**UART RX**
 <p align="justify"> 
   O módulo “UART RX” tem como função principal receber os dados enviados pelo computador no padrão UART (Universal Asynchronous Receiver/Transmitter), através do código em linguagem C. Este drive, implementado em Verilog, possui duas entradas e duas saídas:
 
@@ -153,6 +152,8 @@ A segunda variável compartilhada é de controle. Se o usuário digitar 00, o Tx
 
 </p>
 
+**BUFFER RX**
+
 <p align="justify"> 
   O módulo "BUFFER RX", por sua vez, tem a função de assegurar a persistência dos dados recebidos e armazenados pela UART RX em um buffer interno de 2 bytes. Essa funcionalidade é necessária devido ao fato de o PC enviar regularmente pacotes de requisição contendo dois bytes de dados. Com o objetivo de evitar conflitos e sobreposições de informações no buffer da UART RX, este módulo opera de forma a capturar e armazenar cada byte de maneira sequencial e organizada. O módulo possui quatro entradas e três saídas:
 
@@ -185,11 +186,13 @@ Para esse modulo foi usado uma MEF com 4 estados, segue o diagrama e a explicaç
 </p>
 
 
-<h2 id="transmissao">Transmissão de dados pela FPGA</h2>
+<h2 id="transmissao">Transmissão de Dados pela FPGA</h2>
 
 <p align="justify"> 
   O processo de transmissão dos 2 bytes de resposta enviados pela FPGA para o PC é gerenciado por meio da interação entre dois módulos essenciais: "BUFFER TX" e "UART TX".
 </p>
+
+**BUFFER TX**
 
 <p align="justify"> 
 O módulo "BUFFER TX" tem o papel de permitir a transmissão sequencial de um pacote de dois bytes por meio da interação com o módulo "UART TX". Basicamente, ele envia esses dois bytes de forma consecutiva, um após o outro, utilizando o driver UART TX. Para atingir esse objetivo, o módulo conta com cinco entradas e 2 saídas:
@@ -218,6 +221,8 @@ Para realizar a sequência dos dados que serão enviados foi usado MEF com 5 est
 
 **STOP_ACK_2:** Nesse estado, a MEF aguarda o sinal "done_tx" que sinaliza que a transmissão do segundo byte foi concluída com sucesso. Se o sinal "done_tx" for detectado, a MEF retorna ao estado "IDLE" (Ocioso), indicando que a transmissão dos dois bytes foi concluída com sucesso. Caso contrário, permanece no estado "STOP_ACK_2".
 </p>
+
+**UART TX**
 
 <p align="justify"> 
 O módulo "UART TX", por outro lado, é projetado para implementar um driver de transmissão de dados no padrão UART, permitindo a transferência dos dados da FPGA para o computador através da porta serial. Para executar esse processo, o módulo possui três entradas e duas saídas:
@@ -248,7 +253,7 @@ O processo de transmissão é controlado por uma MEF com 4 estados, segue o diag
 </p>
 
 
-<h2 id="sensor-dht11"> Sincronização e leitura do sensor DHT11</h2>
+<h2 id="sensor-dht11"> Sincronização e Leitura do Sensor DHT11</h2>
 
 <p align="justify"> 
 
@@ -286,6 +291,10 @@ Os 11 estados da máquina são explicados a seguir:
 <h2 id="PINOS">  LEs, LABs e Pinos</h2>
 
 ![!\[Alt text\](LE-LAB.png)](Imagens/LE-LAB.png)
+<p align="center"><strong> Elementos Lógicos (LE), Laboratórios Lógicos (LABs) e Pinos utilizados.</strong> </p>
+
+![Alt text](Imagens/pinos.png)
+<p align="center"><strong> Pin planner com a pinagem utilizada na FPGA.</strong> </p>
 
 <h2 id="Teste">  Teste Realizados</h2>
 
@@ -293,62 +302,71 @@ Os 11 estados da máquina são explicados a seguir:
 
 Para verificar a confiabilidade de cada módulo antes de sua integração com os demais, foram conduzidos testes individuais em cada conjunto de módulos. Para isso, utilizou-se um osciloscópio para monitorar os sinais de recebimento e transmissão da FPGA, bem como o software ModelSim para avaliar o funcionamento dos módulos, assegurando que estivessem operando conforme o esperado.
 
+<strong> Testes de Módulo </strong>
+
 No procedimento de teste para o recebimento e transmissão de dados, o osciloscópio foi empregado, com o sinal de recebimento alocado no canal 1 (cor azul) e o sinal de transmissão alocado no canal 2 (cor amarela). Foram enviados os bytes representando 0x01 e 0x00, obtendo como resposta a recepção dos bytes 0x0a e 0x00. Esses resultados confirmaram que o recebimento de dois bytes e o envio de dois bytes estavam funcionando conforme o planejado. Anexa, encontra-se a imagem da captura de tela da situação descrita:
 
 ![Alt text](Imagens/Teste-UART.png)
-<p align="center"> recepção do byte 0x0a e 0x00 e, em seguida, transmissão do byte 0x01 e 0x00, confirmando que a placa está recebendo e respondendo aos dados conforme o esperado. </p>
+<p align="center"> <strong> recepção do byte 0x0a e 0x00 e, em seguida, transmissão do byte 0x01 e 0x00, confirmando que a placa está recebendo e respondendo aos dados conforme o esperado.</strong> </p>
 
 Para verificar a comunicação entre a placa e o sensor DHT11, também foi utilizado um osciloscópio. Nesse contexto, foi conduzida uma análise no osciloscópio para verificar se a placa estava sincronizando com sucesso o sensor e obtendo acesso aos 5 bytes enviados por ele. Foram anexadas duas imagens ilustrativas desse processo:
 
 ![Alt text](Imagens/sincroniza%C3%A7%C3%A3o.png)
-<p align="center"> Período de sincronização entre a placa e o sensor DHT11, o que confirma que a placa estava estabelecendo uma comunicação adequada com o sensor. </p>
+<p align="center"><strong> Período de sincronização entre a placa e o sensor DHT11, o que confirma que a placa estava estabelecendo uma comunicação adequada com o sensor.</strong> </p>
 
 ![Alt text](Imagens/data.png)
-<p align="center"> Medição de temperatura e umidade enviada pelo sensor.</p>
+<p align="center"> <strong> Medição de temperatura e umidade enviada pelo sensor. </strong></p>
+
+
+<strong> Testes Gerais </strong>
+
 
 Após confirmar a integridade de cada módulo, procedemos aos testes com o sistema completamente integrado. Com base nos testes realizados, podemos concluir que todas as solicitações de projeto foram atendidas. Dentro desse contexto, os comandos de requisição e resposta foram devidamente implementados, junto com uma interface de teste em linguagem C. Para ilustrar esses resultados, estão anexados os testes que demonstram esses êxitos:
 </p>
 
 ![Alt text](<Imagens/Situação do sensor - funcionando.png>)
 
-<p align="center"> O comando de solicitação do status do sensor confirma que o sensor está em pleno funcionamento. </p>
+<p align="center"><strong> O comando de solicitação do status do sensor confirma que o sensor está em pleno funcionamento. </strong> </p>
 
 ![Alt text](<Imagens/Medida de temperatura_.png>)
 
-<p align="center"> O comando de solicitação de medição de temperatura retorna a informação de que a temperatura ambiente é de 21 °C. </p>
+<p align="center"><strong> O comando de solicitação de medição de temperatura retorna a informação de que a temperatura ambiente é de 21 °C.</strong> </p>
 
 ![Alt text](<Imagens/Medida de umidade.png>)
-<p align="center"> O comando de solicitação de medição de umidade indica que o ambiente possui uma umidade de 39%.</p>
+<p align="center"><strong> O comando de solicitação de medição de umidade indica que o ambiente possui uma umidade de 39%. </strong></p>
 
 ![Alt text](<Imagens/Contínuo  de temperatura ativado.png>)
-<p align="center"> O comando de monitoramento contínuo de temperatura foi solicitado e indicou que a temperatura ambiente é de 21°C. </p>
+<p align="center"><strong> O comando de monitoramento contínuo de temperatura foi solicitado e indicou que a temperatura ambiente é de 21°C.</strong> </p>
+
+![Alt text](Imagens/Continuo.png)
+<p align="center"><strong> Modo contínuo mostrado no osciloscópio.</strong> </p>
 
 ![Alt text](<Imagens/Contínuo - executando comando com outro endereço_.png>)
-<p align="center"> O comando de monitoramento contínuo de temperatura está ativo. Ao tentar usar outro sensor, recebe-se a mensagem de que não é possível acessá-lo, juntamente com a informação sobre qual sensor está atualmente em execução.</p>
+<p align="center"><strong> O comando de monitoramento contínuo de temperatura está ativo. Ao tentar usar outro sensor, recebe-se a mensagem de que não é possível acessá-lo, juntamente com a informação sobre qual sensor está atualmente em execução. </strong></p>
 
 ![Alt text](<Imagens/Contínuo de temperatura - comando inválido_.png>)
-<p align="center"> O comando de monitoramento contínuo de temperatura está ativo. No entanto, ao solicitar o uso de outra função para o sensor, recebe-se a mensagem de que não é possível acessar essa função no momento.</p>
+<p align="center"><strong> O comando de monitoramento contínuo de temperatura está ativo. No entanto, ao solicitar o uso de outra função para o sensor, recebe-se a mensagem de que não é possível acessar essa função no momento. </strong></p>
 
 ![Alt text](<Imagens/Contínuo de temperatura - sensor com problema_.png>)
-<p align="center"> O comando de monitoramento contínuo de temperatura está ativo, mas está sendo relatado que o sensor apresenta um problema.</p>
+<p align="center"><strong> O comando de monitoramento contínuo de temperatura está ativo, mas está sendo relatado que o sensor apresenta um problema. </strong></p>
 
 ![Alt text](<Imagens/Contínuo  de temperatura desativado_.png>)
-<p align="center"> O comando de monitoramento contínuo de temperatura foi desativado, e uma mensagem de confirmação foi emitida.</p>
+<p align="center"><strong> O comando de monitoramento contínuo de temperatura foi desativado, e uma mensagem de confirmação foi emitida. </strong></p>
 
 ![Alt text](<Imagens/Contínuo de umidade ativado.png>)
-<p align="center"> O comando de monitoramento contínuo de umidade indica um valor de umidade de 39%.</p>
+<p align="center"><strong> O comando de monitoramento contínuo de umidade indica um valor de umidade de 39%. </strong></p>
 
 ![Alt text](<Imagens/Contínuo de umidade desativado_.png>)
-<p align="center">O comando de monitoramento contínuo de umidade foi desativado, e uma mensagem de confirmação foi emitida.</p>
+<p align="center"> <strong> O comando de monitoramento contínuo de umidade foi desativado, e uma mensagem de confirmação foi emitida. </strong></p>
 
 ![Alt text](Imagens/Endere%C3%A7o-inv%C3%A1lido_.png)
-<p align="center"> Foi tentada a inserção de um endereço que não existe, e um aviso foi gerado informando que o endereço do sensor não está disponível ou não existe.</p>
+<p align="center"><strong> Foi tentada a inserção de um endereço que não existe, e um aviso foi gerado informando que o endereço do sensor não está disponível ou não existe.</strong></p>
 
 ![!\[Alt text\](<Imagens/Comando inválido_.png>)](Imagens/Comando-invalido_.png)
-<p align="center"> 
-Foi tentada a inserção de um comando que não existe, e um aviso foi gerado informando que o comando não está disponível ou não existe.</p>
+<p align="center"> <strong>
+Foi tentada a inserção de um comando que não existe, e um aviso foi gerado informando que o comando não está disponível ou não existe.</strong></p>
 
-<p align="justify"> 
+<p align="justify">
 A tabela a seguir foi elaborada com o propósito de validar o projeto. Esses testes garatem que o sistema opere adequadamente em diversas situações e forneça resultados confiáveis aos usuários.</p>
 
 ![Alt text](Imagens/Casos-de-Testes-Planilha.jpg)

@@ -4,7 +4,7 @@
    ENTRADAS:
 */
 
-module reg_2bytes_UART_rx(
+module BUFFER_RX(
     input        clock,       // CLOCK DE ENTRADA
     input        new_data,    // SINAL DE CONTROLE PARA INDICAR A CHEGADA DE NOVOS DADOS
     input  [7:0] data,        // DADO RECEBIDO
@@ -14,19 +14,30 @@ module reg_2bytes_UART_rx(
     output reg   done         // SINALIZA QUANDO A RECEPÇÃO DOS DOIS BYTES FOI CONCLUÍDA
 );
 
-    /* ESTADOS DA MÁQUINA DE ESTADOS */
+//================================================================================================================================
+//                   					 DECLARACAO DOS ESTADOS
+//================================================================================================================================
+
     localparam IDLE_1BYTE  = 2'b00,    // OCIOSIDADE - ESPERANDO O PRIMEIRO BYTE
                ADD_ADDRESS = 2'b01,    // ADIÇÃO DO PRIMEIRO BYTE AO REGISTRADOR
                IDLE_2BYTE  = 2'b10,    // OCIOSIDADE - ESPERANDO O SEGUNDO BYTE
                ADD_COMMAND = 2'b11;    // ADIÇÃO DO SEGUNDO BYTE AO REGISTRADOR
 
-    /* REGISTRADORES INTERNOS */
+//================================================================================================================================
+//                   				 DECLARACAO DOS REGISTRADORES
+//================================================================================================================================
+
     reg  [15:0] registrar = 16'b0;    // REGISTRADOR PARA ARMAZENAR OS DOIS BYTES RECEBIDOS
     reg  [1:0]  state     = 2'b00;    // ESTADO ATUAL DA MÁQUINA DE ESTADOS
     reg  [7:0]  buffer_data = 8'd0;   // BUFFER PARA ARMAZENAR O BYTE RECEBIDO
 
     assign out_command = registrar[15:8];  // SAÍDA DO SEGUNDO BYTE RECEBIDO
     assign out_address = registrar[7:0];   // SAÍDA DO PRIMEIRO BYTE RECEBIDO
+
+	 
+//================================================================================================================================
+//                   		MAQUINA DE ESTADOS
+//================================================================================================================================
 
     always @(posedge clock, posedge reset) begin
         if (reset) begin
@@ -70,7 +81,7 @@ module reg_2bytes_UART_rx(
                     end
                 end
                 ADD_COMMAND: begin
-                    done <= 1;
+               
                     registrar[7:0] <= buffer_data;  // ARMAZENA O SEGUNDO BYTE NO REGISTRADOR
 
                     if (!new_data) begin
@@ -78,7 +89,7 @@ module reg_2bytes_UART_rx(
                         state <= IDLE_1BYTE;      // TRANSIÇÃO DE VOLTA PARA O ESTADO DE OCIOSIDADE ESPERANDO O PRIMEIRO BYTE
                     end
                     else begin
-								done <= 1;
+								done <= 0;
                         state <= ADD_COMMAND;      // PERMANECE NO ESTADO DE ADIÇÃO DO SEGUNDO BYTE
                     end
                 end

@@ -1,9 +1,9 @@
 /* MÓDULO REG_2BYTES_UART_TX
    ESTE MÓDULO IMPLEMENTA A TRANSMISSÃO DE DOIS BYTES VIA UART ASSÍNCRONA.
    ELE ACEITA DOIS BYTES DE DADOS, TRANSMITE-OS SEQUENCIALMENTE E SINALIZA QUANDO A TRANSMISSÃO DOS DOIS BYTES FOI CONCLUÍDA.
- */
+*/
 
-module reg_2bytes_UART_tx (
+module BUFFER_TX (
     input clk,               // CLOCK DE ENTRADA
     input enable,            // SINAL DE CONTROLE PARA INICIAR A TRANSMISSÃO
     input [7:0]  byte_one,   // PRIMEIRO BYTE A SER TRANSMITIDO
@@ -13,14 +13,20 @@ module reg_2bytes_UART_tx (
     output       send        // SINALIZA QUANDO A TRANSMISSÃO DOS DOIS BYTES FOI CONCLUÍDA
 );
 
-    /* ESTADOS DA MÁQUINA DE ESTADOS */
+//================================================================================================================================
+//                   					 DECLARACAO DOS ESTADOS
+//================================================================================================================================
+
     localparam IDLE     = 3'b000,
                SEND_BYTE_ONE = 3'b001,
                STOP_ACK_1   = 3'b010,
                SEND_BYTE_TWO = 3'b011,
                STOP_ACK_2 = 3'b100;
 
-    /* REGISTRADORES INTERNOS */
+//================================================================================================================================
+//                   				 DECLARACAO DOS REGISTRADORES
+//================================================================================================================================
+
     reg [2:0] state = 0;          // ESTADO ATUAL DA MÁQUINA DE ESTADOS
     reg [7:0] data_aux = 0;       // DADO ATUAL SENDO TRANSMITIDO
     reg byte_sent = 0;           // INDICA SE UM BYTE FOI TRANSMITIDO
@@ -29,7 +35,10 @@ module reg_2bytes_UART_tx (
     assign send = byte_sent;      // SINALIZA QUANDO A TRANSMISSÃO DOS DOIS BYTES FOI CONCLUÍDA
     assign data = data_aux;       // BYTE SENDO ATUALMENTE TRANSMITIDO
 
-   /* TRANSIÇÃO DE ESTADOS */
+//================================================================================================================================
+//                   		MAQUINA DE ESTADOS
+//================================================================================================================================
+
     always @(posedge clk) begin
         case (state)
             IDLE: begin
