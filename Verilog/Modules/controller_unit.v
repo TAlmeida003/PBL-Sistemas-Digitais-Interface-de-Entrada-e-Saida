@@ -66,18 +66,13 @@ module MEF_main(input clock,					// CLOCK NATIVO DA PLACA DE 50 MHz
 	end
 	
 	
-	/* ARMAZENAMENTO DO COMANDO ATUAL 
-		- VERIFICA A BORDA DE SUBIDA DO SINAL DE CLOCK.
-	*/
-	always @(posedge new_data) begin 
-		// SE ESTIVER EM SENSORIAMENTO CONTINUO E O ENDERECO EM EXECUCAO SEJA IGUAL AO NOVO RECEBIDO, ATUALIZA APENAS O COMANDO EM EXECUCAO
+	always @(posedge clock) begin 
 		if (loop) begin 
-			if (((exe_command == 4 && next_command == 6) || (exe_command == 5 && next_command == 7)) && exe_address == next_address && next_command != 0) begin
+			if (((exe_command == 4 && next_command == 6) || (exe_command == 5 && next_command == 7)) && exe_address == next_address && next_command != 0 && new_data) begin
 				exe_command <= next_command;
 			end
 		end
 		
-		// CASO CONTRARIO, ATUALIZA O ENDERECO E COMANDO EM EXECUCAO
 		else begin
 			exe_address <= next_address;
 			exe_command <= next_command;
@@ -178,36 +173,35 @@ module MEF_main(input clock,					// CLOCK NATIVO DA PLACA DE 50 MHz
 				
 				end
 					
-					
-				/* ESTADO SEND_DATA: ENVIO DOS DADOS PROCESSADOS */
+				
 				SEND_DATA: begin
 
-					// SAIDAS EM SEND_DATA
-					inout_sensor <= 0;		// DESATIVA O SENSOR
-					send_data_tx <= 1;		// ATIVA O ENVIO DOS DADOS	
+					inout_sensor <= 0;		
+					send_data_tx <= 1;		
+
+					if (loop && next_command != 0 && !new_data) begin
+						rest_uart_rx <= 1;	
+					end
 					
-					// TRANSICAO DOS ESTADOS EM SEND_DATA
+					else begin
+						rest_uart_rx <= 0;
+						
+					end
+					
 					if (loop) begin
-					
-						if (next_command != 0 && !new_data ) 
-							rest_uart_rx <= 1;	// ATIVA RESET DA ENTRADA DE DADOS CASO ESTEJA EM LOOP E O PROXIMO COMANDO SEJA VALIDO
-					
-						else
-							rest_uart_rx <= 0;
-					
-						state <= READ_DATA;		// TRANSITA DE VOLTA PARA READ_DATA SE ESTIVER EM SENSORIAMENTO CONTINUO
+						state <= READ_DATA;		
 						send_data_tx <= 0;
 						command_invalid <= 0;
 						crt_decoder <= 0;
 					end
 						
 					else begin
-						state <= IDLE;				// TRANSITA DE VOLTA PARA IDLE, CASO CONTRARIO
+						state <= IDLE;				
 						send_data_tx <= 0;
 						command_invalid <= 0;
 						crt_decoder <= 0;
 					end	
-					
+							
 				end
 					
 					
