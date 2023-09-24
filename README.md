@@ -37,6 +37,7 @@
 		<li><a href="#codigo-C"> Estrutura do Código C no Terminal</a></li>
 		<li><a href="#recebimento-FPGA"> Recebimento de Dados pela FPGA</a> </li>
 		<li><a href="#transmissao"> Transmissão de Dados pela FPGA </a> </li>
+		<li><a href="mef_main"> Máquina de Estados da Unidade de Controle</li>
 		<li><a href="#sensor-dht11"> Sincronização e Leitura do Sensor DHT11 </a> </li>
 		<li><a href="#PINOS"> LEs, LABs e Pinos  </a> </li>
 		<li><a href="#teste"> Teste Realizados </a> </li>
