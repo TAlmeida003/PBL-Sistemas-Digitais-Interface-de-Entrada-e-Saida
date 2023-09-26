@@ -2,7 +2,11 @@
    ESTE MÓDULO IMPLEMENTA A RECEPÇÃO UART ASSÍNCRONA.
    ELE RECEBE DADOS DA PORTA SERIAL COM BASE EM UM CLOCK DE 50 MHZ E GERA DADOS DE SAÍDA E SINALIZA QUANDO UM DADO FOI RECEBIDO COMPLETAMENTE.
    PARÂMETROS:
-   - CLKS_PER_BIT: PULSOS DE CLOCK POR BIT, CALCULADOS COM BASE NA TAXA DE BAUD. */
+   - CLKS_PER_BIT: PULSOS DE CLOCK POR BIT, CALCULADOS COM BASE NA TAXA DE BAUD. 
+
+    REFERÊNCIA: https://youtu.be/Wsou_zhCEYQ
+*/
+
 module UART_RX #(
     parameter CLKS_PER_BIT = 5208 // 50000000 / 9600 = 5208 PULSOS DE CLOCK POR BIT
 )(
@@ -12,13 +16,17 @@ module UART_RX #(
     output [7:0] out_rx // DADOS DE SAÍDA COMPLETOS
 );
 
-    /* ESTADOS DA MÁQUINA DE RECEBIMENTO UART */
+//================================================================================================================================
+//                   					 ESTADOS DA MÁQUINA DE RECEBIMENTO UART
+//================================================================================================================================
     localparam IDLE  = 2'b00, // ESTADO DE OCIOSIDADE
                START = 2'b01, // ESTADO DE INÍCIO DA RECEPÇÃO
                DATA  = 2'b10, // ESTADO DE RECEPÇÃO DE DADOS
                STOP  = 2'b11; // ESTADO DE PARADA DA RECEPÇÃO
 
-    /* REGISTRADORES INTERNOS */
+//================================================================================================================================
+//                   					         REGISTRADORES INTERNOS
+//================================================================================================================================
     reg data_serial_buffer = 1'b1; // SINAL DA PORTA SERIAL É ALTO
     reg rx_data            = 1'b1; // DADO RECEBIDO
 
@@ -28,17 +36,23 @@ module UART_RX #(
     reg        data_avail  = 1'b0;    // FLAG PARA SINALIZAR DADO DISPONÍVEL
     reg [7:0]  data_reg    = 1'b0;    // REGISTRADOR PARA ARMAZENAR DADOS RECEBIDOS
 
-    /* SAÍDAS */
+//================================================================================================================================
+//                   					              Saídas
+//================================================================================================================================
     assign out_rx = data_reg; // SAÍDA DOS DADOS RECEBIDOS
     assign done = data_avail; // SINALIZADO QUANDO UM DADO FOI RECEBIDO COMPLETAMENTE
 
-    /* RESOLVER PROBLEMA DE CAPTURA DE SINAL AO MANDAR OS BITS */
+//================================================================================================================================
+//                   	        RESOLVER PROBLEMA DE CAPTURA DE SINAL AO MANDAR OS BITS
+//================================================================================================================================
     always @(posedge clk) begin
         data_serial_buffer <= input_rx;           // ARMAZENAR SINAL DE ENTRADA
         rx_data            <= data_serial_buffer; // CAPTURAR O DADO
     end
 
-   /* TRANSIÇÃO DE ESTADOS */
+//================================================================================================================================
+//                   	                      TRANSIÇÃO DE ESTADOS
+//================================================================================================================================
     always @(posedge clk) begin
         case (state)
             IDLE:begin

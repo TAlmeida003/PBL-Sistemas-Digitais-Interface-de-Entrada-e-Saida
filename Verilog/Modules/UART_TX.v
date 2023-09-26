@@ -2,7 +2,10 @@
    ESTE MÓDULO IMPLEMENTA A TRANSMISSÃO UART ASSÍNCRONA.
    ELE TRANSMITE DADOS PARA A PORTA SERIAL COM BASE EM UM CLOCK NATIVO DA PLACA E GERA DADOS DE SAÍDA E SINALIZA QUANDO A TRANSMISSÃO FOI CONCLUÍDA.
    PARÂMETROS:
-   - CLKS_PER_BIT: PULSOS DE CLOCK POR BIT, CALCULADOS COM BASE NA TAXA DE BAUD. */
+   - CLKS_PER_BIT: PULSOS DE CLOCK POR BIT, CALCULADOS COM BASE NA TAXA DE BAUD. 
+
+   REFERÊNCIA: https://youtu.be/Wsou_zhCEYQ
+*/
 module UART_TX #(
     parameter CLKS_PER_BIT = 5208 // (50000000 / 9600) = 5208 pulsos de clock por bit
 ) (
@@ -13,20 +16,26 @@ module UART_TX #(
     output reg   done                  // FOI TUDO ENVIADO
 );
 
-    /* ESTADOS DA MÁQUINA DE ESTADOS DA UART */
+//================================================================================================================================
+//                                           ESTADOS DA MÁQUINA DE ESTADOS DA UART
+//================================================================================================================================
     localparam IDLE  = 2'b00, // ESTADO DE OCIOSIDADE
                START = 2'b01, // ESTADO DE INÍCIO DA TRANSMISSÃO
                DATA  = 2'b10, // ESTADO DE TRANSMISSÃO DE DADOS
                STOP  = 2'b11; // ESTADO DE PARADA DA TRANSMISSÃO
 
+//================================================================================================================================
+//                                                    REGISTRADORES INTERNOS
+//================================================================================================================================
     /* REGISTRADORES INTERNOS */
     reg [1:0]  state = 0;          // ESTADO ATUAL DA MÁQUINA DE ESTADOS
     reg [12:0] counter = 0;        // CONTADOR DE TEMPO PARA BAUD RATE
     reg [2:0]  bit_index = 0;      // ÍNDICE DO BIT ATUAL
     reg [7:0]  data_bit = 0;      // BIT DE DADOS A SER ENVIADO
 
-
-    /* TRANSIÇÃO DE ESTADOS */
+//================================================================================================================================
+//                                                       TRANSIÇÃO DE ESTADOS 
+//================================================================================================================================
     always @(posedge clk) begin
         case (state)
 
