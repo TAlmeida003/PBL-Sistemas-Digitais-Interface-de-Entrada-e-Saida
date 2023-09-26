@@ -295,34 +295,44 @@ O processo de transmissão é controlado por uma MEF com 4 estados, segue o diag
 **DATA**: Neste estado, a MEF transmite os bits de dados um por um. Cada bit de "data_transmission" é inserido em "out_tx", e o contador "counter" controla o tempo de transmissão de cada bit. O contador "bit_index" mantém o registro do número de bits já enviados. Quando "bit_index" atinge 7, indicando que todos os bits foram transmitidos, a MEF avança para o estado "STOP".
 
 **STOP**: No último estado, a MEF sinaliza o término do processo. O sinal de "out_tx" retorna ao estado alto (1), indicando o final da transmissão, o contador "bit_index" é zerado, e o contador "counter" realiza uma última contagem. Após essa contagem, "done" é definido como 1, indicando que a transmissão foi concluída com sucesso, e a MEF retorna ao estado "IDLE".
+
+
 </p>
 </div>
 <div id="mef_main"> <h2>Máquina de Estados da Unidade de Controle</h2>
 <p align="justify"> 
 
-O módulo “controller_unit”, referente a unidade de controle do sistema, implementado em Verilog,  foi projetado para o gerenciamento da máquina de estados geral, que controla os sensores e gerencia os dados recebidos. Ele é responsável por interpretar os comandos, adquirir os dados dos sensores, processá-los e fornecer respostas em tempo real. Além disso, o módulo lida com o gerenciamento de dados incorretos ou comandos inválidos, aplicando o devido tratamento à eles.
+O módulo “controller_unit”, referente a unidade de controle do sistema, implementado em Verilog, foi projetado para o gerenciamento da máquina de estados geral, que controla os sensores e gerencia os dados recebidos. Esse módulo é responsável por interpretar os comandos, adquirir os dados dos sensores, processá-los e fornecer respostas em tempo real. Além disso, ele lida com o gerenciamento de dados incorretos ou comandos inválidos, aplicando o devido tratamento à eles.
 
 Com relação às entradas e saídas desse módulo, tem-se:
 
-  * **clock (entrada):** representação do clock nativo da placa, com uma frequência de 50 MH;
-  * **new_data (entrada):** indicação da chegada de um novo pacote de dados;
-  * **next_command (entrada):** armazena o próximo comando recebido;
-  * **next_address (entrada):** armazena o próximo endereço associado à próxima requisição;
+  * **clock (entrada):** representa o clock nativo da placa, com uma frequência de 50 MHz;
+
+  * **new_data (entrada):** indica a chegada de um novo pacote de dados;
+
+  * **next_command (entrada):** armazena o próximo comando que foi recebido;
+
+  * **next_address (entrada):** armazena o próximo endereço associado à requisição seguinte;
+
   * **data_sensor (entrada):** contém as informações recebidas dos sensores, essenciais para gerar as respostas;
+
   * **buffer_tx (saída):** armazena o novo pacote a ser enviado como resposta;
-  * **send_data_tx (saída):** sinal que indica o pacote a ser enviado para o TX;
+
+  * **send_data_tx (saída):** sinal que indica o momento em que o pacote deve ser enviado para o TX;
+
   * **inout_sensor (saída):** controla a inicialização do sensor;
-  * **rest_uart_rx (saída):** utilizado para redefinir a entrada de dados quando for 
+
+  * **rest_uart_rx (saída):** redefine a entrada de dados quando necessário;
 
 ### Estados da Máquina
 
-Para a realização do controle do sistema, foi usada uma máquina de estados, cujo diagrama está apresentado abaixo e a explicação de cada estado:
+Para a realização do controle do sistema, foi usada uma máquina de estados, cujo diagrama e a explicação de cada estado está apresentado abaixo:
 
 ![Alt text](<Imagens/MEF Unidade de Controle.jpg>)
 
   * **IDLE (Estado de Espera):** aguarda pela chegada de um novo pacote de dados, no qual todas as saídas são desativadas e o módulo permanece nesse estado até que novos dados sejam recebidos;
   
-  * **READ_DATA (Estado de Leitura dos Dados):** os dados são lidos e os comandos são verificados. Caso o comando em execução esteja correto e o endereço estiver dentro do intervalo esperado, de 40 bits, o módulo passa para o estado de “CONTROLLER_SENSOR”. Caso contrário, ele vai para o estado “INCORRECT_DATA”, sinalizando que houve algum problema com os dados recebidos;
+  * **READ_DATA (Estado de Leitura dos Dados):** lê os dados e verifica os comandos recebidos. Se o comando em execução estiver correto e o endereço esteja dentro do intervalo esperado, de 40 bits, o módulo passa para o estado de “CONTROLLER_SENSOR”. Caso contrário, ele vai para o estado “INCORRECT_DATA”, sinalizando que houve algum problema com as informações recebidas;
   
   * **CONTROLLER_SENSOR (Estado de Controle do Sensor):** gerencia o sensor e aguarda a leitura dos dados. Um temporizador é usado para determinar quando os dados do sensor devem ser lidos. Após o seu término, o módulo passa para o estado “PROCESS_DATA”;
   
