@@ -2,8 +2,8 @@
 <h1 align="center"> Interface de Entrada e Saída </h1>
 <h3 align="center"> Projeto de leitura de sensor digital em FPGA através de comunicação serial. </h3>  
 
-
-<h2 id="sobre-o-projeto">  Sobre o Projeto</h2>
+<div id="sobre-o-projeto"> 
+<h2> Sobre o Projeto</h2>
 
 <p align="justify"> 
   O dispositivo FPGA Cyclone IV é usado para processar os dados de humidade e temperatura lidos pelo sensor DHT11. O envio de comandos para a placa e visualização dos dados coletados é feito através do computador, com o código implementado em linguagem C. Essa comunicação é serial do tipo UART. O sistema foi feito com o intuito de ser modular, possuindo a capacidade de mudar o tipo de sensor utilizado, sem mexer em áreas do circuito além daquela relacionada ao próprio sensor.
@@ -18,6 +18,7 @@
 * Os comandos são compostos de 1 byte cada um.
 * As requisições enviadas e respostas recebidas são compostas de 2 bytes.
 </p>
+</div>
 
 <h2>  Equipe: <br></h2>
 <uL> 
@@ -37,7 +38,7 @@
 		<li><a href="#codigo-C"> Estrutura do Código C no Terminal</a></li>
 		<li><a href="#recebimento-FPGA"> Recebimento de Dados pela FPGA</a> </li>
 		<li><a href="#transmissao"> Transmissão de Dados pela FPGA </a> </li>
-		<li><a href="mef_main"> Máquina de Estados da Unidade de Controle</li>
+		<li><a href="#mef_main"> Máquina de Estados da Unidade de Controle</li>
 		<li><a href="#sensor-dht11"> Sincronização e Leitura do Sensor DHT11 </a> </li>
     <li><a href="#GERAL"> Solução Geral do projeto </a> </li>
 		<li><a href="#PINOS"> LEs, LABs e Pinos  </a> </li>
@@ -48,12 +49,13 @@
 </div>
 
 
-<h2 id="diagrama">  Diagrama Geral</h2>
+<div id="diagrama"> <h2> Diagrama Geral</h2>
+</div>
 
 ![!\[Alt text\](<Imagens/Diagrama do Projeto.jpg>)](Imagens/Diagrama-do-Projeto.jpg)
 
 
-<h2 id="protocolo"> Protocolo do Sistema</h2>
+<div id="protocolo"> <h2> Protocolo do Sistema</h2>
 <p align="justify"> 
 
  O protocolo é responsável pela definição dos comandos de requisição, que solicitam a execução de ações específicas, e suas respostas correspondentes, que permitem o controle adequado do sistema. Abaixo, tem-se a descrição dos comandos de requisição do protocolo, os quais contém a sua descrição e entre parênteses, seu código específico:
@@ -93,9 +95,9 @@ Referente ao módulo "commands_table", implementado em Verilog, tem o intuito de
   * **buffer_tx (saída):** transmite as respostas geradas pelo módulo, que podem incluir informações sobre a execução do comando, medições dos sensores ou mensagens de erro, a depender das entradas.
 
 </p>
+</div>
 
-
-<h2 id="descricaoEquipamentos">  Descrição dos equipamentos e software utilizados</h2>
+<div id="descricaoEquipamentos"> <h2> Descrição dos equipamentos e software utilizados</h2>
 
 <p align="justify"> 
 
@@ -124,8 +126,9 @@ Referente ao módulo "commands_table", implementado em Verilog, tem o intuito de
 
   O ModelSim é essencial no desenvolvimento de hardware digital, pois ajuda a identificar erros, depurar problemas e otimizar o design, economizando tempo e recursos. Além da simulação funcional, suporta simulação de tempo, considerando atrasos e características temporais, permitindo verificar o desempenho em tempo real.
 </p>
+</div>
 
-<h2 id="codigo-C"> Estrutura do Código C no Terminal</h2>
+<div id="codigo-C"> <h2>Estrutura do Código C no Terminal</h2>
 
 <p align="justify"> 
   A interação entre o computador e a placa é estabelecida através de dois terminais que operam simultaneamente em um ambiente Linux e são programados em linguagem C. Cada terminal desempenha uma função específica na comunicação. O terminal Tx_UART_PC é designado exclusivamente para que o usuário interaja com a placa por meio de comandos específicos. Por outro lado, o terminal Rx_UART_PC é reservado exclusivamente para visualizar as respostas da placa, sem permitir a interação direta do usuário.
@@ -149,8 +152,9 @@ O terminal Rx depende do terminal Tx, e essa dependência é gerenciada por meio
 A segunda variável compartilhada é de controle. Se o usuário digitar 00, o Tx envia um comando para encerrar a execução do Rx. O Tx será encerrado imediatamente, mas o Rx pode ter um atraso de até 1 segundo para encerrar.
 
 </p>
+</div>
 
-<h2 id="recebimento-FPGA"> Recebimento de Dados pela FPGA</h2>
+<div id="recebimento-FPGA"> <h2>Recebimento de Dados pela FPGA</h2>
 <p align="justify"> 
   O processo de recebimento e armazenamento dos 2 bytes enviados pelo PC para a FPGA é gerenciado através da interação entre dois módulos essenciais: "UART RX" e "BUFFER RX".
 </p>
@@ -223,9 +227,10 @@ Para esse modulo foi usado uma MEF com 4 estados, segue o diagrama e a explicaç
 * **ADD_ADDRESS**: Neste estado, a MEF adiciona o segundo byte ao buffer. Enquanto o valor de "new_data" indicar que o conteúdo está disponível, o registrador nas posições mais significativas (7:0) é carregado com o valor armazenado na "UART RX". O valor da flag "done" é mantido como 0. Quando o sinal "new_data" muda de valor (1 para 0), a MEF faz a transição de volta para o estado "IDLE_1BYTE". No momento da transição de volta para "IDLE_1BYTE", a flag "done" é definida como 1, indicando que ambos os bytes foram recebidos e o processo foi concluído com sucesso.
 
 </p>
+</div>
 
 
-<h2 id="transmissao">Transmissão de Dados pela FPGA</h2>
+<div id="transmissao"> <h2>Transmissão de Dados pela FPGA</h2>
 
 <p align="justify"> 
   O processo de transmissão dos 2 bytes de resposta enviados pela FPGA para o PC é gerenciado por meio da interação entre dois módulos essenciais: "BUFFER TX" e "UART TX".
@@ -290,8 +295,8 @@ O processo de transmissão é controlado por uma MEF com 4 estados, segue o diag
 
 **STOP**: No último estado, a MEF sinaliza o término do processo. O sinal de "out_tx" retorna ao estado alto (1), indicando o final da transmissão, o contador "bit_index" é zerado, e o contador "counter" realiza uma última contagem. Após essa contagem, "done" é definido como 1, indicando que a transmissão foi concluída com sucesso, e a MEF retorna ao estado "IDLE".
 </p>
-
-<h2 id="mef_main"> Máquina de Estados da Unidade de Controle</h2>
+</div>
+<div id="mef_main"> <h2>Máquina de Estados da Unidade de Controle</h2>
 <p align="justify"> 
 
 O módulo “controller_unit”, referente a unidade de controle do sistema, implementado em Verilog,  foi projetado para o gerenciamento da máquina de estados geral, que controla os sensores e gerencia os dados recebidos. Ele é responsável por interpretar os comandos, adquirir os dados dos sensores, processá-los e fornecer respostas em tempo real. Além disso, o módulo lida com o gerenciamento de dados incorretos ou comandos inválidos, aplicando o devido tratamento à eles.
@@ -325,9 +330,10 @@ Para a realização do controle do sistema, foi usada uma máquina de estados, c
   * **INCORRECT_DATA (Estado de Dados Incorretos):** tratamento dos dados incorretos ou comandos inválidos, passando para o estado “SEND_DATA” após o tratamento.
  
 </p>
+</div>
 
 
-<h2 id="sensor-dht11"> Sincronização e Leitura do Sensor DHT11</h2>
+<div id="sensor-dht11"> <h2>Sincronização e Leitura do Sensor DHT11</h2>
 
 <p align="justify"> 
 
@@ -361,15 +367,17 @@ Os 11 estados da máquina são explicados a seguir:
 * **ERROR**: Representa a situação de ter ocorrido um erro durante a sincronização ou leitura de dados do sensor. Coloca todos os bits da saída como 1 para indicar que um erro aconteceu. É checado se o pino de entrada e saída do DHT11 está enviando nível lógico alto (1), se estiver, vai para o estado "END_PROCESS". Caso não esteja enviando nível lógico alto (1), é esperado o tempo de 65 us para o sinal se normalizar, caso passe o tempo, vai para o estado de "IDLE" direto.
 
 </p>
+</div>
 
-<h2 id="GERAL"> Solução geral do projeto</h2>
+<div id="GERAL"> <h2>Solução geral do projeto</h2>
 
 <p align="justify"> 
 O sistema, composto por todos os módulos, demonstra sua capacidade de atender às demandas específicas de maneira eficaz. Nesse contexto, o módulo "UART RX" desempenha o papel de receber as solicitações do usuário por meio da porta serial em pacotes de 2 bytes. Esses valores são armazenados individualmente pelo bloco "BUFFER RX" para preservar os dados recebidos. Após informar à unidade de controle que o pacote foi armazenado, este módulo analisa os dados recebidos. No caso de detecção de dados incorretos, o sistema gera um pacote de resposta indicando o tipo de erro. Por outro lado, quando os dados estão corretos, o módulo ativa a comunicação com o sensor por meio do driver "Interface Sensor", sincronizando e capturando os 5 bytes enviados pelo sensor de temperatura e umidade. Uma vez que todas as informações, incluindo requisitos e respostas, estão disponíveis, elas são encaminhadas ao bloco "Command Table" para criar uma resposta de 2 bytes e enviar os dados. Antes de retornar ao estado ocioso, verifica-se se o sistema está configurado para a coleta contínua de dados, reiniciando esse processo de resposta conforme necessário. Dessa forma, ao sinalizar ao "BUFFER TX" que os dados podem ser enviados, o primeiro byte é transmitido pelo módulo "UART TX". Após a confirmação, o segundo byte é enviado, concluindo assim o processo de entrada e saída de dados.
 </p>
+</div>
 
-
-<h2 id="PINOS">  LEs, LABs e Pinos</h2>
+<div id="PINOS">  <h2>LEs, LABs e Pinos</h2>
+</div>
 
 ![!\[Alt text\](LE-LAB.png)](Imagens/LE-LAB.png)
 <p align="center"><strong> Elementos Lógicos (LE), Laboratórios Lógicos (LABs) e Pinos utilizados.</strong> </p>
@@ -377,7 +385,7 @@ O sistema, composto por todos os módulos, demonstra sua capacidade de atender �
 ![Alt text](Imagens/pinos.png)
 <p align="center"><strong> Pin planner com a pinagem utilizada na FPGA.</strong> </p>
 
-<h2 id="teste">  Teste Realizados</h2>
+<div id="teste">  <h2>Teste Realizados</h2>
 
 <p align="justify"> 
 
@@ -452,8 +460,9 @@ A tabela a seguir foi elaborada com o propósito de validar o projeto. Esses tes
 
 ![Alt text](Imagens/Casos-de-Testes-Planilha.jpg)
 
+</div>
 
-<h2 id="como-usar">  Execução do Projeto</h2>
+<div id="como-usar">  <h2> Execução do Projeto</h2>
 
 <p align="justify"> 
 Os comandos aceitos pelo sistema estão no intervalo de 0x00 a 0x07, e os endereços disponíveis variam de 0x00 a 0x1F. Vale mencionar que o uso do prefixo "0x" não é obrigatório, pois o código em C reconhece ambos os formatos de entrada. Se o usuário inserir um valor que não seja hexadecimal ou que seja maior que 0xFF, o sistema exibirá uma mensagem de erro e solicitará que o usuário insira novamente os dados, seguindo os requisitos estabelecidos para garantir o funcionamento adequado do sistema.
@@ -489,9 +498,10 @@ Os comandos aceitos pelo sistema estão no intervalo de 0x00 a 0x07, e os endere
 
 </div>
 <div id="conclusao">  
-<h2>Conclusão</h2>
+  <h2>Conclusão</h2>
 
-<p align="justify"> 
-  O computador executa bem a comunicação serial com o dispositivo FPGA, enviando os comandos de requisição e recebendo os comandos de resposta corretamente. A placa faz sua função para cada dado recebido, validando os comandos e endereços coletados e enviando as respostas apropriadas. É possível ativar o sensor DHT11 e coletar os dados enviados por ele de modo estável, mantendo o módulo responsável por essa comunicação modularizado. Todos os objetivos pretendidos com a criação do projeto foram executadas com sucesso.
+  <p align="justify"> 
+    O computador executa bem a comunicação serial com o dispositivo FPGA, enviando os comandos de requisição e recebendo os comandos de resposta corretamente. A placa faz sua função para cada dado recebido, validando os comandos e endereços coletados e enviando as respostas apropriadas. É possível ativar o sensor DHT11 e coletar os dados enviados por ele de modo estável, mantendo o módulo responsável por essa comunicação modularizado. Todos os objetivos pretendidos com a criação do projeto foram executadas com sucesso.
 
-</p>
+  </p>
+</div>
