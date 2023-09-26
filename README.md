@@ -318,6 +318,8 @@ Com relação às entradas e saídas desse módulo, tem-se:
 
 Para a realização do controle do sistema, foi usada uma máquina de estados, cujo diagrama está apresentado abaixo e a explicação de cada estado:
 
+![Alt text](<Imagens/MEF Unidade de Controle.jpg>)
+
   * **IDLE (Estado de Espera):** aguarda pela chegada de um novo pacote de dados, no qual todas as saídas são desativadas e o módulo permanece nesse estado até que novos dados sejam recebidos;
   
   * **READ_DATA (Estado de Leitura dos Dados):** os dados são lidos e os comandos são verificados. Caso o comando em execução esteja correto e o endereço estiver dentro do intervalo esperado, de 40 bits, o módulo passa para o estado de “CONTROLLER_SENSOR”. Caso contrário, ele vai para o estado “INCORRECT_DATA”, sinalizando que houve algum problema com os dados recebidos;
