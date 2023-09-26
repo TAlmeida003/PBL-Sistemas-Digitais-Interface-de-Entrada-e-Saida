@@ -45,6 +45,7 @@
 		<li><a href="#teste"> Teste Realizados </a> </li>
 		<li><a href="#como-usar"> Execução do Projeto </a></li>
 		<li><a href="#conclusao"> Conclusão </a> </li>
+     <li><a href="#referencias"> Referências </a> </li>
 	</ul>	
 </div>
 
@@ -502,6 +503,17 @@ Os comandos aceitos pelo sistema estão no intervalo de 0x00 a 0x07, e os endere
 
   <p align="justify"> 
     O computador executa bem a comunicação serial com o dispositivo FPGA, enviando os comandos de requisição e recebendo os comandos de resposta corretamente. A placa faz sua função para cada dado recebido, validando os comandos e endereços coletados e enviando as respostas apropriadas. É possível ativar o sensor DHT11 e coletar os dados enviados por ele de modo estável, mantendo o módulo responsável por essa comunicação modularizado. Todos os objetivos pretendidos com a criação do projeto foram executadas com sucesso.
+
+  </p>
+</div>
+
+<div id="referencias">  
+  <h2>Referências</h2>
+
+  <p align="justify"> 
+
+* Leitura do sensor DHT11: https://www.kancloud.cn/dlover/fpga/1637659
+
 
   </p>
 </div>
