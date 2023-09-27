@@ -147,7 +147,7 @@ module controller_unit(input clock,					// CLOCK NATIVO DA PLACA DE 50 MHz
 					rest_uart_rx = 0;
 					
 					// TRANSICAO DOS ESTADOS EM CONTROLLER_SENSOR
-					if (cont == 28'd1) begin		// TEMPORIZADOR REFERENTE AO RECEBIMENTO DOS DADOS DO SENSOR
+					if (cont == 28'd130000000) begin		// TEMPORIZADOR REFERENTE AO RECEBIMENTO DOS DADOS DO SENSOR
 						state <= PROCESS_DATA;				// TRANSITA PARA PROCESS_DATA SE O TEMPO FOR ATINGIDO
 						cont <= 0;								// ZERA A CONTADORA
 						reg_data_sensor <= data_sensor;	// ARMAZENA OS DADOS RECEBIDOS DO SENSOR

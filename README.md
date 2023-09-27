@@ -545,7 +545,15 @@ Os comandos aceitos pelo sistema estão no intervalo de 0x00 a 0x07, e os endere
 
   * https://portal.vidadesilicio.com.br/dht11-dht22-sensor-de-umidade-e-temperatura/?gclid=CjwKCAjw8symBhAqEiwAaTA__N0HYgc04ml-9jWqws8MTu7l_0d_GzH5w9lQucrsS4IujoR8yBeRChoCNy8QAvD_BwE
 
+  * https://www.mouser.com/datasheet/2/758/DHT11-Technical-Data-Sheet-Translated-Version-1143054.pdf 
+
 * Comunicações Seriais e UART: 
   * https://docs.freebsd.org/pt-br/articles/serial-uart/
+
+  * https://www2.pcs.usp.br/~labdig/pdffiles_2015/uart.pdf
+  
+  * http://www1.rc.unesp.br/igce/demac/alex/disciplinas/MicroII/EMA864315-Serial.pdf
+
+  * https://edisciplinas.usp.br/pluginfile.php/6231619/mod_resource/content/1/comunicacao-serial-2020.pdf 
   </p>
 </div>
