@@ -475,6 +475,22 @@ A tabela a seguir foi elaborada com o propósito de validar o projeto. Esses tes
 
 </div>
 
+
+<strong> Testes da Unidade de Controle </strong>
+
+Para realizar os testes da máquina de estados da unidade de controle, utilizou-se o software ModelSim. Este ambiente permite a visualização das transcrições de estados, conforme as informações são recebidas e processadas.
+
+O exemplo abaixo ilustra como a máquina de estados opera durante a solicitação do estado atual do sensor, passando por cada estágio do processo, desde a recepção dos comandos até o envio das respostas.
+
+![Alt text](Imagens/TesteUnidadeControle.jpeg)
+<p align="center"><strong> Simulação no ModelSim em caso de solicitação da situação atual do sensor.</strong> </p>
+
+No segundo exemplo, tem-se o cenário de ativação do sensoriamento contínuo de temperatura. Nesse caso, é ilustrado a forma como a máquina de estados lida com a ativação e desativação do sensoriamento contínuo de temperatura, garantindo que os dados sejam processados e enviados de forma adequada em tempo real.
+
+![Alt text](Imagens/TesteUnidadeControle.jpeg)
+<p align="center"><strong> Simulação no ModelSim em caso de sensoriamento contínuo de temperatura.</strong> </p>
+
+
 <div id="como-usar">  <h2> Execução do Projeto</h2>
 
 <p align="justify"> 
