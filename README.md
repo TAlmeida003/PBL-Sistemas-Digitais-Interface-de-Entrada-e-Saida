@@ -62,37 +62,62 @@
  O protocolo é responsável pela definição dos comandos de requisição, que solicitam a execução de ações específicas, e suas respostas correspondentes, que permitem o controle adequado do sistema. Abaixo, tem-se a descrição dos comandos de requisição do protocolo, os quais contém a sua descrição e entre parênteses, seu código específico:
 
   * **Solicitar Situação Atual do Sensor (0x01):** obtenção das informações sobre a situação atual do sensor, cuja resposta indicará se está funcionando normalmente ou se há algum problema;
-  * **Solicitar Medição de Temperatura (0x02):** fornecimento da medida atual de temperatura, caso o sensor esteja funcionando corretamente;
-  * **Solicitar Medição de Umidade (0x03):** fornecimento da medida atual de umidade, caso o sensor não esteja com problemas;
+
+  * **Solicitar Medição de Temperatura (0x02):** fornece a medida atual de temperatura, caso o sensor esteja funcionando corretamente;
+
+  * **Solicitar Medição de Umidade (0x03):** fornece a medida atual de umidade, caso o sensor não esteja com problemas;
+
   * **Ativar Sensoriamento Contínuo de Temperatura (0x04):** permite que o sistema receba atualizações regulares sobre as leituras de temperatura;
+
   * **Ativar Sensoriamento Contínuo de Umidade (0x05):** de forma similar ao anterior, mas para a umidade;
+
   * **Desativar Sensoriamento Contínuo de Temperatura (0x06):** interrupção do envio regular das leituras de temperatura;
+
   * **Desativar Sensoriamento Contínuo de Umidade (0x07):** interrupção do envio das leituras de umidade.
 
- Desse modo, é importante ressaltar que a única alteração feita em relação aos requisitos originais, disponibilizados nos requisitos do problema, é a numeração dos códigos dos comandos. No sistema atual, o código 0x00 não é mais válido, sendo omitido da tabela de comandos.
+ Desse modo, é importante ressaltar que a única alteração feita em relação aos comandos originais, disponibilizados nos requisitos do problema, é a numeração dos códigos. No sistema atual, o código 0x00 não é mais válido, sendo omitido da tabela de comandos.
 
- Além dos comandos de requisição, o protocolo inclui os comandos de resposta, cruciais para fornecer retornos detalhados sobre as solicitações e suas variações. Abaixo, é apresentado a descrição de cada um deles, incluindo os novos adicionados, para fornecer informações mais detalhadas sobre comandos incorretos, endereços inválidos e outras situações excepcionais, identificados pelos códigos: 0xCF, 0xDF, 0xEF e 0x6F:
+ Além dos comandos de requisição, o protocolo inclui os comandos de resposta, cruciais para fornecer retornos detalhados sobre as solicitações e suas variações. Abaixo, é apresentado a descrição de cada um deles, incluindo os novos adicionados, com o intuito de fornecer informações mais detalhadas sobre comandos incorretos, endereços inválidos e outras situações excepcionais, identificados pelos códigos: 0xCF, 0xDF, 0xEF e 0x6F:
 
-  * **Problema com o Sensor (0x1F):** indicação de um problema com o sensor, não podendo realizar as medições;
-  * **Sensor em Funcionamento (0x08):** confirmação que o sensor está funcionando normalmente, indicando a disponibilidade para coletar os dados;
+  * **Problema com o Sensor (0x1F):** indica que o sensor está com problema, não podendo realizar as medições;
+
+  * **Sensor em Funcionamento (0x08):** confirma que o sensor está funcionando normalmente, indicando a disponibilidade para coletar os dados;
+
   * **Medição Atual de Umidade (0x09):** fornece a medição atual de umidade;
+
   * **Medição Atual de Temperatura (0x0A):** fornece a medição atual de temperatura;
+
   * **Desativação do Sensoriamento Contínuo de Temperatura (0x0B):** confirma a conclusão bem-sucedida da ação de desativação do sensoriamento contínuo de temperatura;
+
   * **Desativação do Sensoriamento Contínuo de Umidade (0x0C):** indica que o sensoriamento contínuo foi desativado com sucesso;
-  * **Comando Não Existe (0xCF):** indicação de que um comando de requisição não reconhecido é recebido;
-  * **Endereço Não Existe (0xEF):** endereço não reconhecido é especificado em uma solicitação;
-  * **Comando Incorreto (0xDF):** indicação de que um comando foi formulado de maneira incorreta ou não segue o protocolo estabelecido, no caso do sensoriamento contínuo;
-  * **Endereço Incorreto do Sensor (0x6F):** sinalização de que o endereço do sensor especificado não está correto, no caso de sensoriamento contínuo;
+
+  * **Comando Não Existe (0xCF):** indica que um comando de requisição não reconhecido é recebido;
+
+  * **Endereço Não Existe (0xEF):** indica que um endereço não reconhecido é especificado em uma solicitação;
+
+  * **Comando Incorreto (0xDF):** indica que um comando foi formulado de maneira incorreta ou não segue o protocolo estabelecido, no caso do sensoriamento contínuo;
+
+  * **Endereço Incorreto do Sensor (0x6F):** sinaliza que o endereço do sensor especificado não está correto, no caso de sensoriamento contínuo;
+
   * **Resposta Vazia (0xFF):** usado quando não há informações específicas a serem transmitidas.
 
-Referente ao módulo "commands_table", implementado em Verilog, tem o intuito de desempenhar um papel fundamental no protocolo do sistema. Esse módulo é responsável pelo processamento dos comandos de requisição e respostas. Seu objetivo principal é gerar respostas apropriadas conforme as entradas recebidas, para garantir o funcionamento correto do sistema, e atender às solicitações dos usuários. Este módulo possui sete entradas e uma saída, cada uma com um papel crucial na operação do sistema, sendo elas:
+
+Referente ao módulo "commands_table", implementado em Verilog, tem o intuito de desempenhar um papel fundamental no protocolo do sistema. Esse módulo é responsável pelo processamento dos comandos de requisição e respostas. Seu objetivo principal é gerar respostas apropriadas conforme as entradas recebidas, para garantir o funcionamento correto do sistema e atender às solicitações dos usuários. Este módulo possui sete entradas e uma saída, cada uma com um papel crucial na operação do sistema, sendo elas:
+
   * **exe_command (entrada):** armazena o comando que está sendo atualmente processado pelo sistema, com o intuito de determinar qual resposta específica será gerada com base no comando em execução;
+
   * **next_command (entrada):** armazena o próximo comando a ser executado, a fim de determinar a próxima resposta que será gerada pelo sistema;
+
   * **crt_decoder (entrada):** sinal habilitador que ativa a decodificação para os casos regulares;
+
   * **data_sensor (entrada):** armazena os dados coletados pelos sensores;
+
   * **command_invalid (entrada):** indicação se o comando recebido é válido ou não, sendo importante para as devidas respostas em casos de erros ou comandos desconhecidos;
+
   * **next_address (entrada):** armazena o endereço do sensor associado ao próximo comando;
+
   * **exe_address (entrada):** armazena o endereço atualmente em execução, associado ao comando em processamento;
+
   * **buffer_tx (saída):** transmite as respostas geradas pelo módulo, que podem incluir informações sobre a execução do comando, medições dos sensores ou mensagens de erro, a depender das entradas.
 
 </p>
@@ -322,7 +347,7 @@ Com relação às entradas e saídas desse módulo, tem-se:
 
   * **inout_sensor (saída):** controla a inicialização do sensor;
 
-  * **rest_uart_rx (saída):** redefine a entrada de dados quando necessário;
+  * **rest_uart_rx (saída):** redefine a entrada de dados quando necessário.
 
 ### Estados da Máquina
 
