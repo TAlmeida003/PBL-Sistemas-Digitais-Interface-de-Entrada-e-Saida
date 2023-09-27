@@ -524,8 +524,12 @@ Os comandos aceitos pelo sistema estão no intervalo de 0x00 a 0x07, e os endere
 
   <p align="justify"> 
 
-* Leitura do sensor DHT11: https://www.kancloud.cn/dlover/fpga/1637659
+* Leitura do sensor DHT11: 
+  * https://www.kancloud.cn/dlover/fpga/1637659
 
+  * https://portal.vidadesilicio.com.br/dht11-dht22-sensor-de-umidade-e-temperatura/?gclid=CjwKCAjw8symBhAqEiwAaTA__N0HYgc04ml-9jWqws8MTu7l_0d_GzH5w9lQucrsS4IujoR8yBeRChoCNy8QAvD_BwE
 
+* Comunicações Seriais e UART: 
+  * https://docs.freebsd.org/pt-br/articles/serial-uart/
   </p>
 </div>
