@@ -1,0 +1,67 @@
+{
+	"title" : "Fitter||Fitter Summary",
+	"data" : {
+		"data" : [
+			{
+				"0" : "Quartus Prime Version",
+				"1" : "22.1std.2 Build 922 07/20/2023 SC Lite Edition"
+			},
+			{
+				"0" : "Revision Name",
+				"1" : "main"
+			},
+			{
+				"0" : "Top-level Entity Name",
+				"1" : "main"
+			},
+			{
+				"0" : "Family",
+				"1" : "Cyclone IV E"
+			},
+			{
+				"0" : "Device",
+				"1" : "EP4CE6E22C8"
+			},
+			{
+				"0" : "Timing Models",
+				"1" : "Final"
+			},
+			{
+				"0" : "Total logic elements",
+				"1" : "528 / 6,272 ( 8 % )"
+			},
+			{
+				"0" : "    Total combinational functions",
+				"1" : "431 / 6,272 ( 7 % )"
+			},
+			{
+				"0" : "    Dedicated logic registers",
+				"1" : "340 / 6,272 ( 5 % )"
+			},
+			{
+				"0" : "Total registers",
+				"1" : "340"
+			},
+			{
+				"0" : "Total pins",
+				"1" : "4 / 92 ( 4 % )"
+			},
+			{
+				"0" : "Total virtual pins",
+				"1" : "0"
+			},
+			{
+				"0" : "Total memory bits",
+				"1" : "0 / 276,480 ( 0 % )"
+			},
+			{
+				"0" : "Embedded Multiplier 9-bit elements",
+				"1" : "0 / 30 ( 0 % )"
+			},
+			{
+				"0" : "Total PLLs",
+				"1" : "0 / 2 ( 0 % )"
+			}
+		]
+	}
+}

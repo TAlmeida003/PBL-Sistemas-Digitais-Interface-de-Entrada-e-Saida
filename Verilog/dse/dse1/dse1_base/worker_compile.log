@@ -1,0 +1,396 @@
+Info: *******************************************************************
+Info: Running Quartus Prime Shell
+Info: Command: quartus_sh --flow compile main.qsf
+Info: Quartus(args): compile main.qsf
+Info: Project Name = C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/main
+Info: Revision Name = main
+{"object_type": "report_status", "percent" : 0}
+Info: *******************************************************************
+Info: Running Quartus Prime Signal Tap
+Info: Command: quartus_stp main -c main
+Info: Quartus Prime Signal Tap was successful. 0 errors, 0 warnings
+{"object_type": "report_status", "percent" : 16}
+{"object_type": "report_status", "percent" : 16}
+{"object_type": "report_status", "percent" : 17}
+Info: *******************************************************************
+Info: Running Quartus Prime Analysis & Synthesis
+Info: Command: quartus_map --read_settings_files=off --write_settings_files=off main -c main
+{"object_type": "refresh_report"}
+Warning: Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info: Parallel compilation is enabled and will use 16 of the 16 processors detected
+Warning: Verilog HDL information at controller_unit.v(93): always construct contains both blocking and non-blocking assignments
+Info: Found 1 design units, including 1 entities, in source file modules/controller_unit.v
+Info: Found 1 design units, including 1 entities, in source file modules/buffer_tx.v
+Info: Found 1 design units, including 1 entities, in source file modules/buffer_rx.v
+Info: Found 1 design units, including 1 entities, in source file modules/interface_sensor.v
+Info: Found 1 design units, including 1 entities, in source file modules/commands_table.v
+Warning: Verilog HDL information at UART_TX.v(39): always construct contains both blocking and non-blocking assignments
+Info: Found 1 design units, including 1 entities, in source file modules/uart_tx.v
+Info: Found 1 design units, including 1 entities, in source file modules/uart_rx.v
+Info: Found 1 design units, including 1 entities, in source file modules/main.v
+{"object_type": "report_status", "percent" : 17}
+{"object_type": "report_status", "percent" : 18}
+{"object_type": "report_status", "percent" : 18}
+Info: Elaborating entity "main" for the top level hierarchy
+Info: Elaborating entity "UART_RX" for hierarchy "UART_RX:rx"
+Info: Elaborating entity "BUFFER_RX" for hierarchy "BUFFER_RX:reg_rx"
+Info: Elaborating entity "controller_unit" for hierarchy "controller_unit:exe"
+Info: Elaborating entity "commands_table" for hierarchy "controller_unit:exe|commands_table:responseCommand"
+Info: Elaborating entity "interface_sensor" for hierarchy "interface_sensor:sensor"
+Warning: Verilog HDL assignment warning at interface_sensor.v(296): truncated value with size 41 to match size of target (40)
+Warning: Verilog HDL assignment warning at interface_sensor.v(302): truncated value with size 41 to match size of target (40)
+Info: Elaborating entity "BUFFER_TX" for hierarchy "BUFFER_TX:reg_tx"
+Info: Elaborating entity "UART_TX" for hierarchy "UART_TX:tx"
+{"object_type": "report_status", "percent" : 23}
+{"object_type": "report_status", "percent" : 23}
+{"object_type": "report_status", "percent" : 24}
+{"object_type": "report_status", "percent" : 23}
+{"object_type": "report_status", "percent" : 17}
+{"object_type": "report_status", "percent" : 18}
+{"object_type": "report_status", "percent" : 19}
+{"object_type": "report_status", "percent" : 21}
+{"object_type": "report_status", "percent" : 22}
+{"object_type": "report_status", "percent" : 23}
+{"object_type": "report_status", "percent" : 24}
+{"object_type": "report_status", "percent" : 24}
+{"object_type": "report_status", "percent" : 23}
+{"object_type": "report_status", "percent" : 24}
+{"object_type": "report_status", "percent" : 27}
+{"object_type": "report_status", "percent" : 27}
+{"object_type": "report_status", "percent" : 27}
+{"object_type": "report_status", "percent" : 27}
+Info: Registers with preset signals will power-up high
+Info: DEV_CLRn pin will set, and not reset, register with preset signal due to NOT Gate Push-Back
+{"object_type": "report_status", "percent" : 28}
+{"object_type": "report_status", "percent" : 28}
+{"object_type": "report_status", "percent" : 28}
+{"object_type": "report_status", "percent" : 28}
+{"object_type": "report_status", "percent" : 28}
+{"object_type": "report_status", "percent" : 28}
+{"object_type": "report_status", "percent" : 29}
+{"object_type": "report_status", "percent" : 29}
+{"object_type": "report_status", "percent" : 29}
+{"object_type": "report_status", "percent" : 29}
+{"object_type": "report_status", "percent" : 29}
+{"object_type": "report_status", "percent" : 29}
+{"object_type": "report_status", "percent" : 30}
+Info: Timing-Driven Synthesis is running
+{"object_type": "report_status", "percent" : 30}
+{"object_type": "report_status", "percent" : 31}
+{"object_type": "report_status", "percent" : 32}
+Info: 15 registers lost all their fanouts during netlist optimizations.
+Info: Generated suppressed messages file C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/output_files/main.map.smsg
+Info: Generated JSON formatted report files in C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/db/main.map.json_files/
+Info: Generated JSON formatted report files in C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/db/main.flow.json_files/
+{"object_type": "report_status", "percent" : 32}
+{"object_type": "report_status", "percent" : 33}
+Info: Generating hard_block partition "hard_block:auto_generated_inst"
+Info: Implemented 568 device resources after synthesis - the final resource count might be different
+Info: Generated JSON formatted report files in C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/db/main.map.json_files/
+Info: Generated JSON formatted report files in C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/db/main.flow.json_files/
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 3 warnings
+{"object_type": "report_status", "percent" : 33}
+{"object_type": "refresh_report"}
+{"object_type": "report_status", "percent" : 33}
+Info: *******************************************************************
+Info: Running Quartus Prime Fitter
+Info: Command: quartus_fit --read_settings_files=off --write_settings_files=off main -c main
+Info: qfit2_default_script.tcl version: #1
+Info: Project  = main
+Info: Revision = main
+{"object_type": "report_status", "percent" : 34}
+{"object_type": "refresh_report"}
+Warning: Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info: Parallel compilation is enabled and will use 16 of the 16 processors detected
+Info: Selected device EP4CE6E22C8 for design "main"
+Info: Low junction temperature is 0 degrees C
+Info: High junction temperature is 85 degrees C
+Info: Fitter is performing an Auto Fit compilation, which may decrease Fitter effort to reduce compilation time
+Warning: Feature LogicLock is only available with a valid subscription license. You can purchase a software subscription to gain full access to this feature.
+{"object_type": "report_status", "percent" : 35}
+Info: Device migration not selected. If you intend to use device migration later, you may need to change the pin assignments as they may be incompatible with other devices
+Info: Fitter converted 5 user pins into dedicated programming pins
+{"object_type": "report_status", "percent" : 35}
+Warning: Some pins have incomplete I/O assignments. Refer to the I/O Assignment Warnings report for details
+{"object_type": "report_status", "percent" : 38}
+Critical Warning: Synopsys Design Constraints File file not found: 'main.sdc'. A Synopsys Design Constraints File is required by the Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
+Info: No user constrained base clocks found in the design
+Info: No user constrained clock uncertainty found in the design. Calling "derive_clock_uncertainty"
+Info: Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info: Timing requirements not specified -- quality metrics such as performance may be sacrificed to reduce compilation time.
+Info: Automatically promoted node clock_50Mhz~input (placed in PIN 23 (CLK1, DIFFCLK_0n))
+Info: Automatically promoted node interface_sensor:sensor|clk_1MHz 
+{"object_type": "report_status", "percent" : 36}
+{"object_type": "report_status", "percent" : 38}
+Info: Starting register packing
+Extra Info: Performing register packing on registers with non-logic cell location assignments
+Extra Info: Completed register packing on registers with non-logic cell location assignments
+Extra Info: Started Fast Input/Output/OE register processing
+Extra Info: Finished Fast Input/Output/OE register processing
+Extra Info: Start inferring scan chains for DSP blocks
+Extra Info: Inferring scan chains for DSP blocks is complete
+Extra Info: Moving registers into I/O cells, Multiplier Blocks, and RAM blocks to improve timing and density
+Extra Info: Finished moving registers into I/O cells, Multiplier Blocks, and RAM blocks
+Info: Finished register packing
+{"object_type": "report_status", "percent" : 36}
+{"object_type": "report_status", "percent" : 36}
+Info: Fitter preparation operations ending: elapsed time is 00:00:01
+Info: Fitter has disabled Advanced Physical Optimization because it is not supported for the current family.
+{"object_type": "report_status", "percent" : 36}
+{"object_type": "report_status", "percent" : 38}
+Info: Fitter placement preparation operations beginning
+{"object_type": "report_status", "percent" : 36}
+{"object_type": "report_status", "percent" : 37}
+{"object_type": "report_status", "percent" : 38}
+{"object_type": "report_status", "percent" : 38}
+Info: Fitter placement preparation operations ending: elapsed time is 00:00:00
+Info: Fitter placement operations beginning
+{"object_type": "report_status", "percent" : 38}
+{"object_type": "report_status", "percent" : 38}
+{"object_type": "report_status", "percent" : 39}
+{"object_type": "report_status", "percent" : 39}
+{"object_type": "report_status", "percent" : 39}
+{"object_type": "report_status", "percent" : 39}
+{"object_type": "report_status", "percent" : 39}
+{"object_type": "report_status", "percent" : 40}
+{"object_type": "report_status", "percent" : 40}
+{"object_type": "report_status", "percent" : 40}
+{"object_type": "report_status", "percent" : 40}
+{"object_type": "report_status", "percent" : 40}
+{"object_type": "report_status", "percent" : 41}
+{"object_type": "report_status", "percent" : 41}
+{"object_type": "report_status", "percent" : 41}
+{"object_type": "report_status", "percent" : 41}
+{"object_type": "report_status", "percent" : 42}
+{"object_type": "report_status", "percent" : 42}
+{"object_type": "report_status", "percent" : 43}
+{"object_type": "report_status", "percent" : 44}
+{"object_type": "report_status", "percent" : 44}
+{"object_type": "report_status", "percent" : 45}
+{"object_type": "report_status", "percent" : 42}
+{"object_type": "report_status", "percent" : 42}
+{"object_type": "report_status", "percent" : 43}
+{"object_type": "report_status", "percent" : 43}
+{"object_type": "report_status", "percent" : 43}
+{"object_type": "report_status", "percent" : 44}
+Info: Fitter placement was successful
+Info: Fitter placement operations ending: elapsed time is 00:00:02
+{"object_type": "report_status", "percent" : 45}
+{"object_type": "report_status", "percent" : 38}
+Info: Fitter routing operations beginning
+{"object_type": "report_status", "percent" : 45}
+Info: Router estimated average interconnect usage is 0% of the available device resources
+{"object_type": "report_status", "percent" : 45}
+{"object_type": "report_status", "percent" : 45}
+{"object_type": "report_status", "percent" : 46}
+{"object_type": "report_status", "percent" : 46}
+{"object_type": "report_status", "percent" : 46}
+{"object_type": "report_status", "percent" : 46}
+{"object_type": "report_status", "percent" : 46}
+{"object_type": "report_status", "percent" : 46}
+{"object_type": "report_status", "percent" : 47}
+Info: The Fitter performed an Auto Fit compilation.  Optimizations were skipped to reduce compilation time.
+Info: Fitter routing operations ending: elapsed time is 00:00:02
+Info: Total time spent on timing analysis during the Fitter is 0.82 seconds.
+{"object_type": "report_status", "percent" : 46}
+Info: Started post-fitting delay annotation
+{"object_type": "report_status", "percent" : 48}
+{"object_type": "report_status", "percent" : 48}
+{"object_type": "report_status", "percent" : 48}
+{"object_type": "report_status", "percent" : 48}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 48}
+{"object_type": "report_status", "percent" : 48}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+Info: Delay annotation completed successfully
+Info: Started post-fitting delay annotation
+{"object_type": "report_status", "percent" : 48}
+{"object_type": "report_status", "percent" : 48}
+{"object_type": "report_status", "percent" : 48}
+{"object_type": "report_status", "percent" : 48}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 48}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+{"object_type": "report_status", "percent" : 49}
+Info: Delay annotation completed successfully
+{"object_type": "report_status", "percent" : 47}
+{"object_type": "report_status", "percent" : 49}
+Info: Fitter post-fit operations ending: elapsed time is 00:00:01
+Info: Generated suppressed messages file C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/output_files/main.fit.smsg
+Info: Generated JSON formatted report files in C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/db/main.fit.json_files/
+Info: Generated JSON formatted report files in C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/db/main.flow.json_files/
+Info: Quartus Prime Fitter was successful. 0 errors, 4 warnings
+{"object_type": "report_status", "percent" : 50}
+{"object_type": "refresh_report"}
+{"object_type": "report_status", "percent" : 50}
+{"object_type": "report_status", "percent" : 50}
+Info: *******************************************************************
+Info: Running Quartus Prime Assembler
+Info: Command: quartus_asm --read_settings_files=off --write_settings_files=off main -c main
+{"object_type": "refresh_report"}
+Warning: Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+{"object_type": "report_status", "percent" : 51}
+{"object_type": "report_status", "percent" : 52}
+{"object_type": "report_status", "percent" : 55}
+{"object_type": "report_status", "percent" : 57}
+{"object_type": "report_status", "percent" : 58}
+{"object_type": "report_status", "percent" : 61}
+{"object_type": "report_status", "percent" : 63}
+Info: Writing out detailed assembly data for power analysis
+Info: Assembler is generating device programming files
+{"object_type": "report_status", "percent" : 65}
+Info: Quartus Prime Assembler was successful. 0 errors, 1 warning
+{"object_type": "report_status", "percent" : 66}
+{"object_type": "refresh_report"}
+Info: Skipped module Power Analyzer due to the assignment FLOW_ENABLE_POWER_ANALYZER
+{"object_type": "report_status", "percent" : 66}
+Info: *******************************************************************
+Info: Running Quartus Prime Timing Analyzer
+Info: Command: quartus_sta main -c main
+Info: qsta_default_script.tcl version: #1
+{"object_type": "report_status", "percent" : 67}
+Warning: Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+Info: Parallel compilation is enabled and will use 16 of the 16 processors detected
+Info: Low junction temperature is 0 degrees C
+Info: High junction temperature is 85 degrees C
+{"object_type": "report_status", "percent" : 70}
+Critical Warning: Synopsys Design Constraints File file not found: 'main.sdc'. A Synopsys Design Constraints File is required by the Timing Analyzer to get proper timing constraints. Without it, the Compiler will not properly optimize the design.
+Info: No user constrained base clocks found in the design. Calling "derive_clocks -period 1.0"
+Info: Deriving Clocks
+Info: No user constrained clock uncertainty found in the design. Calling "derive_clock_uncertainty"
+Info: Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Info: Found TIMING_ANALYZER_REPORT_SCRIPT_INCLUDE_DEFAULT_ANALYSIS = ON
+Info: Analyzing Slow 1200mV 85C Model
+Critical Warning: Timing requirements not met
+Info: Worst-case setup slack is -5.432
+Info: Worst-case hold slack is 0.452
+Info: Worst-case recovery slack is -1.897
+Info: Worst-case removal slack is 1.136
+Info: Worst-case minimum pulse width slack is -3.000
+Info: Report Metastability: Found 9 synchronizer chains.
+Info: Analyzing Slow 1200mV 0C Model
+Info: Started post-fitting delay annotation
+{"object_type": "report_status", "percent" : 75}
+{"object_type": "report_status", "percent" : 75}
+{"object_type": "report_status", "percent" : 75}
+{"object_type": "report_status", "percent" : 75}
+{"object_type": "report_status", "percent" : 76}
+{"object_type": "report_status", "percent" : 76}
+{"object_type": "report_status", "percent" : 76}
+{"object_type": "report_status", "percent" : 76}
+{"object_type": "report_status", "percent" : 76}
+{"object_type": "report_status", "percent" : 77}
+{"object_type": "report_status", "percent" : 77}
+{"object_type": "report_status", "percent" : 77}
+{"object_type": "report_status", "percent" : 77}
+{"object_type": "report_status", "percent" : 77}
+{"object_type": "report_status", "percent" : 75}
+{"object_type": "report_status", "percent" : 77}
+{"object_type": "report_status", "percent" : 77}
+{"object_type": "report_status", "percent" : 78}
+{"object_type": "report_status", "percent" : 78}
+{"object_type": "report_status", "percent" : 78}
+{"object_type": "report_status", "percent" : 78}
+{"object_type": "report_status", "percent" : 78}
+{"object_type": "report_status", "percent" : 77}
+{"object_type": "report_status", "percent" : 78}
+{"object_type": "report_status", "percent" : 79}
+{"object_type": "report_status", "percent" : 79}
+{"object_type": "report_status", "percent" : 79}
+{"object_type": "report_status", "percent" : 79}
+{"object_type": "report_status", "percent" : 78}
+{"object_type": "report_status", "percent" : 79}
+{"object_type": "report_status", "percent" : 80}
+{"object_type": "report_status", "percent" : 77}
+{"object_type": "report_status", "percent" : 80}
+{"object_type": "report_status", "percent" : 80}
+{"object_type": "report_status", "percent" : 77}
+{"object_type": "report_status", "percent" : 80}
+{"object_type": "report_status", "percent" : 80}
+{"object_type": "report_status", "percent" : 80}
+{"object_type": "report_status", "percent" : 80}
+{"object_type": "report_status", "percent" : 80}
+{"object_type": "report_status", "percent" : 81}
+{"object_type": "report_status", "percent" : 81}
+{"object_type": "report_status", "percent" : 80}
+{"object_type": "report_status", "percent" : 81}
+{"object_type": "report_status", "percent" : 81}
+{"object_type": "report_status", "percent" : 81}
+{"object_type": "report_status", "percent" : 81}
+{"object_type": "report_status", "percent" : 82}
+{"object_type": "report_status", "percent" : 82}
+{"object_type": "report_status", "percent" : 82}
+{"object_type": "report_status", "percent" : 80}
+{"object_type": "report_status", "percent" : 82}
+{"object_type": "report_status", "percent" : 82}
+{"object_type": "report_status", "percent" : 83}
+{"object_type": "report_status", "percent" : 83}
+{"object_type": "report_status", "percent" : 82}
+{"object_type": "report_status", "percent" : 83}
+{"object_type": "report_status", "percent" : 82}
+{"object_type": "report_status", "percent" : 83}
+Info: Delay annotation completed successfully
+Info: Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Critical Warning: Timing requirements not met
+Info: Worst-case setup slack is -5.143
+Info: Worst-case hold slack is 0.400
+Info: Worst-case recovery slack is -1.732
+Info: Worst-case removal slack is 1.035
+Info: Worst-case minimum pulse width slack is -3.000
+Info: Report Metastability: Found 9 synchronizer chains.
+Info: Analyzing Fast 1200mV 0C Model
+Info: Deriving Clock Uncertainty. Please refer to report_sdc in the Timing Analyzer to see clock uncertainties.
+Critical Warning: Timing requirements not met
+Info: Worst-case setup slack is -1.848
+Info: Worst-case hold slack is 0.186
+Info: Worst-case recovery slack is -0.350
+Info: Worst-case removal slack is 0.498
+Info: Worst-case minimum pulse width slack is -3.000
+Info: Report Metastability: Found 9 synchronizer chains.
+Info: Design is not fully constrained for setup requirements
+Info: Design is not fully constrained for hold requirements
+Info: Generated JSON formatted report files in C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/db/main.sta.json_files/
+Info: Generated JSON formatted report files in C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/db/main.flow.json_files/
+Info: Quartus Prime Timing Analyzer was successful. 0 errors, 5 warnings
+Info: Generated JSON formatted report files in C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/db/main.sta.json_files/
+{"object_type": "report_status", "percent" : 83}
+{"object_type": "refresh_report"}
+{"object_type": "report_status", "percent" : 83}
+{"object_type": "report_status", "percent" : 84}
+Info: *******************************************************************
+Info: Running Quartus Prime EDA Netlist Writer
+Info: Command: quartus_eda --read_settings_files=off --write_settings_files=off main -c main
+{"object_type": "refresh_report"}
+Warning: Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
+{"object_type": "report_status", "percent" : 84}
+{"object_type": "report_status", "percent" : 87}
+{"object_type": "report_status", "percent" : 90}
+{"object_type": "report_status", "percent" : 91}
+Info: Generated file main.vo in folder "C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/simulation/modelsim/" for EDA simulation tool
+{"object_type": "report_status", "percent" : 92}
+{"object_type": "report_status", "percent" : 99}
+Info: Generated JSON formatted report files in C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/db/main.eda.json_files/
+Info: Generated JSON formatted report files in C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/db/main.flow.json_files/
+Info: Quartus Prime EDA Netlist Writer was successful. 0 errors, 1 warning
+{"object_type": "report_status", "percent" : 100}
+{"object_type": "refresh_report"}
+Info: Quartus Prime Full Compilation was successful. 0 errors, 14 warnings
+Info: Evaluation of Tcl script c:/intelfpga_lite/22.1std/quartus/common/tcl/internal/qsh_flow.tcl was successful
+Info: Quartus Prime Shell was successful. 0 errors, 14 warnings

@@ -1,0 +1,19 @@
+{
+	"title" : "Flow Settings",
+	"data" : {
+		"data" : [
+			{
+				"0" : "Start date & time",
+				"1" : "10/09/2023 13:37:05"
+			},
+			{
+				"0" : "Main task",
+				"1" : "Compilation"
+			},
+			{
+				"0" : "Revision Name",
+				"1" : "main"
+			}
+		]
+	}
+}

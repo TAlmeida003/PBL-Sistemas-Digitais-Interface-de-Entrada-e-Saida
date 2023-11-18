@@ -1,0 +1,3 @@
+Clocks: Frequency
+Exploration Point,clock_50Mhz,controller_unit:exe|send_data_tx,interface_sensor:sensor|clk_1MHz
+dse1_base,1000.0 MHz,1000.0 MHz,1000.0 MHz

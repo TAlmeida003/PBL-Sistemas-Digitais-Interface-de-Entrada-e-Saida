@@ -1,0 +1,2 @@
+Warning (10268): Verilog HDL information at controller_unit.v(93): always construct contains both blocking and non-blocking assignments File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/Modules/controller_unit.v Line: 93
+Warning (10268): Verilog HDL information at UART_TX.v(39): always construct contains both blocking and non-blocking assignments File: C:/Users/thiag/Documents/GitHub/PBL---Sistemas-Digitais---Interface-de-Entrada-e-Sa-da/Verilog/dse/dse1/dse1_base/Modules/UART_TX.v Line: 39

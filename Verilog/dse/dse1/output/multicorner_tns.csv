@@ -1,0 +1,3 @@
+Multicorner Timing Analysis Total Negative Slack: Setup
+Exploration Point,clock_50Mhz,controller_unit:exe|send_data_tx,interface_sensor:sensor|clk_1MHz
+dse1_base,-692.795,-1.907,-303.053

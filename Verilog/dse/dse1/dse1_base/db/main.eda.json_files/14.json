@@ -1,0 +1,17 @@
+{
+	"title" : "Timing Analyzer||Slow 1200mV 85C Model||Slow 1200mV 85C Model Recovery Summary",
+	"data" : {
+		"data" : [
+			{
+				"0" : "interface_sensor:sensor|clk_1MHz",
+				"1" : "-1.897",
+				"2" : "-183.151"
+			},
+			{
+				"0" : "clock_50Mhz",
+				"1" : "-0.844",
+				"2" : "-15.280"
+			}
+		]
+	}
+}

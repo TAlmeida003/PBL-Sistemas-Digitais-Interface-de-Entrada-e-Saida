@@ -1,0 +1,6 @@
+Multicorner Timing Analysis: Summary
+Exploration Point,Setup,Hold,Recovery,Removal,Clock
+dse1_base,-5.432,0.186,-0.844,0.498,clock_50Mhz
+dse1_base,-1.907,0.883,-1.897,0.567,controller_unit:exe|send_data_tx
+dse1_base,-4.666,0.186,-1.897,0.498,interface_sensor:sensor|clk_1MHz
+dse1_base,-5.432,0.186,No Data,No Data,Worst-Case Slack

@@ -1,0 +1,22 @@
+{
+	"title" : "Timing Analyzer||Slow 1200mV 0C Model||Slow 1200mV 0C Model Setup Summary",
+	"data" : {
+		"data" : [
+			{
+				"0" : "clock_50Mhz",
+				"1" : "-5.143",
+				"2" : "-635.985"
+			},
+			{
+				"0" : "interface_sensor:sensor|clk_1MHz",
+				"1" : "-4.348",
+				"2" : "-280.526"
+			},
+			{
+				"0" : "controller_unit:exe|send_data_tx",
+				"1" : "-1.618",
+				"2" : "-1.618"
+			}
+		]
+	}
+}

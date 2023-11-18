@@ -1,0 +1,161 @@
+------------------------------------------------------------
+Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1200mV 85C Model Setup 'clock_50Mhz'
+Slack : -5.432
+TNS   : -692.795
+
+Type  : Slow 1200mV 85C Model Setup 'interface_sensor:sensor|clk_1MHz'
+Slack : -4.666
+TNS   : -303.053
+
+Type  : Slow 1200mV 85C Model Setup 'controller_unit:exe|send_data_tx'
+Slack : -1.907
+TNS   : -1.907
+
+Type  : Slow 1200mV 85C Model Hold 'clock_50Mhz'
+Slack : 0.452
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'interface_sensor:sensor|clk_1MHz'
+Slack : 0.453
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Hold 'controller_unit:exe|send_data_tx'
+Slack : 1.903
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Recovery 'interface_sensor:sensor|clk_1MHz'
+Slack : -1.897
+TNS   : -183.151
+
+Type  : Slow 1200mV 85C Model Recovery 'clock_50Mhz'
+Slack : -0.844
+TNS   : -15.280
+
+Type  : Slow 1200mV 85C Model Removal 'clock_50Mhz'
+Slack : 1.136
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Removal 'interface_sensor:sensor|clk_1MHz'
+Slack : 1.344
+TNS   : 0.000
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'clock_50Mhz'
+Slack : -3.000
+TNS   : -331.627
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'interface_sensor:sensor|clk_1MHz'
+Slack : -1.487
+TNS   : -175.466
+
+Type  : Slow 1200mV 85C Model Minimum Pulse Width 'controller_unit:exe|send_data_tx'
+Slack : -1.487
+TNS   : -1.487
+
+Type  : Slow 1200mV 0C Model Setup 'clock_50Mhz'
+Slack : -5.143
+TNS   : -635.985
+
+Type  : Slow 1200mV 0C Model Setup 'interface_sensor:sensor|clk_1MHz'
+Slack : -4.348
+TNS   : -280.526
+
+Type  : Slow 1200mV 0C Model Setup 'controller_unit:exe|send_data_tx'
+Slack : -1.618
+TNS   : -1.618
+
+Type  : Slow 1200mV 0C Model Hold 'clock_50Mhz'
+Slack : 0.400
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'interface_sensor:sensor|clk_1MHz'
+Slack : 0.402
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Hold 'controller_unit:exe|send_data_tx'
+Slack : 1.710
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Recovery 'interface_sensor:sensor|clk_1MHz'
+Slack : -1.732
+TNS   : -165.320
+
+Type  : Slow 1200mV 0C Model Recovery 'clock_50Mhz'
+Slack : -0.672
+TNS   : -11.850
+
+Type  : Slow 1200mV 0C Model Removal 'clock_50Mhz'
+Slack : 1.035
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Removal 'interface_sensor:sensor|clk_1MHz'
+Slack : 1.259
+TNS   : 0.000
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'clock_50Mhz'
+Slack : -3.000
+TNS   : -331.627
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'interface_sensor:sensor|clk_1MHz'
+Slack : -1.487
+TNS   : -175.466
+
+Type  : Slow 1200mV 0C Model Minimum Pulse Width 'controller_unit:exe|send_data_tx'
+Slack : -1.487
+TNS   : -1.487
+
+Type  : Fast 1200mV 0C Model Setup 'clock_50Mhz'
+Slack : -1.848
+TNS   : -180.922
+
+Type  : Fast 1200mV 0C Model Setup 'interface_sensor:sensor|clk_1MHz'
+Slack : -1.386
+TNS   : -65.924
+
+Type  : Fast 1200mV 0C Model Setup 'controller_unit:exe|send_data_tx'
+Slack : -0.332
+TNS   : -0.332
+
+Type  : Fast 1200mV 0C Model Hold 'clock_50Mhz'
+Slack : 0.186
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'interface_sensor:sensor|clk_1MHz'
+Slack : 0.186
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Hold 'controller_unit:exe|send_data_tx'
+Slack : 0.883
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Recovery 'interface_sensor:sensor|clk_1MHz'
+Slack : -0.350
+TNS   : -21.884
+
+Type  : Fast 1200mV 0C Model Recovery 'clock_50Mhz'
+Slack : 0.169
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'clock_50Mhz'
+Slack : 0.498
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Removal 'interface_sensor:sensor|clk_1MHz'
+Slack : 0.567
+TNS   : 0.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'clock_50Mhz'
+Slack : -3.000
+TNS   : -238.396
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'interface_sensor:sensor|clk_1MHz'
+Slack : -1.000
+TNS   : -118.000
+
+Type  : Fast 1200mV 0C Model Minimum Pulse Width 'controller_unit:exe|send_data_tx'
+Slack : -1.000
+TNS   : -1.000
+
+------------------------------------------------------------

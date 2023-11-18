@@ -1,0 +1,3 @@
+Multicorner Timing Analysis Worst-Case Slack: Setup
+Exploration Point,clock_50Mhz,controller_unit:exe|send_data_tx,interface_sensor:sensor|clk_1MHz,Worst-Case Slack
+dse1_base,-5.432,-1.907,-4.666,-5.432

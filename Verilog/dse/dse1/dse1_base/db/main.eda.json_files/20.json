@@ -1,0 +1,17 @@
+{
+	"title" : "Timing Analyzer||Slow 1200mV 0C Model||Slow 1200mV 0C Model Removal Summary",
+	"data" : {
+		"data" : [
+			{
+				"0" : "clock_50Mhz",
+				"1" : "1.035",
+				"2" : "0.000"
+			},
+			{
+				"0" : "interface_sensor:sensor|clk_1MHz",
+				"1" : "1.259",
+				"2" : "0.000"
+			}
+		]
+	}
+}

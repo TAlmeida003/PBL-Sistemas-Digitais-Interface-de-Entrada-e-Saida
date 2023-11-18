@@ -1,0 +1,19 @@
+{
+	"title" : "Timing Analyzer||Slow 1200mV 85C Model||Slow 1200mV 85C Model Fmax Summary",
+	"data" : {
+		"data" : [
+			{
+				"0" : "155.47 MHz",
+				"1" : "155.47 MHz",
+				"2" : "clock_50Mhz",
+				"3" : ""
+			},
+			{
+				"0" : "176.49 MHz",
+				"1" : "176.49 MHz",
+				"2" : "interface_sensor:sensor|clk_1MHz",
+				"3" : ""
+			}
+		]
+	}
+}

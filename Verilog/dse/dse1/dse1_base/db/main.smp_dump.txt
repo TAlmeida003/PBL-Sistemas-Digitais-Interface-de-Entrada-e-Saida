@@ -1,0 +1,52 @@
+
+State Machine - |main|UART_TX:tx|state
+Name state.STOP state.DATA state.START state.00 
+state.00 0 0 0 0 
+state.START 0 0 1 1 
+state.DATA 0 1 0 1 
+state.STOP 1 0 0 1 
+
+State Machine - |main|BUFFER_TX:reg_tx|state
+Name state.SEND_BYTE_TWO state.STOP_ACK_1 state.SEND_BYTE_ONE state.000 state.STOP_ACK_2 
+state.000 0 0 0 0 0 
+state.SEND_BYTE_ONE 0 0 1 1 0 
+state.STOP_ACK_1 0 1 0 1 0 
+state.SEND_BYTE_TWO 1 0 0 1 0 
+state.STOP_ACK_2 0 0 0 1 1 
+
+State Machine - |main|interface_sensor:sensor|state
+Name state.ERROR state.END_PROCESS state.COLLECT_ALL_DATA state.READ_DATA state.WAIT_BIT_DATA state.FINAL_SYNC state.WAIT_HIGH state.WAIT_LOW state.SEND_HIGH_20US state.START_BIT state.IDLE 
+state.IDLE 0 0 0 0 0 0 0 0 0 0 0 
+state.START_BIT 0 0 0 0 0 0 0 0 0 1 1 
+state.SEND_HIGH_20US 0 0 0 0 0 0 0 0 1 0 1 
+state.WAIT_LOW 0 0 0 0 0 0 0 1 0 0 1 
+state.WAIT_HIGH 0 0 0 0 0 0 1 0 0 0 1 
+state.FINAL_SYNC 0 0 0 0 0 1 0 0 0 0 1 
+state.WAIT_BIT_DATA 0 0 0 0 1 0 0 0 0 0 1 
+state.READ_DATA 0 0 0 1 0 0 0 0 0 0 1 
+state.COLLECT_ALL_DATA 0 0 1 0 0 0 0 0 0 0 1 
+state.END_PROCESS 0 1 0 0 0 0 0 0 0 0 1 
+state.ERROR 1 0 0 0 0 0 0 0 0 0 1 
+
+State Machine - |main|controller_unit:exe|state
+Name state.INCORRECT_DATA state.SEND_DATA state.PROCESS_DATA state.CONTROLLER_SENSOR state.READ_DATA state.000 
+state.000 0 0 0 0 0 0 
+state.READ_DATA 0 0 0 0 1 1 
+state.CONTROLLER_SENSOR 0 0 0 1 0 1 
+state.PROCESS_DATA 0 0 1 0 0 1 
+state.SEND_DATA 0 1 0 0 0 1 
+state.INCORRECT_DATA 1 0 0 0 0 1 
+
+State Machine - |main|BUFFER_RX:reg_rx|state
+Name state.ADD_COMMAND state.IDLE_2BYTE state.ADD_ADDRESS state.00 
+state.00 0 0 0 0 
+state.ADD_ADDRESS 0 0 1 1 
+state.IDLE_2BYTE 0 1 0 1 
+state.ADD_COMMAND 1 0 0 1 
+
+State Machine - |main|UART_RX:rx|state
+Name state.STOP state.DATA state.START state.00 
+state.00 0 0 0 0 
+state.START 0 0 1 1 
+state.DATA 0 1 0 1 
+state.STOP 1 0 0 1 
