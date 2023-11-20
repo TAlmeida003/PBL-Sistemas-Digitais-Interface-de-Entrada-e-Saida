@@ -13,11 +13,6 @@
 
 _start: 
 
-        print test
-        LDR R1, =\test
-        LDR R2, =\test
-        print R2
-
 
         MapeamentoDeMemoria
         
@@ -25,31 +20,23 @@ _start:
 
         configLCD
 
-        LDR R0, =RS
-        MOV R1, #1
-        BL stateLogicPin
+        LDR r0, =test
+        LDR R1, #4
+        BL stringLine
 
-        MOV R0, #0x84
-        enviarData 
-        MOV R0, #0x83
+        MOV r0, 0xc0
         enviarData
-        MOV R0, #0x83
-        enviarData 
-        MOV R0, #0x83
-        enviarData 
-        MOV R0, #0x84
-        enviarData 
 
-        LDR R0, =RS
-        MOV R1, #0
-        BL stateLogicPin
+        LDR r0, =test
+        LDR R1, #4
+        BL stringLine
 
 loop:   
         LDR R0, =ledBlue
         MOV R1, #1
         BL stateLogicPin
 
-        @nanoSleep time1s
+        nanoSleep time1s
 
         LDR R0, =button_back
         BL statusInput @R0 = logica do button
@@ -63,7 +50,7 @@ brk1:
         MOV R1, #0
         BL stateLogicPin
 
-        @nanoSleep time1s
+        nanoSleep time1s
         
         subs    r6, #1      
         bne     loop        
@@ -181,6 +168,6 @@ uartTx:         @ PA13
         .word 0xd
         .word 0x10
 
-test: 
+test:
         .asciz "SSST"
-        .word 0x84
+
