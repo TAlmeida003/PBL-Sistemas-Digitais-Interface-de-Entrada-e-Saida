@@ -20,15 +20,19 @@ _start:
 
         configLCD
 
-        LDR r0, =test
-        LDR R1, #4
+        LDR r1, =resp_screen_l1
+        ADD R0, R1, #4
+        LDR r1, [r1]
+
         BL stringLine
 
-        MOV r0, 0xc0
+        MOV r0, #0xc0
         enviarData
 
-        LDR r0, =test
-        LDR R1, #4
+        LDR r1, =resp_screen_l2
+        ADD R0, R1, #4
+        LDR r1, [r1]
+
         BL stringLine
 
 loop:   
@@ -36,7 +40,7 @@ loop:
         MOV R1, #1
         BL stateLogicPin
 
-        nanoSleep time1s
+        @nanoSleep time1s
 
         LDR R0, =button_back
         BL statusInput @R0 = logica do button
@@ -50,7 +54,7 @@ brk1:
         MOV R1, #0
         BL stateLogicPin
 
-        nanoSleep time1s
+        @nanoSleep time1s
         
         subs    r6, #1      
         bne     loop        
@@ -169,5 +173,42 @@ uartTx:         @ PA13
         .word 0x10
 
 test:
-        .asciz "SSST"
+        .asciz "silvio eh lindo"
+
+
+command_screen_l1: 
+        .word 0x0e
+        .asciz "    0x00 -> :C"
+
+screen_l2:
+        .word 0x10
+        .asciz "back   ok   next"
+
+
+address_screen_l1: 
+        .word 0x0e
+        .asciz "    0x00 -> :A"
+
+
+wait_screen_l1:
+        .word 0x0b
+        .asciz "    loading"
+
+wait_screen_l2:
+        .word 0x09
+        .asciz "      ..."
+
+
+resp_screen_l1:
+        .word 0x0d
+        .asciz "   0x08  0xff"
+
+resp_screen_l2:
+        .word 0x09
+        .asciz "       ok"
+
+
+
+
+
 

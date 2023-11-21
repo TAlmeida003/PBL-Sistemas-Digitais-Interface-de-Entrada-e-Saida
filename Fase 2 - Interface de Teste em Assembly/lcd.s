@@ -122,11 +122,11 @@
 
     @ R2 = 1010 
     LDR     R0,     =pinD4    @ Carrega o endereço do pino D4 em R0
-    AND R1, R2, #1              @ Aplica uma máscara para obter o bit menos significativo (LSB) de R2
+    AND R1, R2, #1              @ Aplica uma máscara para obter o bit menos significativo (LSB) de R2 1010 & 0001 
     BL stateLogicPin            @ Chama a função stateLogicPin para definir o estado do pino D4
 
     LSR R2, #1                  @ Desloca os bits de R2 uma posição à direita
-    LDR R0, =pinD5              @ Carrega o endereço do pino D5 em R0
+    LDR R0, =pinD5              @ Carrega o endereço do pino D5 em R0 
     AND R1, R2, #1              @ Aplica uma máscara para obter o próximo bit de R2
     BL stateLogicPin            @ Chama a função stateLogicPin para definir o estado do pino D5
     
@@ -184,8 +184,8 @@
 .macro enviarData
 
     MOV R2, R0              @ Move o byte para R2
-    AND R3, R2, #0xF        @ Máscara para obter os bits menos significativos (LSB) do caractere
-    LSR R2, #4              @ Desloca os bits mais significativos (MSB) para a posição correta
+    AND R3, R2, #0xF        @ Máscara para obter os bits menos significativos (LSB) do caractere 1001 0010 & 0000 1111
+    LSR R2, #4              @ Desloca os bits mais significativos (MSB) para a posição correta 0000 1001
 
     addValue4dataPin        @ Envia a parte MSB do byte para o LCD
 
@@ -218,7 +218,7 @@ stringLine:
         CMP R7, R6 @ Compara o contador de loop com o tamanho da string
         BGE exitForStringLine @ Se R7 >= R6, sai do loop
 
-        LSL R0, R7, #3 @ Calcula o deslocamento para o caractere atual na string
+        LSL R0, R7, #0 @ Calcula o deslocamento para o caractere atual na string
         ADD R0, R5     @ Calcula o endereço do caractere atual na string
         LDR R0, [R0]   @ Carrega o caractere atual da memória para R0
         enviarData     @ Envia o caractere para o LCD usando a função enviarData
@@ -235,3 +235,4 @@ stringLine:
     BX LR @ Ramo para o endereço de retorno armazenado no Link Register (LR)
 
 @======================================================================================
+
