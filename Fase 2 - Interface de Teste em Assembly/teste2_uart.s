@@ -12,7 +12,7 @@
 .EQU UART_LCR,                  0x000C      @ Registrador de linhas de controle
 .EQU UART_DLAB_TR ,             0x00000000  @ Seta para receber/enviar dados (7 << 0)
 .EQU UART_DLAB_BD ,             0b10000000  @ Seta o baud rate (7 << 1)
-.equ UART_DLS,                  0b11        @ Tamanho do cojunto de bits da UART (11 - 8 bits)
+.EQU UART_DLS,                  0b11        @ Tamanho do cojunto de bits da UART (11 - 8 bits)
 
 .EQU UART_HALT,                 0x00A4
 .EQU UART_CHANGE_UPDATE,        0b100      
@@ -20,7 +20,11 @@
 
 .EQU sys_nanosleep,             162
 
-.macro UART_Mapeamento
+.global _start
+
+_start:
+
+@UART_Map
 
     @Iniciar o acesso a RAM, pedindo permissão ao SO para acessar a memoria
     ldr     R0,     =devMen             @ Carrega o endereço de "/dev/mem" (arquivo de memória)
@@ -34,7 +38,7 @@
     ldr     r5,     =base_uart          @ endereço UART / 4096
     ldr     r5,     [r5]                @ carrega o endereço
 
-    ldr     R1,     =pagelenn
+    ldr     R1,     =pagelen
     ldr     R1,     [R1]
 
     mov     R2,     #3                  @ (PROT_READ + PROT_WRITE) @ opções de proteção de memória
@@ -46,14 +50,14 @@
     add     R0,     #0xC00              @ Adiciona o deslocamento para encontrar a UART3
     mov     R9,     R0                  @ Salva o retorno do serviço sys_mmap2 em R8
 
-.endm
+@UART_Config
 
-.macro UART_Config
-
-    mov r0, #UART_DLAB_BD         @ Setando os espaços de endereço para carregar o baud rate
+    ldr r0, [r9, #UART_LCR]
+    orr r0, r0, #UART_DLAB_BD           @ Setando os espaços de endereço para carregar o baud rate
 	str r0, [r9, #UART_LCR]   
 
-    mov r0, #UART_CHCFG_AT_BUSY         @ Habilitando alteração na setagem de baud rate
+    ldr r0, [r9, #UART_HALT]
+    orr r0, r0, #UART_CHCFG_AT_BUSY         @ Habilitando alteração na setagem de baud rate e configurações do LCR
 	str r0, [r9, #UART_HALT] 
 
     mov r0, #0x45                @ Setando 8 bits baixos do baud rate
@@ -62,40 +66,54 @@
     mov r0, #0x01                @ Setando 8 bits altos do baud rate
 	str r0, [r9, #UART_DLH] 
 
+    ldr r0, [r9, #UART_LCR]
+    orr r0, r0, #UART_DLS             @ Setando o tamanho do conjunto de bits lidos pela UART
+	str r0, [r9, #UART_LCR]  
+
     mov r0, #0x01                @ Tempo de 1 segundos
 	mov r1, #0x00
 	mov r7, #sys_nanosleep       @ Contando o tempo de 1 segundo para carregar o baud rate
 	svc 0
 
-    mov r0, #UART_CHANGE_UPDATE  @ Carregando alterações
+    ldr r0, [r9, #UART_HALT]
+    orr r0, r0, #UART_CHANGE_UPDATE  @ Carregando alterações
 	str r0, [r9, #UART_HALT] 
 
-    mov r0, #0x01                @ Tempo de 1 segundos
-	mov r1, #0x00
-	mov r7, #sys_nanosleep       @ Contando o tempo de 1 segundo para carregar o baud rate
-	svc 0
+_loop_update:                        @ Aguardando o bit de update resetar
 
-    mov r0, #UART_DLAB_TR        @ Setando os espaços de endereço para carregar dados de transmissão e recebimento
+    ldr r0, [r9, #UART_HALT]
+    and r0, r0, #0b100
+    ands r0, r0, #0b100
+    beq _loop_update
+
+    ldr r0, [r9, #UART_LCR]
+    mov r0, (0<<7)                     @ Setando os espaços de endereço para carregar dados de transmissão e recebimento
 	str r0, [r9, #UART_LCR]     
 
-    mov r0, #0                   @ Desabilitando alteração na setagem de baud rate
-	str r0, [r9, #UART_HALT] 
+    ldr r0, [r9, #UART_HALT]
+    mov r0, (0<<1)                   @ Desabilitando alteração na setagem de baud rate e configurações do LCR
+	str r0, [r9, #UART_HALT]  
 
-    mov r0, #UART_DLS             @ Setando o tamanho do conjunto de bits lidos pela UART
-	str r0, [r9, #UART_LCR]   
-
-    mov r0, #UART_FIFOE           @ Habilitando o FIFO
+    ldr r0, [r9, #UART_FCR]
+    orr r0, r0, #UART_FIFOE           @ Habilitando o FIFO
 	str r0, [r9, #UART_FCR]
 
-.endm
-
-.macro UART_tx_byte  
+@UART_tx_byte  
 
 	mov r0, #0xAA               @ Enviando byte para a UART
 	str r0, [r9, #UART_THR]
 
-.endm
+@teste
+
+    ldr r0, [r9, #0x0008]       @ bits [7:6] indicam se o FIFO está habilitado. 11 - habilitado
+
+    ldr r0, [r9, #0x007C]       @ Indica se o TX FIFO está vazio. [2] = 1, está vazio
+
+_end:   mov     R0, #0      
+        mov     R7, #1      
+        svc     0   
 
 .data 
+devMen:   .asciz  "/dev/mem"
 base_uart:	.word 0x01C28
-pagelenn:    .word 0x1000
+pagelen:    .word 0x1000
