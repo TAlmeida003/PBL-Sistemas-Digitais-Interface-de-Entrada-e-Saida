@@ -87,8 +87,6 @@
         BL addValue4dataPin        @ Envia o último comando de função Set ao LCD
         nanoSleep time150us      @ Aguarda 150 microssegundos
         
-        .ltorg                    @ Organiza os literais em locais de memória
-
         MOV R0, #0x28            @ Envia comando para configurar a função Set do LCD
         BL enviarData               @ Chama a macro enviarData para enviar o comando ao LCD
         
@@ -101,8 +99,6 @@
         MOV R0, #0x06            @ Envia comando para configurar o modo de entrada do LCD
         BL enviarData               @ Chama a macro enviarData para enviar o comando ao LCD 
         
-        .ltorg                    @ Organiza os literais em locais de memória
-
         MOV R0, #0x0e            @ Envia comando para posicionar o cursor automaticamente para a direita (0x0C)
         BL enviarData               @ Chama a macro enviarData para enviar o comando ao LCD
         
