@@ -18,43 +18,25 @@ _start:
         
         iniciarPin
 
-        configLCD
+        configLCD       
 
-        LDR r1, =resp_screen_l1
-        ADD R0, R1, #4
-        LDR r1, [r1]
-
-        BL stringLine
-
-        MOV r0, #0xc0
-        enviarData
-
-        LDR r1, =resp_screen_l2
-        ADD R0, R1, #4
-        LDR r1, [r1]
-
-        BL stringLine
 
 loop:   
-        LDR R0, =ledBlue
+
         MOV R1, #1
-        BL stateLogicPin
-
-        @nanoSleep time1s
-
         LDR R0, =button_back
-        BL statusInput @R0 = logica do button
+        BL verificarBotaoPress
 
         MOV R1, R0
-        LDR R0, =ledRed
+
+        LDR R0, =ledBlue
+        @MOV R1, #1
         BL stateLogicPin
+
+        nanoSleep time1s
+
 
 brk1:
-        LDR R0, =ledBlue
-        MOV R1, #0
-        BL stateLogicPin
-
-        @nanoSleep time1s
         
         subs    r6, #1      
         bne     loop        
@@ -173,7 +155,7 @@ uartTx:         @ PA13
         .word 0x10
 
 test:
-        .asciz "silvio eh lindo"
+        .asciz "arquivo teste"
 
 
 command_screen_l1: 
