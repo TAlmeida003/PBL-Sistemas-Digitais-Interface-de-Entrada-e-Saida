@@ -72,39 +72,39 @@
         nanoSleep time100ms     @ Aguarda 100 milissegundos
 
         MOV     R2,     #3       
-        addValue4dataPin        @ Envia comando de função Set ao LCD
+        BL addValue4dataPin        @ Envia comando de função Set ao LCD
         nanoSleep       time5ms  @ Aguarda 5 milissegundos
 
         MOV     R2,     #3
-        addValue4dataPin        @ Envia novamente o comando de função Set ao LCD
+        BL addValue4dataPin        @ Envia novamente o comando de função Set ao LCD
         nanoSleep time150us      @ Aguarda 150 microssegundos
 
         MOV     R2,     #3
-        addValue4dataPin        @ Envia mais uma vez o comando de função Set ao LCD
+        BL addValue4dataPin        @ Envia mais uma vez o comando de função Set ao LCD
         nanoSleep time150us      @ Aguarda 150 microssegundos
 
         MOV     R2,     #2
-        addValue4dataPin        @ Envia o último comando de função Set ao LCD
+        BL addValue4dataPin        @ Envia o último comando de função Set ao LCD
         nanoSleep time150us      @ Aguarda 150 microssegundos
         
         .ltorg                    @ Organiza os literais em locais de memória
 
         MOV R0, #0x28            @ Envia comando para configurar a função Set do LCD
-        enviarData               @ Chama a macro enviarData para enviar o comando ao LCD
+        BL enviarData               @ Chama a macro enviarData para enviar o comando ao LCD
         
         MOV R0, #0x08            @ Envia comando para controlar a exibição do LCD
-        enviarData               @ Chama a macro enviarData para enviar o comando ao LCD
+        BL enviarData               @ Chama a macro enviarData para enviar o comando ao LCD
         
         MOV R0, #0x01            @ Envia comando para limpar o display do LCD
-        enviarData               @ Chama a macro enviarData para enviar o comando ao LCD
+        BL enviarData               @ Chama a macro enviarData para enviar o comando ao LCD
 
         MOV R0, #0x06            @ Envia comando para configurar o modo de entrada do LCD
-        enviarData               @ Chama a macro enviarData para enviar o comando ao LCD 
+        BL enviarData               @ Chama a macro enviarData para enviar o comando ao LCD 
         
         .ltorg                    @ Organiza os literais em locais de memória
 
         MOV R0, #0x0e            @ Envia comando para posicionar o cursor automaticamente para a direita (0x0C)
-        enviarData               @ Chama a macro enviarData para enviar o comando ao LCD
+        BL enviarData               @ Chama a macro enviarData para enviar o comando ao LCD
         
 .endm
 
@@ -118,31 +118,35 @@
 @ Este macro, addValue4dataPin, é utilizado para enviar um valor de 4 bits para os pinos de dados do LCD.
 @ A entrada esperada é o registrador R2, que contém o valor a ser enviado [3:0].
 
-.macro addValue4dataPin
+addValue4dataPin:
 
-    @ R2 = 1010 
-    LDR     R0,     =pinD4    @ Carrega o endereço do pino D4 em R0
-    AND R1, R2, #1              @ Aplica uma máscara para obter o bit menos significativo (LSB) de R2 1010 & 0001 
-    BL stateLogicPin            @ Chama a função stateLogicPin para definir o estado do pino D4
+    @ Parâmetro da função R2 = 1010
 
-    LSR R2, #1                  @ Desloca os bits de R2 uma posição à direita
-    LDR R0, =pinD5              @ Carrega o endereço do pino D5 em R0 
-    AND R1, R2, #1              @ Aplica uma máscara para obter o próximo bit de R2
-    BL stateLogicPin            @ Chama a função stateLogicPin para definir o estado do pino D5
-    
-    LSR R2, #1                  @ Desloca os bits de R2 uma posição à direita
-    LDR R0, =pinD6              @ Carrega o endereço do pino D6 em R0
-    AND R1, R2, #1              @ Aplica uma máscara para obter o próximo bit de R2
-    BL stateLogicPin            @ Chama a função stateLogicPin para definir o estado do pino D6
-    
-    LSR R2, #1                  @ Desloca os bits de R2 uma posição à direita
-    LDR R0, =pinD7              @ Carrega o endereço do pino D7 em R0
-    AND R1, R2, #1              @ Aplica uma máscara para obter o último bit de R2
-    BL stateLogicPin            @ Chama a função stateLogicPin para definir o estado do pino D7
+    PUSH {R0-R2, LR}
 
-    PulsoEnable                 @ Gera um pulso no pino de habilitação (Enable)
-    
-.endm
+    LDR R0, =pinD4      @ carrega o endereço do pink d4 em r0
+    AND R1, R2, #1      @ máscara para obter o bit menos significativo
+    BL stateLogicPin    @ chamada da função para definir o estado do pino d4
+
+    LSR R2, #1          @ deslocamento dos bits uma posição à direita
+    LDR R0, =pinD5 
+    AND R1, R2, #1
+    BL stateLogicPin
+
+    LSR R2, #1
+    LDR R0, =pinD6
+    AND R1, R2, #1
+    BL stateLogicPin
+
+    LSR R2, #1
+    LDR R0, =pinD7
+    AND R1, R2, #1
+    BL stateLogicPin
+
+    BL pulsoEnable
+
+    POP {R0-R2, PC}
+    BX LR
 
 
 @======================================================================================
@@ -151,26 +155,26 @@
 @;;                     Sinal de pulso no pino de enable do LCD                      ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-.macro PulsoEnable
+pulsoEnable:
 
-        LDR R4, =E              @ Carrega o endereço do pino de Enable em R4
+    PUSH {R0-R4, LR}
 
-        MOV R0, R4              @ Move o endereço do pino de Enable para R0
-        MOV R1, #0              @ Configura o pino de Enable como baixo (0)
-        BL stateLogicPin        @ Chama a função stateLogicPin para definir o estado do pino
-        nanoSleep time1ms       @ Aguarda um curto período de tempo (1 ms)
+    LDR R0, =E
 
-        MOV R0, R4              @ Move novamente o endereço do pino de Enable para R0
-        MOV R1, #1              @ Configura o pino de Enable como alto (1)
-        BL stateLogicPin        @ Chama a função stateLogicPin para definir o estado do pino
-        nanoSleep time1ms       @ Aguarda um curto período de tempo (1 ms)
+    MOV R1, #0
+    BL stateLogicPin
+    nanoSleep time1ms
 
-        MOV R0, R4              @ Move novamente o endereço do pino de Enable para R0
-        MOV R1, #0              @ Configura o pino de Enable como baixo (0)
-        BL stateLogicPin        @ Chama a função stateLogicPin para definir o estado do pino
-        nanoSleep time1ms       @ Aguarda um curto período de tempo (1 ms)
+    MOV R1, #1 
+    BL stateLogicPin
+    nanoSleep time1ms
 
-.endm
+    MOV R1, #0 
+    BL stateLogicPin
+    nanoSleep time1ms
+
+    POP {R0-R4, PC}
+    BX LR
 
 
 @======================================================================================
@@ -181,18 +185,20 @@
 
 @   - R0: Byte a ser enviado para o LCD
 
-.macro enviarData
+enviarData:
 
-    MOV R2, R0              @ Move o byte para R2
-    AND R3, R2, #0xF        @ Máscara para obter os bits menos significativos (LSB) do caractere 1001 0010 & 0000 1111
-    LSR R2, #4              @ Desloca os bits mais significativos (MSB) para a posição correta 0000 1001
+    PUSH {R0-R3, LR}
 
-    addValue4dataPin        @ Envia a parte MSB do byte para o LCD
+    MOV R2, R0
+    AND R3, R2, #0xF
+    LSR R2, #4
+    BL addValue4dataPin
 
-    MOV R2, R3              @ Move os bits LSB para R2
-    addValue4dataPin        @ Envia a parte LSB do byte para o LCD
+    MOV R2, R3
+    BL addValue4dataPin
 
-.endm
+    POP {R0-R3, PC}
+    BX LR
 
 @======================================================================================
 
@@ -218,21 +224,23 @@ stringLine:
         CMP R7, R6 @ Compara o contador de loop com o tamanho da string
         BGE exitForStringLine @ Se R7 >= R6, sai do loop
 
-        LSL R0, R7, #0 @ Calcula o deslocamento para o caractere atual na string
-        ADD R0, R5     @ Calcula o endereço do caractere atual na string
-        LDR R0, [R0]   @ Carrega o caractere atual da memória para R0
-        enviarData     @ Envia o caractere para o LCD usando a função enviarData
+        @LSL R0, R7, #0         @ Calcula o deslocamento para o caractere atual na string
+        ADD R0, R7, R5          @ Calcula o endereço do caractere atual na string
+        LDR R0, [R0]            @ Carrega o caractere atual da memória para R0
+        BL enviarData           @ Envia o caractere para o LCD usando a função enviarData
 
         ADD R7, #1 @ Incrementa o contador de loop
         B forStringLine @ Salta de volta para o início do loop
 
     exitForStringLine:
-    LDR R0, =RS  @ Define RS como baixo (modo de instrução)
-    MOV R1, #0
-    BL stateLogicPin @ Chama a função stateLogicPin
+        LDR R0, =RS  @ Define RS como baixo (modo de instrução)
+        MOV R1, #0
+        BL stateLogicPin @ Chama a função stateLogicPin
 
     POP {R0-R8, PC} @ Restaura registradores e retorna da sub-rotina
     BX LR @ Ramo para o endereço de retorno armazenado no Link Register (LR)
 
 @======================================================================================
+
+
 
