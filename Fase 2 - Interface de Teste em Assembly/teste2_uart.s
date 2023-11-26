@@ -24,6 +24,53 @@
 
 _start:
 
+@UART_preMap
+
+    ldr     r0,     =devMem             @ Carrega o endereço de "/dev/mem" (arquivo de memória)
+    mov     r1,     #O_RDWR
+    @mov R2, #S_RDWR                    @ No livro usa - permição de gravação e escrita
+    mov     r7,     #sys_open           @ Chama o serviço sys_open para abrir o arquivo
+    svc 0 
+    mov     r4,     r0                  @ Salva o retorno do serviço sys_open em R4
+
+    @ Acessando o endereço onde a memoria está localizada
+    ldr     r5,     =CCUaddr           @ endereço GPIO / 4096
+    ldr     r5,     [r5]                @ carrega o endereço
+
+    ldr     r1,     =pagelen 
+    ldr     r1,     [r1]
+
+    mov     r2,     #3                  @ (PROT_READ + PROT_WRITE) @ opções de proteção de memória
+    mov     r3,     #1
+    mov     r0,     #0                  @ Deixar o S0 escolher a memoria aleatoria (Memoria virtual)
+    mov     r7,     #sys_mmap2          @ Chamar serviço sys_mmap2 para mapear memória
+    svc     0
+    mov r8, r0
+
+    @ Selecionado clock
+    
+    ldr r0, [r8, #0x58] @ Conteudo do registrador 
+    mov r1, #1
+    lsl r1, #25
+    orr r0, r1
+    str r0, [r8, #0x58]
+
+    @ PASSAE O CLOCK PARA A UART 3
+
+    ldr r0, [r8, #0x6C]
+    mov r1, #1
+    lsl r1, #19
+    orr r0, r1
+    str r0, [r8, #0x6C]
+
+    @ resetar barramento de software do registrador
+
+    ldr r0, [r8, #0x2D8]
+    mov r1, #1
+    lsl r1, #19
+    orr r0, r1
+    str r0, [r8, #0x2D8]
+
 @UART_Map
 
     @Iniciar o acesso a RAM, pedindo permissão ao SO para acessar a memoria
@@ -83,15 +130,15 @@ _loop_update:                        @ Aguardando o bit de update resetar
 
     ldr r0, [r9, #UART_HALT]
     and r0, r0, #0b100
-    ands r0, r0, #0b100
+    adds r1, r0, #0b100
     beq _loop_update
 
     ldr r0, [r9, #UART_LCR]
-    mov r0, (0<<7)                     @ Setando os espaços de endereço para carregar dados de transmissão e recebimento
+    mov r0, #(0<<7)                     @ Setando os espaços de endereço para carregar dados de transmissão e recebimento
 	str r0, [r9, #UART_LCR]     
 
     ldr r0, [r9, #UART_HALT]
-    mov r0, (0<<1)                   @ Desabilitando alteração na setagem de baud rate e configurações do LCR
+    mov r0, #(0<<1)                   @ Desabilitando alteração na setagem de baud rate e configurações do LCR
 	str r0, [r9, #UART_HALT]  
 
     ldr r0, [r9, #UART_FCR]
@@ -115,5 +162,6 @@ _end:   mov     R0, #0
 
 .data 
 devMen:   .asciz  "/dev/mem"
+CCUaddr:	.word 0x01C20
 base_uart:	.word 0x01C28
 pagelen:    .word 0x1000
