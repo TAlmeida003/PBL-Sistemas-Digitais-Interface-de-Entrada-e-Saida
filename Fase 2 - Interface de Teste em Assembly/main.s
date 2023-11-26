@@ -1,43 +1,77 @@
 .include "gpio.s"
 .include "lcd.s"
+.include "button.s"
+.include "screens.s"
 
 .global _start
 
 
 .macro print string
         ldr	R1, =\string @ string to print
-	mov	R2, #13	    @ length of our string
+	mov	R2, #4	    @ length of our string
 	mov	R7, #4	    @ linux write system call
 	svc	0 	    @ Call linux to output the string
 .endm 
 
 _start: 
-
-
         MapeamentoDeMemoria
         
         iniciarPin
 
-        configLCD       
+        configLCD 
 
+        MOV R10, #1     @ R10 guarda o estado anterior do botão back
+        MOV R11, #1     @ R11 guarda o estado anterior do botão ok
+        MOV R12, #1     @ R12 guarda o estado anterior do botão next
 
-loop:   
+        MOV R5, #HOME            @ R5 inicia a tela atual
+        MOV R6, #1              @ R6 inicia a tela de comando atual (inicia em 1)
+        MOV R7, #0              @ R7 inicia a tela de endereço atual (inicia em 0)
 
-        MOV R1, #1
-        LDR R0, =button_back
+loop:     
+        CMP R5, #3
+        BNE continuarLoop
+
+        nanoSleep time2s
+
+        MOV R5, #4
+
+continuarLoop:
+
+verificaBotaoBack:
+        MOV R1, R10             @ R1 guarda o estado anterior do botão para chamar a função
+        LDR R0, =button_back    @ R0 guarda o ponteiro do botão
         BL verificarBotaoPress
+        MOV R10, R1             @ R10 recebe o valor antigo do botão
+       
+        
+        CMP R0, #1              @ Compara o retorno da função verificarBotaoPress
+        BEQ screenBack          @ Caso seja 1, vai para as configurações da função volta
 
-        MOV R1, R0
 
-        LDR R0, =ledBlue
-        @MOV R1, #1
-        BL stateLogicPin
+verificaBotaoOK:
+        MOV R1, R11     @ R1 guarda o estado anterior do botão para chamar a função
+        LDR R0, =button_ok    @ R0 guarda o ponteiro do botão
+        BL verificarBotaoPress
+        MOV R11, R1             @ R10 recebe o valor antigo do botão
 
-        nanoSleep time1s
+        CMP R0, #1
+        BEQ screenOk
 
+
+verificarBotaoNext:
+        MOV R1, R12     @ R1 guarda o estado anterior do botão para chamar a função
+        LDR R0, =button_next   @ R0 guarda o ponteiro do botão
+        BL verificarBotaoPress
+        MOV R12, R1             @ R10 recebe o valor antigo do botão
+
+        CMP R0, #1
+        BEQ screenNext
+        
+        B loop
 
 brk1:
-        
+
         subs    r6, #1      
         bne     loop        
 
@@ -47,7 +81,7 @@ _end:   mov     R0, #0
 
 .data
 
-devMen:   .asciz  "/dev/mem"
+devMem:   .asciz  "/dev/mem"
 
 @0x01C20000 / 1000
 gpioaddr: .word   0x01C20  @ Endereço de memória dos registradores GPIO (verifique se está correto para sua placa) 0x01C20800
@@ -57,6 +91,10 @@ pagelen:  .word   0x1000
 time1s:
         .word 1 @ Tempo em segundos
 	.word 000000000 @ Tempo em nanossegundos
+
+time2s:
+        .word 2 @ Tempo em segundos
+	.word 400000000 @ Tempo em nanossegundos
         
 time1ms:
 	.word 0 @ Tempo em segundos
@@ -65,6 +103,10 @@ time1ms:
 time5ms:
 	.word 0 @ Tempo em segundos
 	.word 5500000 @ Tempo em nanossegundos
+
+time30ms:
+        .word 0 
+        .word 30050000
 
 time100ms:
 	.word 0 @ Tempo em segundos
@@ -155,25 +197,27 @@ uartTx:         @ PA13
         .word 0x10
 
 test:
-        .asciz "arquivo teste"
+        .asciz "silvio eh lindo"
 
+home_screen: 
+        .word 0x0C
+        .asciz "Bem-vindo(a)"
 
 command_screen_l1: 
-        .word 0x0e
+        .word 0x0E
         .asciz "    0x00 -> :C"
 
 screen_l2:
         .word 0x10
         .asciz "back   ok   next"
 
-
 address_screen_l1: 
-        .word 0x0e
+        .word 0x0E
         .asciz "    0x00 -> :A"
 
 
 wait_screen_l1:
-        .word 0x0b
+        .word 0x0B
         .asciz "    loading"
 
 wait_screen_l2:
@@ -182,15 +226,10 @@ wait_screen_l2:
 
 
 resp_screen_l1:
-        .word 0x0d
+        .word 0x0D
         .asciz "   0x08  0xff"
 
 resp_screen_l2:
         .word 0x09
         .asciz "       ok"
-
-
-
-
-
 

@@ -14,7 +14,7 @@ verificarBotaoPress:
     BNE returnFalse
 
     MOV R1, R0
-    MOV R0, #0
+    MOV R0, #1
 
     B exitVerificarBotaoPress
 
@@ -22,7 +22,7 @@ verificarBotaoPress:
 returnFalse: 
 
     MOV R1, R0
-    MOV R0, #1
+    MOV R0, #0
 
     B exitVerificarBotaoPress
 
