@@ -42,7 +42,7 @@
 .macro MapeamentoDeMemoria
 
     @Iniciar o acesso a RAM, pedindo permissão ao SO para acessar a memoria
-    ldr     R0,     =devMen             @ Carrega o endereço de "/dev/mem" (arquivo de memória)
+    ldr     R0,     =devMem            @ Carrega o endereço de "/dev/mem" (arquivo de memória)
     mov     R1,     #O_RDWR
     @mov R2, #S_RDWR                    @ No livro usa - permição de gravação e escrita
     mov     R7,     #sys_open           @ Chama o serviço sys_open para abrir o arquivo

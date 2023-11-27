@@ -28,6 +28,13 @@ _start:
         MOV R6, #1              @ R6 inicia a tela de comando atual (inicia em 1)
         MOV R7, #0              @ R7 inicia a tela de endereço atual (inicia em 0)
 
+        @ Indo para a tela de home
+        LDR R1, =home_screen
+        ADD R0, R1, #4
+        LDR R1, [R1]
+
+        BL stringLine
+
 loop:     
         CMP R5, #3
         BNE continuarLoop
@@ -35,6 +42,20 @@ loop:
         nanoSleep time2s
 
         MOV R5, #4
+
+        MOV R0, #1
+        BL enviarData
+
+        MOV R0, #0x80
+        BL enviarData
+
+        @ Voltando para tela de home
+        LDR R1, =home_screen
+        ADD R0, R1, #4
+        LDR R1, [R1]
+
+        BL stringLine
+
 
 continuarLoop:
 
@@ -44,29 +65,28 @@ verificaBotaoBack:
         BL verificarBotaoPress
         MOV R10, R1             @ R10 recebe o valor antigo do botão
        
-        
         CMP R0, #1              @ Compara o retorno da função verificarBotaoPress
-        BEQ screenBack          @ Caso seja 1, vai para as configurações da função volta
+        BEQ buttonBack          @ Caso seja 1, vai para as configurações da função volta
 
 
 verificaBotaoOK:
-        MOV R1, R11     @ R1 guarda o estado anterior do botão para chamar a função
-        LDR R0, =button_ok    @ R0 guarda o ponteiro do botão
+        MOV R1, R11             @ R1 guarda o estado anterior do botão para chamar a função
+        LDR R0, =button_ok      @ R0 guarda o ponteiro do botão
         BL verificarBotaoPress
         MOV R11, R1             @ R10 recebe o valor antigo do botão
 
         CMP R0, #1
-        BEQ screenOk
+        BEQ buttonOk
 
 
 verificarBotaoNext:
-        MOV R1, R12     @ R1 guarda o estado anterior do botão para chamar a função
-        LDR R0, =button_next   @ R0 guarda o ponteiro do botão
+        MOV R1, R12             @ R1 guarda o estado anterior do botão para chamar a função
+        LDR R0, =button_next    @ R0 guarda o ponteiro do botão
         BL verificarBotaoPress
         MOV R12, R1             @ R10 recebe o valor antigo do botão
 
         CMP R0, #1
-        BEQ screenNext
+        BEQ buttonNext
         
         B loop
 

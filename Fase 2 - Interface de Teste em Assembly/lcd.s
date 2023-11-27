@@ -99,7 +99,7 @@
         MOV R0, #0x06            @ Envia comando para configurar o modo de entrada do LCD
         BL enviarData               @ Chama a macro enviarData para enviar o comando ao LCD 
         
-        MOV R0, #0x0e            @ Envia comando para posicionar o cursor automaticamente para a direita (0x0C)
+        MOV R0, #0x0c            @ Envia comando para posicionar o cursor automaticamente para a direita (0x0C)
         BL enviarData               @ Chama a macro enviarData para enviar o comando ao LCD
         
 .endm
