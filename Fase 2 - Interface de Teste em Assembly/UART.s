@@ -1,4 +1,5 @@
 .EQU UART_THR,                  0x0000      @ Dado a ser transmitido na UART 
+.EQU UART_RBR,                  0x0000      @ Dado a ser lido na UART 
 .EQU UART_DLL,                  0x0000      @ 8 bits mais baixos do divisor de baud rate (7:0)
 .EQU UART_DLH,                  0x0004      @ 8 bits mais altos do divisor de baud rate (7:0)
 
@@ -22,7 +23,6 @@ MAP_UART:
 
     ldr     r0,     =devMem             @ Carrega o endereço de "/dev/mem" (arquivo de memória)
     mov     r1,     #O_RDWR
-    @mov R2, #S_RDWR                    @ No livro usa - permição de gravação e escrita
     mov     r7,     #sys_open           @ Chama o serviço sys_open para abrir o arquivo
     svc 0 
     mov     r4,     r0                  @ Salva o retorno do serviço sys_open em R4
@@ -41,6 +41,14 @@ MAP_UART:
     svc     0
     mov r8, r0
 
+    @ Selecionado clock
+
+    ldr r0, [r8, #0x58] @ Conteudo do registrador 
+    mov r1, #1
+    lsl r1, #25
+    orr r0, r1
+    str r0, [r8, #0x58]
+
     @ PASSAE O CLOCK PARA A UART 3
 
     ldr r0, [r8, #0x6C]
@@ -54,12 +62,6 @@ MAP_UART:
     ldr r0, [r8, #0x2D8]
     mov r1, #1
     lsl r1, #19
-    bic r0, r1
-    str r0, [r8, #0x2D8]
-
-    ldr r0, [r8, #0x2D8]
-    mov r1, #1
-    lsl r1, #19
     orr r0, r1
     str r0, [r8, #0x2D8]
 
@@ -68,7 +70,6 @@ MAP_UART:
     @Iniciar o acesso a RAM, pedindo permissão ao SO para acessar a memoria
     ldr     R0,     =devMem             @ Carrega o endereço de "/dev/mem" (arquivo de memória)
     mov     R1,     #O_RDWR
-    @mov R2, #S_RDWR                    @ No livro usa - permição de gravação e escrita
     mov     R7,     #sys_open           @ Chama o serviço sys_open para abrir o arquivo
     svc 0 
     mov     R4,     R0                  @ Salva o retorno do serviço sys_open em R4
@@ -106,20 +107,15 @@ CONFIG_UART:
     orr r0, r0, #UART_CHCFG_AT_BUSY         @ Habilitando alteração na setagem de baud rate e configurações do LCR
     str r0, [r9, #UART_HALT] 
 
-    mov r0, #0b00111001                @ Setando 8 bits baixos do baud rate
+    mov r0, #0b11011110                @ Setando 8 bits baixos do baud rate
     str r0, [r9, #UART_DLL]    
 
-    mov r0, #0b1101                @ Setando 8 bits altos do baud rate
+    mov r0, #0b1111                @ Setando 8 bits altos do baud rate
     str r0, [r9, #UART_DLH] 
 
     ldr r0, [r9, #UART_LCR]
     orr r0, r0, #UART_DLS             @ Setando o tamanho do conjunto de bits lidos pela UART
     str r0, [r9, #UART_LCR]
-
-    mov r0, #0x01                @ Tempo de 1 segundos
-    mov r1, #0x00
-    mov r7, #sys_nanosleep       @ Contando o tempo de 1 segundo para carregar o baud rate
-    svc 0
 
     ldr r0, [r9, #UART_HALT]
     orr r0, r0, #UART_CHANGE_UPDATE  @ Carregando alterações
@@ -147,6 +143,16 @@ _loop_update:                        @ Aguardando o bit de update resetar
     str r0, [r9, #UART_FCR]
 
     POP {R0, R1}
+    BX LR
+
+TX_UART:
+
+    str r0, [r9, #UART_THR]
+    BX LR
+
+RX_UART:
+
+    ldr r0, [r9, #UART_RBR]
     BX LR
 
 .data 
