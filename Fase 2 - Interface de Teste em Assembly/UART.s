@@ -1,23 +1,27 @@
+.EQU UART_APB2_CFG_REG,         0x0058      @ Seta o clock usado na UART
+.EQU UART_BUS_CLK_GATING_REG3,  0x006C      @ Habilita clock da UART
+.EQU UART_BUS_SOFT_RST_REG4,    0x02D8      @ Seta o Reset da UART
+
 .EQU UART_THR,                  0x0000      @ Dado a ser transmitido na UART 
 .EQU UART_RBR,                  0x0000      @ Dado a ser lido na UART 
 .EQU UART_DLL,                  0x0000      @ 8 bits mais baixos do divisor de baud rate (7:0)
 .EQU UART_DLH,                  0x0004      @ 8 bits mais altos do divisor de baud rate (7:0)
 
 .EQU UART_FCR,                  0x0008      @ Registrador de controle dos FIFOs
-.EQU UART_FIFOE,                0b1         @ Habilita os FIFOs
+.EQU UART_FIFOE,                0b1         @ Habilita os FIFOs. Bit 0 recebe 1 
 
 .EQU UART_LCR,                  0x000C      @ Registrador de linhas de controle
-.EQU UART_DLAB_TR ,             0x00000000  @ Seta para receber/enviar dados (7 << 0)
-.EQU UART_DLAB_BD ,             0b10000000  @ Seta o baud rate (7 << 1)
-.EQU UART_DLS,                  0b11        @ Tamanho do cojunto de bits da UART (11 - 8 bits)
+.EQU UART_DLAB_TR ,             0b00000000  @ Seta o uso dos endereços do RX e TX . Bit 7 recebe 0
+.EQU UART_DLAB_BD ,             0b10000000  @ Seta que os endereços dos divisores de baud rate serão alterados. Bit 7 recebe 1
+.EQU UART_DLS,                  0b11        @ Seta tamanho do cojunto de bits a ser enviado na UART. Bits 0 e 1 recebem 1
 
-.EQU UART_HALT,                 0x00A4
-.EQU UART_CHANGE_UPDATE,        0b100      
-.EQU UART_CHCFG_AT_BUSY,        0b10    
+.EQU UART_HALT,                 0x00A4      @ Registrador de configurações de HALT
+.EQU UART_CHCFG_AT_BUSY,        0b10        @ Habilita alterações nos endereços de LCR, DLL e DLH. Bit 1 recebe 1
+.EQU UART_CHANGE_UPDATE,        0b100       @ Carrega alterações nos endereços de LCR, DLL e DLH. Bit 2 recebe 1  
 
 MAP_UART:
 
-    PUSH {R0-R8}
+    PUSH {R0-R8, LR}
 
     @UART_preMap
 
@@ -43,27 +47,33 @@ MAP_UART:
 
     @ Selecionado clock
 
-    ldr r0, [r8, #0x58] @ Conteudo do registrador 
+    ldr r0, [r8, #UART_APB2_CFG_REG] @ Conteudo do registrador 
     mov r1, #1
     lsl r1, #25
     orr r0, r1
-    str r0, [r8, #0x58]
+    str r0, [r8, #UART_APB2_CFG_REG]
 
     @ PASSAE O CLOCK PARA A UART 3
 
-    ldr r0, [r8, #0x6C]
+    ldr r0, [r8, #UART_BUS_CLK_GATING_REG3]
     mov r1, #1
     lsl r1, #19
     orr r0, r1
-    str r0, [r8, #0x6C]
+    str r0, [r8, #UART_BUS_CLK_GATING_REG3]
 
     @ resetar barramento de software do registrador
 
-    ldr r0, [r8, #0x2D8]
+    ldr r0, [r8, #UART_BUS_SOFT_RST_REG4]
+    mov r1, #1
+    lsl r1, #19
+    bic r0, r1
+    str r0, [r8, #UART_BUS_SOFT_RST_REG4]
+
+    ldr r0, [r8, #UART_BUS_SOFT_RST_REG4]
     mov r1, #1
     lsl r1, #19
     orr r0, r1
-    str r0, [r8, #0x2D8]
+    str r0, [r8, #UART_BUS_SOFT_RST_REG4]
 
     @UART_Map
 
@@ -90,12 +100,12 @@ MAP_UART:
     add     R0,     #0xC00              @ Adiciona o deslocamento para encontrar a UART3
     mov     R9,     R0                  @ Salva o retorno do serviço sys_mmap2 em R8
 
-    POP {R0-R8}
+    POP {R0-R8, PC}
     BX LR
 
 CONFIG_UART:
 
-    PUSH {R0, R1}
+    PUSH {R0, R1, LR}
 
     @UART_Config
 
@@ -142,7 +152,7 @@ _loop_update:                        @ Aguardando o bit de update resetar
     orr r0, r0, #UART_FIFOE           @ Habilitando o FIFO
     str r0, [r9, #UART_FCR]
 
-    POP {R0, R1}
+    POP {R0, R1, PC}
     BX LR
 
 TX_UART:
