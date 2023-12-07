@@ -35,6 +35,58 @@
 
 @_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
+
+@ R0 : Tempo
+sleepButao:
+    PUSH {R0-R3, LR}
+
+    mov R3, R0
+    MOV R2, #0 @ i = 0
+whileSleepButao:
+
+    CMP R2, R3
+    BGE endSleepButao @( i < Tempo )
+
+    MOV R1, R10             @ R1 guarda o estado anterior do botão para chamar a função
+    LDR R0, =button_back    @ R0 guarda o ponteiro do botão
+    BL verificarBotaoPress
+    MOV R10, R1             @ R10 recebe o valor antigo do botão
+    
+    CMP R0, #0              @ Compara o retorno da função verificarBotaoPress
+    BNE gambiara
+
+    MOV R1, R11     @ R1 guarda o estado anterior do botão para chamar a função
+    LDR R0, =button_ok    @ R0 guarda o ponteiro do botão
+    BL verificarBotaoPress
+    MOV R11, R1             @ R10 recebe o valor antigo do botão
+
+    CMP R0, #0
+    BNE gambiara
+
+    MOV R1, R12     @ R1 guarda o estado anterior do botão para chamar a função
+    LDR R0, =button_next   @ R0 guarda o ponteiro do botão
+    BL verificarBotaoPress
+    MOV R12, R1             @ R10 recebe o valor antigo do botão
+
+    CMP R0, #0
+    BNE gambiara
+        
+    
+    nanoSleep time100us
+
+    ADD R2, #1
+
+    b whileSleepButao
+
+gambiara:
+        MOV     R10,     #1
+        MOV     R11,     #1
+        MOV     R12,     #1
+
+endSleepButao:
+    POP {R0-R3, PC}
+    BX LR
+
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                         Mapeamento da mémoria                                    ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -256,4 +308,6 @@ statusInput:
 .endm
 
 @_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
+
 

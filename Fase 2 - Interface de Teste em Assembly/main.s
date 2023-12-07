@@ -2,6 +2,8 @@
 .include "lcd.s"
 .include "button.s"
 .include "screens.s"
+.include "getScreen.s"
+.include "uart.s"
 
 .global _start
 
@@ -20,41 +22,70 @@ _start:
 
         configLCD 
 
+        BL ENABLE_UART
+        BL MAP_UART
+        BL CONFIG_UART
+
         MOV R10, #1     @ R10 guarda o estado anterior do botão back
         MOV R11, #1     @ R11 guarda o estado anterior do botão ok
         MOV R12, #1     @ R12 guarda o estado anterior do botão next
 
-        MOV R5, #HOME            @ R5 inicia a tela atual
+        MOV R5, #0            @ R5 inicia a tela atual
         MOV R6, #1              @ R6 inicia a tela de comando atual (inicia em 1)
         MOV R7, #0              @ R7 inicia a tela de endereço atual (inicia em 0)
+        MOV R4, #0
 
-        @ Indo para a tela de home
-        LDR R1, =home_screen
-        ADD R0, R1, #4
-        LDR R1, [R1]
+loop: 
 
-        BL stringLine
 
-loop:     
+        BL getTela         @ Buscar paramentros da função "printTwoLine"
+        BL printTwoLine
+
+
         CMP R5, #3
-        BNE continuarLoop
+        BNE continuarLoop @ if tela_atual == espera:
+
+        MOV R0, R6
+        BL TX_UART
+
+        MOV R0, R7
+        BL TX_UART
 
         nanoSleep time2s
+        nanoSleep time1s
+
+        @  if (comando == comando_continuo_T || comando == comando_continuo_H )
+                @tela_atual = tela_continuo
+        @ else:
+        @       tela_atual = tela_respCOMANDO_CONTINUOosta
+
+        
+        CMP R6, #4
+        BEQ troca_tela
+
+        CMP R6, #5
+        BEQ troca_tela
+
+        B troca_para_resposta
+
+troca_tela:
+        MOV R5, #CONTINUO_TEMPERATURA
+
+        B continuarLoop
+
+troca_para_resposta:
+        BL RX_UART
+        MOV R4, R0
+        @MOV R4, #0x00
+
+        BL RX_UART
+        @MOV R0, #0x00
+        LSL R0, #8
+        orr R4, R0
 
         MOV R5, #4
 
-        MOV R0, #1
-        BL enviarData
-
-        MOV R0, #0x80
-        BL enviarData
-
-        @ Voltando para tela de home
-        LDR R1, =home_screen
-        ADD R0, R1, #4
-        LDR R1, [R1]
-
-        BL stringLine
+        b continuarLoop
 
 
 continuarLoop:
@@ -65,13 +96,14 @@ verificaBotaoBack:
         BL verificarBotaoPress
         MOV R10, R1             @ R10 recebe o valor antigo do botão
        
+        
         CMP R0, #1              @ Compara o retorno da função verificarBotaoPress
         BEQ buttonBack          @ Caso seja 1, vai para as configurações da função volta
 
 
 verificaBotaoOK:
-        MOV R1, R11             @ R1 guarda o estado anterior do botão para chamar a função
-        LDR R0, =button_ok      @ R0 guarda o ponteiro do botão
+        MOV R1, R11     @ R1 guarda o estado anterior do botão para chamar a função
+        LDR R0, =button_ok    @ R0 guarda o ponteiro do botão
         BL verificarBotaoPress
         MOV R11, R1             @ R10 recebe o valor antigo do botão
 
@@ -80,8 +112,8 @@ verificaBotaoOK:
 
 
 verificarBotaoNext:
-        MOV R1, R12             @ R1 guarda o estado anterior do botão para chamar a função
-        LDR R0, =button_next    @ R0 guarda o ponteiro do botão
+        MOV R1, R12     @ R1 guarda o estado anterior do botão para chamar a função
+        LDR R0, =button_next   @ R0 guarda o ponteiro do botão
         BL verificarBotaoPress
         MOV R12, R1             @ R10 recebe o valor antigo do botão
 
@@ -98,6 +130,7 @@ brk1:
 _end:   mov     R0, #0      
         mov     R7, #1      
         svc     0          
+
 
 .data
 
@@ -135,6 +168,9 @@ time100ms:
 time150us: 
         .word 0 @ Tempo em segundos
 	.word 150000 @ 150us
+time100us: 
+        .word 0 @ Tempo em segundos
+	.word 100000 @ 150us
 
 ledBlue:        @ PA9       
         .word 0x4       @ offest
@@ -216,34 +252,33 @@ uartTx:         @ PA13
         .word 0xd
         .word 0x10
 
-test:
-        .asciz "silvio eh lindo"
-
 home_screen: 
-        .word 0x0C
-        .asciz "Bem-vindo(a)"
+        .word 16
+        .asciz "- Bem-vindo(a) -"
+
+line2home: 
+        .word 32
+        .asciz "Sistema de Temperatura e Umidade"
 
 command_screen_l1: 
-        .word 0x0E
-        .asciz "    0x00 -> :C"
+        .word 16
+        .asciz "Command: < 00 > "
 
 screen_l2:
         .word 0x10
-        .asciz "back   ok   next"
+        .asciz "Back   Ok   Next"
 
 address_screen_l1: 
-        .word 0x0E
-        .asciz "    0x00 -> :A"
-
+        .word 16
+        .asciz "Address: < 00 > "
 
 wait_screen_l1:
-        .word 0x0B
-        .asciz "    loading"
+        .word 16
+        .asciz "    Loading     "
 
 wait_screen_l2:
         .word 0x09
         .asciz "      ..."
-
 
 resp_screen_l1:
         .word 0x0D
@@ -251,5 +286,41 @@ resp_screen_l1:
 
 resp_screen_l2:
         .word 0x09
-        .asciz "       ok"
+        .asciz "       Ok"
+
+sensor_problema:
+        .word 19
+        .asciz "Sensor com Problema"    
+
+sensor_normal:
+        .word 20
+        .asciz "Sensor Funcionamento"
+
+temperatura_atual:
+        .word 16
+        .asciz "Temperatura:   C"
+
+umidade_atual:
+        .word 13
+        .asciz "Umidade:    %"
+
+desativa_temperatura:
+        .word 27
+        .asciz "T: Sensoriamento Desativado"
+
+desativa_umidade:
+        .word 27
+        .asciz "U: Sensoriamento Desativado"
+
+comando_incorreto:
+        .word 17
+        .asciz "Comando Incorreto"
+
+endereco_incorreto:
+        .word 18
+        .asciz "Endereco Incorreto"
+
+desconectado_screen:
+        .word 24
+        .asciz "Dispositivo Desconectado"
 

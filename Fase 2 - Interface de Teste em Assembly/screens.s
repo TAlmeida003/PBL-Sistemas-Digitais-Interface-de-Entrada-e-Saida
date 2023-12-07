@@ -1,39 +1,37 @@
-.EQU HOME,            0
-.EQU COMMAND,         1
-.EQU ADDRESS,         2
-.EQU ESPERA_RESPOSTA, 3
-.EQU RESPOSTA,        4
-
+.EQU HOME,                       0
+.EQU COMMAND,                    1
+.EQU ADDRESS,                    2
+.EQU ESPERA_RESPOSTA,            3
+.EQU RESPOSTA,                   4
+.EQU CONTINUO_TEMPERATURA,           5
+.EQU CONTINUO_UMIDADE,  6
 
 buttonBack:
-    CMP R5, #COMMAND   @ if (tela_atual == tela_comando)
-    BNE elifButtonBackAddress
+    CMP R5, #CONTINUO_TEMPERATURA
+    BEQ elseIsCommand
+
+    CMP R5, #COMMAND   @ if (tela_atual == tela_comando || continuo)
+    BEQ elseIsCommand
+
+    B elifButtonBackAddress
 
     CMP R6, #1  @ if (comando_atual != 1)
     BEQ elseButtonBackHome
 
+elseIsCommand:
     SUB R6, #1
-
     B loop
 
-
-elseButtonBackHome:
+elseButtonBackHome: @ tela != continuo
+    CMP R5, #CONTINUO_TEMPERATURA
+    BEQ loop
+    
     MOV R5, #HOME
 
-    MOV R0, #1 
+    MOV R0, #1
     BL enviarData
-
-    MOV R0, #0x80
-    BL enviarData
-
-    @ Voltando para tela de home
-    LDR R1, =home_screen
-    ADD R0, R1, #4
-    LDR R1, [R1]
-    BL stringLine
 
     B loop
-
 
 elifButtonBackAddress:    @ elif (tela_atual == tela_endereço)
     CMP R5, #ADDRESS
@@ -46,34 +44,16 @@ elifButtonBackAddress:    @ elif (tela_atual == tela_endereço)
 
     B loop
 
-
 elseButtonBackCommand:
     MOV R5, #COMMAND
 
     MOV R0, #1
     BL enviarData
 
-    MOV R0, #0x80
-    BL enviarData
-
-    @ Voltando para tela de comando
-    LDR R1, =command_screen_l1
-    ADD R0, R1, #4
-    LDR R1, [R1]
-    BL stringLine
-
-    @ Escrita da linha 2
-    MOV R0, #0xC0
-    BL enviarData
-    LDR R1, =screen_l2
-    ADD R0, R1, #4
-    LDR R1, [R1]
-    BL stringLine
-
     B loop
  
 
-@ ------------------------------------------------------------
+@------------------------------------------------------------
 
 buttonOk:
     CMP R5, #HOME   @ if (tela_atual == tela_home)
@@ -84,25 +64,7 @@ buttonOk:
     MOV R0, #1
     BL enviarData
 
-    MOV R0, #0x80
-    BL enviarData
-
-    @ Voltando para tela de comando
-    LDR R1, =command_screen_l1
-    ADD R0, R1, #4
-    LDR R1, [R1]
-    BL stringLine 
-
-    @ Escrita da linha 2
-    MOV R0, #0xC0
-    BL enviarData
-    LDR R1, =screen_l2
-    ADD R0, R1, #4
-    LDR R1, [R1]
-    BL stringLine
-
     B loop
-
 
 elifButtonOkCommand:   
     CMP R5, #COMMAND    @ elif (tela_atual == tela_comando)
@@ -113,84 +75,62 @@ elifButtonOkCommand:
     MOV R0, #1
     BL enviarData
 
-    MOV R0, #0x80
-    BL enviarData
-
-    @ Voltando para tela de endereço
-    LDR R1, =address_screen_l1
-    ADD R0, R1, #4
-    LDR R1, [R1]
-    BL stringLine
-
-    @ Escrita da linha 2
-    MOV R0, #0xC0
-    BL enviarData
-    LDR R1, =screen_l2
-    ADD R0, R1, #4
-    LDR R1, [R1]
-    BL stringLine
-
     B loop
-
 
 elifButtonOkAddress:  
     CMP R5, #ADDRESS   @ elif (tela_atual == tela_endereço)
     BNE elseButtonOkResposta
-
     MOV R5, #ESPERA_RESPOSTA
 
     MOV R0, #1
     BL enviarData
 
-    MOV R0, #0x80
-    BL enviarData
-
-    @ Indo para a tela de espera por uma resposta
-    LDR R1, =wait_screen_l1
-    ADD R0, R1, #4
-    LDR R1, [R1]
-    BL stringLine
-
-    @ Escrita da linha 2
-    MOV R0, #0xC0
-    BL enviarData
-    LDR R1, =wait_screen_l2
-    ADD R0, R1, #4
-    LDR R1, [R1]
-    BL stringLine
-
     B loop
 
+   
+elifButtonOkComandoContinuo:
+    CMP R5, #CONTINUO_TEMPERATURA
+    BNE elifButtonOkEnderecoContinuo
+    MOV R5, #CONTINUO_UMIDADE
+    B loop
 
-elseButtonOkResposta: @ Quando está na tela de resposta
+elifButtonOkEnderecoContinuo:
+    CMP R5, #CONTINUO_UMIDADE
+    BNE elseButtonOkResposta
+    MOV R5, #RESPOSTA
+    B loop
+
+elseButtonOkResposta: @ quando está na tela de resposta
+@if resposta == 0xdf || resposta == 0x6f:
+    @tela_atual = continuo_comando
+
+    MOV R0, #1
+    BL enviarData
+    
+    CMP R4, #0xDF
+    BEQ movtelaContinuo
+
+    CMP R4, #0x6F
+    BEQ movtelaContinuo
+
+    CMP R5, #CONTINUO_TEMPERATURA
+    BEQ loop
+
     MOV R5, #COMMAND
 
     MOV R0, #1
     BL enviarData
-
-    MOV R0, #0x80
-    BL enviarData
-
-    @ Voltando para tela de comando
-    LDR R1, =command_screen_l1
-    ADD R0, R1, #4
-    LDR R1, [R1]
-    BL stringLine
-
-    @ Escrita da linha 2
-    MOV R0, #0xC0
-    BL enviarData
-    LDR R1, =screen_l2
-    ADD R0, R1, #4
-    LDR R1, [R1]
-    BL stringLine
 
     MOV R6, #1
     MOV R7, #0
 
     B loop
 
-@ ------------------------------------------------------------
+movtelaContinuo:
+    mov r5, #CONTINUO_TEMPERATURA
+    B loop
+
+@------------------------------------------------------------
 
 buttonNext:
     CMP R5, #COMMAND   @ if (tela_atual == tela_comando)
@@ -207,10 +147,13 @@ elifButtonNextAddress:
     CMP R5, #ADDRESS
     BNE loop
 
-    CMP R7, #01F
+    CMP R7, #0X1F
     BEQ loop
 
     ADD R7, #1
 
     B loop
+
+
+
 
