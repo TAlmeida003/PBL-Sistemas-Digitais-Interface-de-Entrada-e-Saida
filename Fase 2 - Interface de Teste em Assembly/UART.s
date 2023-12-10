@@ -157,6 +157,10 @@ _loop_update:                        @ Aguardando o bit de update resetar
     BIC     R0,     #UART_CHCFG_AT_BUSY                   @ Desabilitando alteração na setagem de baud rate e configurações do LCR
     STR     R0,     [R9, #UART_HALT]  
 
+    LDR     R0,     [R9, #UART_FCR]
+    ORR     R0,     #UART_FIFOE               @ Habilitando o FIFO
+    STR     R0,     [R9, #UART_FCR]
+
     POP     {R0, PC}
     BX      LR
 
