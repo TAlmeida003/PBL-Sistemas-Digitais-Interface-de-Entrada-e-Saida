@@ -1,13 +1,26 @@
-.EQU UART_APB2_CFG_REG,         0x0058      @ Seta o clock usado na UART
-.EQU UART_BUS_CLK_GATING_REG3,  0x006C      @ Habilita clock da UART
-.EQU UART_BUS_SOFT_RST_REG4,    0x02D8      @ Seta o Reset da UART
+@=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+@-                             GERENCIAMENTO DA UART                               -
+@=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-==-=-=-
 
-.EQU UART_THR,                  0x0000      @ Dado a ser transmitido na UART 
-.EQU UART_RBR,                  0x0000      @ Dado a ser lido na UART 
-.EQU UART_DLL,                  0x0000      @ 8 bits mais baixos do divisor de baud rate (7:0)
-.EQU UART_DLH,                  0x0004      @ 8 bits mais altos do divisor de baud rate (7:0)
-.EQU UART_VALUE_DLL,            0b11011110
-.EQU UART_VALUE_DLH,            0b1111
+@ Este código Assembly descreve a lógica para uso da UART 3. Possui funções com os 
+@ seguintes objetivos: setagem de clock e alteração do reset; mapeamento de memória; 
+@ configuração; envio e recebimento de dados; e checagem de recebimento de dados. 
+
+
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+@;;                                  Constantes                                      ;;
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+.EQU UART_APB2_CFG_REG,         0x0058      @ Seta o clock usado nas UARTs [25:24] 
+.EQU UART_BUS_CLK_GATING_REG3,  0x006C      @ Habilita o clock da UART 3 [19] 
+.EQU UART_BUS_SOFT_RST_REG4,    0x02D8      @ Seta o Reset da UART 3 [19] 
+
+.EQU UART_THR,                  0x0000      @ Dado a ser transmitido na UART [7:0]
+.EQU UART_RBR,                  0x0000      @ Dado a ser lido na UART [7:0]        
+.EQU UART_DLL,                  0x0000      @ Local de armazenamento dos 8 bits mais baixos do divisor de baud rate [7:0]
+.EQU UART_DLH,                  0x0004      @ Local de armazenamento dos 8 bits mais altos do divisor de baud rate [7:0]
+.EQU UART_VALUE_DLL,            0b11011110  @ 8 bits mais baixos do divisor de baud rate [7:0]
+.EQU UART_VALUE_DLH,            0b1111      @ 8 bits mais altos do divisor de baud rate [7:0]
 
 .EQU UART_FCR,                  0x0008      @ Registrador de controle dos FIFOs
 .EQU UART_FIFOE,                0b1         @ Habilita os FIFOs. Bit 0 recebe 1 
@@ -21,14 +34,22 @@
 .EQU UART_CHANGE_UPDATE,        0b100       @ Carrega alterações nos endereços de LCR, DLL e DLH. Bit 2 recebe 1  
 
 .EQU UART_USR,                  0x007C      @ Registrador de status da UART
-.EQU UART_RFNE,                 0x1000      @ Bit que indica se o FIFO do RX está vazio ou não. Bit 3 igual a 0 indica que está vazio
+.EQU UART_RFNE,                 0b1000      @ Bit que indica se o FIFO do RX está vazio ou não. Bit 3 igual a 0 indica que está vazio
+
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+@;;                     Habilitação e reset da UART                                  ;;
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Sem Parametro
+@ Sem Retorno
 
 ENABLE_UART:
 
     PUSH {R0-R8, LR}
 
-    @UART_preMap
-
+    @Iniciar o acesso a RAM, pedindo permissão ao SO para acessar a memoria
     LDR     R0,     =devMem             @ Carrega o endereço de "/dev/mem" (arquivo de memória)
     MOV     R1,     #O_RDWR
     MOV     R7,     #sys_open           @ Chama o serviço sys_open para abrir o arquivo
@@ -36,7 +57,7 @@ ENABLE_UART:
     MOV     R4,     R0                  @ Salva o retorno do serviço sys_open em R4
 
     @ Acessando o endereço onde a memoria está localizada
-    LDR     R5,     =CCUaddr            @ endereço GPIO / 4096
+    LDR     R5,     =CCUaddr            @ endereço CUU / 4096
     LDR     R5,     [R5]                @ carrega o endereço
 
     LDR     R1,     =pagelen 
@@ -49,44 +70,53 @@ ENABLE_UART:
     SVC     0
     MOV     R8,     R0
 
-    @ Selecionado clock
+    @ Selecionando o clock PLL_PERIPH0 para a UART, que possui frequência de 624 MHz
 
-    LDR     R0,     [R8, #UART_APB2_CFG_REG] @ Conteudo do registrador 
+    LDR     R0,     [R8, #UART_APB2_CFG_REG]         @ Carrega conteudo do registrador 
     MOV     R1,     #1
-    LSL     R1,     #25
-    ORR     R0,     R1
-    STR     R0,     [R8, #UART_APB2_CFG_REG]
+    LSL     R1,     #25                              @ Coloca o bit da posição 25 do registrador como 1
+    ORR     R0,     R1                               @ Altera o bit da posição 25 dos dados carregados para selecionar o clock PLL_PERIPH0 
+    STR     R0,     [R8, #UART_APB2_CFG_REG]         @ Salva alterações
 
-    @ PASSAE O CLOCK PARA A UART 3
+    @ Habilitando o clock da UART 3
 
-    LDR     R0,     [R8, #UART_BUS_CLK_GATING_REG3]
+    LDR     R0,     [R8, #UART_BUS_CLK_GATING_REG3]  @ Carrega conteudo do registrador 
     MOV     R1,     #1
-    LSL     R1,     #19
-    ORR     R0,     R1
-    STR     R0,     [R8, #UART_BUS_CLK_GATING_REG3]
+    LSL     R1,     #19                              @ Coloca o bit da posição 19 do registrador como 1
+    ORR     R0,     R1                               @ Altera o bit da posição 19 dos dados carregados para habilitar o clock da UART 3
+    STR     R0,     [R8, #UART_BUS_CLK_GATING_REG3]  @ Salva alterações
 
-    @ resetar barramento de software do regiSTRador
+    @ Resetando dados e configurações da UART 3
 
-    LDR     R0,     [R8, #UART_BUS_SOFT_RST_REG4]
+    LDR     R0,     [R8, #UART_BUS_SOFT_RST_REG4]    @ Carrega conteudo do registrador 
     MOV     R1,     #1
-    LSL     R1,     #19
-    BIC     R0,     R1
-    STR     R0,     [R8, #UART_BUS_SOFT_RST_REG4]
+    LSL     R1,     #19                              @ Coloca o bit da posição 19 do registrador como 1
+    BIC     R0,     R1                               @ Limpa o bit da posição 19 dos dados carregados para habilitar o reset da UART 3
+    STR     R0,     [R8, #UART_BUS_SOFT_RST_REG4]    @ Salva alterações
 
-    LDR     R0,     [R8, #UART_BUS_SOFT_RST_REG4]
+    @ Desabilitando o reset de dados e configurações da UART 3
+
+    LDR     R0,     [R8, #UART_BUS_SOFT_RST_REG4]    @ Carrega conteudo do registrador
     MOV     R1,     #1
-    LSL     R1,     #19
-    ORR     R0,     R1
-    STR     R0,     [R8, #UART_BUS_SOFT_RST_REG4]
+    LSL     R1,     #19                              @ Coloca o bit da posição 19 do registrador como 1
+    ORR     R0,     R1                               @ Altera o bit da posição 19 dos dados carregados para desabilitar o reset da UART 3
+    STR     R0,     [R8, #UART_BUS_SOFT_RST_REG4]    @ Salva alterações
 
     POP     {R0-R8, PC}
     BX      LR
 
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+@;;                     Mapeamento de memória da UART                                ;;
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Sem Parametro
+@ Retorno: R9 - Endereço base do mapeamento da UART 3
+
 MAP_UART:
 
     PUSH    {R0-R8, LR}
-
-    @UART_Map
 
     @Iniciar o acesso a RAM, pedindo permissão ao SO para acessar a memoria
     LDR     R0,     =devMem             @ Carrega o endereço de "/dev/mem" (arquivo de memória)
@@ -96,7 +126,7 @@ MAP_UART:
     MOV     R4,     R0                  @ Salva o retorno do serviço sys_open em R4
 
     @ Acessando o endereço onde a memoria está localizada
-    LDR     R5,     =base_uart          @ endereço UART / 4096
+    LDR     R5,     =base_uart          @ endereço UART3 / 4096
     LDR     R5,     [R5]                @ carrega o endereço
 
     LDR     R1,     =pagelen
@@ -109,99 +139,119 @@ MAP_UART:
     SVC     0
 
     ADD     R0,     #0xC00              @ Adiciona o deslocamento para encontrar a UART3
-    MOV     R9,     R0                  @ Salva o retorno do serviço sys_mmap2 em R8
+    MOV     R9,     R0                  @ Salva o retorno do serviço sys_mmap2 em R9
 
     POP     {R0-R8, PC}
     BX      LR
+
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+@;;                            Configuração da UART 3                                ;;
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Parametro: R9 - Endereço base do mapeamento da UART 3
+@ Sem Retorno
 
 CONFIG_UART:
 
     PUSH    {R0, LR}
 
-    @UART_Config
+    LDR     R0,     [R9, #UART_LCR]          @ Carrega conteudo do registrador
+    ORR     R0,     #UART_DLAB_BD            @ Setando os espaços de endereço para alterar o valor do baud rate
+    STR     R0,     [R9, #UART_LCR]          @ Salva alterações
 
-    LDR     R0,     [R9, #UART_LCR]
-    ORR     R0,     #UART_DLAB_BD               @ Setando os espaços de endereço para carregar o baud rate
-    STR     R0,     [R9, #UART_LCR] 
+    LDR     R0,     [R9, #UART_HALT]         @ Carrega conteudo do registrador
+    ORR     R0,     #UART_CHCFG_AT_BUSY      @ Habilitando alteração na setagem de baud rate e configurações do LCR
+    STR     R0,     [R9, #UART_HALT]         @ Salva alterações
 
-    LDR     R0,     [R9, #UART_HALT]
-    ORR     R0,     #UART_CHCFG_AT_BUSY         @ Habilitando alteração na setagem de baud rate e configurações do LCR
-    STR     R0,     [R9, #UART_HALT] 
+    MOV     R0,     #UART_VALUE_DLL          @ Seta 8 bits baixos do baud rate
+    STR     R0,     [R9, #UART_DLL]          @ Salva os 8 bits baixos do baud rate
 
-    MOV     R0,     #UART_VALUE_DLL                 @ Setando 8 bits baixos do baud rate
-    STR     R0,     [R9, #UART_DLL]    
+    MOV     R0,     #UART_VALUE_DLH          @ Seta 8 bits altos do baud rate
+    STR     R0,     [R9, #UART_DLH]          @ Salva os 8 bits altos do baud rate
 
-    MOV     R0,     #UART_VALUE_DLH                 @ Setando 8 bits altos do baud rate
-    STR     R0,     [R9, #UART_DLH] 
+    LDR     R0,     [R9, #UART_LCR]          @ Carrega conteudo do registrador
+    ORR     R0,     #UART_DLS                @ Setando o tamanho do conjunto de bits lidos pela UART para 8 bits
+    STR     R0,     [R9, #UART_LCR]          @ Salva alterações
 
-    LDR     R0,     [R9, #UART_LCR]
-    ORR     R0,     #UART_DLS             @ Setando o tamanho do conjunto de bits lidos pela UART
-    STR     R0,     [R9, #UART_LCR]
+    LDR     R0,     [R9, #UART_HALT]         @ Carrega conteudo do registrador
+    ORR     R0,     #UART_CHANGE_UPDATE      @ Chamando o salvamento das alterações do divisor do baud rate e do endereço LCR 
+    STR     R0,     [R9, #UART_HALT]         @ Salva alterações
 
-    LDR     R0,     [R9, #UART_HALT]
-    ORR     R0,     #UART_CHANGE_UPDATE  @ Carregando alterações
-    STR     R0,     [R9, #UART_HALT] 
+_loop_update:                                @ Aguardando o bit de update resetar
 
-_loop_update:                        @ Aguardando o bit de update resetar
-
-    LDR     R0,     [R9, #UART_HALT]
+    LDR     R0,     [R9, #UART_HALT]         @ Carrega conteudo do registrador
     AND     R0,     #0b100
-    CMP     R0,     #0b100
-    BEQ             _loop_update
+    CMP     R0,     #0b100                   @ Verifica se o bit do UART_CHANGE_UPDATE foi limpo, indicando que a atualização ocorreu
+    BEQ             _loop_update             @ Se ele não tiver limpado, continua o loop
 
-    LDR     R0,     [R9, #UART_LCR]
-    BIC     R0,     #UART_DLAB_BD
-    STR     R0,     [R9, #UART_LCR]     
+    LDR     R0,     [R9, #UART_LCR]          @ Carrega conteudo do registrador
+    BIC     R0,     #UART_DLAB_BD            @ Limpa o bit UART_DLAB para setar os endereços como recebimento e envio de dados 
+    STR     R0,     [R9, #UART_LCR]          @ Salva alterações
 
-    LDR     R0,     [R9, #UART_HALT]
-    BIC     R0,     #UART_CHCFG_AT_BUSY                   @ Desabilitando alteração na setagem de baud rate e configurações do LCR
-    STR     R0,     [R9, #UART_HALT]  
+    LDR     R0,     [R9, #UART_HALT]         @ Carrega conteudo do registrador
+    BIC     R0,     #UART_CHCFG_AT_BUSY      @ Desabilitando alteração na setagem de baud rate e configurações do LCR
+    STR     R0,     [R9, #UART_HALT]         @ Salva alterações
 
-    LDR     R0,     [R9, #UART_FCR]
-    ORR     R0,     #UART_FIFOE               @ Habilitando o FIFO
-    STR     R0,     [R9, #UART_FCR]
+    LDR     R0,     [R9, #UART_FCR]          @ Carrega conteudo do registrador 
+    ORR     R0,     #UART_FIFOE              @ Habilita FIFOs
+    STR     R0,     [R9, #UART_FCR]          @ Salva alterações
 
     POP     {R0, PC}
     BX      LR
+
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+@;;                            Enviando byte pela UART                               ;;
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Parametro: R0 - Byte a ser enviado pelo TX
+@ Sem Retorno
 
 TX_UART:
 
-    STR     R0,     [R9, #UART_THR]
+    STR     R0,     [R9, #UART_THR]      @ Colocando byte no FIFO para enviar na UART
     BX      LR
+
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+@;;                           Recebendo byte pela UART                               ;;
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Sem Parametro
+@ Retorno: R0 - Byte lido pelo RX
 
 RX_UART:
-
-    LDR     R0,     [R9, #UART_RBR]
+ 
+    LDR     R0,     [R9, #UART_RBR]      @ Lendo byte da UART, armazenado no FIFO
     BX      LR
 
-RESET_FIFO_UART:
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
-    PUSH    {R0, LR}
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+@;;                       Checando se o FIFO do RX está vazio                        ;;
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-    LDR     R0,     [R9, #UART_FCR]
-    BIC     R0,     #UART_FIFOE               @ Desabilitando o FIFO
-    STR     R0,     [R9, #UART_FCR]
-
-    LDR     R0,     [R9, #UART_FCR]
-    ORR     R0,     #UART_FIFOE               @ Habilitando o FIFO
-    STR     R0,     [R9, #UART_FCR]
-
-    POP     {R0, PC}
-    BX      LR
+@ Sem Parametro
+@ Retorno: R0 - Retorna se o FIFO do RX está vazio ou não. Se R0 for 0, o FIFO está vazio, se for 1, não está
 
 CHECK_EMPTY_RX_UART:
 
     PUSH    {LR}
 
-    LDR     R0,     [R9, #UART_USR]
-    AND     R0,     #UART_RFNE
-    LSR     R0,     #3                        @ Se o bit 0 do R0 for 1, o FIFO do RX não está vazio
+    LDR     R0,     [R9, #UART_USR]     @ Carrega conteudo do registrador
+    AND     R0,     #UART_RFNE          @ Isolando bit que indica se o FIFO do RX está vazio ou não
+    LSR     R0,     #3                  @ Desloca o bit para o LSB
     
     POP     {PC}
     BX      LR
 
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 .data 
 
-CCUaddr:	.word 0x01C20
-base_uart:	.word 0x01C28
+CCUaddr:	.word 0x01C20      @ Endereço base da CCU
+base_uart:	.word 0x01C28      @ Endereço base da UART 3 dividido por 4096
