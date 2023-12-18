@@ -253,5 +253,5 @@ CHECK_EMPTY_RX_UART:
 
 .data 
 
-CCUaddr:	.word 0x01C20      @ Endereço base da CCU
+CCUaddr:	.word 0x01C20      @ Endereço base da CCU dividido por 4096
 base_uart:	.word 0x01C28      @ Endereço base da UART 3 dividido por 4096
