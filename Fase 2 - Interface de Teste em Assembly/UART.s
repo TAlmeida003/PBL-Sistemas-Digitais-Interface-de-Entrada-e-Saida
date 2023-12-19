@@ -21,6 +21,7 @@
 .EQU UART_DLH,                  0x0004      @ Local de armazenamento dos 8 bits mais altos do divisor de baud rate [7:0]
 .EQU UART_VALUE_DLL,            0b11011110  @ 8 bits mais baixos do divisor de baud rate [7:0]
 .EQU UART_VALUE_DLH,            0b1111      @ 8 bits mais altos do divisor de baud rate [7:0]
+                                            @ Valor divisor = 4062
 
 .EQU UART_FCR,                  0x0008      @ Registrador de controle dos FIFOs
 .EQU UART_FIFOE,                0b1         @ Habilita os FIFOs. Bit 0 recebe 1 
