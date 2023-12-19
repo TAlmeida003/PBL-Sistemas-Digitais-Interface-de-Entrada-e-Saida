@@ -2,24 +2,14 @@
 .include "lcd.s"
 .include "button.s"
 .include "screens.s"
-.include "getScreen.s"
+.include "getScreens.s"
 .include "uart.s"
 
 .global _start
 
-
-.macro print string
-        ldr	R1, =\string @ string to print
-	mov	R2, #4	    @ length of our string
-	mov	R7, #4	    @ linux write system call
-	svc	0 	    @ Call linux to output the string
-.endm 
-
 _start: 
         MapeamentoDeMemoria
-        
         iniciarPin
-
         configLCD 
 
         BL ENABLE_UART
@@ -35,97 +25,172 @@ _start:
         MOV R7, #0              @ R7 inicia a tela de endereço atual (inicia em 0)
         MOV R4, #0
 
+
+
 loop: 
 
-
         BL getTela         @ Buscar paramentros da função "printTwoLine"
+
+
+        BL CHECK_EMPTY_RX_UART
+        CMP R0, #0
+        BEQ continuoLogica
+
+        BL RX_UART
+        MOV R1, R0
+
+        BL RX_UART
+        LSL R0, #8
+        orr R1, R0
+
+        AND R0, R1, #0xFF
+        CMP R0, #0
+        BEQ continuoLogica
+
+        CMP R5, #COMANDO_CONTINUO
+        BEQ continuoLogica
+
+        CMP R5, #ENDERECO_CONTINUO
+        BEQ continuoLogica
+
+        CMP R5, #ESPERA_RESPOSTA
+        BEQ continuoLogica
+
+        CMP R5, #ESPERAR_RESPOSTA_CONTINUO
+        BEQ continuoLogica
+
+        AND R0, R4, #0xFF
+        CMP R0, #0x6F
+        BEQ continuarLoop
+
+        CMP R0, #0xDF
+        BEQ continuarLoop
+
+
+        BL ENABLE_UART
+        BL MAP_UART
+        BL CONFIG_UART
+
+        MOV R0, #1
+        BL enviarData
+
+        LDR R1, =wait_screen_l1
+        ADD R0, R1, #4  @ R0 = Ponteiro da string 1
+        LDR R1, [R1]    @ R1 = Tamanho da string 1
+
+        LDR R3, =wait_screen_l2
+        ADD R2, R3, #4  @ R2 = Ponteiro da string 2
+        LDR R3, [R3]    @ R3 = tamanho da string 2
+
         BL printTwoLine
 
-
-        CMP R5, #3
-        BNE continuarLoop @ if tela_atual == espera:
-
-        MOV R0, R6
-        BL TX_UART
-
-        MOV R0, R7
-        BL TX_UART
-
         nanoSleep time2s
-        nanoSleep time1s
+        nanoSleep time100ms
 
-        @  if (comando == comando_continuo_T || comando == comando_continuo_H )
-                @tela_atual = tela_continuo
-        @ else:
-        @       tela_atual = tela_respCOMANDO_CONTINUOosta
-
-        
-        CMP R6, #4
-        BEQ troca_tela
-
-        CMP R6, #5
-        BEQ troca_tela
-
-        B troca_para_resposta
-
-troca_tela:
-        MOV R5, #CONTINUO_TEMPERATURA
-
-        B continuarLoop
-
-troca_para_resposta:
         BL RX_UART
         MOV R4, R0
-        @MOV R4, #0x00
 
         BL RX_UART
-        @MOV R0, #0x00
         LSL R0, #8
         orr R4, R0
 
-        MOV R5, #4
+        mov r5, #COMANDO_CONTINUO
+        MOV R6, #1
+        MOV R7, #0
+        
+        B loop
 
-        b continuarLoop
+        continuoLogica:
+                CMP R5, #COMANDO_CONTINUO
+                BEQ c
+
+                CMP R5, #ENDERECO_CONTINUO
+                BEQ c
+                
+                b esperaParaResposta
+                c:
+
+                BL receberAsInformacoesDeContinuo
+
+                B loop
+
+        esperaParaResposta:              
+                CMP R5, #ESPERA_RESPOSTA
+                BEQ or_T @ if tela_atual == espera:
+
+                CMP R5, #ESPERAR_RESPOSTA_CONTINUO
+                BEQ or_T @ if tela_atual == espera:
+                B continuarLoop
+
+                or_T:
+
+                BL ENABLE_UART
+                BL MAP_UART
+                BL CONFIG_UART
+
+                MOV R0, R6
+                BL TX_UART
+
+                MOV R0, R7
+                BL TX_UART
+
+                nanoSleep time2s
+                nanoSleep time500ms
+
+                BL RX_UART
+                MOV R4, R0
+
+                BL RX_UART
+                LSL R0, #8
+                orr R4, R0
+
+                CMP R5, #ESPERAR_RESPOSTA_CONTINUO
+                BEQ troca_para_resposta
+                
+                CMP R6, #4
+                BEQ troca_para_continuo
+
+                CMP R6, #5
+                BEQ troca_para_continuo
+
+                MOV R5, #RESPOSTA
+
+                MOV R0, #1
+                BL enviarData
+
+                b continuarLoop
+
+        troca_para_resposta:
+
+                AND R0, R4, #0xFF
+                CMP R0, #0x0A
+                BEQ troca_para_continuo
+                CMP R0, #0x09
+                BEQ troca_para_continuo
+                CMP R0, #0x1F
+                BEQ troca_para_continuo
+
+                MOV R5, #RESPOSTA
+                
+                MOV R0, #1
+                BL enviarData
+
+                b continuarLoop
+
+        troca_para_continuo:
+                MOV R5, #COMANDO_CONTINUO
+
+                MOV R6, #1
+                MOV R7, #0
+
+                B continuarLoop
+
 
 
 continuarLoop:
 
-verificaBotaoBack:
-        MOV R1, R10             @ R1 guarda o estado anterior do botão para chamar a função
-        LDR R0, =button_back    @ R0 guarda o ponteiro do botão
-        BL verificarBotaoPress
-        MOV R10, R1             @ R10 recebe o valor antigo do botão
-       
-        
-        CMP R0, #1              @ Compara o retorno da função verificarBotaoPress
-        BEQ buttonBack          @ Caso seja 1, vai para as configurações da função volta
-
-
-verificaBotaoOK:
-        MOV R1, R11     @ R1 guarda o estado anterior do botão para chamar a função
-        LDR R0, =button_ok    @ R0 guarda o ponteiro do botão
-        BL verificarBotaoPress
-        MOV R11, R1             @ R10 recebe o valor antigo do botão
-
-        CMP R0, #1
-        BEQ buttonOk
-
-
-verificarBotaoNext:
-        MOV R1, R12     @ R1 guarda o estado anterior do botão para chamar a função
-        LDR R0, =button_next   @ R0 guarda o ponteiro do botão
-        BL verificarBotaoPress
-        MOV R12, R1             @ R10 recebe o valor antigo do botão
-
-        CMP R0, #1
-        BEQ buttonNext
-        
-        B loop
-
-brk1:
-
-        subs    r6, #1      
-        bne     loop        
+        BL TrocaDeTela
+        B loop      
 
 _end:   mov     R0, #0      
         mov     R7, #1      
@@ -136,13 +201,12 @@ _end:   mov     R0, #0
 
 devMem:   .asciz  "/dev/mem"
 
-@0x01C20000 / 1000
 gpioaddr: .word   0x01C20  @ Endereço de memória dos registradores GPIO (verifique se está correto para sua placa) 0x01C20800
 
 pagelen:  .word   0x1000
 
 time1s:
-        .word 1 @ Tempo em segundos
+        .word 1         @ Tempo em segundos
 	.word 000000000 @ Tempo em nanossegundos
 
 time2s:
@@ -164,6 +228,11 @@ time30ms:
 time100ms:
 	.word 0 @ Tempo em segundos
 	.word 100500000 @ Tempo em nanossegundos
+
+time500ms:
+	.word 0 @ Tempo em segundos
+	.word 500500000 @ Tempo em nanossegundos
+
 
 time150us: 
         .word 0 @ Tempo em segundos
@@ -262,23 +331,23 @@ line2home:
 
 command_screen_l1: 
         .word 16
-        .asciz "Command: < 00 > "
+        .asciz "Comando : < 01 >"
 
 screen_l2:
-        .word 0x10
-        .asciz "Back   Ok   Next"
+        .word 16
+        .asciz "Volt.  ok  Prox."
 
 address_screen_l1: 
         .word 16
-        .asciz "Address: < 00 > "
+        .asciz "Endereco: < 01 >"
 
 wait_screen_l1:
         .word 16
-        .asciz "    Loading     "
+        .asciz "   Processando  "
 
 wait_screen_l2:
-        .word 0x09
-        .asciz "      ..."
+        .word 10
+        .asciz "       ..."
 
 resp_screen_l1:
         .word 0x0D
@@ -286,23 +355,23 @@ resp_screen_l1:
 
 resp_screen_l2:
         .word 0x09
-        .asciz "       Ok"
+        .asciz "       ok"
 
 sensor_problema:
         .word 19
-        .asciz "Sensor com Problema"    
+        .asciz "Sensor com Problema"
 
 sensor_normal:
-        .word 20
-        .asciz "Sensor Funcionamento"
+        .word 18
+        .asciz "Sensor Funcionando"
 
 temperatura_atual:
-        .word 16
-        .asciz "Temperatura:   C"
+        .word 14
+        .asciz "  Temp. : 32 C"
 
 umidade_atual:
-        .word 13
-        .asciz "Umidade:    %"
+        .word 14
+        .asciz "  Umid. :  32%"
 
 desativa_temperatura:
         .word 27
@@ -317,10 +386,26 @@ comando_incorreto:
         .asciz "Comando Incorreto"
 
 endereco_incorreto:
-        .word 18
-        .asciz "Endereco Incorreto"
+        .word 16
+        .asciz "Erro de Endereco"
 
 desconectado_screen:
         .word 24
         .asciz "Dispositivo Desconectado"
+
+comando_valido:
+        .word 15
+        .asciz "Com. valido: 01"
+
+endereco_valido: 
+        .word 16
+        .asciz "Ende. valido: 01"
+
+sem_resposta:
+        .word 14
+        .asciz "  Sem Resposta"
+
+armengoDoBom:
+        .word 16
+        .asciz " Modo Continuo Ati                                  "
 

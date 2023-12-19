@@ -4,7 +4,7 @@
 verificarBotaoPress: 
 
     PUSH {LR}
-    
+
     BL statusInput  @ leitura do estado atual do botão
 
     CMP R0, #0    
@@ -18,17 +18,17 @@ verificarBotaoPress:
 
     B exitVerificarBotaoPress
 
+    returnFalse: 
 
-returnFalse: 
+        MOV R1, R0
+        MOV R0, #0
 
-    MOV R1, R0
-    MOV R0, #0
+        B exitVerificarBotaoPress
 
-    B exitVerificarBotaoPress
+    exitVerificarBotaoPress:
+
+        POP {PC}
+        BX LR
 
 
-exitVerificarBotaoPress:
-
-    POP {PC}
-    BX LR
 

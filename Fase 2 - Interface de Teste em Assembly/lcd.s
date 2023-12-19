@@ -2,6 +2,10 @@
 @-                          Controlador do LCD 16 x 2
 @=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-==-=-=-
 
+@ Este código Assembly é um controlador para um display LCD 16 x 2. Ele utiliza macros e 
+@ funções para configurar e controlar as operações básicas do LCD, como inicialização, envio
+@ de comandos e dados, e exibição de strings nas linhas do display.
+
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                                  Constantes                                      ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -15,15 +19,21 @@
 .EQU    CMD_LINHA_UM,           0x80
 .EQU    CMD_LIGAR_CURSOR,       0x0E
 .EQU    CMD_HOME,               0x02
+.EQU    CMD_DESLIGAR_DISPLAY,   0x08
 
 @_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
 
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                            Inicializar as Saídas do LCD                          ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 @ Este macro, iniciarSaidasLCD, é utilizado para inicializar as saídas do LCD.
-@ Ele configura os pinos D4, D5, D6, D7, E (Enable), e RS (Register Select) para o modo de lógica desejado.
+@ Ele configura os pinos D4, D5, D6, D7, E (Enable), e RS (Register Select) para o modo 
+@ de lógica desejado.
+
+@ Sem Parametro
+@ Sem Retorno
 
 .macro iniciarSaidasLCD
 
@@ -55,86 +65,94 @@
 
 .endm
 
-@======================================================================================
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
 
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                          Configuração inicial do LCD                             ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 @ Este macro, configLCD, é utilizado para configurar inicialmente o LCD.
-@ Ele realiza a inicialização das saídas, espera por um curto período de tempo, configura as funções do LCD
-@ e realiza algumas operações iniciais.
+@ Ele realiza a inicialização das saídas, espera por um curto período de tempo, configura 
+@ as funções do LCD e realiza algumas operações iniciais.
+
+@ Sem Parametro
+@ Sem Retorno
 
 .macro configLCD
 
-        iniciarSaidasLCD        @ Inicializa as saídas do LCD
+        iniciarSaidasLCD                                @ Inicializa as saídas do LCD
 
-        nanoSleep time100ms     @ Aguarda 100 milissegundos
+        nanoSleep time100ms                             @ Aguarda 100 milissegundos
 
         MOV     R2,     #3       
-        BL      addValue4dataPin        @ Envia comando de função Set ao LCD
-        nanoSleep       time5ms  @ Aguarda 5 milissegundos
+        BL      addValue4dataPin                       @ Envia comando de função Set ao LCD
+        nanoSleep       time5ms                         @ Aguarda 5 milissegundos
 
         MOV     R2,     #3
-        BL      addValue4dataPin        @ Envia novamente o comando de função Set ao LCD
-        nanoSleep time150us      @ Aguarda 150 microssegundos
+        BL      addValue4dataPin                        @ Envia novamente o comando de função Set ao LCD
+        nanoSleep time150us                             @ Aguarda 150 microssegundos
 
         MOV     R2,     #3
-        BL      addValue4dataPin        @ Envia mais uma vez o comando de função Set ao LCD
-        nanoSleep time150us      @ Aguarda 150 microssegundos
+        BL      addValue4dataPin                        @ Envia mais uma vez o comando de função Set ao LCD
+        nanoSleep time150us                             @ Aguarda 150 microssegundos
 
         MOV     R2,     #2
-        BL      addValue4dataPin        @ Envia o último comando de função Set ao LCD
-        nanoSleep time150us      @ Aguarda 150 microssegundos
+        BL      addValue4dataPin                        @ Envia o último comando de função Set ao LCD
+        nanoSleep time150us                             @ Aguarda 150 microssegundos
         
-        MOV     R0,     #0x28            @ Envia comando para configurar a função Set do LCD
-        BL      enviarData               @ Chama a macro enviarData para enviar o comando ao LCD
+        MOV     R0,     #CMD_DUAS_LINHAS                @ Envia comando para configurar a função Set do LCD
+        BL      enviarData                              @ Chama a função enviarData para enviar o comando ao LCD
         
-        MOV     R0,     #0x08            @ Envia comando para controlar a exibição do LCD
-        BL      enviarData               @ Chama a macro enviarData para enviar o comando ao LCD
+        MOV     R0,     #CMD_DESLIGAR_DISPLAY           @ Envia comando para controlar a exibição do LCD
+        BL      enviarData                              @ Chama a função enviarData para enviar o comando ao LCD
         
-        MOV     R0,     #0x01            @ Envia comando para limpar o display do LCD
-        BL      enviarData               @ Chama a macro enviarData para enviar o comando ao LCD
+        MOV     R0,     #CMD_LIMPAR_DISPLAY             @ Envia comando para limpar o display do LCD
+        BL      enviarData                              @ Chama a função enviarData para enviar o comando ao LCD
 
-        MOV     R0,     #0x06            @ Envia comando para configurar o modo de entrada do LCD
-        BL      enviarData               @ Chama a macro enviarData para enviar o comando ao LCD 
+        MOV     R0,     #CMD_CURSOR_AUT_DIR             @ Envia comando para configurar o modo de entrada do LCD
+        BL      enviarData                              @ Chama a função enviarData para enviar o comando ao LCD 
         
-        MOV     R0,     #0x0c            @ Envia comando para posicionar o cursor automaticamente para a direita (0x0C)
-        BL      enviarData               @ Chama a macro enviarData para enviar o comando ao LCD
+        MOV     R0,     #CMD_DESLIGAR_CURSOR            @ Envia comando para posicionar o cursor automaticamente para a direita (0x0C)
+        BL      enviarData                              @ Chama a função enviarData para enviar o comando ao LCD
         
 .endm
 
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
-@======================================================================================
 
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                 Adicionar O Valor aos pinos de Data do LCD                       ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-@ Este macro, addValue4dataPin, é utilizado para enviar um valor de 4 bits para os pinos de dados do LCD.
-@ A entrada esperada é o registrador R2, que contém o valor a ser enviado [3:0].
+@ Este função, addValue4dataPin, é utilizado para enviar um valor de 4 bits para os pinos 
+@ de dados do LCD.
+
+@ Parametro: R2 - 4 bits a sem inseridos nos pinos de data do LCD
+@ Sem Retorno
 
 addValue4dataPin:
 
-    @ Parâmetro da função R2 = 1010
-
     PUSH    {R0-R2, LR}
 
-    LDR     R0, =pinD4      @ carrega o endereço do pink d4 em r0
-    AND     R1,     R2,     #1      @ máscara para obter o bit menos significativo
-    BL      stateLogicPin    @ chamada da função para definir o estado do pino d4
+    LDR     R0, =pinD4                      @ carrega o endereço do pink d4 em r0
+    AND     R1,     R2,     #1              @ máscara para obter o bit menos significativo
+    BL      stateLogicPin                   @ chamada da função para definir o estado do pino d4
 
-    LSR     R2,     #1          @ deslocamento dos bits uma posição à direita
+    LSR     R2,     #1                      @ deslocamento dos bits uma posição à direita
+
     LDR     R0,     =pinD5 
     AND     R1,     R2,     #1
     BL      stateLogicPin
 
     LSR     R2,     #1
+
     LDR     R0,     =pinD6
     AND     R1,     R2,     #1
     BL      stateLogicPin
 
     LSR     R2,     #1
+
     LDR     R0,     =pinD7
     AND     R1,     R2,     #1
     BL      stateLogicPin
@@ -145,11 +163,15 @@ addValue4dataPin:
     BX      LR
 
 
-@======================================================================================
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
 
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                     Sinal de pulso no pino de enable do LCD                      ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Sem Parametro
+@ Sem Retorno
 
 pulsoEnable:
 
@@ -173,13 +195,15 @@ pulsoEnable:
     BX      LR
 
 
-@======================================================================================
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
 
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                            Enviar 8 bits para o LCD                              ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-@   - R0: Byte a ser enviado para o LCD
+@ Parametro: R0 - Byte a ser enviado para o LCD
+@ Sem Retorno
 
 enviarData:
 
@@ -196,55 +220,61 @@ enviarData:
     POP     {R0-R3, PC}
     BX      LR
 
-@======================================================================================
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
 
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                      Envia uma string terminada para o LCD                       ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-@   - R0: Ponteiro para a string
-@   - R1: Tamanho da string (número de caracteres)
+@ Parametro: R0 - Ponteiro para a string
+@            R1 - Tamanho da string (número de caracteres)
+@ Sem Retorno
+
 stringLine:
-    PUSH    {R0-R8, LR} @ Preserva registradores e o link register
+    PUSH    {R0-R8, LR}             @ Preserva registradores e o link register
 
-    MOV     R5,     R0 @ R5: Ponteiro para a string
-    MOV     R6,     R1 @ R6: Tamanho da string
-    MOV     R7,     #0 @ R7: Contador de loop (i)
+    MOV     R5,     R0              @ R5: Ponteiro para a string
+    MOV     R6,     R1              @ R6: Tamanho da string
+    MOV     R7,     #0              @ R7: Contador de loop (i)
 
-    LDR     R0,     =RS   @ Define RS como alto (modo de dados)
+    LDR     R0,     =RS             @ Define RS como alto (modo de dados)
     MOV     R1,     #1
-    BL      stateLogicPin @ Chama a função stateLogicPin
+    BL      stateLogicPin           @ Chama a função stateLogicPin
 
     @ Loop para enviar caracteres
     forStringLine:
-        CMP     R7,     R6 @ Compara o contador de loop com o tamanho da string
-        BGE     exitForStringLine @ Se R7 >= R6, sai do loop
+        CMP     R7,     R6           @ Compara o contador de loop com o tamanho da string
+        BGE     exitForStringLine    @ Se R7 >= R6, sai do loop
 
-        @LSL R0, R7, #0         @ Calcula o deslocamento para o caractere atual na string
-        ADD     R0,     R7,     R5          @ Calcula o endereço do caractere atual na string
-        LDR     R0,     [R0]            @ Carrega o caractere atual da memória para R0
+        ADD     R0,     R7,     R5   @ Calcula o endereço do caractere atual na string
+        LDR     R0,     [R0]         @ Carrega o caractere atual da memória para R0
         BL      enviarData           @ Envia o caractere para o LCD usando a função enviarData
 
-        ADD     R7,     #1 @ Incrementa o contador de loop
-        B       forStringLine @ Salta de volta para o início do loop
+        ADD     R7,     #1           @ Incrementa o contador de loop
+        B       forStringLine        @ Salta de volta para o início do loop
 
     exitForStringLine:
-        LDR     R0,     =RS  @ Define RS como baixo (modo de instrução)
+        LDR     R0,     =RS          @ Define RS como baixo (modo de instrução)
         MOV     R1,     #0
-        BL      stateLogicPin @ Chama a função stateLogicPin
+        BL      stateLogicPin        @ Chama a função stateLogicPin
 
-    POP     {R0-R8, PC} @ Restaura registradores e retorna da sub-rotina
-    BX      LR @ Ramo para o endereço de retorno armazenado no Link Register (LR)
+    POP     {R0-R8, PC}              @ Restaura registradores e retorna da sub-rotina
+    BX      LR                       @ Ramo para o endereço de retorno armazenado no Link Register (LR)
 
-@======================================================================================
-
-
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 
-@R0: Ponteiro da String da Line 1
-@R1: tamanho 1
-@R2: Ponteiro da String da Line 2
-@R3: tamanho 2
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+@;;                    Imprimir string´s nas duas linhas do LCD                      ;;
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Parametro: R0 - Ponteiro da String da Line 1
+@            R1 - Tamanho 1
+@            R2 - Ponteiro da String da Line 2
+@            R3 - Tamanho 2
+@ Sem Retorno
+
 printTwoLine:
     PUSH    {R0-R9, LR}
 
@@ -254,47 +284,49 @@ printTwoLine:
     MOV     R2,     R0 @ R2 = Ponteiro da string line 1
     MOV     R3,     R1 @ R3 = Tamanho 1
 
-@ Encontrar o maior Tamanho
-    CMP     R3,     R5 
-    MOVGE   R0,     R3 @ if Tamanho1 >= Tamanho2: R0 = TAMNAHO 1
-
-    CMP     R3,     R5
-    MOVLT   R0,     R5 @ if Tamanho1 < Tamanho2: R0 = TAMNAHO 2
-    @ R0 = max(tamString, tamString2)
-
-    CMP     R0,     #17
-    BGE     elsePrintTwoLine @ tamanho Max < 17
-
-    MOV     R0,     #CMD_LINHA_UM
-    BL      enviarData @ Colocar na LINHA 1
-
-    MOV     R0,     R2
-    MOV     R1,     R3
-    BL      stringLine
-
-    MOV     R0,     #CMD_LINHA_DOIS
-    BL      enviarData @ Colocar na LINHA 2
-
-    MOV     R0,     R4
-    MOV     R1,     R5
-    BL      stringLine
-
-    B       ExitWhilePrintTwoLine
-
-elsePrintTwoLine: 
-
-    MOV     R7,     #0 @ cont1 = 0
-    MOV     R9,     #0 @ cont2 = 0
-    MOV     R6,     #0 @ int I = 0
-
-WhilePrintTwoLine:
-
+    Max1:
         CMP     R3,     R5 
         MOVGE   R0,     R3 @ if Tamanho1 >= Tamanho2: R0 = TAMNAHO 1
 
         CMP     R3,     R5
         MOVLT   R0,     R5 @ if Tamanho1 < Tamanho2: R0 = TAMNAHO 2
         @ R0 = max(tamString, tamString2)
+
+    ifPrintTwoLine:
+        CMP     R0,     #17
+        BGE     elsePrintTwoLine @ tamanho Max < 17
+
+        MOV     R0,     #CMD_LINHA_UM
+        BL      enviarData @ Colocar na LINHA 1
+
+        MOV     R0,     R2
+        MOV     R1,     R3
+        BL      stringLine
+
+        MOV     R0,     #CMD_LINHA_DOIS
+        BL      enviarData @ Colocar na LINHA 2
+
+        MOV     R0,     R4
+        MOV     R1,     R5
+        BL      stringLine
+
+        B       ExitWhilePrintTwoLine
+
+    elsePrintTwoLine: 
+
+        MOV     R7,     #0 @ cont1 = 0
+        MOV     R9,     #0 @ cont2 = 0
+        MOV     R6,     #0 @ int I = 0
+
+    WhilePrintTwoLine:
+
+        max2:
+            CMP     R3,     R5 
+            MOVGE   R0,     R3 @ if Tamanho1 >= Tamanho2: R0 = TAMNAHO 1
+
+            CMP     R3,     R5
+            MOVLT   R0,     R5 @ if Tamanho1 < Tamanho2: R0 = TAMNAHO 2
+            @ R0 = max(tamString, tamString2)
 
         SUB     R0,     #15
         CMP     R6, R0
@@ -306,7 +338,7 @@ WhilePrintTwoLine:
         MOV     R10,    R1             @ R10 recebe o valor antigo do botão
        
         CMP     R0,     #0              @ Compara o retorno da função verificarBotaoPress
-        BNE     gambiaraENaoFunciona
+        BNE     gambiarraEHNaoFuncionar
 
         MOV     R1,     R11     @ R1 guarda o estado anterior do botão para chamar a função
         LDR     R0,     =button_ok    @ R0 guarda o ponteiro do botão
@@ -314,7 +346,7 @@ WhilePrintTwoLine:
         MOV     R11,    R1             @ R10 recebe o valor antigo do botão
 
         CMP     R0,     #0
-        BNE     gambiaraENaoFunciona
+        BNE     gambiarraEHNaoFuncionar
 
         MOV R1, R12     @ R1 guarda o estado anterior do botão para chamar a função
         LDR R0, =button_next   @ R0 guarda o ponteiro do botão
@@ -322,9 +354,7 @@ WhilePrintTwoLine:
         MOV R12, R1             @ R10 recebe o valor antigo do botão
 
         CMP R0, #0
-        BNE gambiaraENaoFunciona
-        
-@============================================================================================
+        BNE gambiarraEHNaoFuncionar
         @ i < tam - 15 and butoes == 1 
 
         MOV R0, #CMD_LINHA_UM
@@ -367,19 +397,30 @@ WhilePrintTwoLine:
 
         ADD R6, #1 @ i++
         
-        MOV R0, #3000 @ 0.4 s
+        MOV R0, #4000 @ 0.4 s
         BL sleepButao
 
         B WhilePrintTwoLine
 
-gambiaraENaoFunciona:
-        MOV     R10,     #1
-        MOV     R11,     #1
-        MOV     R12,     #1
+    gambiarraEHNaoFuncionar:
+            MOV     R10,     #1
+            MOV     R11,     #1
+            MOV     R12,     #1
 
-ExitWhilePrintTwoLine:
-    POP {R0-R9, PC} 
-    BX LR
+    ExitWhilePrintTwoLine:
+        POP {R0-R9, PC} 
+        BX LR
+
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
+
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+@;;               Pegar um valor em HEX e transformar char decimal                   ;;
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Parametro: R2 - Número à ser convertido
+@ Retorno:   R3 - Digito 1
+@            R4 - Digito 2 
 
 getHexDecString:
 
@@ -397,8 +438,17 @@ getHexDecString:
     POP {r0-r2}
     BX LR
 
-@ R2 parametros
-@ R3, R4
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
+
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+@;;                  Pegar um valor em HEX e transformar char                        ;;
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Parametro: R2 - Número à ser convertido
+@ Retorno:   R3 - Digito 1
+@            R4 - Digito 2
+
 getHexInString:
     PUSH {R0-R2}
 
@@ -420,3 +470,7 @@ getHexInString:
     POP {R0-R2}
     BX LR
     
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
+
+

@@ -1,5 +1,5 @@
 @=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-@-            MAPEAMENTO DE MEMÓRIA PARA A ORANGE PI PC PLUS
+@-                GERENCIAMENTO DA PINAGEM ORANGE PI PC PLUS                        -
 @=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-==-=-=-
 
 @ Este código Assembly descreve o mapeamento de memória e configuração de pinos GPIO e UART
@@ -17,12 +17,15 @@
 .EQU    sys_open,               5           @ Número do serviço Linux para abrir um arquivo
 .EQU    sys_mmap2,              192         @ Número do serviço Linux para mapear memória
 .EQU    sys_nanosleep,			162         @ Número do serviço Linux para nanosleep
-
 @_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
 
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                                 Temporizador                                     ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Parametro: Time
+@ Sem Retorno
 
 .macro nanoSleep timespecsec
     PUSH {R0,R1,R7}
@@ -32,64 +35,73 @@
     svc 0
     POP {R0,R1,R7}
 .endm
-
 @_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
 
-@ R0 : Tempo
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+@;;                     Temporizador Controlado por Botao                            ;;
+@;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Parametro: R0 - Tempo
+@ Sem Retorno
+
 sleepButao:
     PUSH {R0-R3, LR}
 
     mov R3, R0
     MOV R2, #0 @ i = 0
-whileSleepButao:
 
-    CMP R2, R3
-    BGE endSleepButao @( i < Tempo )
+    whileSleepButao:
+        CMP R2, R3
+        BGE endSleepButao @( i < Tempo )
 
-    MOV R1, R10             @ R1 guarda o estado anterior do botão para chamar a função
-    LDR R0, =button_back    @ R0 guarda o ponteiro do botão
-    BL verificarBotaoPress
-    MOV R10, R1             @ R10 recebe o valor antigo do botão
-    
-    CMP R0, #0              @ Compara o retorno da função verificarBotaoPress
-    BNE gambiara
+        MOV R1, R10             @ R1 guarda o estado anterior do botão para chamar a função
+        LDR R0, =button_back    @ R0 guarda o ponteiro do botão
+        BL verificarBotaoPress
+        MOV R10, R1             @ R10 recebe o valor antigo do botão
 
-    MOV R1, R11     @ R1 guarda o estado anterior do botão para chamar a função
-    LDR R0, =button_ok    @ R0 guarda o ponteiro do botão
-    BL verificarBotaoPress
-    MOV R11, R1             @ R10 recebe o valor antigo do botão
+        CMP R0, #0              @ Compara o retorno da função verificarBotaoPress
+        BNE gambiara
 
-    CMP R0, #0
-    BNE gambiara
+        MOV R1, R11     @ R1 guarda o estado anterior do botão para chamar a função
+        LDR R0, =button_ok    @ R0 guarda o ponteiro do botão
+        BL verificarBotaoPress
+        MOV R11, R1             @ R10 recebe o valor antigo do botão
 
-    MOV R1, R12     @ R1 guarda o estado anterior do botão para chamar a função
-    LDR R0, =button_next   @ R0 guarda o ponteiro do botão
-    BL verificarBotaoPress
-    MOV R12, R1             @ R10 recebe o valor antigo do botão
+        CMP R0, #0
+        BNE gambiara
 
-    CMP R0, #0
-    BNE gambiara
-        
-    
-    nanoSleep time100us
+        MOV R1, R12     @ R1 guarda o estado anterior do botão para chamar a função
+        LDR R0, =button_next   @ R0 guarda o ponteiro do botão
+        BL verificarBotaoPress
+        MOV R12, R1             @ R10 recebe o valor antigo do botão
 
-    ADD R2, #1
+        CMP R0, #0
+        BNE gambiara
+            
+        nanoSleep time100us
+        ADD R2, #1
 
-    b whileSleepButao
+        b whileSleepButao
 
-gambiara:
-        MOV     R10,     #1
-        MOV     R11,     #1
-        MOV     R12,     #1
+    gambiara:
+            MOV     R10,     #1
+            MOV     R11,     #1
+            MOV     R12,     #1
 
-endSleepButao:
-    POP {R0-R3, PC}
-    BX LR
+    endSleepButao:
+        POP {R0-R3, PC}
+        BX LR
+
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
 
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                         Mapeamento da mémoria                                    ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Sem Parametro
+@ Retorno: R8 - Endereço Base da GPIO
 
 .macro MapeamentoDeMemoria
 
@@ -118,12 +130,15 @@ endSleepButao:
     mov     R8,     R0                  @ Salva o retorno do serviço sys_mmap2 em R8
 
 .endm
-
 @_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
 
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                         Configurar pino para output                              ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Parametro: PINO
+@ Sem Retorno
 
 .macro GPIODirectionOut pin 
 
@@ -149,12 +164,15 @@ endSleepButao:
     STR     R5,     [R8, R1]     @ armazena o novo valor do registrador de funcao na memoria
 
 .endm
-
 @_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
 
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                           Configurar pino para input                             ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Parametro: PINO
+@ Sem Retorno
 
 .macro GPIODirectionInp pin
 
@@ -175,12 +193,15 @@ endSleepButao:
     STR     R5,     [R8, R1]        @ armazena o novo valor do registrador de funcao na memoria
 
 .endm
-
 @_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
 
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                                Configurar pino UART                              ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Parametro: PINO
+@ Sem Retorno
 
 .macro GPIODirectionUART pin
 
@@ -206,15 +227,15 @@ endSleepButao:
     STR     R5,     [R8, R1]     @ armazena o novo valor do registrador de funcao na memoria
 
 .endm
-
 @_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
 
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                            Definir o valor da saída do pino                      ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-@ R0 - PIN
-@ R1 - Valor Lógico
+@ Parametro: R0 - PINO
+@            R1 - Valor Lógico
 @ SEM RETORNO
 
 stateLogicPin:
@@ -247,12 +268,13 @@ stateLogicPin:
 
 @_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
+
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                            Pegar o valor lógico atual do pino                    ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-@ R0 - pin
-@ retorno - Valor Logico
+@ Parametro: R0 - PINO
+@ Retorno:   R0 - Valor Logico atual
 
 statusInput:
 
@@ -278,9 +300,13 @@ statusInput:
 
 @_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 
+
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;;                          Configuração inicial dos pinos                          ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+@ Sem Parametro
+@ Sem Retorno
 
 .macro iniciarPin
 
@@ -306,8 +332,6 @@ statusInput:
         GPIODirectionUART uartRx
 
 .endm
-
 @_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
-
 
 
