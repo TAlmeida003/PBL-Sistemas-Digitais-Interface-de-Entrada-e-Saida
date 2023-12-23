@@ -1,3 +1,14 @@
+@=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+@-                            Obtenção da Tela Atual                                -
+@=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+@ Obtém e exibe a tela atual com base nos parâmetros passados.
+
+@ Parametro: R5 - Tela atual
+@            R6 - Comando atual
+@            R7 - Endereço atual
+@            R4 - Resposta atual
+@ Sem Retorno
 
 getTela:
     PUSH {R0-R9, LR}
@@ -625,9 +636,7 @@ respostaContinuo:
         LDR R3, [R3]    @ R3 = tamanho da string 2
         B endGetTela
 
-
 @ ------------------------------------------------------------
-
 
 endGetTela:
     POP {R10}

@@ -1,3 +1,12 @@
+@=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+@-                               Controle de Tela                                   -
+@=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-==-=-=-
+
+@ Este código implementa a lógica de controle de tela para um sistema embarcado.
+@ Ele utiliza diversas constantes simbólicas definidas por diretivas EQU para
+@ identificar diferentes telas e estados, bem como funções para interação com botões
+@ e comunicação UART.
+
 .EQU HOME,                       0
 .EQU COMMAND,                    1
 .EQU ADDRESS,                    2
@@ -6,6 +15,22 @@
 .EQU COMANDO_CONTINUO,           5
 .EQU ENDERECO_CONTINUO,          6
 .EQU ESPERAR_RESPOSTA_CONTINUO,  7
+
+@=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+@-                             Função Verificar Botão Press                         -
+@=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-==-=-==-=-=-
+
+@ Esta função recebe um botão escolhido (R0) e o estado anterior do botão (R1).
+@ A função verifica se o botão foi pressionado desde a última verificação.
+@ Se o botão foi pressionado, o estado anterior do botão é atualizado e retorna 1.
+@ Caso contrário, retorna 0.
+
+@ Parametro: R5 - Tela Atual
+@            R6 - Tela de Comando
+@            R7 - Tela de Endereço
+@            R10 - Botão de voltar
+@            R11 - Botâo de Ok
+@            R12 - Botão de Proximo
 
 TrocaDeTela:
     PUSH {lr}
@@ -42,6 +67,9 @@ TrocaDeTela:
     endTrocaDeTela:
         POP {PC}
         BX LR
+
+@_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
+
 
 @ ---------------------------------------------
 buttonBack:
