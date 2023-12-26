@@ -55,7 +55,7 @@ Para visualizar a distribuição dos pinos e suas funções designadas, está an
 ![Alt text](Imagens/Diagrama_pinos.png)
 <p align="center"><strong> Diagrama da pinagem da Orange Pi e as respectivos funções de cada pino no projeto</strong> </p>
 
-**Configuração da direção do pino**
+**Configuração da Direção do Pino**
 
 Para empregar cada pino com suas funções designadas, é essencial configurar a direção de cada pino individualmente. A definição da direção do pino é realizada por meio da manipulação de registradores. Nesse contexto, cada pino tem 3 bits reservados nos registradores para indicar seu comportamento. Importante notar que nem todos os pinos oferecem as mesmas opções de seleção, pois alguns estão reservados para funções específicas, como no caso da UART.
 
@@ -81,6 +81,23 @@ Para compreender melhor o fluxo de escrita ou leitura dos valores dos pinos na O
  
 O fluxograma inicia-se com uma solicitação ao Sistema Operacional por meio de uma *syscall*, buscando a referência virtual do endereço base da GPIO. Após adquirir o endereço, há um deslocamento dentro da página para encontrar o offset do registrador de dados. Considerando que existem múltiplas referências desse registrador, um deslocamento adicional é necessário para localizar o bit correspondente ao pino desejado. Uma vez identificado o local correto, o valor lógico do pino é escrito ou lido, dependendo da operação desejada. Este processo é concluído ao salvar ou recuperar o valor no registrador, ajustando assim o estado lógico do pino conforme necessário.
 
+**Inicialização da GPIO no Projeto**
+
+Na fase inicial do projeto, o processo de inicialização segue a atribuição de direção para os 11 pinos essenciais. Para fornecer uma visão clara dessa configuração, apresenta-se a seguir uma tabela detalhando a relação entre a pinagem utilizada e suas respectivas direções:
+
+| Pino  	| Modo     | Correspondente	|
+| ------------- | ------------- | ------------- |
+| PA7  	  | Input    |  Botão (Voltar)	|
+| PA10    | Input    |  Botão (OK)	    |
+| PA20	  | Input    |  Botão (Próximo) |
+| PA13 	  | UART3_TX |  RX (FPGA)	|
+| PA14    | UART3_RX |  TX (FPGA)	|
+| PA2	    | Output   |  RS (LCD) |
+| PA18 	  | Output   |  E (LCD) |
+| PG8  	  | Output   | 	D4 (LCD)|
+| PG9	    | Output   |  D5 (LCD)|
+| PG6 	  | Output   |  D6 (LCD)|
+| PG7  	  | Output   |  D7 (LCD)|
 
 </p>
 </div>
