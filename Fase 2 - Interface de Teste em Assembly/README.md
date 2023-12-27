@@ -52,7 +52,7 @@ Para atender aos objetivos do projeto, foram utilizados apenas 11 pinos, sendo 7
 
 Para visualizar a distribuição dos pinos e suas funções designadas, está anexado uma imagem apresentando o diagrama de pinagem da Orange Pi, destacando os pinos utilizados e suas respectivas funções na resolução do problema.
 
-![Alt text](Imagens/Diagrama_pinos.png)
+![Alt text](Imagens/Diagrama-pinos.png)
 <p align="center"><strong> Diagrama da pinagem da Orange Pi e as respectivos funções de cada pino no projeto</strong> </p>
 
 **Configuração da Direção do Pino**
@@ -67,7 +67,7 @@ Na solução adotada para o projeto, optou-se por configurar os pinos de acordo 
 
 A atribuição desses valores foi realizada seguindo uma sequência lógica de 4 passos. Nesse sentido, segue em anexo um fluxograma que ilustra a lógica utilizada, bem como a explicação dos passos:
 
-![Alt text](Imagens/Diracao_do_pino.png)
+![Alt text](Imagens/Diracao-do-pino.png)
 
 O processo de atribuição desses valores segue uma lógica em quatro passos. Inicialmente, o fluxograma inicia-se com uma solicitação ao Sistema Operacional por meio de uma *syscall*, buscando a referência virtual do endereço base da GPIO. Uma vez obtido esse endereço, realiza-se um deslocamento dentro da página da GPIO para encontrar o offset onde está localizado o registrador da direção. Dado que existem múltiplas referências de direção nesse registrador, é necessário um deslocamento adicional para localizar os 3 bits correspondentes ao pino desejado. Por fim, esses 3 bits são adicionados ao local apropriado e salvos no registrador, configurando assim a direção desejada para o pino.
 
@@ -77,7 +77,7 @@ O processo de leitura ou escrita de um pino na GPIO segue uma abordagem semelhan
 
 Para compreender melhor o fluxo de escrita ou leitura dos valores dos pinos na Orange Pi, segue um fluxograma explicativo:
 
-![Alt text](Imagens/Leitura_escrita_pino.png)
+![Alt text](Imagens/Leitura-escrita-pino.png)
  
 O fluxograma inicia-se com uma solicitação ao Sistema Operacional por meio de uma *syscall*, buscando a referência virtual do endereço base da GPIO. Após adquirir o endereço, há um deslocamento dentro da página para encontrar o offset do registrador de dados. Considerando que existem múltiplas referências desse registrador, um deslocamento adicional é necessário para localizar o bit correspondente ao pino desejado. Uma vez identificado o local correto, o valor lógico do pino é escrito ou lido, dependendo da operação desejada. Este processo é concluído ao salvar ou recuperar o valor no registrador, ajustando assim o estado lógico do pino conforme necessário.
 
@@ -146,9 +146,10 @@ Quanto à inicialização do LCD, é primordial configurar o controlador no modo
 Abaixo, apresenta-se o fluxograma da inicialização do LCD, resumindo de maneira clara o passo a passo desse processo e seu fluxo.
 
 <p align="center">
-  <img src="Imagens/Inicializacao_LCD.jpg" alt=Fluxograma da inicialização do LCD="300" height="300">
+  <img src="Imagens/Inicializacao-LCD.jpg" alt=Fluxograma da inicialização do LCD="300" height="300">
 </p>
 <p align="center"><strong>Fluxograma da inicialização do Display LCD</strong></p>
+
 
 <h3>Escrita no LCD</h3>
 
@@ -167,6 +168,32 @@ Para a escrita na segunda linha, o cursor é posicionado ao enviar o comando **(
   <img src="Imagens/Escrita-LCD-Duas-Linhas.jpg" alt=Fluxograma da escrita em duas linhas="300" height="300">
 </p>
 <p align="center"><strong>Fluxograma da escrita em duas linhas no Display LCD</strong></p>
+
+</p>
+</div>
+
+
+<div id="interfaceUsuario"> 
+<h2> Interface do Usuário </h2>
+
+<p align="justify"> 
+
+<h2>Fluxo Normal</h2>
+
+No contexto do fluxo normal, a interação tem início na tela inicial, visualizável abaixo.
+
+Ao acionar o botão do meio, a transição ocorre para a tela de comando. Nessa interface, o usuário possui a opção de retornar à tela inicial, caso esteja no comando 01 e pressionar o botão de retorno (botão esquerdo). Ao utilizar o botão de avançar (botão direito), a progressão entre os comandos disponíveis, numerados de 01 a 07, é possibilitada. O botão de confirmar permite o avanço para a próxima tela com o comando escolhido.
+
+Na tela seguinte, destinada à escolha de um endereço, o usuário tem a alternativa de retornar ao menu de comandos, caso esteja no endereço 00, ou percorrer os endereços disponíveis, numerados de 00 a 31, utilizando os botões de avançar e retornar, respectivamente. Ao selecionar um endereço e pressionar o botão "ok", a transição direciona-se para a tela de processamento das informações recebidas.
+
+Após a conclusão do processamento, a tela de resposta é apresentada, exibindo a resposta correspondente ao comando escolhido. Ao pressionar o botão "ok", o usuário retorna à tela de comandos.
+
+
+<h2>Fluxo Contínuo</h2>
+
+Por outro lado, no cenário do fluxo contínuo, ao optar pelo comando de iniciar o sensoriamento contínuo e selecionar o endereço do sensor, a transição ocorre diretamente da tela de processamento para a tela de comando contínuo. Nessa interface, a escolha do comando é apresentada na primeira linha, enquanto a segunda linha exibe a resposta, indicando a medida de temperatura, umidade, ou uma resposta específica.
+
+Após a seleção do comando, a navegação prossegue para a tela de endereço, mantendo a mesma lógica do fluxo normal. As respostas continuam a ser exibidas na segunda linha dessa tela. Em seguida, o fluxo avança para a tela de processamento, que oferece as opções de comando incorreto, endereço incorreto ou desativação do sensoriamento contínuo. Caso a escolha seja uma das duas primeiras opções, ao pressionar o botão "ok", permanece na tela de contínuo. Se a opção for a última, retorna à tela de comandos do fluxo normal.
 
 </p>
 </div>
