@@ -4,6 +4,18 @@
 <div id="sobre-o-projeto"> 
 <h2> Sobre o Projeto</h2>
 
+Em tempos de alto avanço tecnológico, processos complexos são feitos para realizar as mais variadas tarefas. O sistema processador, que realiza a tarefa, e o operador, que manuseia o programa utilizado, devem se comunicar de forma clara e concisa. O intermédio que possibilita essa comunicação é chamado de interface homem-máquina (IHM), funcionando como um painel de operação do sistema.
+
+Este projeto visa desenvolver uma IHM para o projeto da Fase 1. É reutilizado o código em verilog carregado na placa FPGA Cyclone IV para envio de comandos e processamento de dados do sensor DHT11. Um display LCD é utilizado para apresentar a interface do sistema ao usuário. O processamento lógico é feito em uma Orange Pi PC Plus, sendo ela, um computador de placa única.
+
+Os requisitos para elaboração do sistema são apresentados a seguir:
+
+* O código carregado na Orange Pi PC Plus deve ser feito em Assembly;
+* O display LCD deve ser usado para apresentar a interface do sistema ao usuário;
+* Só podem ser usados dispositivos já presentes no protótipo montado;
+* O código em verilog carregado na placa FPGA Cyclone IV deve ser o mesmo desenvolvido na Fase 1;
+* O protocolo seguido na comunicação da Orange Pi com a FPGA também deve ser o mesmo desenvolvido na Fase 1.
+
 <h2>  Equipe: <br></h2>
 <uL> 
 	<li>Samara dos Santos Ferreira<br></li>
@@ -18,7 +30,7 @@
         <li><a href="#">  Descrição dos equipamentos e software utilizados</a></li>
         <li><a href="#"> Mapeamento de memória</a></li>
         <li><a href="#GPIO"> GPIO </a></li>
-        <li><a href="#"> UART </a></li>
+        <li><a href="#UART"> UART </a></li>
         <li><a href="#displayLCD"> Display LCD </a></li>
         <li><a href="#interfaceUsuario"> Interface do Usuário </a></li>
         <li><a href="#"> Solução Geral do projeto </a></li>
