@@ -36,9 +36,25 @@
 </p>
 </div>
 
-<div id=""> 
+<div id="map"> 
 <h2> Mapeamento de memória</h2>
 <p align="justify"> 
+
+O mapeamento de memória é uma técnica que visa organizar e gerenciar o espaço de endereçamento na memória física. Neste contexto, explora-se como esse conceito é aplicado no desenvolvimento do projeto, abrangendo tanto o âmbito do software quanto o hardware.
+
+<h3> Mapeamento a nível de Software</h3>
+
+O gerenciamento da memória física é uma função desempenhada pelo sistema operacional, utilizando a abstração de memória virtual. Ao receber um endereço de memória, o sistema operacional requer as autorizações adequadas para manipular o arquivo, tratando os dados como arquivos. Essas autorizações incluem permissões essenciais, como leitura, escrita, a capacidade de selecionar o endereço virtual para o valor endereçado e a habilidade de compartilhar dados com outros arquivos.
+
+Para acessar a memória física, o processo inicia-se ao entrar no diretório /dev/mem, onde as seções desejadas da memória estão localizadas. Em seguida, é necessário fornecer ao sistema operacional um endereço de memória física. A execução de uma System Call ocorre, momento em que o sistema operacional verifica se o endereço está presente na tabela de páginas ou no buffer Translation Lookaside Buffer (TLB). Se não estiver, o sistema operacional acessa diretamente a memória, recuperando o dado armazenado na posição endereçada. A página e o TLB são atualizados, e ao usuário é concedida uma referência virtual para acessar a memória física.
+
+Segue anexo um fluxograma que ilustra os passos utilizados, acompanhado de uma tabela detalhando as System Calls empregadas no projeto.
+
+<h3> Mapeamento a nível de Hardware</h3>
+
+Ao buscar os dados armazenados na memória física através do barramento de sistema solicitado pela CPU, os dados passam por um decodificador/controlador de endereços que sinaliza a localização do dado solicitado. O controlador envia um sinal de controle para o local solicitado, podendo ser a memória principal, um registrador da General Purpose Input/Output (GPIO) ou até um registrador de dados hardware específicos, como a Universal Asynchronous Receiver-Transmitter (UART). Mesmo tendo um endereço de memória física, os dados obtidos do mapeamento não estão presentes na memória principal, mas sim em locais separados e específicos para suas funções.
+
+Segue em anexo um diagrama de uma versão simplificada do processo descrito. 
 
 </p>
 </div>
