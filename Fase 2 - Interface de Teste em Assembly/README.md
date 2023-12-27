@@ -235,24 +235,47 @@ Para a escrita na segunda linha, o cursor é posicionado ao enviar o comando **(
 <div id="interfaceUsuario"> 
 <h2> Interface do Usuário </h2>
 
+A interface do usuário é projetada visando demonstrar de maneira abrangente o fluxo do sistema, destacando como ele pode ser utilizado e os diferentes caminhos que podem ser percorridos com base nas escolhas do usuário. O sistema oferece duas opções principais: o fluxo normal e o fluxo contínuo.
+
+O fluxo normal representa a operação padrão do sistema, proporcionando ao usuário a navegação por diferentes telas e funcionalidades. Por outro lado, o fluxo contínuo é acionado quando o sistema entra em modo de sensoriamento contínuo de temperatura ou umidade. Nesse modo, o sistema retorna periodicamente, em intervalos predefinidos, os valores atuais de temperatura e umidade, desde que esteja operando corretamente. 
+
+Para proporcionar uma compreensão mais aprofundada, a explicação do fluxo normal e do fluxo contínuo foi segmentada, delineando os caminhos específicos que podem ser seguidos em ambas as opções.
+
 <p align="justify"> 
 
-<h2>Fluxo Normal</h2>
+<h3>Fluxo Normal</h3>
 
-No contexto do fluxo normal, a interação tem início na tela inicial, visualizável abaixo.
+Dentro do contexto do fluxo normal, a interação começa na tela inicial. A partir dela, ao acionar o botão central, ocorre a transição para a tela de comando. Nessa interface, o usuário tem a opção de retornar à tela inicial ao pressionar o botão de retorno (botão esquerdo), caso esteja no comando 01. Outra alternativa é utilizar o botão de avançar (botão direito), possibilitando a progressão entre os comandos disponíveis, numerados de 01 a 07. O botão de confirmar (botão do meio) permite o avanço para a próxima ela, que é a de endereço. 
 
-Ao acionar o botão do meio, a transição ocorre para a tela de comando. Nessa interface, o usuário possui a opção de retornar à tela inicial, caso esteja no comando 01 e pressionar o botão de retorno (botão esquerdo). Ao utilizar o botão de avançar (botão direito), a progressão entre os comandos disponíveis, numerados de 01 a 07, é possibilitada. O botão de confirmar permite o avanço para a próxima tela com o comando escolhido.
-
-Na tela seguinte, destinada à escolha de um endereço, o usuário tem a alternativa de retornar ao menu de comandos, caso esteja no endereço 00, ou percorrer os endereços disponíveis, numerados de 00 a 31, utilizando os botões de avançar e retornar, respectivamente. Ao selecionar um endereço e pressionar o botão "ok", a transição direciona-se para a tela de processamento das informações recebidas.
-
-Após a conclusão do processamento, a tela de resposta é apresentada, exibindo a resposta correspondente ao comando escolhido. Ao pressionar o botão "ok", o usuário retorna à tela de comandos.
+Na tela subsequente, dedicada à seleção de um endereço, o usuário tem a opção de retornar ao menu de comandos, se estiver no endereço 00, ou percorrer os endereços disponíveis, numerados de 00 a 31, utilizando os botões de retornar e avançar, respectivamente. Ao escolher um endereço e pressionar o botão "ok", a transição direciona-se para a tela de processamento das informações recebidas. As três telas mencionadas -- a tela inicial, a de comando e a de endereço -- podem ser observadas na imagem abaixo, juntamente com o fluxo de voltar e avançar, destacado pelas setas interligando-as.
 
 
-<h2>Fluxo Contínuo</h2>
 
-Por outro lado, no cenário do fluxo contínuo, ao optar pelo comando de iniciar o sensoriamento contínuo e selecionar o endereço do sensor, a transição ocorre diretamente da tela de processamento para a tela de comando contínuo. Nessa interface, a escolha do comando é apresentada na primeira linha, enquanto a segunda linha exibe a resposta, indicando a medida de temperatura, umidade, ou uma resposta específica.
+Após a conclusão do processamento dos dados obtidos, a tela de resposta é apresentada, podendo exibir a resposta correspondente ao comando escolhido. As respostas disponíveis, como podem ser visualizadas na imagem abaixo, são a do caso o sensor esteja com problema, com funcionamento normal ou desconectado. As outras duas, referem-se as medidas de temperatura e umidade atuais. Ao pressionar o botão central, o usuário retorna à tela de comandos.
 
-Após a seleção do comando, a navegação prossegue para a tela de endereço, mantendo a mesma lógica do fluxo normal. As respostas continuam a ser exibidas na segunda linha dessa tela. Em seguida, o fluxo avança para a tela de processamento, que oferece as opções de comando incorreto, endereço incorreto ou desativação do sensoriamento contínuo. Caso a escolha seja uma das duas primeiras opções, ao pressionar o botão "ok", permanece na tela de contínuo. Se a opção for a última, retorna à tela de comandos do fluxo normal.
+Após a conclusão do processamento dos dados obtidos, a tela de resposta é apresentada, exibindo a resposta correspondente ao comando escolhido. As respostas disponíveis, visíveis na imagem abaixo, incluem casos em que o sensor apresenta problemas, estar operando de forma normal ou desconectado. As outras duas opções dizem respeito às medidas atuais de temperatura e umidade. Ao pressionar o botão central, o usuário retorna à tela de comandos.
+
+
+
+Essa abordagem visa fornecer ao usuário uma visualização clara dos resultados obtidos após a execução de um comando específico, permitindo uma rápida compreensão do estado atual do sistema. 
+
+
+<h3>Fluxo Contínuo</h3>
+
+Ao escolher o comando para iniciar o sensoriamento contínuo e selecionar o endereço do sensor, a transição ocorre para a tela de processamento e logo após, a tela de comando do contínuo. Nessa tela, a escolha do comando é destacada na primeira linha, enquanto a segunda exibe a resposta, indicando a medida da temperatura, umidade ou uma resposta específica. 
+
+Após a seleção do comando, a navegação prossegue para a tela de endereço, mantendo a mesma lógica do fluxo normal. As respostas permanecem sendo exibidas na segunda linha dessa tela. As telas de comando e de endereço do modo contínuo para temperatura e umidade podem ser observadas na imagem abaixo.
+
+
+
+Posteriormente, o fluxo progride para a tela de processamento e, em seguida, para a tela de resposta. Nesta última, são apresentadas as opções de comando incorreto, endereço incorreto ou confirmação da desativação do sensoriamento contínuo. Se a escolha recair sobre as duas primeiras opções, ao pressionar o botão "ok", permanece-se na tela contínua. Caso a opção seja a última, ocorre o retorno à tela de comandos do fluxo normal. As respostas disponíveis no sensoriamento contínuo estão exibidas na imagem abaixo.
+
+
+
+O fluxo abrangente do sistema é apresentado na imagem abaixo, delineando todos os caminhos possíveis de acordo com cada fluxo disponível. É relevante observar que, a partir da tela inicial, é possível transitar para a tela de processamento e, posteriormente, adentrar no modo contínuo. Esse caminho é visto ao desligar o sistema no modo contínuo, retendo o estado anterior ao desligamento e retornando ao mesmo ao ser ligado.
+
+
+
 
 </p>
 </div>
