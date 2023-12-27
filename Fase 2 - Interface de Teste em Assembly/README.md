@@ -20,10 +20,11 @@
         <li><a href="#GPIO"> GPIO </a></li>
         <li><a href="#"> UART </a></li>
         <li><a href="#displayLCD"> Display LCD </a></li>
+        <li><a href="#interfaceUsuario"> Interface do Usuário </a></li>
         <li><a href="#"> Solução Geral do projeto </a></li>
         <li><a href="#"> Testes Realizados </a></li>
         <li><a href="#"> Conclusão </a></li>
-        <li><a href="#"> execução do projeto </a></li>
+        <li><a href="#"> Execução do projeto </a></li>
         <li><a href="#"> Referências </a></li>
 	</ul>	
 </div>
@@ -175,31 +176,31 @@ Foram utilizadas 3 funções para acessar a UART. Elas são explicadas a seguir:
 
 <p align="justify"> 
 
-O display LCD utilizado pode ser configurado para ser acionado sob o controle de um microprocessador de 4 ou 8 bits. No modo de 8 bits, os oito pinos de dados são usados para escrever informações de maneira paralela, enquanto no modo de 4 bits os dados são processados em duas etapas: primeiramente, é transmitido um conjunto de 4 bits de informações, e depois os 4 bits restantes. 
+O display LCD utilizado pode ser configurado para ser acionado sob o controle de um microprocessador de 4 ou 8 bits. No modo de 8 bits, os oito pinos de dados são usados para escrever informações de maneira paralela, enquanto no modo de 4 bits, os dados são processados em duas etapas: primeiramente, é transmitido um conjunto de 4 bits de informações, e depois os 4 bits restantes. 
 
 <h3>Inicialização do LCD</h3>	
 
 Quanto à inicialização do LCD, é primordial configurar o controlador no modo de 4 bits, uma vez que ele inicia automaticamente no modo de 8 bits, independentemente do número de linhas de dados conectadas entre o controlador e o módulo LCD. O procedimento de inicialização é delineado da seguinte forma:
 
-1. Ao aplicar a energia pela primeira vez, é necessário aguardar 100 ms, pois a ativação requer um atraso significativo;
+- Ao aplicar a energia pela primeira vez, é necessário aguardar 100 ms, pois a ativação requer um atraso significativo;
 
-2. Os quatro passos subsequentes são semelhantes e constituem a configuração do modo de 4 bits. No primeiro passo, envia-se o comando SET **(0x03)** para reiniciar efetivamente o controlador do LCD, sendo os 4 bits inferiores irrelevantes no modo de 4 bits. Após o envio da função, é necessário um atraso de 5 ms;
+- Os quatro passos subsequentes são semelhantes e constituem a configuração do modo de 4 bits. No primeiro passo, envia-se o comando SET **(0x03)** para reiniciar efetivamente o controlador do LCD, sendo os 4 bits inferiores irrelevantes. Após o envio da função, é necessário um atraso de 5 ms;
 
-3. Na segunda instância do comando SET **(0x03)**, é exigido um atraso de 150 µs;
+- Na segunda instância do comando SET **(0x03)**, é exigido um atraso de 150 µs;
 
-4. Na terceira instância, o tempo de atraso é o mesmo, mas o controlador já reconhece que se trata de uma função de *reset* e está pronto para receber a instrução "real";
+- Na terceira instância, o tempo de atraso é o mesmo, mas o controlador já reconhece que se trata de uma função de *reset* e está pronto para receber a instrução SET "real";
 
-5. Por fim, é enviado o comando SET **(0x02)** para entrar no modo de 4 bits, indicando que o controlador LCD lerá apenas os quatro pinos de dados superiores a cada uso do Enable. O atraso necessário nesse envio é de 150 µs;
+- Por fim, é enviado o comando SET **(0x02)** para entrar no modo de 4 bits, indicando que o controlador LCD lerá apenas os quatro pinos de dados superiores a cada uso do Enable. O atraso necessário nesse envio é de 150 µs;
 
-6. Em seguida, envia-se o comando para habilitar as duas linhas **(0x28)**;
+- Em seguida, envia-se o comando para habilitar as duas linhas **(0x28)**;
 
-7. Posteriormente, o comando de controle *liga/desliga* do display **(0x08)** é utilizado para desligar o display;
+- Posteriormente, o comando de controle liga/desliga do display é utilizado para fazer o seu desligamento **(0x08)**;
 
-8. Após isso, procede-se à limpeza do display **(0x01)**;
+- Após isso, procede-se à limpeza do display **(0x01)**;
 
-9. A instrução subsequente configura o modo de entrada, determinando que o cursor e/ou display deve mover-se à direita ao inserir uma sequência de caracteres **(0x06)**;
+- A instrução subsequente configura o modo de entrada, determinando que o cursor e/ou display deve mover-se à direita ao inserir uma sequência de caracteres **(0x06)**;
 
-10. A sequência de inicialização é concluída, sendo crucial notar que o display permanece ligado. Como último passo, envia-se a instrução para ligar o display e apagar o cursor **(0x0C)**.
+- A sequência de inicialização então é concluída, sendo crucial notar que o display permanece desligado. Dessa forma, como último passo, envia-se a instrução para ligar o display e apagar o cursor **(0x0C)**.
 
 Abaixo, apresenta-se o fluxograma da inicialização do LCD, resumindo de maneira clara o passo a passo desse processo e seu fluxo.
 
@@ -211,7 +212,7 @@ Abaixo, apresenta-se o fluxograma da inicialização do LCD, resumindo de maneir
 
 <h3>Escrita no LCD</h3>
 
-No que refere-se à fase de escrita, o procedimento inicial é a posição do cursor na primeira linha, através do envio do comando **(0x80)**. Posteriormente, utiliza-se uma função específica para transmitir a frase ao LCD. Se a extensão da frase for inferior a 17 caracteres, a escrita é efetuada diretamente no LCD. No entanto, caso a frase exceda esse limite, realiza-se um deslocamento dos caracteres até que a totalidade da mensagem seja visível. O retorno ao ponto inicial ocorre ao término da escrita da frase. Caso um botão seja pressionado, essa visualização é interrompida e a mudança de tela é realizada.
+No que refere-se à fase de escrita, o procedimento inicial é a posição do cursor na primeira linha, através do envio do comando **(0x80)**. Posteriormente, utiliza-se uma função específica para transmitir a frase ao LCD. Se a extensão da frase for inferior a 17 caracteres, a escrita é efetuada diretamente no LCD. No entanto, caso a frase exceda esse limite, realiza-se um deslocamento dos caracteres até que a totalidade da mensagem seja visível, e o retorno ao ponto inicial ocorre ao término da escrita da frase. Se um botão for pressionado, essa visualização é interrompida e a mudança de tela é realizada.
 
 O fluxograma abaixo apresenta de maneira visual o processo de escrita em uma linha do LCD.
 
@@ -220,7 +221,7 @@ O fluxograma abaixo apresenta de maneira visual o processo de escrita em uma lin
 </p>
 <p align="center"><strong>Fluxograma da escrita de uma linha no Display LCD</strong></p>
 
-Para a escrita na segunda linha, o cursor é posicionado ao enviar o comando **(0xC0)**. Em seguida, realiza-se uma comparação do tamanho da frase e segue-se a mesma verificação descrita anteriormente, para o caso da primeira linha. Este processo está exemplificado no fluxograma a seguir, que trata-se da escrita nas duas linhas do Display. Após o envio de ambas as frases, uma verificação é realizada para determinar se a escrita foi concluída. Em caso afirmativo, o procedimento é encerrado. Caso contrário, ocorre o deslocamento dos caracteres da frase em questão.
+Para a escrita na segunda linha, o cursor é posicionado ao enviar o comando **(0xC0)**. Em seguida, realiza-se uma comparação do tamanho da frase e segue-se a mesma verificação descrita anteriormente, para o caso da primeira linha. Este processo está exemplificado no fluxograma a seguir, o qual trata-se da escrita nas duas linhas do display. Após o envio de ambas as frases, uma verificação é realizada para determinar se a escrita foi concluída ou não. Em caso afirmativo, o procedimento é encerrado. Caso contrário, ocorre o deslocamento dos caracteres da frase em questão.
 
 <p align="center">
   <img src="Imagens/Escrita-LCD-Duas-Linhas.jpg" alt=Fluxograma da escrita em duas linhas="300" height="300">
