@@ -145,6 +145,11 @@ Quanto à inicialização do LCD, é primordial configurar o controlador no modo
 
 Abaixo, apresenta-se o fluxograma da inicialização do LCD, resumindo de maneira clara o passo a passo desse processo e seu fluxo.
 
+<p align="center">
+  <img src="Imagens/Inicializacao_LCD.jpg" alt=Fluxograma da inicialização do LCD="300" height="300">
+</p>
+<p align="center"><strong>Fluxograma da inicialização do Display LCD</strong></p>
+
 </p>
 </div>
 
