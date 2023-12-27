@@ -48,7 +48,15 @@ O gerenciamento da memória física é uma função desempenhada pelo sistema op
 
 Para acessar a memória física, o processo inicia-se ao entrar no diretório /dev/mem, onde as seções desejadas da memória estão localizadas. Em seguida, é necessário fornecer ao sistema operacional um endereço de memória física. A execução de uma System Call ocorre, momento em que o sistema operacional verifica se o endereço está presente na tabela de páginas ou no buffer Translation Lookaside Buffer (TLB). Se não estiver, o sistema operacional acessa diretamente a memória, recuperando o dado armazenado na posição endereçada. A página e o TLB são atualizados, e ao usuário é concedida uma referência virtual para acessar a memória física.
 
-Segue anexo um fluxograma que ilustra os passos utilizados, acompanhado de uma tabela detalhando as System Calls empregadas no projeto.
+Para o desenvolvimento do projeto, foram empregadas três chamadas de sistema (*syscall*), sendo que duas delas são destinadas à manipulação da memória:
+
+1. **sys_open**: Esta chamada é utilizada para abrir o arquivo cujo caminho foi especificado (dev/mem), permitindo o acesso e manipulação das áreas desejadas da memória.
+
+2. **sys_map2**: Essa chamada de sistema é responsável por mapear um endereço físico, juntamente com as informações de permissões do arquivo, e retorna a referência de memória virtual associada.
+
+3. **sys_nanosleep**: Essa chamada de sistema proporciona uma pausa no processador por um período de tempo especificado (n), contribuindo para a gestão temporal e sincronização de operações no projeto.
+
+Segue anexo um fluxograma que ilustra os passos utilizados.
 
 <p align="center">
   <img src="Imagens/Map-MemSO.png" />
