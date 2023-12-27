@@ -118,7 +118,7 @@ Na fase inicial do projeto, o processo de inicialização segue a atribuição d
 <p align="justify"> 
 
 O display LCD utilizado pode ser configurado para ser acionado sob o controle de um microprocessador de 4 ou 8 bits. No modo de 8 bits, os oito pinos de dados são usados para escrever informações de maneira paralela, enquanto no modo de 4 bits os dados são processados em duas etapas: primeiramente, é transmitido um conjunto de 4 bits de informações, e depois os 4 bits restantes. 
-	
+
 <h3>Inicialização do LCD</h3>	
 
 Quanto à inicialização do LCD, é primordial configurar o controlador no modo de 4 bits, uma vez que ele inicia automaticamente no modo de 8 bits, independentemente do número de linhas de dados conectadas entre o controlador e o módulo LCD. O procedimento de inicialização é delineado da seguinte forma:
@@ -149,6 +149,14 @@ Abaixo, apresenta-se o fluxograma da inicialização do LCD, resumindo de maneir
   <img src="Imagens/Inicializacao_LCD.jpg" alt=Fluxograma da inicialização do LCD="300" height="300">
 </p>
 <p align="center"><strong>Fluxograma da inicialização do Display LCD</strong></p>
+
+<h3>Escrita no LCD</h3>
+
+No que refere-se à fase de escrita, o procedimento inicial é a posição do cursor na primeira linha, através do envio do comando **(0x80)**. Posteriormente, utiliza-se uma função específica para transmitir a frase ao LCD. Se a extensão da frase for inferior a 17 caracteres, a escrita é efetuada diretamente no LCD. No entanto, caso a frase exceda esse limite, realiza-se um deslocamento dos caracteres até que a totalidade da mensagem seja visível. O retorno ao ponto inicial ocorre ao término da escrita da frase. Caso um botão seja pressionado, essa visualização é interrompida e a mudança de tela é realizada.
+
+O fluxograma abaixo apresenta de maneira visual o processo de escrita em uma linha do LCD.
+
+Para a escrita na segunda linha, o cursor é posicionado ao enviar o comando **(0xC0)**. Em seguida, realiza-se uma comparação do tamanho da frase e segue-se a mesma verificação descrita anteriormente, para o caso da primeira linha. Este processo está exemplificado no fluxograma a seguir, que trata-se da escrita nas duas linhas do Display. Após o envio de ambas as frases, uma verificação é realizada para determinar se a escrita foi concluída. Em caso afirmativo, o procedimento é encerrado. Caso contrário, ocorre o deslocamento dos caracteres da frase em questão.
 
 </p>
 </div>
