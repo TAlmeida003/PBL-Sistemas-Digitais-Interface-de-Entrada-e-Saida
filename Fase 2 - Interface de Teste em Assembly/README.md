@@ -156,7 +156,17 @@ No que refere-se à fase de escrita, o procedimento inicial é a posição do cu
 
 O fluxograma abaixo apresenta de maneira visual o processo de escrita em uma linha do LCD.
 
+<p align="center">
+  <img src="Imagens/Escrita-LCD-Uma-Linha.jpg" alt=Fluxograma escrita em uma linha="300" height="300">
+</p>
+<p align="center"><strong>Fluxograma da escrita de uma linha no Display LCD</strong></p>
+
 Para a escrita na segunda linha, o cursor é posicionado ao enviar o comando **(0xC0)**. Em seguida, realiza-se uma comparação do tamanho da frase e segue-se a mesma verificação descrita anteriormente, para o caso da primeira linha. Este processo está exemplificado no fluxograma a seguir, que trata-se da escrita nas duas linhas do Display. Após o envio de ambas as frases, uma verificação é realizada para determinar se a escrita foi concluída. Em caso afirmativo, o procedimento é encerrado. Caso contrário, ocorre o deslocamento dos caracteres da frase em questão.
+
+<p align="center">
+  <img src="Imagens/Escrita-LCD-Duas-Linhas.jpg" alt=Fluxograma da escrita em duas linhas="300" height="300">
+</p>
+<p align="center"><strong>Fluxograma da escrita em duas linhas no Display LCD</strong></p>
 
 </p>
 </div>
