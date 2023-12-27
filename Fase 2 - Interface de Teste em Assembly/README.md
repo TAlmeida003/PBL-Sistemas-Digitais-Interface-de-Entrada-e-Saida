@@ -50,6 +50,11 @@ Para acessar a memória física, o processo inicia-se ao entrar no diretório /d
 
 Segue anexo um fluxograma que ilustra os passos utilizados, acompanhado de uma tabela detalhando as System Calls empregadas no projeto.
 
+<p align="center">
+  <img src="Imagens/Map-MemSO.png" />
+</p>
+<p align="center"><strong> Fluxograma do mapeamento de memória em nível de software </strong> </p>
+
 <h3> Mapeamento a nível de Hardware</h3>
 
 Ao buscar os dados armazenados na memória física através do barramento de sistema solicitado pela CPU, os dados passam por um decodificador/controlador de endereços que sinaliza a localização do dado solicitado. O controlador envia um sinal de controle para o local solicitado, podendo ser a memória principal, um registrador da General Purpose Input/Output (GPIO) ou até um registrador de dados hardware específicos, como a Universal Asynchronous Receiver-Transmitter (UART). Mesmo tendo um endereço de memória física, os dados obtidos do mapeamento não estão presentes na memória principal, mas sim em locais separados e específicos para suas funções.
@@ -65,11 +70,13 @@ Segue em anexo um diagrama de uma versão simplificada do processo descrito.
 
 A Entrada/Saída de Propósito Geral (GPIO) representa uma interface com pinos que podem ser configurados tanto como entrada quanto como saída de dados, conferindo flexibilidade para interagir com componentes externos no sistema digital da SBC Orange Pi PC Plus. Além disso, destaca-se a presença de hardware integrado na pinagem, oferecendo opções adicionais de configuração para os pinos. No total, são disponibilizados 28 pinos, divididos em 7 tipos (PA, PC, PD, PE, PF, PG e PL). Esses pinos podem ser manipulados tanto a nível de software quanto diretamente via registrado.
 
-Para atender aos objetivos do projeto, foram utilizados apenas 11 pinos, sendo 7 do tipo PA e 4 do tipo PG. Esses pinos foram distribuídos em diversas funcionalidades específicas: 2 pinos do tipo PA foram dedicados à comunicação via padrão Universal Asynchronous Receiver/Transmitter (UART); 6 pinos foram alocados para o controle do LCD, sendo 2 do tipo PA e 4 do tipo PG; e os 3 pinos restantes do tipo PA foram destinados aos botões de controle da interface do projeto.
+Para atender aos objetivos do projeto, foram utilizados apenas 11 pinos, sendo 7 do tipo PA e 4 do tipo PG. Esses pinos foram distribuídos em diversas funcionalidades específicas: 2 pinos do tipo PA foram dedicados à comunicação via padrão UART; 6 pinos foram alocados para o controle do LCD, sendo 2 do tipo PA e 4 do tipo PG; e os 3 pinos restantes do tipo PA foram destinados aos botões de controle da interface do projeto.
 
 Para visualizar a distribuição dos pinos e suas funções designadas, está anexado uma imagem apresentando o diagrama de pinagem da Orange Pi, destacando os pinos utilizados e suas respectivas funções na resolução do problema.
 
-![Alt text](Imagens/Diagrama-pinos.png)
+<p align="center">
+  <img src="Imagens/Diagrama-pinos.png" />
+</p>
 <p align="center"><strong> Diagrama da pinagem da Orange Pi e as respectivos funções de cada pino no projeto</strong> </p>
 
 <h3>Configuração da Direção do Pino</h3>	
@@ -84,7 +91,9 @@ Na solução adotada para o projeto, optou-se por configurar os pinos de acordo 
 
 A atribuição desses valores foi realizada seguindo uma sequência lógica de 4 passos. Nesse sentido, segue em anexo um fluxograma que ilustra a lógica utilizada, bem como a explicação dos passos:
 
-![Alt text](Imagens/Diracao-do-pino.png)
+<p align="center">
+  <img src="Imagens/Diracao-do-pino.png" />
+</p>
 <p align="center"><strong> Fluxograma da configuração da direção do pino </strong> </p>
 
 O processo de atribuição desses valores segue uma lógica em quatro passos. Inicialmente, o fluxograma inicia-se com uma solicitação ao Sistema Operacional por meio de uma *syscall*, buscando a referência virtual do endereço base da GPIO. Uma vez obtido esse endereço, realiza-se um deslocamento dentro da página da GPIO para encontrar o *offset* onde está localizado o registrador da direção. Dado que existem múltiplas referências de direção nesse registrador, é necessário um deslocamento adicional para localizar os 3 bits correspondentes ao pino desejado. Por fim, esses 3 bits são adicionados ao local apropriado e salvos no registrador, configurando assim a direção desejada para o pino.
@@ -96,7 +105,9 @@ O processo de leitura ou escrita de um pino na GPIO segue uma abordagem semelhan
 
 Para compreender melhor o fluxo de escrita ou leitura dos valores dos pinos na Orange Pi, segue um fluxograma explicativo:
 
-![Alt text](Imagens/Leitura-escrita-pino.png)
+<p align="center">
+  <img src="Imagens/Leitura-escrita-pino.png" />
+</p>
 <p align="center"><strong> Fluxograma da leitura/escrita do valor lógico do pino</strong> </p>
  
 O fluxograma inicia-se com uma solicitação ao Sistema Operacional por meio de uma *syscall*, buscando a referência virtual do endereço base da GPIO. Após adquirir o endereço, há um deslocamento dentro da página para encontrar o *offset* do registrador de dados. Considerando que existem múltiplas referências desse registrador, um deslocamento adicional é necessário para localizar o bit correspondente ao pino desejado. Uma vez identificado o local correto, o valor lógico do pino é escrito ou lido, dependendo da operação desejada. Este processo é concluído ao salvar ou recuperar o valor no registrador, ajustando assim o estado lógico do pino conforme necessário.
