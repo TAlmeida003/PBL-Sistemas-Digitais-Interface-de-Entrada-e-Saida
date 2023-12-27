@@ -19,7 +19,7 @@
         <li><a href="#"> Mapeamento de memória</a></li>
         <li><a href="#GPIO"> GPIO </a></li>
         <li><a href="#"> UART </a></li>
-        <li><a href="#"> Display LCD </a></li>
+        <li><a href="#displayLCD"> Display LCD </a></li>
         <li><a href="#"> Solução Geral do projeto </a></li>
         <li><a href="#"> Testes Realizados </a></li>
         <li><a href="#"> Conclusão </a></li>
@@ -110,13 +110,45 @@ Na fase inicial do projeto, o processo de inicialização segue a atribuição d
 </p>
 </div>
 
-<div id=""> 
+<!-- DISPLAY LCD -->
+
+<div id="displayLCD"> 
 <h2> Display LCD</h2>
 
 <p align="justify"> 
 
+O display LCD utilizado pode ser configurado para ser acionado sob o controle de um microprocessador de 4 ou 8 bits. No modo de 8 bits, os oito pinos de dados são usados para escrever informações de maneira paralela, enquanto no modo de 4 bits os dados são processados em duas etapas: primeiramente, é transmitido um conjunto de 4 bits de informações, e depois os 4 bits restantes. 
+	
+<h3>Inicialização do LCD</h3>	
+
+Quanto à inicialização do LCD, é primordial configurar o controlador no modo de 4 bits, uma vez que ele inicia automaticamente no modo de 8 bits, independentemente do número de linhas de dados conectadas entre o controlador e o módulo LCD. O procedimento de inicialização é delineado da seguinte forma:
+
+1. Ao aplicar a energia pela primeira vez, é necessário aguardar 100 ms, pois a ativação requer um atraso significativo;
+
+2. Os quatro passos subsequentes são semelhantes e constituem a configuração do modo de 4 bits. No primeiro passo, envia-se o comando SET **(0x03)** para reiniciar efetivamente o controlador do LCD, sendo os 4 bits inferiores irrelevantes no modo de 4 bits. Após o envio da função, é necessário um atraso de 5 ms;
+
+3. Na segunda instância do comando SET **(0x03)**, é exigido um atraso de 150 µs;
+
+4. Na terceira instância, o tempo de atraso é o mesmo, mas o controlador já reconhece que se trata de uma função de *reset* e está pronto para receber a instrução "real";
+
+5. Por fim, é enviado o comando SET **(0x02)** para entrar no modo de 4 bits, indicando que o controlador LCD lerá apenas os quatro pinos de dados superiores a cada uso do Enable. O atraso necessário nesse envio é de 150 µs;
+
+6. Em seguida, envia-se o comando para habilitar as duas linhas **(0x28)**;
+
+7. Posteriormente, o comando de controle *liga/desliga* do display **(0x08)** é utilizado para desligar o display;
+
+8. Após isso, procede-se à limpeza do display **(0x01)**;
+
+9. A instrução subsequente configura o modo de entrada, determinando que o cursor e/ou display deve mover-se à direita ao inserir uma sequência de caracteres **(0x06)**;
+
+10. A sequência de inicialização é concluída, sendo crucial notar que o display permanece ligado. Como último passo, envia-se a instrução para ligar o display e apagar o cursor **(0x0C)**.
+
+Abaixo, apresenta-se o fluxograma da inicialização do LCD, resumindo de maneira clara o passo a passo desse processo e seu fluxo.
+
 </p>
 </div>
+
+<!-- SOLUÇÃO GERAL DO PROJETO -->
 
 <div id=""> 
 <h2> Solução Geral do projeto</h2>
