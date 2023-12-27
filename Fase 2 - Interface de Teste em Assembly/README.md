@@ -55,7 +55,7 @@ Para visualizar a distribuição dos pinos e suas funções designadas, está an
 ![Alt text](Imagens/Diagrama-pinos.png)
 <p align="center"><strong> Diagrama da pinagem da Orange Pi e as respectivos funções de cada pino no projeto</strong> </p>
 
-**Configuração da Direção do Pino**
+<h3>Configuração da Direção do Pino</h3>	
 
 Para empregar cada pino com suas funções designadas, é essencial configurar a direção de cada pino individualmente. A definição da direção do pino é realizada por meio da manipulação de registradores. Nesse contexto, cada pino tem 3 bits reservados nos registradores para indicar seu comportamento. Importante notar que nem todos os pinos oferecem as mesmas opções de seleção, pois alguns estão reservados para funções específicas, como no caso da UART.
 
@@ -68,20 +68,23 @@ Na solução adotada para o projeto, optou-se por configurar os pinos de acordo 
 A atribuição desses valores foi realizada seguindo uma sequência lógica de 4 passos. Nesse sentido, segue em anexo um fluxograma que ilustra a lógica utilizada, bem como a explicação dos passos:
 
 ![Alt text](Imagens/Diracao-do-pino.png)
+<p align="center"><strong> Fluxograma da configuração da direção do pino </strong> </p>
 
-O processo de atribuição desses valores segue uma lógica em quatro passos. Inicialmente, o fluxograma inicia-se com uma solicitação ao Sistema Operacional por meio de uma *syscall*, buscando a referência virtual do endereço base da GPIO. Uma vez obtido esse endereço, realiza-se um deslocamento dentro da página da GPIO para encontrar o offset onde está localizado o registrador da direção. Dado que existem múltiplas referências de direção nesse registrador, é necessário um deslocamento adicional para localizar os 3 bits correspondentes ao pino desejado. Por fim, esses 3 bits são adicionados ao local apropriado e salvos no registrador, configurando assim a direção desejada para o pino.
+O processo de atribuição desses valores segue uma lógica em quatro passos. Inicialmente, o fluxograma inicia-se com uma solicitação ao Sistema Operacional por meio de uma *syscall*, buscando a referência virtual do endereço base da GPIO. Uma vez obtido esse endereço, realiza-se um deslocamento dentro da página da GPIO para encontrar o *offset* onde está localizado o registrador da direção. Dado que existem múltiplas referências de direção nesse registrador, é necessário um deslocamento adicional para localizar os 3 bits correspondentes ao pino desejado. Por fim, esses 3 bits são adicionados ao local apropriado e salvos no registrador, configurando assim a direção desejada para o pino.
 
-**Leitura/Escrita do Valor Lógico do Pino**
+
+<h3>Leitura/Escrita do Valor Lógico do Pino</h3>	
 
 O processo de leitura ou escrita de um pino na GPIO segue uma abordagem semelhante à configuração da direção do pino. Nesse contexto, o valor lógico do pino é representado por um único bit, armazenado em um registrador na memória física, exclusivamente designado para os dados dos pinos. Cabe ressaltar que esse registrador de dados é organizado por tipos de pinos, com os tipos PA sendo alocados em um registrador diferente dos pinos PG. Além disso, dentro do registrador, os dados são organizados tendo a referência do pino, por exemplo, o pino PA0 é guardado na posição 0 do registrador.
 
 Para compreender melhor o fluxo de escrita ou leitura dos valores dos pinos na Orange Pi, segue um fluxograma explicativo:
 
 ![Alt text](Imagens/Leitura-escrita-pino.png)
+<p align="center"><strong> Fluxograma da leitura/escrita do valor lógico do pino</strong> </p>
  
-O fluxograma inicia-se com uma solicitação ao Sistema Operacional por meio de uma *syscall*, buscando a referência virtual do endereço base da GPIO. Após adquirir o endereço, há um deslocamento dentro da página para encontrar o offset do registrador de dados. Considerando que existem múltiplas referências desse registrador, um deslocamento adicional é necessário para localizar o bit correspondente ao pino desejado. Uma vez identificado o local correto, o valor lógico do pino é escrito ou lido, dependendo da operação desejada. Este processo é concluído ao salvar ou recuperar o valor no registrador, ajustando assim o estado lógico do pino conforme necessário.
+O fluxograma inicia-se com uma solicitação ao Sistema Operacional por meio de uma *syscall*, buscando a referência virtual do endereço base da GPIO. Após adquirir o endereço, há um deslocamento dentro da página para encontrar o *offset* do registrador de dados. Considerando que existem múltiplas referências desse registrador, um deslocamento adicional é necessário para localizar o bit correspondente ao pino desejado. Uma vez identificado o local correto, o valor lógico do pino é escrito ou lido, dependendo da operação desejada. Este processo é concluído ao salvar ou recuperar o valor no registrador, ajustando assim o estado lógico do pino conforme necessário.
 
-**Inicialização da GPIO no Projeto**
+<h3>Inicialização da GPIO no Projeto</h3>	
 
 Na fase inicial do projeto, o processo de inicialização segue a atribuição de direção para os 11 pinos essenciais. Para fornecer uma visão clara dessa configuração, apresenta-se a seguir uma tabela detalhando a relação entre a pinagem utilizada e suas respectivas direções:
 
@@ -99,6 +102,9 @@ Na fase inicial do projeto, o processo de inicialização segue a atribuição d
 | PG6 	  | Output   |  D6 (LCD)|
 | PG7  	  | Output   |  D7 (LCD)|
 
+<p align="center">
+<strong> Tabela com as direções e funções de cada pino</strong> </p>
+ 
 </p>
 </div>
 
@@ -221,6 +227,34 @@ Após a seleção do comando, a navegação prossegue para a tela de endereço, 
 
 <p align="justify"> 
 
+</p>
+</div>
+
+<div id=""> 
+<h2> Execução do Projeto</h2>
+ 
+<p align="justify"> 
+
+Para iniciar o projeto, siga os passos abaixo para obter o código-fonte, compilar o código Assembly e configurar a parte da FPGA para o controle do sensor em um dispositivo SBC Orange Pi PC Plus.
+
+**Passo 1: Clonar o Repositório**
+Abra o terminal e execute o seguinte comando para obter o código do repositório:
+
+    git clone https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida.git
+
+**Passo 2: Acessar o Diretório e Compilar o Código Assembly**
+
+    cd PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida\Fase 2 - Interface de Teste em Assembly\Assembly
+
+Compile o código usando o comando:
+
+    make all
+  
+**Passo 3: Configurar a FPGA para o Controle do Sensor**
+
+Para realizar a configuração da FPGA visando o controle do sensor, consulte o arquivo README para obter instruções detalhadas. . O README está disponível no seguinte link:
+
+    https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/blob/main/README.md    
 </p>
 </div>
 
