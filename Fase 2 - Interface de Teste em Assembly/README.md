@@ -141,7 +141,9 @@ Com o sinal de clock correto habilitado e o reset desativado, os dados de config
 
 Seguindo os passos de habilitação e configuração da UART, os bytes podem ser lidos e recebidos normalmente. Abaixo, está o fluxograma que apresenta, de forma resumida, o processo explicado.
 
-![Alt text](Imagens/Habilitacao-configuracao-UART.jpg)
+<p align="center">
+  <img src="Imagens/Habilitacao-configuracao-UART.jpg" width = "600" />
+</p>
 <p align="center"><strong>Fluxograma da Habilitação e configuração da UART</strong></p>
 
 <h3>Cálculo do baud rate</h3>	
