@@ -33,7 +33,7 @@ Os requisitos para elaboração do sistema são apresentados a seguir:
         <li><a href="#UART"> UART </a></li>
         <li><a href="#displayLCD"> Display LCD </a></li>
         <li><a href="#interfaceUsuario"> Interface do Usuário </a></li>
-        <li><a href="#"> Solução Geral do projeto </a></li>
+        <li><a href="#solucao-geral"> Solução Geral do projeto </a></li>
         <li><a href="#"> Testes Realizados </a></li>
         <li><a href="#"> Conclusão </a></li>
         <li><a href="#"> Execução do projeto </a></li>
@@ -341,11 +341,25 @@ O fluxo abrangente do sistema é apresentado na imagem abaixo, delineando todos 
 
 <!-- SOLUÇÃO GERAL DO PROJETO -->
 
-<div id=""> 
+<div id="solucao-geral"> 
 <h2> Solução Geral do projeto</h2>
 
 <p align="justify"> 
 
+A solução integral implementada neste sistema evidencia sua completa capacidade em atender a todas as demandas específicas. Antes de ingressar no loop principal, são atribuídos valores iniciais aos três registradores que representam a tela atual, o comando selecionado e o endereço selecionado. Adicionalmente, o software inicia o processo inicializando a GPIO, atribuindo direções aos 11 pinos utilizados, configurando a UART para comunicação serial, e ajustando o LCD para a configuração de 4 bits, abrangendo as duas linhas de exibição.
+
+No interior do loop principal, o sistema inicia buscando e exibindo a tela correspondente ao registrador de tela atual. Após a exibição, passa para a fase de verificação para determinar se é necessária uma troca de tela. Nesse contexto, são inicialmente avaliados os casos de troca de tela que não envolvem o clique dos botões: a transição para o modo contínuo em caso de dados inesperados (indicando que o modo contínuo está ativo) e a espera dos dados serem recebidos (por 2,5 segundos). No último caso, além da troca para a tela de resposta, ocorre a transmissão e recebimento de dados.
+
+Antes de fazer a verificação dos botões, é verificado se o sistema está na tela de modo contínuo (seja de temperatura ou umidade). Se estiver, ele aguarda por 2,5 segundos, e durante essa contagem, verifica se houve algum clique de botão, realizando as trocas necessárias.
+
+Após essas verificações, são analisados os casos de troca de tela associados aos botões, possibilitando avançar, retroceder ou trocar de opção. Após a execução ou não da troca de tela, o sistema retorna ao início do loop principal.
+
+Para uma compreensão mais clara da explicação, apresentamos abaixo um fluxograma detalhando o algoritmo utilizado na solução geral.
+
+<p align="center">
+  <img src="Imagens/Solucao-Geral.png">
+</p>
+<p align="center"><strong> Fluxograma da solução geral do problema </strong></p>
 </p>
 </div>
 
