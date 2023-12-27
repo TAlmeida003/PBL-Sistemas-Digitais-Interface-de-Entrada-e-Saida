@@ -208,7 +208,7 @@ _loop_update:                                @ Aguardando o bit de update reseta
 @;;                            Enviando byte pela UART                               ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-@ Parametro: R0 - Byte a ser enviado pelo TX
+@ Parametro: R0 - Byte a ser enviado pelo TX; R9 - endereço base da UART 3
 @ Sem Retorno
 
 TX_UART:
@@ -222,7 +222,7 @@ TX_UART:
 @;;                           Recebendo byte pela UART                               ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-@ Sem Parametro
+@ Parametro: R9 - endereço base da UART 3
 @ Retorno: R0 - Byte lido pelo RX
 
 RX_UART:
@@ -236,7 +236,7 @@ RX_UART:
 @;;                       Checando se o FIFO do RX está vazio                        ;;
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-@ Sem Parametro
+@ Parametro: R9 - endereço base da UART 3
 @ Retorno: R0 - Retorna se o FIFO do RX está vazio ou não. Se R0 for 0, o FIFO está vazio, se for 1, não está
 
 CHECK_EMPTY_RX_UART:
