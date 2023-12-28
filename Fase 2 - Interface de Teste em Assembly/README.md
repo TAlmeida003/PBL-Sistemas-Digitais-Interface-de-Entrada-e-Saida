@@ -50,6 +50,11 @@ Os requisitos para elaboração do sistema são apresentados a seguir:
 <h2> Descrição dos equipamentos e software utilizados</h2>
 <div align="justify"> 
 
+Para o funcionamento do projeto, diversos equipamentos foram necessários, incluindo um display LCD, botões e outros dispositivos programáveis, juntamente com conexões de fios importantes para as operações de envio e recebimento de dados. Na ilustração a seguir, é possível observar como esses elementos estão distribuídos em uma placa protoboard.
+
+<p align="center">
+  <img src="Imagens/Organizacao_dos-Equipamentos.jpg" width = "600" />
+</p>
 
 **SBC (Orange Pi PC Plus)**
 
