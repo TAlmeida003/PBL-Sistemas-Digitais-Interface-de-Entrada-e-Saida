@@ -21,10 +21,10 @@ Os requisitos para elaboração do sistema são apresentados a seguir:
 
 <h2>  Equipe: <br></h2>
 <uL> 
-	<li>Samara dos Santos Ferreira<br></li>
-	<li>Silvio Azevedo de Oliveira<br></li>
-	<li>Sival Leão de Jesus<br></li>
-  <li>Thiago Neri dos Santos Almeida<br></li>
+  <li><a href="https://github.com/Samara-Ferreira">Samara dos Santos Ferreira</a></li>
+  <li><a href="https://github.com/Silviozv">Silvio Azevedo de Oliveira</a></li>
+  <li><a href="https://github.com/SivalLeao">Sival Leão de Jesus</a></li>
+  <li><a href="https://github.com/TAlmeida003">Thiago Neri dos Santos Almeida</a></li>
 </ul>
 
 <h1 align="center"> Sumário </h1>
