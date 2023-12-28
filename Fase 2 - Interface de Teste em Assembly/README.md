@@ -522,6 +522,10 @@ Para uma compreensão mais clara da explicação, apresentamos abaixo um fluxogr
 
 <p align="justify"> 
 
+<p align="center">
+  <video src='Testes/Comando 1.mp4'>
+</p>
+
 </p>
 </div>
 
