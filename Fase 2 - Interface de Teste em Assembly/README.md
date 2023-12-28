@@ -1,6 +1,7 @@
 <h1 align="center"> Sistema de Temperatura e Umidade </h1>
 <h3 align="center"> Projeto de interface homem-máquina em Orange Pi PC Plus usando linguagem Assembly  </h3>
 
+<div align="justify"> 
 <div id="sobre-o-projeto"> 
 <h2> Sobre o Projeto</h2>
 
@@ -16,6 +17,8 @@ Os requisitos para elaboração do sistema são apresentados a seguir:
 * O código em verilog carregado na placa FPGA Cyclone IV deve ser o mesmo desenvolvido na Fase 1;
 * O protocolo seguido na comunicação da Orange Pi com a FPGA também deve ser o mesmo desenvolvido na Fase 1.
 
+</div>
+
 <h2>  Equipe: <br></h2>
 <uL> 
 	<li>Samara dos Santos Ferreira<br></li>
@@ -28,7 +31,7 @@ Os requisitos para elaboração do sistema são apresentados a seguir:
 <div id="sumario">
 	<ul>
         <li><a href="#">  Descrição dos equipamentos e software utilizados</a></li>
-        <li><a href="#"> Mapeamento de memória</a></li>
+        <li><a href="#map"> Mapeamento de memória</a></li>
         <li><a href="#GPIO"> GPIO </a></li>
         <li><a href="#UART"> UART </a></li>
         <li><a href="#displayLCD"> Display LCD </a></li>
@@ -43,7 +46,7 @@ Os requisitos para elaboração do sistema são apresentados a seguir:
 
 <div id=""> 
 <h2> Descrição dos equipamentos e software utilizados</h2>
-<p align="justify"> 
+<div align="justify"> 
 
 
 **SBC (Orange Pi PC Plus)**
@@ -81,12 +84,12 @@ Na fase 2 do projeto, manteve-se a utilização do projeto desenvolvido na fase 
 
 A interação com o sensor DHT11 tem como objetivo fundamental a coleta de dados. Após interpretar os comandos e efetuar a comunicação com o sensor, a Placa FPGA Cyclone IV assume a responsabilidade de enviar de volta à Orange Pi PC Plus o comando de resposta pertinente. Este retorno informa sobre a temperatura, umidade ou eventuais erros de leitura ou funcionamento do sensor, levando em consideração os dados fornecidos pelo sensor e as ações executadas.
 
-</p>
+</div>
 </div>
 
 <div id=""> 
 <h2> Arquitetura do Processador</h2>
-<p align="justify"> 
+<div align="justify"> 
 
 A Orange Pi PC Plus utiliza um processador Allwinner H3 Quad-core Cortex-A7, baseado na arquitetura ARM, especificamente na ARMv7-A. Esse processador oferece suporte a implementações em uma ampla gama de pontos de desempenho. A simplicidade inerente aos processadores ARM resulta em implementações compactas, contribuindo para a eficiência do espaço e permitindo que dispositivos alcancem níveis baixos de consumo de energia.
 
@@ -131,12 +134,12 @@ Essa arquitetura ARM dispõe de 13 registradores gerais de 32 bits, numerados de
     6. **Quatro inteiros de 8 bits empacotados em um registro.**
     7. **Inteiros de 64 bits:** Podem ser assinados ou não assinados, mantidos em dois registros.
 
-</p>
+</div>
 </div>
 
 <div id=""> 
 <h2> Conjunto de instruções utilizadas</h2>
-<p align="justify"> 
+<div align="justify"> 
 
  A programação da Orange Pi PC Plus foi conduzida utilizando linguagem assembly, na qual foram empregadas diversas instruções no desenvolvimento do sistema.
 
@@ -199,11 +202,11 @@ Essa arquitetura ARM dispõe de 13 registradores gerais de 32 bits, numerados de
 * **LT** - Menor que
 
 
-</p>
+</div>
 </div>
 <div id="map"> 
 <h2> Mapeamento de memória</h2>
-<p align="justify"> 
+<div align="justify"> 
 
 O mapeamento de memória é uma técnica que visa organizar e gerenciar o espaço de endereçamento na memória física. Neste contexto, explora-se como esse conceito é aplicado no desenvolvimento do projeto, abrangendo tanto o âmbito do software quanto o hardware.
 
@@ -234,7 +237,12 @@ Ao buscar os dados armazenados na memória física através do barramento de sis
 
 Segue em anexo um diagrama de uma versão simplificada do processo descrito. 
 
+<p align="center">
+  <img src="Imagens/Map-MemHard.png" width = "600" />
 </p>
+<p align="center"><strong> Diagrama em blocos do mapeamento de memória em nível de harware </strong> </p>
+
+</div>
 </div>
 
 <div id="GPIO"> 
@@ -248,7 +256,7 @@ Para atender aos objetivos do projeto, foram utilizados apenas 11 pinos, sendo 7
 Para visualizar a distribuição dos pinos e suas funções designadas, está anexado uma imagem apresentando o diagrama de pinagem da Orange Pi, destacando os pinos utilizados e suas respectivas funções na resolução do problema.
 
 <p align="center">
-  <img src="Imagens/Diagrama-pinos.png" />
+  <img src="Imagens/Diagrama-pinos.png" width = "600"/>
 </p>
 <p align="center"><strong> Diagrama da pinagem da Orange Pi e as respectivos funções de cada pino no projeto</strong> </p>
 
@@ -265,7 +273,7 @@ Na solução adotada para o projeto, optou-se por configurar os pinos de acordo 
 A atribuição desses valores foi realizada seguindo uma sequência lógica de 4 passos. Nesse sentido, segue em anexo um fluxograma que ilustra a lógica utilizada, bem como a explicação dos passos:
 
 <p align="center">
-  <img src="Imagens/Diracao-do-pino.png" />
+  <img src="Imagens/Diracao-do-pino.png" width = "600"/>
 </p>
 <p align="center"><strong> Fluxograma da configuração da direção do pino </strong> </p>
 
@@ -279,7 +287,7 @@ O processo de leitura ou escrita de um pino na GPIO segue uma abordagem semelhan
 Para compreender melhor o fluxo de escrita ou leitura dos valores dos pinos na Orange Pi, segue um fluxograma explicativo:
 
 <p align="center">
-  <img src="Imagens/Leitura-escrita-pino.png" />
+  <img src="Imagens/Leitura-escrita-pino.png" width = "600"/>
 </p>
 <p align="center"><strong> Fluxograma da leitura/escrita do valor lógico do pino</strong> </p>
  
@@ -289,7 +297,7 @@ O fluxograma inicia-se com uma solicitação ao sistema operacional por meio de 
 
 Na fase inicial do projeto, o processo de inicialização segue a atribuição de direção para os 11 pinos essenciais. Para fornecer uma visão clara dessa configuração, apresenta-se a seguir uma tabela detalhando a relação entre a pinagem utilizada e suas respectivas direções:
 
-<p align="center">
+<div align="center">
 
 | Pino  	| Modo     | Correspondente	|
 | ------------- | ------------- | ------------- |
@@ -304,7 +312,7 @@ Na fase inicial do projeto, o processo de inicialização segue a atribuição d
 | PG9	    | Output   |  D5 (LCD)|
 | PG6 	  | Output   |  D6 (LCD)|
 | PG7  	  | Output   |  D7 (LCD)|
-</p>
+</div>
 
 <p align="center">
 <strong> Tabela com as direções e funções de cada pino</strong> </p>
@@ -315,7 +323,7 @@ Na fase inicial do projeto, o processo de inicialização segue a atribuição d
 <div id="UART"> 
 <h2> UART</h2>
 
-<p align="justify"> 
+<div align="justify"> 
 
 A Orange Pi PC Plus possui um sistema que possibilita realizar comunicação serial, seguindo o protocolo UART para troca de dados. Existe mais de uma UART que pode ser utilizada, cada uma possuindo suas próprias portas de entrada e de saída de dados. A que foi usada no sistema foi a UART 3.
 
@@ -369,7 +377,7 @@ Foram utilizadas 3 funções para acessar a UART. Elas são explicadas a seguir:
   * RX_UART: recebe como parâmetro o R9 com o endereço base da UART 3. Essa função lê um byte do endereço RBR (0x0000) da UART 3, que tem a função de acessar o FIFO de recebimento da comunicação serial. O byte lido é retornado em R0.
   * CHECK_EMPTY_RX_UART: essa função checa a situação do FIFO de recebimento de dados. Recebe como parâmetro o endereço base da UART 3 em R9. Lê o regitrador USR (0x007C), que contém os status da UART. O bit 3 indica se o FIFO de recebimento está vazio ou não. Esse bit é colocado no LSB do R0 e é retornado. Se esse bit for 0, o FIFO está vazio, se for 1, não está.
 
-</p>
+</div>
 </div>
 
 <!-- DISPLAY LCD -->
@@ -377,7 +385,7 @@ Foram utilizadas 3 funções para acessar a UART. Elas são explicadas a seguir:
 <div id="displayLCD"> 
 <h2> Display LCD</h2>
 
-<p align="justify"> 
+<div align="justify"> 
 
 O display LCD utilizado pode ser configurado para ser acionado sob o controle de um microprocessador de 4 ou 8 bits. No modo de 8 bits, os oito pinos de dados são usados para escrever informações de maneira paralela, enquanto no modo de 4 bits, os dados são processados em duas etapas: primeiramente, é transmitido um conjunto de 4 bits de informações, e depois os 4 bits restantes. 
 
@@ -431,7 +439,7 @@ Para a escrita na segunda linha, o cursor é posicionado ao enviar o comando **(
 </p>
 <p align="center"><strong>Fluxograma da escrita em duas linhas no Display LCD</strong></p>
 
-</p>
+</div>
 </div>
 
 
@@ -444,7 +452,7 @@ O fluxo normal representa a operação padrão do sistema, proporcionando ao usu
 
 Para proporcionar uma compreensão mais aprofundada, a explicação do fluxo normal e do fluxo contínuo foi segmentada, delineando os caminhos específicos que podem ser seguidos em ambas as opções.
 
-<p align="justify"> 
+<div align="justify"> 
 
 <h3>Fluxo Normal</h3>
 
@@ -492,7 +500,7 @@ O fluxo abrangente do sistema é apresentado na imagem abaixo, delineando todos 
 </p>
 <p align="center"><strong>Fluxograma da interface do usuário</strong></p>
 
-</p>
+</div>
 </div>
 
 <!-- SOLUÇÃO GERAL DO PROJETO -->
@@ -500,7 +508,7 @@ O fluxo abrangente do sistema é apresentado na imagem abaixo, delineando todos 
 <div id="solucao-geral"> 
 <h2> Solução Geral do projeto</h2>
 
-<p align="justify"> 
+<div align="justify"> 
 
 A solução integral implementada neste sistema evidencia sua completa capacidade em atender a todas as demandas específicas. Antes de ingressar no loop principal, são atribuídos valores iniciais aos três registradores que representam a tela atual, o comando selecionado e o endereço selecionado. Adicionalmente, o software inicia o processo inicializando a GPIO, atribuindo direções aos 11 pinos utilizados, configurando a UART para comunicação serial, e ajustando o LCD para a configuração de 4 bits, abrangendo as duas linhas de exibição.
 
@@ -513,32 +521,33 @@ Após essas verificações, são analisados os casos de troca de tela associados
 Para uma compreensão mais clara da explicação, apresentamos abaixo um fluxograma detalhando o algoritmo utilizado na solução geral.
 
 <p align="center">
-  <img src="Imagens/Solucao-Geral.png">
+  <img src="Imagens/Solucao-Geral.png" height="600" > 
 </p>
+
 <p align="center"><strong> Fluxograma da solução geral do problema </strong></p>
-</p>
+</div>
 </div>
 
 <div id=""> 
 <h2> Testes Realizados</h2>
 
-<p align="justify"> 
+<div align="justify"> 
 
-</p>
+</div>
 </div>
 
 <div id=""> 
 <h2> Conclusão</h2>
 
-<p align="justify"> 
+<div align="justify"> 
 
-</p>
+</div>
 </div>
 
 <div id=""> 
 <h2> Execução do Projeto</h2>
  
-<p align="justify"> 
+<div align="justify"> 
 
 Para iniciar o projeto, siga os passos abaixo para obter o código-fonte, compilar o código Assembly e configurar a parte da FPGA para o controle do sensor em um dispositivo SBC Orange Pi PC Plus.
 
@@ -560,7 +569,7 @@ Compile o código usando o comando:
 Para realizar a configuração da FPGA visando o controle do sensor, consulte o arquivo README para obter instruções detalhadas. . O README está disponível no seguinte link:
 
     https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/blob/main/README.md    
-</p>
+</div>
 </div>
 
 <div id=""> 
