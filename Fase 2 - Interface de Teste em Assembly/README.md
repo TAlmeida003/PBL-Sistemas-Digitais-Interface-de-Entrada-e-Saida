@@ -30,7 +30,9 @@ Os requisitos para elaboração do sistema são apresentados a seguir:
 <h1 align="center"> Sumário </h1>
 <div id="sumario">
 	<ul>
-        <li><a href="#">  Descrição dos equipamentos e software utilizados</a></li>
+        <li><a href="#equipamentos">  Descrição dos equipamentos e software utilizados</a></li>
+        <li><a href="#arq_CPU">  Arquitetura do Processadors</a></li>
+        <li><a href="#instrucoes">  Conjunto de instruções utilizadas</a></li>
         <li><a href="#map"> Mapeamento de memória</a></li>
         <li><a href="#GPIO"> GPIO </a></li>
         <li><a href="#UART"> UART </a></li>
@@ -44,7 +46,7 @@ Os requisitos para elaboração do sistema são apresentados a seguir:
 	</ul>	
 </div>
 
-<div id=""> 
+<div id="equipamentos"> 
 <h2> Descrição dos equipamentos e software utilizados</h2>
 <div align="justify"> 
 
@@ -87,7 +89,7 @@ A interação com o sensor DHT11 tem como objetivo fundamental a coleta de dados
 </div>
 </div>
 
-<div id=""> 
+<div id="arq_CPU"> 
 <h2> Arquitetura do Processador</h2>
 <div align="justify"> 
 
@@ -137,7 +139,7 @@ Essa arquitetura ARM dispõe de 13 registradores gerais de 32 bits, numerados de
 </div>
 </div>
 
-<div id=""> 
+<div id="instrucoes"> 
 <h2> Conjunto de instruções utilizadas</h2>
 <div align="justify"> 
 
@@ -512,7 +514,7 @@ O fluxo abrangente do sistema é apresentado na imagem abaixo, delineando todos 
 
 A solução integral implementada neste sistema evidencia sua completa capacidade em atender a todas as demandas específicas. Antes de ingressar no loop principal, são atribuídos valores iniciais aos três registradores que representam a tela atual, o comando selecionado e o endereço selecionado. Adicionalmente, o software inicia o processo inicializando a GPIO, atribuindo direções aos 11 pinos utilizados, configurando a UART para comunicação serial, e ajustando o LCD para a configuração de 4 bits, abrangendo as duas linhas de exibição.
 
-No interior do loop principal, o sistema inicia buscando e exibindo a tela correspondente ao registrador de tela atual. Após a exibição, passa para a fase de verificação para determinar se é necessária uma troca de tela. Nesse contexto, são inicialmente avaliados os casos de troca de tela que não envolvem o clique dos botões: a transição para o modo contínuo em caso de dados inesperados (indicando que o modo contínuo está ativo) e a espera dos dados serem recebidos (por 2,5 segundos). No último caso, além da troca para a tela de resposta, ocorre a transmissão e recebimento de dados.
+No interior do loop principal, o sistema inicia buscando e exibindo a tela correspondente ao registrador de tela atual. Após a exibição, passa para a fase de verificação para determinar se é necessária uma troca de tela. Nesse contexto, são inicialmente avaliados os casos de troca de tela que não envolvem o acionamento dos botões: a transição para o modo contínuo em caso de dados inesperados (indicando que o modo contínuo está ativo) e a espera dos dados serem recebidos (por 2,5 segundos). No último caso, além da troca para a tela de resposta, ocorre a transmissão e recebimento de dados.
 
 Antes de fazer a verificação dos botões, é verificado se o sistema está na tela de modo contínuo (seja de temperatura ou umidade). Se estiver, ele aguarda por 2,5 segundos, e durante essa contagem, verifica se houve algum clique de botão, realizando as trocas necessárias.
 
