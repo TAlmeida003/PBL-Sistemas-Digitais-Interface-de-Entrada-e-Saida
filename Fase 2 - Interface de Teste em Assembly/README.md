@@ -45,6 +45,42 @@ Os requisitos para elaboração do sistema são apresentados a seguir:
 <h2> Descrição dos equipamentos e software utilizados</h2>
 <p align="justify"> 
 
+
+* **SBC (Orange Pi PC Plus)**
+
+Nesta fase do projeto, a implementação foi conduzida em um sistema computacional de placa única, cuja compatibilidade estende-se a diversos sistemas operacionais, destacando-se especialmente Ubuntu, Debian, Android 4.4 e Android 7.0, todos pertencentes à família de sistemas derivados do Linux. A condução do projeto recaiu sobre a Orange Pi PC Plus, a qual integra o processador Allwinner H3 system-on-chip. Este processador, um quad-core, possui quatro núcleos de processamento de dados e opera a uma frequência máxima de 600 MHz. Notavelmente, o dispositivo dispõe de uma interface de rede integrada Ethernet 10/100 RJ45, além de oferecer 40 pinos periféricos de baixo nível.
+
+  
+  O dispositivo em questão apresenta uma capacidade de armazenamento interno de 8GB, com a possibilidade de expansão para até 32GB mediante a utilização de um cartão SD. Adicionalmente, conta com 1GB de RAM, utilizando a tecnologia de memória DDR3.
+
+  A placa em questão foi programada em Verilog, utilizando a IDE (Ambiente de Desenvolvimento Integrado) VS Code para programação e transmissão de códigos por meio da rede Wi-Fi, devido a sua rede integrada que costa na placa. O objetivo primordial desse processo de programação foi capacitar a placa para enviar e receber comandos da FPGA Cyclone IV (placa utilizada na fase 1). Isso inclui a interpretação precisa desses comandos e a execução das ações solicitadas. Essa abordagem substituiu o computador desktop que estava em uso na fase 1, marcando uma transição significativa na arquitetura do sistema.
+
+
+* **Display LCD**
+
+Para proporcionar uma interface amigável, o projeto incorpora um Display LCD (Liquid Crystal Display/Visor de Cristal Líquido) 16x2, que possui 16 colunas por 2 linhas, com iluminação de fundo em azul e caracteres em cor branca. Este display é equipado com o controlador HD44780, que é capaz de exibir caracteres alfanuméricos, alfabético e caracteres do alfabeto japonês (kana) e símbolos. O controlador pode ser configurado para ser controlado por um microprocessador de 4 ou 8 bits.
+
+Uma característica fundamental desse controlador é a inclusão interna de todas as funções necessárias para operar um display de matriz de pontos, como a RAM de exibição, o gerador de caracteres e o driver de cristal líquido. Essa integração interna simplifica a conexão de um sistema mínimo a esse controlador/driver, facilitando assim a interface com o display de matriz de pontos.
+
+Além disso, o display conta com um Gerador de Caracteres, onde o ROM (Read-Only Memory) do gerador de caracteres do HD44780U foi expandido para gerar 208 fontes de caracteres de 5 × 8 pontos e 32 fontes de caracteres de 5 × 10 pontos, totalizando 240 diferentes fontes de caracteres. Essa variedade de fontes proporciona flexibilidade na apresentação de informações no display. 
+
+
+* **Botões**
+
+Para a interação do usuário com o sistema, foram incorporados três botões micro chave de 6 x 6 x 5 mm, alinhados de maneira sequencial em uma disposição horizontal. Cada botão desempenha uma função específica, proporcionando uma interface intuitiva.
+
+O primeiro botão, situado à esquerda, possui a função de voltar/decrementar. Dependendo da tela atual exibida pelo LCD, ele permite retroceder para uma tela anterior ou decrementar um valor numérico apresentado.
+
+O segundo botão, posicionado no centro, tem a função de confirmar. Este botão atua como um validador para as ações executadas, dando o respaldo necessário para as decisões tomadas pelo usuário.
+
+O terceiro botão, localizado à direita, tem a função de incrementar. Ele possibilita o aumento de um valor numérico exibido na tela.
+
+* **Interface de entrada e saída (Fase 1)**
+
+Na fase 2 do projeto, manteve-se a utilização do projeto desenvolvido na fase 1, com foco específico na Placa FPGA Cyclone IV. Esta placa incorpora integralmente o projeto anterior, incluindo sua programação em Verilog. A função primordial da Placa FPGA Cyclone IV nesta etapa consiste em receber os comandos provenientes da Orange Pi PC Plus, interpretá-los de maneira precisa e estabelecer comunicação com o sensor de temperatura e umidade DHT11, também empregado na fase 1.
+
+A interação com o sensor DHT11 tem como objetivo fundamental a coleta de dados. Após interpretar os comandos e efetuar a comunicação com o sensor, a Placa FPGA Cyclone IV assume a responsabilidade de enviar de volta à Orange Pi PC Plus o comando de resposta pertinente. Este retorno informa sobre a temperatura, umidade ou eventuais erros de leitura ou funcionamento do sensor, levando em consideração os dados fornecidos pelo sensor e as ações executadas.
+
 </p>
 </div>
 
