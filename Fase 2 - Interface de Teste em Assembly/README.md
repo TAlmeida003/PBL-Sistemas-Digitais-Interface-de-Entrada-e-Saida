@@ -40,7 +40,7 @@ Os requisitos para elaboração do sistema são apresentados a seguir:
         <li><a href="#interfaceUsuario"> Interface do Usuário </a></li>
         <li><a href="#solucao-geral"> Solução Geral do projeto </a></li>
         <li><a href="#"> Testes Realizados </a></li>
-        <li><a href="#"> Conclusão </a></li>
+        <li><a href="#conclusao"> Conclusão </a></li>
         <li><a href="#execucaoProjeto"> Execução do projeto </a></li>
         <li><a href="#referencias"> Referências </a></li>
 	</ul>	
@@ -545,11 +545,16 @@ Para uma compreensão mais clara da explicação, apresentamos abaixo um fluxogr
 </div>
 </div>
 
-<div id=""> 
+<div id="conclusao"> 
 <h2> Conclusão</h2>
 
 <div align="justify"> 
 
+A implementação do sistema de Interface Homem-Máquina (IHM) para monitoramento de temperatura e umidade, por meio do código Assembly na Orange Pi PC Plus e a utilização do display LCD, culminou em uma interface intuitiva e eficaz, alinhada às necessidades práticas dos usuários.
+
+Ao longo do desenvolvimento, não apenas se atendeu, mas ultrapassou-se os requisitos estabelecidos, mantendo consistência na comunicação entre a Orange Pi e a FPGA, conforme requisitado na Fase 1. A integração eficiente de elementos como GPIO, UART e o Display LCD contribuiu para uma solução robusta. Os testes realizados validaram a eficiência e confiabilidade do sistema, evidenciando sua capacidade de operar em diversas condições.
+
+Este projeto proporcionou uma oportunidade valiosa para aprofundar a compreensão em arquitetura de computadores, manipulação de microcontroladores e design de interfaces focadas nas necessidades dos usuários. Em última análise, esta conquista técnica não apenas atinge seus objetivos, mas também estabelece uma base sólida para futuras explorações.
 </div>
 </div>
 
