@@ -53,7 +53,7 @@ Os requisitos para elaboração do sistema são apresentados a seguir:
 Para o funcionamento do projeto, diversos equipamentos foram necessários, incluindo um display LCD, botões e outros dispositivos programáveis, juntamente com conexões de fios importantes para as operações de envio e recebimento de dados. Na ilustração a seguir, é possível observar como esses elementos estão distribuídos em uma placa protoboard.
 
 <p align="center">
-  <img src="Imagens/Organizacao_dos-Equipamentos.jpg" width = "600" />
+  <img src="Imagens/Organizacao_dos-Equipamentos.jpeg" width = "600" />
 </p>
 
 **SBC (Orange Pi PC Plus)**
@@ -669,6 +669,14 @@ Para realizar a configuração da FPGA visando o controle do sensor, consulte o 
 
   SMITH, Stephen (2019). Raspberry Pi Assembly Language Programming: ARM Processor Coding.
 
+  Orange Pi PC Plus. Disponível em: http://www.orangepi.org/html/hardWare/computerAndMicrocontrollers/details/Orange-Pi-PC-Plus.html. Acessado em 26 de Dezembro de 2023.
+
+  ARM Architecture Reference Manual ARMv7-A and ARMv7-R edition. Disponível em: https://developer.arm.com/documentation/ddi0406/cd/?lang=en. Acessado em 26 de Dezembro de 2023.
+
+  Learn the architecture - Introducing the Arm architecture. Disponível em: https://developer.arm.com/documentation/102404/0201/About-the-Arm-architecture.  Acessado em 26 de Dezembro de 2023.
+
+
+  Using the GNU Compiler Collection. Disponível em: https://gcc.gnu.org/onlinedocs/gcc.pdf. Acessado em 28 de Dezembro de 2023.
 </p>
 </div>
 
