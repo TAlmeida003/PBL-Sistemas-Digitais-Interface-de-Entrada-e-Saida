@@ -425,19 +425,19 @@ Abaixo, apresenta-se o fluxograma da inicialização do LCD, resumindo de maneir
 
 <h3>Escrita no LCD</h3>
 
-No que refere-se à fase de escrita, o procedimento inicial é a posição do cursor na primeira linha, através do envio do comando **(0x80)**. Posteriormente, utiliza-se uma função específica para transmitir a frase ao LCD. Se a extensão da frase for inferior a 17 caracteres, a escrita é efetuada diretamente no LCD. No entanto, caso a frase exceda esse limite, realiza-se um deslocamento dos caracteres até que a totalidade da mensagem seja visível, e o retorno ao ponto inicial ocorre ao término da escrita da frase. Se um botão for pressionado, essa visualização é interrompida e a mudança de tela é realizada.
+No que refere-se à fase de escrita, o procedimento inicial consiste em posicionar o cursor na primeira linha por meio do envio do comando **(0x80)**. Posteriormente, utiliza-se uma função específica para transimitir a frase ao LCD. 
 
-O fluxograma abaixo apresenta de maneira visual o processo de escrita em uma linha do LCD.
+O fluxograma dessa função, apresentado na imagem abaixo, ilustra o processo de envio dos 4 bits mais significativos e, em seguida, dos 4 menos significativos para a escrita. Após esse envio, é realizada uma verificação para determinar se a frase foi finalizada. Se sim, a escrita é considerada concluída. Caso contrário, ocorre o deslocamento para o próximo caractere da frase.
 
 <p align="center">
-  <img src="Imagens/Escrita-LCD-Uma-Linha.jpg" alt=Fluxograma escrita em uma linha="300" height="300">
+  <img src="Imagens/Escrita-LCD-Uma-Linha.jpg" alt=Fluxograma escrita em uma linha="350" height="350">
 </p>
 <p align="center"><strong>Fluxograma da escrita de uma linha no Display LCD</strong></p>
 
-Para a escrita na segunda linha, o cursor é posicionado ao enviar o comando **(0xC0)**. Em seguida, realiza-se uma comparação do tamanho da frase e segue-se a mesma verificação descrita anteriormente, para o caso da primeira linha. Este processo está exemplificado no fluxograma a seguir, o qual trata-se da escrita nas duas linhas do display. Após o envio de ambas as frases, uma verificação é realizada para determinar se a escrita foi concluída ou não. Em caso afirmativo, o procedimento é encerrado. Caso contrário, ocorre o deslocamento dos caracteres da frase em questão.
+Para escrever uma frase na segunda linha, imediatamente após a escrita da primeira, o cursor é posicionado na segunda linha por meio do comando **(0xC0)**. Em seguida, a função para enviar a frase ao LCD é chamada novamente, seguindo o mesmo passo a passo descrito anteriormente. O fluxograma referente à escrita nas duas linhas pode ser visualizado abaixo. 
 
 <p align="center">
-  <img src="Imagens/Escrita-LCD-Duas-Linhas.jpg" alt=Fluxograma da escrita em duas linhas="300" height="300">
+  <img src="Imagens/Escrita-LCD-Duas-Linhas.jpg" alt=Fluxograma da escrita em duas linhas="350" height="350">
 </p>
 <p align="center"><strong>Fluxograma da escrita em duas linhas no Display LCD</strong></p>
 
@@ -501,6 +501,13 @@ O fluxo abrangente do sistema é apresentado na imagem abaixo, delineando todos 
   <img src="Imagens/Interface-Usuario-Fluxograma.jpg" alt=Fluxo da interface do usuario="500" height="500">
 </p>
 <p align="center"><strong>Fluxograma da interface do usuário</strong></p>
+
+No projeto em questão, a implementação das trocas de telas ocorre por meio de uma máquina de estados, apresentada abaixo. Nesta representação, são definidos estados para a tela inicial, tela de comando, tela de endereço, aguardo por uma resposta e resposta, no fluxo normal. No fluxo contínuo, são adicionados três estados novos: comando contínuo, endereço contínuo e aguardo por uma resposta contínuo. A transição entre estados segue a lógica previamente descrita para a troca de telas.
+
+<p align="center">
+  <img src="Imagens/MEF-Trocas-Telas.jpg" alt=MEF troca de tela="500" height="500">
+</p>
+<p align="center"><strong>Máquina de estados das trocas de tela</strong></p>
 
 </div>
 </div>
