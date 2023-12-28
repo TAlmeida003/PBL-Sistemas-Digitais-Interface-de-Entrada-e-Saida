@@ -595,7 +595,9 @@ Para realizar a configuração da FPGA visando o controle do sensor, consulte o 
 
   HITACHI, Ltd. (1998). HD44780U (LCD-II) — Dot Matrix Liquid Crystal Display Controller/Driver. Disponível em: <https://www.sparkfun.com/datasheets/LCD/HD44780.pdf>. Acessado em 27 de dezembro de 2023.
 
+  PYEATT, Larry (2012). Modern Assembly Language Programming with the ARM Processor.
 
+  SMITH, Stephen (2019). Raspberry Pi Assembly Language Programming: ARM Processor Coding.
 
 </p>
 </div>
