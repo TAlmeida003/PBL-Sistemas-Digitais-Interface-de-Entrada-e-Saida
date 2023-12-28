@@ -84,6 +84,58 @@ A interação com o sensor DHT11 tem como objetivo fundamental a coleta de dados
 </p>
 </div>
 
+<div id=""> 
+<h2> Arquitetura do Processador</h2>
+<p align="justify"> 
+
+A Orange Pi PC Plus utiliza um processador Allwinner H3 Quad-core Cortex-A7, baseado na arquitetura ARM, especificamente na ARMv7-A. Esse processador oferece suporte a implementações em uma ampla gama de pontos de desempenho. A simplicidade inerente aos processadores ARM resulta em implementações compactas, contribuindo para a eficiência do espaço e permitindo que dispositivos alcancem níveis baixos de consumo de energia.
+
+
+#### **Tipo RISC (Reduced Instruction Set Computing)**
+
+A arquitetura ARM é classificada como RISC (Computador com conjunto de intruções reduzido), caracterizada por um conjunto otimizado e reduzido de instruções. Essas arquiteturas são projetadas para executar mais instruções em menos tempo, o que leva a softwares compilados para RISC a possuírem mais linhas de código em linguagens de programação de baixo nível, como assembly. O conceito fundamental por trás do tipo RISC é realizar a execução de cada instrução em um único ciclo de clock, buscando assim eficiência e desempenho otimizado.
+
+#### **Load/Store**
+
+Na arquitetura ARM, as operações de processamento de dados são exclusivamente realizadas nos conteúdos dos registradores, não sendo efetuadas diretamente nos conteúdos da memória. Nesse paradigma, as operações de leitura (load) e escrita (store) na memória são conduzidas explicitamente por instruções separadas. Para carregar dados da memória para os registradores, utiliza-se a instrução LDR, enquanto a instrução STR é empregada para escrever na memória dados provenientes dos registradores.
+
+
+#### **Registradores**
+
+Essa arquitetura ARM dispõe de 13 registradores gerais de 32 bits, numerados de R0 a R12. Além desses, são fornecidos três registradores especiais de 32 bits, designados como SP (R13), LR (R14) e PC (R15). Esses registradores especiais têm finalidades distintas na execução do programa:
+
+1. **SP (R13 - Ponteiro de Pilha):** Responsável por armazenar o endereço atual da pilha, permitindo o gerenciamento eficiente da memória durante a execução do programa.
+
+2. **LR (R14 - Registrador de Link):** O registrador de link é especial, pois pode armazenar informações de retorno de link, geralmente utilizado para armazenar o endereço de retorno de uma sub-rotina (função ou procedimento) quando uma chamada de função é realizada.
+
+3. **PC (R15 - Contador de Programa):** Este registrador atua como o contador de programa, armazenando o endereço da instrução atual em execução. Ao executar uma instrução ARM, o PC lê o endereço da instrução atual mais 8. Isso ocorre porque as instruções ARM são normalmente 4 bytes de comprimento, e o PC é incrementado para apontar para a próxima instrução.
+
+
+#### **Tipos de dados na memória**
+
+  Os processadores ARMv7-A suportam diversos tipos de dados tanto na memória quanto nos registradores.
+
+  * **Na Memória:**
+    1. **Byte:** 8 bits
+    2. **Halfword:** 16 bits
+    3. **Word:** 32 bits
+    4. **Doubleword:** 64 bits
+
+  * **Nos Registradores:**
+
+    1. **Ponteiros de 32 bits**
+    2. **Inteiros de 32 bits:** Podem ser assinados ou não assinados.
+    3. **Inteiros de 16 bits ou 8 bits não assinados:** Mantidos na forma zero-extendida.
+    4. **Inteiros de 16 bits ou 8 bits assinados:** Mantidos na forma de extensão de sinal.
+    5. **Dois inteiros de 16 bits empacotados em um registro.**
+    6. **Quatro inteiros de 8 bits empacotados em um registro.**
+    7. **Inteiros de 64 bits:** Podem ser assinados ou não assinados, mantidos em dois registros.
+
+
+</p>
+</div>
+
+
 <div id="map"> 
 <h2> Mapeamento de memória</h2>
 <p align="justify"> 
