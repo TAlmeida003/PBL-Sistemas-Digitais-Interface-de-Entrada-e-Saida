@@ -30,24 +30,24 @@ Os requisitos para elaboração do sistema são apresentados a seguir:
 <h1 align="center"> Sumário </h1>
 <div id="sumario">
 	<ul>
-        <li><a href="#equipamentos">  Descrição dos equipamentos e software utilizados</a></li>
+        <li><a href="#equipamentos">  Descrição dos Equipamentos e Software Utilizados</a></li>
         <li><a href="#arq_CPU">  Arquitetura do Processadors</a></li>
-        <li><a href="#instrucoes">  Conjunto de instruções utilizadas</a></li>
-        <li><a href="#map"> Mapeamento de memória</a></li>
+        <li><a href="#instrucoes">  Conjunto de Instruções Utilizadas</a></li>
+        <li><a href="#map"> Mapeamento de Memória</a></li>
         <li><a href="#GPIO"> GPIO </a></li>
         <li><a href="#UART"> UART </a></li>
         <li><a href="#displayLCD"> Display LCD </a></li>
         <li><a href="#interfaceUsuario"> Interface do Usuário </a></li>
         <li><a href="#solucao-geral"> Solução Geral do projeto </a></li>
-        <li><a href="#"> Testes Realizados </a></li>
+        <li><a href="#testes"> Testes Realizados </a></li>
         <li><a href="#conclusao"> Conclusão </a></li>
-        <li><a href="#execucaoProjeto"> Execução do projeto </a></li>
+        <li><a href="#execucaoProjeto"> Execução do Projeto </a></li>
         <li><a href="#referencias"> Referências </a></li>
 	</ul>	
 </div>
 
 <div id="equipamentos"> 
-<h2> Descrição dos equipamentos e software utilizados</h2>
+<h2> Descrição dos Equipamentos e Software Utilizados</h2>
 <div align="justify"> 
 
 Para o funcionamento do projeto, diversos equipamentos foram necessários, incluindo um display LCD, botões e outros dispositivos programáveis, juntamente com conexões de fios importantes para as operações de envio e recebimento de dados. Na ilustração a seguir, é possível observar como esses elementos estão distribuídos em uma placa protoboard.
@@ -132,9 +132,9 @@ Na arquitetura ARM, as operações de processamento de dados são exclusivamente
 
 Essa arquitetura ARM dispõe de 13 registradores gerais de 32 bits, numerados de R0 a R12. Além desses, são fornecidos três registradores especiais de 32 bits, designados como SP (R13), LR (R14) e PC (R15). Esses registradores especiais têm finalidades distintas na execução do programa:
 
-1. **SP (R13 - Ponteiro de Pilha):** Responsável por armazenar o endereço atual da pilha, permitindo o gerenciamento eficiente da memória durante a execução do programa.
+1. **SP (R13 - Ponteiro de Pilha):** Responsável por armazenar o endereço atual da pilha, permitindo o gerenciamento eficiente da memória durante a execução do programa;
 
-2. **LR (R14 - Registrador de Link):** O registrador de link é especial, pois pode armazenar informações de retorno de link, geralmente utilizado para armazenar o endereço de retorno de uma sub-rotina (função ou procedimento) quando uma chamada de função é realizada.
+2. **LR (R14 - Registrador de Link):** O registrador de link é especial, pois pode armazenar informações de retorno de link, geralmente utilizado para armazenar o endereço de retorno de uma sub-rotina (função ou procedimento) quando uma chamada de função é realizada;
 
 3. **PC (R15 - Contador de Programa):** Este registrador atua como o contador de programa, armazenando o endereço da instrução atual em execução. Ao executar uma instrução ARM, o PC lê o endereço da instrução atual mais 8. Isso ocorre porque as instruções ARM são normalmente 4 bytes de comprimento, e o PC é incrementado para apontar para a próxima instrução.
 
@@ -163,7 +163,7 @@ Essa arquitetura ARM dispõe de 13 registradores gerais de 32 bits, numerados de
 </div>
 
 <div id="instrucoes"> 
-<h2> Conjunto de instruções utilizadas</h2>
+<h2> Conjunto de Instruções Utilizadas</h2>
 <div align="justify"> 
 
  A programação da Orange Pi PC Plus foi conduzida utilizando linguagem assembly, na qual foram empregadas diversas instruções no desenvolvimento do sistema.
@@ -203,7 +203,7 @@ Essa arquitetura ARM dispõe de 13 registradores gerais de 32 bits, numerados de
 
 * **MOV** - Move dados para os registradores
 
-**Empilhamento e Desempilhamento:** manipulam a pilha, uma estrutura de dados na memória usada para armazenar temporariamente dados e endereços de retorno durante chamadas de função.
+**Empilhamento e Desempilhamento:** Manipulam a pilha, uma estrutura de dados na memória usada para armazenar temporariamente dados e endereços de retorno durante chamadas de função.
 
 * **POP** - Desempilhamento
 * **PUSH** - Empilhamento
@@ -230,12 +230,12 @@ Essa arquitetura ARM dispõe de 13 registradores gerais de 32 bits, numerados de
 </div>
 </div>
 <div id="map"> 
-<h2> Mapeamento de memória</h2>
+<h2> Mapeamento de Memória</h2>
 <div align="justify"> 
 
 O mapeamento de memória é uma técnica que visa organizar e gerenciar o espaço de endereçamento na memória física. Neste contexto, explora-se como esse conceito é aplicado no desenvolvimento do projeto, abrangendo tanto o âmbito do software quanto o hardware.
 
-<h3> Mapeamento a nível de Software</h3>
+<h3> Mapeamento a Nível de Software</h3>
 
 O gerenciamento de memória física é uma função desempenhada pelo sistema operacional, utilizando a técnica de abstração de memória virtual. Para acessar um endereço físico de memória, é necessário fornecer não apenas o endereço a ser acessado, mas também dados que descrevam as características desse acesso. Esses dados são cruciais, pois o sistema operacional adota o conceito de tratamento de dados como arquivos. Ao "abrir" um endereço de memória, é preciso especificar como esse "arquivo" será manipulado. Essas autorizações abrangem permissões fundamentais, como leitura, escrita, a capacidade de escolher o endereço virtual correspondente ao valor endereçado e a habilidade de compartilhar dados com outros "arquivos".
 
@@ -256,7 +256,7 @@ Para o desenvolvimento do projeto, foram empregadas três chamadas de sistema (*
 
 * **sys_nanosleep**: Essa chamada de sistema proporciona uma pausa no processador por um período de tempo especificado (n), contribuindo para a gestão temporal e sincronização de operações no projeto.
 
-<h3> Mapeamento a nível de Hardware</h3>
+<h3> Mapeamento a Nível de Hardware</h3>
 
 Ao buscar os dados armazenados na memória física através do barramento de sistema requisitado pela CPU, os dados passam por um decodificador/controlador de endereços que sinaliza a localização dos dados. O decodificador envia um sinal de controle para o local solicitado, podendo ser a memória principal, um registrador da *General Purpose Input/Output* (GPIO) ou até um registrador de dados de alguns sistemas digitais, como a *Universal Asynchronous Receiver-Transmitter* (UART). Mesmo tendo um endereço de memória física, os dados obtidos do mapeamento não estão presentes na memória principal ou no disco, mas sim em locais separados e específicos para suas funções.
 
@@ -383,7 +383,7 @@ Seguindo os passos de habilitação e configuração da UART, os bytes podem ser
 </p>
 <p align="center"><strong>Fluxograma da Habilitação e configuração da UART</strong></p>
 
-<h3>Cálculo do baud rate</h3>	
+<h3>Cálculo do Baud Rate</h3>	
 
 A fórmula usada para calcular o baud rate é:
 
@@ -398,9 +398,9 @@ Como a frequência do sinal de clock é de 624 MHz, foi setado o valor do diviso
 
 Foram utilizadas 3 funções para acessar a UART. Elas são explicadas a seguir:
 
-  * TX_UART: recebe como parâmetros o endereço base da UART 3 em R9, e o byte a ser transmitido em R0. Essa função insere o byte de R0 no endereço THR (0x0000) da UART 3, que tem a função de colocar o byte no FIFO de transmissão para ser passado pela porta da comunicação serial.
-  * RX_UART: recebe como parâmetro o R9 com o endereço base da UART 3. Essa função lê um byte do endereço RBR (0x0000) da UART 3, que tem a função de acessar o FIFO de recebimento da comunicação serial. O byte lido é retornado em R0.
-  * CHECK_EMPTY_RX_UART: essa função checa a situação do FIFO de recebimento de dados. Recebe como parâmetro o endereço base da UART 3 em R9. Lê o regitrador USR (0x007C), que contém os status da UART. O bit 3 indica se o FIFO de recebimento está vazio ou não. Esse bit é colocado no LSB do R0 e é retornado. Se esse bit for 0, o FIFO está vazio, se for 1, não está.
+  * TX_UART: Recebe como parâmetros o endereço base da UART 3 em R9, e o byte a ser transmitido em R0. Essa função insere o byte de R0 no endereço THR (0x0000) da UART 3, que tem a função de colocar o byte no FIFO de transmissão para ser passado pela porta da comunicação serial;
+  * RX_UART: Recebe como parâmetro o R9 com o endereço base da UART 3. Essa função lê um byte do endereço RBR (0x0000) da UART 3, que tem a função de acessar o FIFO de recebimento da comunicação serial. O byte lido é retornado em R0;
+  * CHECK_EMPTY_RX_UART: Essa função checa a situação do FIFO de recebimento de dados. Recebe como parâmetro o endereço base da UART 3 em R9. Lê o regitrador USR (0x007C), que contém os status da UART. O bit 3 indica se o FIFO de recebimento está vazio ou não. Esse bit é colocado no LSB do R0 e é retornado. Se esse bit for 0, o FIFO está vazio, se for 1, não está.
 
 </div>
 </div>
@@ -518,7 +518,7 @@ Posteriormente, o fluxo progride para a tela de processamento e, em seguida, par
 </p>
 <p align="center"><strong>Telas das respostas disponíveis no fluxo contínuo</strong></p>
 
-O fluxo abrangente do sistema é apresentado na imagem abaixo, delineando todos os caminhos possíveis de acordo com cada fluxo disponível. É relevante observar que, a partir da tela inicial, é possível transitar para a tela de processamento e, posteriormente, adentrar no modo contínuo. Esse caminho é visto ao desligar o sistema no modo contínuo, retendo o estado anterior ao desligamento e retornando ao mesmo ao ser ligado.
+O fluxo abrangente do sistema é apresentado na imagem abaixo, delineando todos os caminhos possíveis de acordo com cada fluxo disponível. É relevante observar que, a partir de todas as telas do fluxo normal, é possível transitar para a tela de processamento e, posteriormente, adentrar no modo contínuo. Esse caminho é visto ao desligar o sistema no modo contínuo, retendo o estado anterior ao desligamento e retornando ao mesmo ao ser ligado.
 
 <p align="center">
   <img src="Imagens/Interface-Usuario-Fluxograma.jpg" alt=Fluxo da interface do usuario="500" height="500">
@@ -538,7 +538,7 @@ No projeto em questão, a implementação das trocas de telas ocorre por meio de
 <!-- SOLUÇÃO GERAL DO PROJETO -->
 
 <div id="solucao-geral"> 
-<h2> Solução Geral do projeto</h2>
+<h2> Solução Geral do Projeto</h2>
 
 <div align="justify"> 
 
@@ -560,7 +560,7 @@ Para uma compreensão mais clara da explicação, apresentamos abaixo um fluxogr
 </div>
 </div>
 
-<div id=""> 
+<div id="testes"> 
 <h2> Testes Realizados</h2>
 
 A seguir, os testes feitos para confirmar o bom funcionamento do sistema, juntamente com suas respectivas descrições.
