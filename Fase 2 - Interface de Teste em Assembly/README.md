@@ -201,7 +201,6 @@ Essa arquitetura ARM dispõe de 13 registradores gerais de 32 bits, numerados de
 
 </p>
 </div>
-
 <div id="map"> 
 <h2> Mapeamento de memória</h2>
 <p align="justify"> 
@@ -210,28 +209,28 @@ O mapeamento de memória é uma técnica que visa organizar e gerenciar o espaç
 
 <h3> Mapeamento a nível de Software</h3>
 
-O gerenciamento da memória física é uma função desempenhada pelo sistema operacional, utilizando a abstração de memória virtual. Ao receber um endereço de memória, o sistema operacional requer as autorizações adequadas para manipular o arquivo, tratando os dados como arquivos. Essas autorizações incluem permissões essenciais, como leitura, escrita, a capacidade de selecionar o endereço virtual para o valor endereçado e a habilidade de compartilhar dados com outros arquivos.
+O gerenciamento de memória física é uma função desempenhada pelo sistema operacional, utilizando a técnica de abstração de memória virtual. Para acessar um endereço físico de memória, é necessário fornecer não apenas o endereço a ser acessado, mas também dados que descrevam as características desse acesso. Esses dados são cruciais, pois o sistema operacional adota o conceito de tratamento de dados como arquivos. Ao "abrir" um endereço de memória, é preciso especificar como esse "arquivo" será manipulado. Essas autorizações abrangem permissões fundamentais, como leitura, escrita, a capacidade de escolher o endereço virtual correspondente ao valor endereçado e a habilidade de compartilhar dados com outros "arquivos".
 
-Para acessar a memória física, o processo inicia-se ao entrar no diretório /dev/mem, onde as seções desejadas da memória estão localizadas. Em seguida, é necessário fornecer ao sistema operacional um endereço de memória física. A execução de uma System Call ocorre, momento em que o sistema operacional verifica se o endereço está presente na tabela de páginas ou no buffer Translation Lookaside Buffer (TLB). Se não estiver, o sistema operacional acessa diretamente a memória, recuperando o dado armazenado na posição endereçada. A página e o TLB são atualizados, e ao usuário é concedida uma referência virtual para acessar a memória física.
+Para acessar a memória física, o processo inicia-se ao entrar no diretório /dev/mem, onde as seções desejadas da memória estão localizadas. Em seguida, é necessário fornecer ao sistema operacional um endereço de memória física. A execução de uma *system call* ocorre após a passagem do endereço e suas informações de abertura, momento em que o sistema operacional verifica se o endereço está presente na tabela de páginas ou no buffer *Translation Lookaside Buffer* (TLB). Se não estiver, o sistema operacional acessa diretamente a memória, recuperando o dado armazenado na posição endereçada. A página e o TLB são atualizados, e ao usuário é concedida uma referência virtual para acessar a memória física.
 
-Segue anexo um fluxograma que ilustra os passos utilizados.
+Segue em anexo o fluxograma que ilustra os passos utilizados.
 
 <p align="center">
-  <img src="Imagens/Map-MemSO.png" />
+  <img src="Imagens/Map-MemSO.png" width = "600" />
 </p>
 <p align="center"><strong> Fluxograma do mapeamento de memória em nível de software </strong> </p>
 
 Para o desenvolvimento do projeto, foram empregadas três chamadas de sistema (*syscall*), sendo que duas delas são destinadas à manipulação da memória:
 
-1. **sys_open**: Esta chamada é utilizada para abrir o arquivo cujo caminho foi especificado (dev/mem), permitindo o acesso e manipulação das áreas desejadas da memória.
+* **sys_open**: Esta chamada é utilizada para abrir o arquivo cujo caminho foi especificado (dev/mem), permitindo o acesso e manipulação das áreas desejadas da memória;
 
-2. **sys_map2**: Essa chamada de sistema é responsável por mapear um endereço físico, juntamente com as informações de permissões do arquivo, e retorna a referência de memória virtual associada.
+* **sys_map2**: Essa chamada de sistema é responsável por mapear um endereço físico, juntamente com as informações de permissões do arquivo, e retorna a referência de memória virtual associada;
 
-3. **sys_nanosleep**: Essa chamada de sistema proporciona uma pausa no processador por um período de tempo especificado (n), contribuindo para a gestão temporal e sincronização de operações no projeto.
+* **sys_nanosleep**: Essa chamada de sistema proporciona uma pausa no processador por um período de tempo especificado (n), contribuindo para a gestão temporal e sincronização de operações no projeto.
 
 <h3> Mapeamento a nível de Hardware</h3>
 
-Ao buscar os dados armazenados na memória física através do barramento de sistema solicitado pela CPU, os dados passam por um decodificador/controlador de endereços que sinaliza a localização do dado solicitado. O controlador envia um sinal de controle para o local solicitado, podendo ser a memória principal, um registrador da General Purpose Input/Output (GPIO) ou até um registrador de dados hardware específicos, como a Universal Asynchronous Receiver-Transmitter (UART). Mesmo tendo um endereço de memória física, os dados obtidos do mapeamento não estão presentes na memória principal, mas sim em locais separados e específicos para suas funções.
+Ao buscar os dados armazenados na memória física através do barramento de sistema requisitado pela CPU, os dados passam por um decodificador/controlador de endereços que sinaliza a localização dos dados. O decodificador envia um sinal de controle para o local solicitado, podendo ser a memória principal, um registrador da *General Purpose Input/Output* (GPIO) ou até um registrador de dados de alguns sistemas digitais, como a *Universal Asynchronous Receiver-Transmitter* (UART). Mesmo tendo um endereço de memória física, os dados obtidos do mapeamento não estão presentes na memória principal ou no disco, mas sim em locais separados e específicos para suas funções.
 
 Segue em anexo um diagrama de uma versão simplificada do processo descrito. 
 
@@ -242,7 +241,7 @@ Segue em anexo um diagrama de uma versão simplificada do processo descrito.
 <h2> GPIO</h2>
 <p align="justify"> 
 
-A Entrada/Saída de Propósito Geral (GPIO) representa uma interface com pinos que podem ser configurados tanto como entrada quanto como saída de dados, conferindo flexibilidade para interagir com componentes externos no sistema digital da SBC Orange Pi PC Plus. Além disso, destaca-se a presença de hardware integrado na pinagem, oferecendo opções adicionais de configuração para os pinos. No total, são disponibilizados 28 pinos, divididos em 7 tipos (PA, PC, PD, PE, PF, PG e PL). Esses pinos podem ser manipulados tanto a nível de software quanto diretamente via registrado.
+A Entrada/Saída de Propósito Geral (GPIO) representa uma interface com pinos que podem ser configurados tanto como entrada quanto como saída de dados, conferindo flexibilidade para interagir com componentes externos no sistema digital da SBC. Além disso, destaca-se a presença de hardware integrado na pinagem, oferecendo opções adicionais de configuração para os pinos. No total, são disponibilizados 28 pinos, divididos em 7 tipos (PA, PC, PD, PE, PF, PG e PL). Esses pinos podem ser manipulados tanto a nível de software quanto diretamente via registrador.
 
 Para atender aos objetivos do projeto, foram utilizados apenas 11 pinos, sendo 7 do tipo PA e 4 do tipo PG. Esses pinos foram distribuídos em diversas funcionalidades específicas: 2 pinos do tipo PA foram dedicados à comunicação via padrão UART; 6 pinos foram alocados para o controle do LCD, sendo 2 do tipo PA e 4 do tipo PG; e os 3 pinos restantes do tipo PA foram destinados aos botões de controle da interface do projeto.
 
@@ -270,12 +269,12 @@ A atribuição desses valores foi realizada seguindo uma sequência lógica de 4
 </p>
 <p align="center"><strong> Fluxograma da configuração da direção do pino </strong> </p>
 
-O processo de atribuição desses valores segue uma lógica em quatro passos. Inicialmente, o fluxograma inicia-se com uma solicitação ao Sistema Operacional por meio de uma *syscall*, buscando a referência virtual do endereço base da GPIO. Uma vez obtido esse endereço, realiza-se um deslocamento dentro da página da GPIO para encontrar o *offset* onde está localizado o registrador da direção. Dado que existem múltiplas referências de direção nesse registrador, é necessário um deslocamento adicional para localizar os 3 bits correspondentes ao pino desejado. Por fim, esses 3 bits são adicionados ao local apropriado e salvos no registrador, configurando assim a direção desejada para o pino.
+O processo de atribuição desses valores segue uma lógica em quatro passos. Inicialmente, o fluxograma inicia-se com uma solicitação ao sistema operacional por meio de uma *syscall*, buscando a referência virtual do endereço base da GPIO. Uma vez obtido esse endereço, realiza-se um deslocamento dentro da página da GPIO para encontrar o *offset* onde está localizado o registrador da direção. Dado que existem múltiplas referências de direção nesse registrador, é necessário um deslocamento adicional para localizar os 3 bits correspondentes ao pino desejado. Por fim, esses 3 bits são adicionados ao local apropriado e salvos no registrador, configurando assim a direção desejada para o pino.
 
 
 <h3>Leitura/Escrita do Valor Lógico do Pino</h3>	
 
-O processo de leitura ou escrita de um pino na GPIO segue uma abordagem semelhante à configuração da direção do pino. Nesse contexto, o valor lógico do pino é representado por um único bit, armazenado em um registrador na memória física, exclusivamente designado para os dados dos pinos. Cabe ressaltar que esse registrador de dados é organizado por tipos de pinos, com os tipos PA sendo alocados em um registrador diferente dos pinos PG. Além disso, dentro do registrador, os dados são organizados tendo a referência do pino, por exemplo, o pino PA0 é guardado na posição 0 do registrador.
+O processo de leitura ou escrita de um pino na GPIO segue uma abordagem semelhante à configuração da direção do pino. Nesse contexto, o valor lógico do pino é representado por um único bit, armazenado em um registrador na memória física, exclusivamente designado para os dados dos pinos. Cabe ressaltar que esse registrador de dados é organizado por tipos de pinos, com os tipos PA sendo alocados em um registrador diferente dos pinos PG. Além disso, dentro do registrador, os dados são organizados tendo a referência do pino. Por exemplo, o pino PA0 é guardado na posição 0 do registrador.
 
 Para compreender melhor o fluxo de escrita ou leitura dos valores dos pinos na Orange Pi, segue um fluxograma explicativo:
 
@@ -284,11 +283,13 @@ Para compreender melhor o fluxo de escrita ou leitura dos valores dos pinos na O
 </p>
 <p align="center"><strong> Fluxograma da leitura/escrita do valor lógico do pino</strong> </p>
  
-O fluxograma inicia-se com uma solicitação ao Sistema Operacional por meio de uma *syscall*, buscando a referência virtual do endereço base da GPIO. Após adquirir o endereço, há um deslocamento dentro da página para encontrar o *offset* do registrador de dados. Considerando que existem múltiplas referências desse registrador, um deslocamento adicional é necessário para localizar o bit correspondente ao pino desejado. Uma vez identificado o local correto, o valor lógico do pino é escrito ou lido, dependendo da operação desejada. Este processo é concluído ao salvar ou recuperar o valor no registrador, ajustando assim o estado lógico do pino conforme necessário.
+O fluxograma inicia-se com uma solicitação ao sistema operacional por meio de uma *syscall*, buscando a referência virtual do endereço base da GPIO. Após adquirir o endereço, há um deslocamento dentro da página para encontrar o *offset* do registrador de dados. Considerando que existem múltiplas referências desse registrador, um deslocamento adicional é necessário para localizar o bit correspondente ao pino desejado. Uma vez identificado o local correto, o valor lógico do pino é escrito ou lido, dependendo da operação desejada. Este processo é concluído ao salvar ou recuperar o valor no registrador, ajustando assim o estado lógico do pino conforme necessário.
 
 <h3>Inicialização da GPIO no Projeto</h3>	
 
 Na fase inicial do projeto, o processo de inicialização segue a atribuição de direção para os 11 pinos essenciais. Para fornecer uma visão clara dessa configuração, apresenta-se a seguir uma tabela detalhando a relação entre a pinagem utilizada e suas respectivas direções:
+
+<p align="center">
 
 | Pino  	| Modo     | Correspondente	|
 | ------------- | ------------- | ------------- |
@@ -303,6 +304,7 @@ Na fase inicial do projeto, o processo de inicialização segue a atribuição d
 | PG9	    | Output   |  D5 (LCD)|
 | PG6 	  | Output   |  D6 (LCD)|
 | PG7  	  | Output   |  D7 (LCD)|
+</p>
 
 <p align="center">
 <strong> Tabela com as direções e funções de cada pino</strong> </p>
