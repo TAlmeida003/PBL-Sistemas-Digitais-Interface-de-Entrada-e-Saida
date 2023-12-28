@@ -41,8 +41,8 @@ Os requisitos para elaboração do sistema são apresentados a seguir:
         <li><a href="#solucao-geral"> Solução Geral do projeto </a></li>
         <li><a href="#"> Testes Realizados </a></li>
         <li><a href="#"> Conclusão </a></li>
-        <li><a href="#"> Execução do projeto </a></li>
-        <li><a href="#"> Referências </a></li>
+        <li><a href="#execucaoProjeto"> Execução do projeto </a></li>
+        <li><a href="#referencias"> Referências </a></li>
 	</ul>	
 </div>
 
@@ -553,7 +553,7 @@ Para uma compreensão mais clara da explicação, apresentamos abaixo um fluxogr
 </div>
 </div>
 
-<div id=""> 
+<div id="execucaoProjeto"> 
 <h2> Execução do Projeto</h2>
  
 <div align="justify"> 
@@ -581,10 +581,16 @@ Para realizar a configuração da FPGA visando o controle do sensor, consulte o 
 </div>
 </div>
 
-<div id=""> 
+<div id="referencias"> 
 <h2> Referências</h2>
 
 <p align="justify"> 
+
+  WEIMAN, Donald (2012). LCD Initialization. Disponível em: <https://web.alfredstate.edu/faculty/weimandn/lcd/lcd_initialization/lcd_initialization_index.html>. Acessado em 27 de dezembro de 2023. 
+
+  HITACHI, Ltd. (1998). HD44780U (LCD-II) — Dot Matrix Liquid Crystal Display Controller/Driver. Disponível em: <https://www.sparkfun.com/datasheets/LCD/HD44780.pdf>. Acessado em 27 de dezembro de 2023.
+
+
 
 </p>
 </div>
