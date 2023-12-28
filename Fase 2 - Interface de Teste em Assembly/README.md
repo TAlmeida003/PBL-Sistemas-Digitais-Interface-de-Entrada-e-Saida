@@ -569,6 +569,10 @@ Exibindo a tela rotativa com a mensagem da tela inicial. Todas as mensagens que 
 
 https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/assets/109181824/555d933c-723a-46a7-aa85-a6d261d08ea5
 
+<p align="center">
+  <video src='Testes/Tela_inicial_rotativo.mp4' />
+</p>
+
 Clicando no botão do meio para sair da tela inicial e ir para a de comando. Quando o botão do meio é clicado novamente, o comando é selecionado e é mostrada a tela de endereço. Os intervalos de comando e endereço são percorridos utilizando os botões laterais. O comando vai de 01 a 07, e o endereço, de 00 a 31. Apertando o botão lateral esquerdo quando está sendo exibido o menor endereço, ocorre o retorno para a tela de comando, e se for clicado novamente no menor comando, é retornado para a tela inicial.
 
 https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/assets/109181824/c83b162f-0ed3-4411-ae91-918fa7812be0
