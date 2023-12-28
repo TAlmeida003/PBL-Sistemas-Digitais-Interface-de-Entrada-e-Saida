@@ -62,7 +62,7 @@ Nesta fase do projeto, a implementação foi conduzida em um sistema computacion
   
 O dispositivo em questão apresenta uma capacidade de armazenamento interno de 8GB, com a possibilidade de expansão para até 32GB mediante a utilização de um cartão SD. Adicionalmente, conta com 1GB de RAM, utilizando a tecnologia de memória DDR3.
 
-A placa em questão foi programada em Verilog, utilizando a IDE (Ambiente de Desenvolvimento Integrado) VS Code para programação e transmissão de códigos por meio da rede Wi-Fi, devido a sua rede integrada que costa na placa. O objetivo primordial desse processo de programação foi capacitar a placa para enviar e receber comandos da FPGA Cyclone IV (placa utilizada na fase 1). Isso inclui a interpretação precisa desses comandos e a execução das ações solicitadas. Essa abordagem substituiu o computador desktop que estava em uso na fase 1, marcando uma transição significativa na arquitetura do sistema.
+A placa em questão foi programada em Assembly, utilizando a IDE (Ambiente de Desenvolvimento Integrado) VS Code para programação e transmissão de códigos por meio da rede Wi-Fi, devido a sua rede integrada que costa na placa. O objetivo primordial desse processo de programação foi capacitar a placa para enviar e receber comandos da FPGA Cyclone IV (placa utilizada na fase 1). Isso inclui a interpretação precisa desses comandos e a execução das ações solicitadas. Essa abordagem substituiu o computador desktop que estava em uso na fase 1, marcando uma transição significativa na arquitetura do sistema.
 
 
 **Display LCD**
@@ -550,6 +550,30 @@ Para uma compreensão mais clara da explicação, apresentamos abaixo um fluxogr
 
 <div id=""> 
 <h2> Testes Realizados</h2>
+
+A seguir, os testes feitos para confirmar o bom funcionamento do sistema, juntamente com suas respectivas descrições.
+
+Exibindo a tela rotativa com a mensagem da tela inicial. Todas as mensagens que não cabem no espaço disponível utilizam desse mesmo mecanismo.
+
+Clicando no botão do meio para sair da tela inicial e ir para a de comando. Quando o botão do meio é clicado novamente, o comando é selecionado e é mostrada a tela de endereço. Os intervalos de comando e endereço são percorridos utilizando os botões laterais. O comando vai de 01 a 07, e o endereço, de 00 a 31. Apertando o botão lateral esquerdo quando está sendo exibido o menor endereço, ocorre o retorno para a tela de comando, e se for clicado novamente no menor comando, é retornado para a tela inicial.
+
+O comando 01 é selecionado, juntamente com o endereço 00. É exibida a tela de processamento e em seguida, os seguintes possíveis casos de mensagens de resposta: "Sensor funcionando", em que foi possível coletar os dados; "Sensor com problema", em que ocorreu algum erro na leitura de dados recebidos do sensor DHT11; e "Dispositivo desconectado", em que não foi obtido nenhum comando de resposta.
+
+O comando 02 é selecionado, juntamente com o endereço 01. É exibida a tela de processamento e em seguida, os seguintes possíveis casos de mensagens de resposta: a medida de temperatura, quando foi possível coletar esse dado do sensor DHT11; "Sensor com problema", em que ocorreu algum erro na leitura de dados recebidos do sensor DHT11; e "Dispositivo desconectado", em que não foi obtido nenhum comando de resposta.
+
+O comando 03 é selecionado, juntamente com o endereço 00. É exibida a tela de processamento e em seguida, os seguintes possíveis casos de mensagens de resposta: a medida de umidade, quando foi possível coletar esse dado do sensor DHT11; "Sensor com problema", em que ocorreu algum erro na leitura de dados recebidos do sensor DHT11; e "Dispositivo desconectado", em que não foi obtido nenhum comando de resposta.
+
+O comando 04 é selecionado, juntamente com o endereço 00. É exibida a tela de processamento e, em seguida, o sistema entra no modo de monitoramento contínuo de temperatura. A primeira linha do display LCD exibe o comando a ser selecionado, e a segunda linha, as respostas recebidas. São mostradas as seguintes possíveis mensagens: a medida de temperatura, quando foi possível coletar esse dado do sensor DHT11; "Sensor com problema", em que ocorreu algum erro na leitura de dados recebidos do sensor DHT11; e "Sem resposta", em que não foi obtido nenhum comando de resposta.
+
+No modo de monitoramento contínuo, são percorridos os intervalos de comando e de endereço utilizando os botões laterais. Os intervalos são os mesmos disponíveis quando não se está em monitoramento contínuo. Clicando o botão do meio na tela de comando, o comando exibido é selecionado e a próxima tela exibida será a de endereço. Clicando no botão esquerdo quando está sendo exibido o menor endereço, ocorre o retorno para a tela de comando.
+
+No monitoramento contínuo de temperatura, são mostradas as respostas quando é selecionado um comando ou um endereço inválido. No modo atual, o único comando válido é o 06, em que o monitoramento será desativado. O único endereço válido para a desativação é o selecionado anteriormente para ativar o monitoramento, sendo ele o endereço 00, neste teste.
+
+O comando 05 é selecionado, juntamente com o endereço 01. É exibida a tela de processamento e, em seguida, o sistema entra no modo de monitoramento contínuo de umidade. A primeira linha do display LCD exibe o comando a ser selecionado, e a segunda linha, as respostas recebidas. São mostradas as seguintes possíveis mensagens: a medida de umidade, quando foi possível coletar esse dado do sensor DHT11; "Sensor com problema", em que ocorreu algum erro na leitura de dados recebidos do sensor DHT11; e "Sem resposta", em que não foi obtido nenhum comando de resposta.
+
+No monitoramento contínuo de umidade, são mostradas as respostas quando é selecionado um comando ou um endereço inválido. No modo atual, o único comando válido é o 07, em que o monitoramento será desativado. O único endereço válido para a desativação é o selecionado anteriormente para ativar o monitoramento, sendo ele o endereço 01, neste teste.
+
+O sistema está na tela inicial e recebe uma resposta de monitoramento contínuo, mesmo que o comando de ativação não tenha sido usado naquele momento. Automaticamente, o sistema entra no modo de monitoramento contínuo. Isso ocorre quando houver um retorno inesperado de temperatura ou umidade.
 
 <div align="justify"> 
 
