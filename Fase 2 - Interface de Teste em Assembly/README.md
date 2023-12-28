@@ -524,8 +524,6 @@ Para uma compreensão mais clara da explicação, apresentamos abaixo um fluxogr
 
 <p align="justify"> 
 
-<iframe width="320" height="240" src="https://drive.google.com/uc?id=14tyORPZbvz5BogheNK6waleg_4YKbHqq" frameborder="0" allowfullscreen></iframe>
-
 </p>
 </div>
 
