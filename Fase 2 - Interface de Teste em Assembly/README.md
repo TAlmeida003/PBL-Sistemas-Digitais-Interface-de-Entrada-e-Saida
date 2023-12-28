@@ -583,11 +583,7 @@ https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Said
 
 No monitoramento contínuo de temperatura, são mostradas as respostas quando é selecionado um comando ou um endereço inválido. No modo atual, o único comando válido é o 06, em que o monitoramento será desativado. O único endereço válido para a desativação é o selecionado anteriormente para ativar o monitoramento, sendo ele o endereço 00, neste teste.
 
-
-
-https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/assets/109181824/e2145adc-e9f1-465c-a75e-333cfe0c4bf0
-
-
+https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/assets/109181824/9aaf78e0-5ae4-4aa0-a774-a06c6bfb29cc
 
 O comando 05 é selecionado, juntamente com o endereço 01. É exibida a tela de processamento e, em seguida, o sistema entra no modo de monitoramento contínuo de umidade. A primeira linha do display LCD exibe o comando a ser selecionado, e a segunda linha, as respostas recebidas. São mostradas as seguintes possíveis mensagens: a medida de umidade, quando foi possível coletar esse dado do sensor DHT11; "Sensor com problema", em que ocorreu algum erro na leitura de dados recebidos do sensor DHT11; e "Sem resposta", em que não foi obtido nenhum comando de resposta.
 
