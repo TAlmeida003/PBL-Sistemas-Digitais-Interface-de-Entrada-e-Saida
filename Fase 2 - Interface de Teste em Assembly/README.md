@@ -131,10 +131,76 @@ Essa arquitetura ARM dispõe de 13 registradores gerais de 32 bits, numerados de
     6. **Quatro inteiros de 8 bits empacotados em um registro.**
     7. **Inteiros de 64 bits:** Podem ser assinados ou não assinados, mantidos em dois registros.
 
-
 </p>
 </div>
 
+<div id=""> 
+<h2> Conjunto de instruções utilizadas</h2>
+<p align="justify"> 
+
+ A programação da Orange Pi PC Plus foi conduzida utilizando linguagem assembly, na qual foram empregadas diversas instruções no desenvolvimento do sistema.
+
+**Aritmética:** São responsáveis por realizar operações matemáticas nos dados dos registradores.  
+
+* **ADD** - Adição
+* **MUL** - Multiplicação
+* **SUB** - Subtração
+* **SDIV** - Divisão com Sinal
+
+**Lógica:** Operam em nível de bit e realizam operações booleanas. Elas incluem operações como "AND" lógico, "OR" lógico e limpeza de bits.
+
+* **AND** - Operação Lógica "AND"
+* **BIC** - Limpeza de Bits
+* **ORR** - Operação Lógica "OR"
+
+**Controle de Fluxo:** Direcionam o fluxo de execução do programa. Elas incluem saltos condicionais e incondicionais, permitindo que o programa tome decisões e execute diferentes partes do código com base em condições.
+
+* **B** - Ramificação Incondicional
+* **BL** - Salto de Sub-Rotina
+* **BX** - Ramificação e Troca de Estado
+* **CMP** - Comparação
+
+**Deslocamento e Rotação:** Manipulam os bits dos registradores, movendo-os para a esquerda ou para a direita. Essas operações são frequentemente usadas para realizar multiplicação ou divisão por potências de dois de forma eficiente.
+
+* **LSL** - Deslocamento à Esquerda
+* **LSR** - Deslocamento à Direita
+
+**Acesso à Memória:** São responsáveis por ler ou escrever dados na memória.
+
+* **LDR** - Carregamento
+* **STR** - Armazenamento
+* **STRB** - Armazenamento de Byte
+
+**Transferência de Dados:** Movem dados de um registrador para outro. 
+
+* **MOV** - Move dados para os registradores
+
+**Empilhamento e Desempilhamento:** manipulam a pilha, uma estrutura de dados na memória usada para armazenar temporariamente dados e endereços de retorno durante chamadas de função.
+
+* **POP** - Desempilhamento
+* **PUSH** - Empilhamento
+
+**Chamadas de Sistema:** São usadas para requisitar serviços do sistema operacional. Isso inclui operações como leitura e escrita em arquivos, alocação de memória e outras funcionalidades do sistema operacional.
+
+* **SVC** - Chamada de Sistema
+
+**Diretivas e Constantes:** São instruções especiais no código assembly que não são executadas como instruções de máquina.
+
+* **.EQ** - Definição de uma constante
+* **.word** - Definição de Palavra na Memória
+* **.data** - Início da Seção de Dados
+* **.asciz** - String com Terminação Nula
+
+**Condições de Ramificação:** Instruções de ramificação condicional alteram o fluxo do programa com base nas condições estabelecidas pelas flags de status.
+
+* **NE** - Diferente
+* **EQ** - Igual
+* **GE** - Maior ou Igual
+* **LT** - Menor que
+
+
+</p>
+</div>
 
 <div id="map"> 
 <h2> Mapeamento de memória</h2>
