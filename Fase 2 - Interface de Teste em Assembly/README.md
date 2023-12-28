@@ -52,7 +52,10 @@ Os requisitos para elaboração do sistema são apresentados a seguir:
 
 
 **SBC (Orange Pi PC Plus)**
-![!\[Alt text\](<Imagens/Orange_Pi_PC-PLUS.jpg>)](Imagens/Orange_Pi_PC-PLUS.jpg)
+
+<p align="center">
+  <img src="Imagens/Orange_Pi_PC-PLUS.jpg" width = "600" />
+</p>
 
 Nesta fase do projeto, a implementação foi conduzida em um sistema computacional de placa única, cuja compatibilidade estende-se a diversos sistemas operacionais, destacando-se especialmente Ubuntu, Debian, Android 4.4 e Android 7.0, todos pertencentes à família de sistemas derivados do Linux. A condução do projeto recaiu sobre a Orange Pi PC Plus, a qual integra o processador Allwinner H3 system-on-chip. Este processador, um quad-core, possui quatro núcleos de processamento de dados e opera a uma frequência máxima de 600 MHz. Notavelmente, o dispositivo dispõe de uma interface de rede integrada Ethernet 10/100 RJ45, além de oferecer 40 pinos periféricos de baixo nível.
 
@@ -63,7 +66,10 @@ A placa em questão foi programada em Verilog, utilizando a IDE (Ambiente de Des
 
 
 **Display LCD**
-![!\[Alt text\](<Imagens/DisplayLCD.jpg>)](Imagens/DisplayLCD.jpg)
+
+<p align="center">
+  <img src="Imagens/DisplayLCD.jpg" width = "600" />
+</p>
 
 Para proporcionar uma interface amigável, o projeto incorpora um Display LCD (Liquid Crystal Display/Visor de Cristal Líquido) 16x2, que possui 16 colunas por 2 linhas, com iluminação de fundo em azul e caracteres em cor branca. Este display é equipado com o controlador HD44780, que é capaz de exibir caracteres alfanuméricos, alfabético e caracteres do alfabeto japonês (kana) e símbolos. O controlador pode ser configurado para ser controlado por um microprocessador de 4 ou 8 bits.
 
