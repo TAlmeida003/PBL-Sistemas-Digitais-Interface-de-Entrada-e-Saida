@@ -555,25 +555,51 @@ A seguir, os testes feitos para confirmar o bom funcionamento do sistema, juntam
 
 Exibindo a tela rotativa com a mensagem da tela inicial. Todas as mensagens que não cabem no espaço disponível utilizam desse mesmo mecanismo.
 
+https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/assets/109181824/555d933c-723a-46a7-aa85-a6d261d08ea5
+
 Clicando no botão do meio para sair da tela inicial e ir para a de comando. Quando o botão do meio é clicado novamente, o comando é selecionado e é mostrada a tela de endereço. Os intervalos de comando e endereço são percorridos utilizando os botões laterais. O comando vai de 01 a 07, e o endereço, de 00 a 31. Apertando o botão lateral esquerdo quando está sendo exibido o menor endereço, ocorre o retorno para a tela de comando, e se for clicado novamente no menor comando, é retornado para a tela inicial.
+
+https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/assets/109181824/c83b162f-0ed3-4411-ae91-918fa7812be0
 
 O comando 01 é selecionado, juntamente com o endereço 00. É exibida a tela de processamento e em seguida, os seguintes possíveis casos de mensagens de resposta: "Sensor funcionando", em que foi possível coletar os dados; "Sensor com problema", em que ocorreu algum erro na leitura de dados recebidos do sensor DHT11; e "Dispositivo desconectado", em que não foi obtido nenhum comando de resposta.
 
+https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/assets/109181824/8b185284-913e-4f9f-b60a-2dcca5f611cd
+
 O comando 02 é selecionado, juntamente com o endereço 01. É exibida a tela de processamento e em seguida, os seguintes possíveis casos de mensagens de resposta: a medida de temperatura, quando foi possível coletar esse dado do sensor DHT11; "Sensor com problema", em que ocorreu algum erro na leitura de dados recebidos do sensor DHT11; e "Dispositivo desconectado", em que não foi obtido nenhum comando de resposta.
+
+https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/assets/109181824/a82a6a27-1b55-45ec-88db-23391c1e11ba
 
 O comando 03 é selecionado, juntamente com o endereço 00. É exibida a tela de processamento e em seguida, os seguintes possíveis casos de mensagens de resposta: a medida de umidade, quando foi possível coletar esse dado do sensor DHT11; "Sensor com problema", em que ocorreu algum erro na leitura de dados recebidos do sensor DHT11; e "Dispositivo desconectado", em que não foi obtido nenhum comando de resposta.
 
+https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/assets/109181824/4b4f1e2c-c469-41c7-aa7c-18f1ff284e52
+
 O comando 04 é selecionado, juntamente com o endereço 00. É exibida a tela de processamento e, em seguida, o sistema entra no modo de monitoramento contínuo de temperatura. A primeira linha do display LCD exibe o comando a ser selecionado, e a segunda linha, as respostas recebidas. São mostradas as seguintes possíveis mensagens: a medida de temperatura, quando foi possível coletar esse dado do sensor DHT11; "Sensor com problema", em que ocorreu algum erro na leitura de dados recebidos do sensor DHT11; e "Sem resposta", em que não foi obtido nenhum comando de resposta.
+
+https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/assets/109181824/9292f881-86a5-4244-9e72-03be0f603e22
 
 No modo de monitoramento contínuo, são percorridos os intervalos de comando e de endereço utilizando os botões laterais. Os intervalos são os mesmos disponíveis quando não se está em monitoramento contínuo. Clicando o botão do meio na tela de comando, o comando exibido é selecionado e a próxima tela exibida será a de endereço. Clicando no botão esquerdo quando está sendo exibido o menor endereço, ocorre o retorno para a tela de comando.
 
+https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/assets/109181824/422e61f2-d84e-4210-aab5-047d8aae59dd
+
 No monitoramento contínuo de temperatura, são mostradas as respostas quando é selecionado um comando ou um endereço inválido. No modo atual, o único comando válido é o 06, em que o monitoramento será desativado. O único endereço válido para a desativação é o selecionado anteriormente para ativar o monitoramento, sendo ele o endereço 00, neste teste.
+
+
+
+https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/assets/109181824/e2145adc-e9f1-465c-a75e-333cfe0c4bf0
+
+
 
 O comando 05 é selecionado, juntamente com o endereço 01. É exibida a tela de processamento e, em seguida, o sistema entra no modo de monitoramento contínuo de umidade. A primeira linha do display LCD exibe o comando a ser selecionado, e a segunda linha, as respostas recebidas. São mostradas as seguintes possíveis mensagens: a medida de umidade, quando foi possível coletar esse dado do sensor DHT11; "Sensor com problema", em que ocorreu algum erro na leitura de dados recebidos do sensor DHT11; e "Sem resposta", em que não foi obtido nenhum comando de resposta.
 
+https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/assets/109181824/d67dc315-f09a-4153-b389-db845fa963ba
+
 No monitoramento contínuo de umidade, são mostradas as respostas quando é selecionado um comando ou um endereço inválido. No modo atual, o único comando válido é o 07, em que o monitoramento será desativado. O único endereço válido para a desativação é o selecionado anteriormente para ativar o monitoramento, sendo ele o endereço 01, neste teste.
 
+https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/assets/109181824/8b600fca-68bc-4873-9165-57c819d3a593
+
 O sistema está na tela inicial e recebe uma resposta de monitoramento contínuo, mesmo que o comando de ativação não tenha sido usado naquele momento. Automaticamente, o sistema entra no modo de monitoramento contínuo. Isso ocorre quando houver um retorno inesperado de temperatura ou umidade.
+
+https://github.com/TAlmeida003/PBL-Sistemas-Digitais-Interface-de-Entrada-e-Saida/assets/109181824/8b9a61a5-aaf0-4e8d-b642-0dd74e12f16e
 
 <div align="justify"> 
 
