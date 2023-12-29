@@ -359,7 +359,7 @@ A Orange Pi PC Plus possui um sistema que possibilita realizar comunicação ser
 
 Antes de setar as configurações específicas de troca de dados da UART 3, deve-se habilitar a utilização e alteração dos espaços dela. Seguindo esse processo, são realizados os seguites passos:
 
-1. É mapeado o endereço base da CCU (0x01C20000). Esse endereço base é usado para modificar os espaços citados abaixo;
+1. É mapeado o endereço base da CCU (0x01C20000), que é a unidade de controle responsável por manipular os sinais de clock. Esse endereço base é usado para modificar os espaços citados abaixo;
 2. No endereço do registrador APB2_CFG_REG (0x0058), é setado qual sinal de clock será usado no sistema. O bit 25 do registrador é setado para 1, indicando o sinal de clock PLL_PERIPH0, que possui frequência de 624 MHz. Esse é o sinal indicado pelo processador para ser usado na comunicação serial;
 3. No endereço do regitrador BUS_CLK_GATING_REG3 (0x006C), é habilitado o sinal de clock da UART utilizada. O bit 19 é setado para 1, habilitando o sinal de clock da UART 3;
 4. No endereço do registrador BUS_SOFT_RST_REG4 (0x02D8), é habilitado ou desabilitado o reset da UART utilizada. O bit 19 é setado para 0, setando o reset da UART 3. Isto é feito para evitar que configurações feitas anteriormente por outros aparelhos possam atrapalhar o andamento do sistema;
